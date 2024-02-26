@@ -1,24 +1,23 @@
 #ImpUrg{
   background-color: red;
-  height: 100px;
-  width: 100px;
+  height: 300px;
+  width: 300px;
 }
 #NotImpUrg{
   background-color: rgb(229, 255, 0);
-  height: 100px;
-  width: 100px;
+  height: 300px;
+  width: 300px;
 }
 #ImpNotUrg{
   background-color: rgb(0, 225, 255);
-  height: 100px;
-  width: 100px;
+  height: 300px;
+  width: 300px;
 }
 #NotImpNotUrg{
   background-color: rgb(255, 0, 255);
-  height: 100px;
-  width: 100px;
+  height: 300px;
+  width: 300px;
 }
-
 
 .todobox{
   display: flex;
@@ -29,7 +28,7 @@
   text-align: center;
 }
 
-.grid-container {
+#grid-container {
   width: 220px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -40,4 +39,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.add{
+  width: 10%;
+  height: 10%;
 }
