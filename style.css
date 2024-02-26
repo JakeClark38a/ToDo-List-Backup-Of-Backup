@@ -1,0 +1,43 @@
+#ImpUrg{
+  background-color: red;
+  height: 100px;
+  width: 100px;
+}
+#NotImpUrg{
+  background-color: rgb(229, 255, 0);
+  height: 100px;
+  width: 100px;
+}
+#ImpNotUrg{
+  background-color: rgb(0, 225, 255);
+  height: 100px;
+  width: 100px;
+}
+#NotImpNotUrg{
+  background-color: rgb(255, 0, 255);
+  height: 100px;
+  width: 100px;
+}
+
+
+.todobox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
+}
+
+.grid-container {
+  width: 220px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+#center-grid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
