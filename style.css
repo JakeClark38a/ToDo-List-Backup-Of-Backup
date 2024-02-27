@@ -1,3 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+#grid-container {
+  width: 220px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+#center-grid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 #ImpUrg{
   background-color: red;
   height: 300px;
@@ -28,18 +56,6 @@
   text-align: center;
 }
 
-#grid-container {
-  width: 220px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
-}
-
-#center-grid{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .add{
   width: 10%;
