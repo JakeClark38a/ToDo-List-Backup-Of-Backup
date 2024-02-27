@@ -21,15 +21,14 @@
 
 .todobox{
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
+  align-content: flex-start;
+  border: 5px solid rgb(237, 145, 205);
+  border-radius: 16px;
   padding: 10px;
-  text-align: center;
 }
 
 #grid-container {
-  width: 220px;
+
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
@@ -42,6 +41,48 @@
 }
 
 .add{
-  width: 10%;
-  height: 10%;
+  width: 30px;
+  height: 30px;
+  margin-top: 15px;
+  margin-right: 4px;
+  border-radius: 7px;
+  border: none;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+  font-size: 25px;
 }
+
+#corner{
+  background-color: rgb(85, 255, 0);
+  
+}
+
+#taskItem{
+  background-color: antiquewhite;
+  border: 2px solid black;
+  text-align: center;
+  width: 90%;
+  min-height: 40px;
+  align-self: center;
+  border-radius: 10px;
+  border: none;
+}
+
+.taskList{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  background-color: rgba(244, 255, 255, 0.449);
+  width: 250px;
+  height: 275px;  
+  border-radius: 12px;
+  padding: 0;
+  gap: 3px;
+  overflow-y: scroll;
+}
+
+.done{
+  margin-left: 0;
+}
+
+

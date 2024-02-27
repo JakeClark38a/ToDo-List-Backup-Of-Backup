@@ -1,6 +1,13 @@
 const addBtn = document.querySelectorAll(".add");
 const pr = document.querySelector("#clickedbtn");
 
+addBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const title = btn.parentNode.id;
+    taskManager.addTask(title);
+  });
+});
+
 var currFrame;
 
 addBtn.forEach((btn) => {
@@ -9,13 +16,14 @@ addBtn.forEach((btn) => {
     /// btn clicked
     pr.textContent = btn.parentNode.id; /// useless
     currFrame = btn.parentNode.id; /// useless
+    btn.id = "corner";
     addObj(btn.parentNode.querySelector("ul"), "task" + Math.random() * 30);
   });
 });
 
 function addObj(ls, title) {
   var fr = document.createElement("div");
-  fr.id = "obj_frame";
+  fr.id = "taskItem";
 
   var checkbox = document.createElement("input");
   checkbox.type = "checkbox";
