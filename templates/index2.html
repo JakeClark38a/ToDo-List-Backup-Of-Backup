@@ -12,8 +12,12 @@
 
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Link to TailwindCSS main css file, in the future href will change to {{url_for('static', filename='css/main.css')}} -->
+    <link rel="stylesheet" href="../static/css/main.css">
 </head>
 <style>
+
     * {
         margin: 0;
         padding: 0;
@@ -103,7 +107,7 @@
                 </div>
             </div>
         </div>
-        <div class="row matrix">
+        <div class="row matrix mx-2 my-2 p-0">
             <div class="col">
                 <!-- Body Div -->
                 <div class="body">
