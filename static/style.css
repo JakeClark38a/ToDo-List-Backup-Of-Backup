@@ -48,3 +48,9 @@ body{
      }
 
 }
+
+strong.text-center{
+    color: red;
+    display: flex;
+    justify-content: center;
+}
