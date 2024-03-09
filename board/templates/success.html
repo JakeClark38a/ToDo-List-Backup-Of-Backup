@@ -1,0 +1,35 @@
+{% extends "block.html" %}
+{% block title %}My Page{% endblock %}
+
+{%block login %}
+    {% with notion = get_flashed_messages() %}
+        {% if notion %}
+            {% for msg in notion %}
+                <strong>{{msg}}</strong>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
+
+
+{% block username %}
+<strong>{{username}}</strong>
+{% endblock %}
+{% block ip %}
+<strong>{{IP}}</strong>
+{% endblock %}
+
+{% block email %}
+<form action="#" method="post">
+    <input type="email" name="email" placeholder="Enter your email" value="{{email if email}}">
+    <input type="submit" value="GETREKT">
+</form>
+{% endblock %}
+
+{% block json %}
+    {% if session %}
+    <div><pre>{{pretty}}</pre></div>
+    {% endif %}
+{% endblock %}
+
