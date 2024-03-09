@@ -544,79 +544,297 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.container {
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
-}
-
-@media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
-}
-
 .static {
   position: static;
 }
 
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+.float-right {
+  float: right;
 }
 
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+.m-\[5vw\] {
+  margin: 5vw;
 }
 
-.w-\[40\%\] {
-  width: 40%;
+.m-\[3vw\] {
+  margin: 3vw;
 }
 
-.w-\[80\%\] {
-  width: 80%;
+.m-\[2vw\] {
+  margin: 2vw;
 }
 
-.w-\[90\%\] {
-  width: 90%;
+.m-0 {
+  margin: 0px;
 }
 
-.border {
-  border-width: 1px;
+.m-\[5vh\] {
+  margin: 5vh;
+}
+
+.m-\[1vh\] {
+  margin: 1vh;
+}
+
+.m-\[2vh\] {
+  margin: 2vh;
+}
+
+.m-\[1\.5vh\] {
+  margin: 1.5vh;
+}
+
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
+.mt-\[2vh\] {
+  margin-top: 2vh;
+}
+
+.mt-\[3vh\] {
+  margin-top: 3vh;
+}
+
+.mt-\[4vh\] {
+  margin-top: 4vh;
+}
+
+.mt-\[5vh\] {
+  margin-top: 5vh;
+}
+
+.box-border {
+  box-sizing: border-box;
+}
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.w-\[50\%\] {
+  width: 50%;
+}
+
+.w-\[5vw\] {
+  width: 5vw;
+}
+
+.w-\[10vw\] {
+  width: 10vw;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.w-\[8vw\] {
+  width: 8vw;
+}
+
+.w-\[7vw\] {
+  width: 7vw;
+}
+
+.w-\[5vh\] {
+  width: 5vh;
+}
+
+.w-\[7vh\] {
+  width: 7vh;
+}
+
+.w-\[3vh\] {
+  width: 3vh;
+}
+
+.w-\[4vh\] {
+  width: 4vh;
+}
+
+.w-\[3\.5vh\] {
+  width: 3.5vh;
+}
+
+.w-\[4\.5vh\] {
+  width: 4.5vh;
+}
+
+.content-center {
+  align-content: center;
+}
+
+.content-start {
+  align-content: flex-start;
+}
+
+.content-end {
+  align-content: flex-end;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.rounded-sm {
+  border-radius: 0.125rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
+.rounded-\[3vh\] {
+  border-radius: 3vh;
+}
+
+.border-4 {
+  border-width: 4px;
+}
+
+.border-\[1vh\] {
+  border-width: 1vh;
+}
+
+.border-\[\#fab6b6\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(250 182 182 / var(--tw-border-opacity));
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.object-center {
+  -o-object-position: center;
+     object-position: center;
 }
 
 .p-0 {
   padding: 0px;
 }
 
-.align-middle {
-  vertical-align: middle;
+.p-\[10vw\] {
+  padding: 10vw;
 }
 
-.blur {
-  --tw-blur: blur(8px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+.p-\[20vw\] {
+  padding: 20vw;
+}
+
+.p-\[15vw\] {
+  padding: 15vw;
+}
+
+.px-\[15vw\] {
+  padding-left: 15vw;
+  padding-right: 15vw;
+}
+
+.py-\[5vw\] {
+  padding-top: 5vw;
+  padding-bottom: 5vw;
+}
+
+.px-\[15vh\] {
+  padding-left: 15vh;
+  padding-right: 15vh;
+}
+
+.py-\[5vh\] {
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+
+.px-\[5vh\] {
+  padding-left: 5vh;
+  padding-right: 5vh;
+}
+
+.px-\[7vh\] {
+  padding-left: 7vh;
+  padding-right: 7vh;
+}
+
+.px-\[8vh\] {
+  padding-left: 8vh;
+  padding-right: 8vh;
+}
+
+.py-\[3vh\] {
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+}
+
+.px-\[8\.5vh\] {
+  padding-left: 8.5vh;
+  padding-right: 8.5vh;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-\[7vw\] {
+  font-size: 7vw;
+}
+
+.text-\[6vw\] {
+  font-size: 6vw;
+}
+
+.text-\[6vh\] {
+  font-size: 6vh;
+}
+
+.text-\[4vh\] {
+  font-size: 4vh;
+}
+
+.font-bold {
+  font-weight: 700;
 }
