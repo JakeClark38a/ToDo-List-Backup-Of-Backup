@@ -9,6 +9,15 @@
     <!-- Link to TailwindCSS main css file, in the future href will change to {{url_for('static', filename='css/main.css')}} -->
     <link rel="stylesheet" href="../static/css/main.css">
 </head>
+<style>
+    .scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
 <body class="m-0 p-0 box-border">
     <!-- Header div -->
     <div class="header flex justify-end content-start">
@@ -30,9 +39,16 @@
         </div>
     </div>
     <!-- Main List -->
-    <div class="lists flex mt-[5vh]">
+    <div class="lists whitespace-nowrap overflow-auto mt-[5vh]">
+        <!-- Left div -->
+        <div class="pink inline-block border-green border-4 rounded-[3vh] w-[70vw] h-[50vh] mx-[2vw]">
+            Hello
+        </div>
         <!-- Center div -->
-        <div class="pink border-[#fab6b6] border-4 rounded-[3vh]">
+        <div class="pink inline-block border-pink border-4 rounded-[3vh] w-[70vw] h-[50vh] mx-[2vw]">
+            Hello
+        </div>
+        <div class="pink inline-block border-blue border-4 rounded-[3vh] w-[70vw] h-[50vh] mx-[2vw]">
             Hello
         </div>
     </div>
