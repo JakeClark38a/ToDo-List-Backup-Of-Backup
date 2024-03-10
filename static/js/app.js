@@ -1,46 +1,17 @@
-const addBtn = document.querySelectorAll(".add");
-const pr = document.querySelector("#clickedbtn");
+// This is the main file for the app
+// using jQuery
+// Toggle cogwheel icon on click
+$(document).ready(function() {
+  $('.cogwheel').click(function() {
+    // A popup will appear with the settings
+  });
+  // Hide the settings popup when the user clicks outside of it
+  // Later...
 
-addBtn.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const title = btn.parentNode.id;
-    taskManager.addTask(title);
+  // Scroll event when user scroll in the list => Load more items horizontally
+  $('.lists').scroll(function() {
+    // Load more items
+    console.log('Loading more items...');
   });
 });
 
-var currFrame;
-
-addBtn.forEach((btn) => {
-  /// loop through all the add buttons
-  btn.addEventListener("click", () => {
-    /// btn clicked
-    pr.textContent = btn.parentNode.id; /// useless
-    currFrame = btn.parentNode.id; /// useless
-    btn.id = "corner";
-    addObj(btn.parentNode.querySelector("ul"), "task" + Math.random() * 30);
-  });
-});
-
-function addObj(ls, title) {
-  var fr = document.createElement("div");
-  fr.id = "taskItem";
-
-  var checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.checked = false;
-  checkbox.id = "done";
-  fr.appendChild(checkbox);
-
-  var objTitle = document.createElement("span");
-  objTitle.id = "obj_title";
-  objTitle.textContent = title;
-  fr.appendChild(objTitle);
-
-  ls.appendChild(fr);
-
-  checkbox.addEventListener("change", () => {
-    if (checkbox.checked) {
-      fr.remove();
-    }
-  });
-}
