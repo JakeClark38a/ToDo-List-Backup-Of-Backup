@@ -34,13 +34,20 @@
             </div>
         </div>
         <!-- Main List -->
-        <div class="lists flex items-end justify-center whitespace-nowrap overflow-hidden mt-[5vh]">
+        <div class="lists flex items-end justify-center whitespace-nowrap overflow-hidden mt-[5vh] relative">
+            <div class="nav">
+                <img src="../static/images/lt_icon.png" alt="Go to left" class="left z-10 absolute left-0 top-[50%] -translate-y-[50%] w-[10vw]">
+                <img src="../static/images/gt_icon.png" alt="Go to right" class="right z-10 absolute right-0 top-[50%] -translate-y-[50%] w-[10vw]">
+            </div>
+            
+            <!-- New left div insert here -->
+
             <!-- Left div -->
-            <div class="green flex-none border-green border-4 rounded-[3vh] w-[70vw] h-[50vh] mx-[2vw] relative">
-                <img src="../static/images/lt_icon.png" alt="Go to left" class="z-10 absolute right-0 top-[50%] -translate-y-[50%] w-[10vw]">
+            <div class="green task-container border-green">
+                
             </div>
             <!-- Center div -->
-            <div class="pink flex-none border-pink border-4 rounded-[3vh] w-[70vw] h-[50vh] mx-[2vw]">
+            <div class="pink task-container border-pink ">
                 <!-- Contents -->
                 <div class="flex justify-between items-center border-pink border-2 m-[2vh] px-[2vh] rounded-[3vh]">
                     <div>
@@ -53,9 +60,11 @@
                 </div>
             </div>
             <!-- Right div -->
-            <div class="blue flex-none border-blue border-4 rounded-[3vh] w-[70vw] h-[50vh] mx-[2vw] relative">
-                <img src="../static/images/gt_icon.png" alt="Go to right" class="z-10 absolute left-0 top-[50%] -translate-y-[50%] w-[10vw]">
+            <div class="blue task-container border-blue">
+                
             </div>
+
+            <!-- New right div insert here -->
             
         </div>
         <div class="navigation-bottom flex justify-evenly items-end fixed bottom-3 inset-x-0">
