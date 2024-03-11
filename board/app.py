@@ -26,7 +26,7 @@ mail = Mail(app)
 
 appConf = {
     "OAUTH2_CLIENT_ID": "1002415781087-d1a74175n9vk48ehrir794qghma573qi.apps.googleusercontent.com",
-    "OAUTH2_CLIENT_SECRET": "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",
+    "OAUTH2_CLIENT_SECRET": "",
     "OAUTH2_META_URL": "https://accounts.google.com/.well-known/openid-configuration",
     "FLASK_SECRET": "647b1138-40f2-4022-8261-f447e62e7572",
     "FLASK_PORT": 1337
