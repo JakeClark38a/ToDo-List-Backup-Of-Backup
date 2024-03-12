@@ -9,6 +9,6 @@
 } */
 @layer components {
     .task-container {
-        @apply border-4 rounded-[3vh] w-[70vw] h-[50vh] mx-[2vw] flex-none;
+        @apply border-4 rounded-[3vh] mx-[2vw] flex-none;
     }
 }
