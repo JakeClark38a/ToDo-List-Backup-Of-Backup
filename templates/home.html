@@ -9,6 +9,7 @@
     <!-- Link to TailwindCSS main css file, in the future href will change to {{url_for('static', filename='css/main.css')}} -->
     <link rel="stylesheet" href="../static/css/main.css">
     <script src="../static/js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </head>
 <style>
 </style>
@@ -34,7 +35,7 @@
             </div>
         </div>
         <!-- Main List -->
-        <div class="lists flex items-end justify-center whitespace-nowrap overflow-hidden mt-[5vh] relative">
+        <div class="lists flex items-end justify-center whitespace-nowrap overflow-hidden mt-[5vh] relative hidden">
             <div class="nav">
                 <img src="../static/images/lt_icon.png" alt="Go to left" class="left z-10 absolute left-0 top-[50%] -translate-y-[50%] w-[10vw]">
                 <img src="../static/images/gt_icon.png" alt="Go to right" class="right z-10 absolute right-0 top-[50%] -translate-y-[50%] w-[10vw]">
@@ -43,38 +44,115 @@
             <!-- New left div insert here -->
 
             <!-- Left div -->
-            <div class="green task-container border-green">
+            <div class="green task-container border-primary-green">
                 
             </div>
             <!-- Center div -->
-            <div class="pink task-container border-pink ">
+            <div class="pink task-container border-primary-red ">
                 <!-- Contents -->
-                <div class="flex justify-between items-center border-pink border-2 m-[2vh] px-[2vh] rounded-[3vh]">
+                <div class="flex justify-between items-center border-primary-red border-2 m-[2vh] px-[2vh] rounded-[3vh]">
                     <div>
                         <p class="font-semibold text-[3.01vh] text-wrap leading-none">Làm roadmap lập trình mạng</p>
                         <p>11pm, today</p>
                     </div>
-                    <div class="bg-pink w-[4vh] h-[4vh] flex-none rounded-lg shadow-lg">
+                    <div class="bg-primary-red w-[4vh] h-[4vh] flex-none rounded-lg shadow-lg">
                         <img src="../static/images/tick_icon.png" alt="tick_icon" class="hidden">
                     </div>
                 </div>
             </div>
             <!-- Right div -->
-            <div class="blue task-container border-blue">
+            <div class="blue task-container border-primary-blue">
                 
             </div>
 
             <!-- New right div insert here -->
             
         </div>
+        <div id="controls-carousel" class="relative w-full" data-carousel="static">
+            <!-- Carousel wrapper -->
+            <div class="relative h-[50vh] overflow-hidden">
+                 <!-- Item 1 -->
+                <!-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="../static/images/calendar_icon.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                </div> -->
+                <div class="hidden ease-in-out duration-700 pink task-container border-primary-red" data-carousel-item="active">
+                    <!-- Contents -->
+                    <div class="flex justify-between items-center border-primary-red border-2 mx-[5vh] my-[2vh] px-[2vh] rounded-[3vh]">
+                        <div>
+                            <p class="font-semibold text-[3.01vh] text-wrap leading-none">Làm roadmap lập trình mạng</p>
+                            <p>11pm, today</p>
+                        </div>
+                        <div class="bg-primary-red w-[4vh] h-[4vh] flex-none rounded-lg shadow-lg">
+                            <img src="../static/images/tick_icon.png" alt="tick_icon" class="hidden">
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="hidden ease-in-out duration-700 green task-container border-primary-green" data-carousel-item>
+                    <!-- Contents -->
+                    <div class="flex justify-between items-center border-primary-red border-2 m-[2vh] px-[2vh] rounded-[3vh]">
+                        <div>
+                            <p class="font-semibold text-[3.01vh] text-wrap leading-none">Làm roadmap lập trình mạng</p>
+                            <p>11pm, today</p>
+                        </div>
+                        <div class="bg-primary-red w-[4vh] h-[4vh] flex-none rounded-lg shadow-lg">
+                            <img src="../static/images/tick_icon.png" alt="tick_icon" class="hidden">
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="hidden ease-in-out duration-700 blue task-container border-primary-blue" data-carousel-item>
+                    <!-- Contents -->
+                    <div class="flex justify-between items-center border-primary-red border-2 m-[2vh] px-[2vh] rounded-[3vh]">
+                        <div>
+                            <p class="font-semibold text-[3.01vh] text-wrap leading-none">Làm roadmap lập trình mạng</p>
+                            <p>11pm, today</p>
+                        </div>
+                        <div class="bg-primary-red w-[4vh] h-[4vh] flex-none rounded-lg shadow-lg">
+                            <img src="../static/images/tick_icon.png" alt="tick_icon" class="hidden">
+                        </div>
+                    </div>
+                </div>
+                <!-- Item 4 -->
+                <div class="hidden ease-in-out duration-700 yellow task-container border-primary-yellow" data-carousel-item>
+                    <!-- Contents -->
+                    <div class="flex justify-between items-center border-primary-red border-2 m-[2vh] px-[2vh] rounded-[3vh]">
+                        <div>
+                            <p class="font-semibold text-[3.01vh] text-wrap leading-none">Làm roadmap lập trình mạng</p>
+                            <p>11pm, today</p>
+                        </div>
+                        <div class="bg-primary-red w-[4vh] h-[4vh] flex-none rounded-lg shadow-lg">
+                            <img src="../static/images/tick_icon.png" alt="tick_icon" class="hidden">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slider controls -->
+            <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                    </svg>
+                    <span class="sr-only">Previous</span>
+                </span>
+            </button>
+            <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                    </svg>
+                    <span class="sr-only">Next</span>
+                </span>
+            </button>
+        </div>
         <div class="navigation-bottom flex justify-evenly items-end fixed bottom-3 inset-x-0">
-            <div class="left-button h-10 w-10 bg-blue-300 flex justify-center items-center md:h-16 md:w-16">
+            <div class="left-button h-10 w-10  flex justify-center items-center md:h-16 md:w-16">
                 <img class="h-8 w-8 md:h-14 md:w-14" alt="leaf" src="../static/images/calendar_icon.png" />
             </div>
-            <div class="main-button h-16 w-16 bg-lightpink border-pink border-[3px] rounded-md shadow-2xl flex justify-center items-center mb-[2vh] md:h-24 md:w-24">
+            <div class="main-button h-16 w-16 bg-background-main border-primary-red border-[3px] rounded-md shadow-2xl flex justify-center items-center mb-[2vh] md:h-24 md:w-24">
                 <img class="h-12 w-12 md:h-20 md:w-20" alt="plus" src="../static/images/add_icon.png" />
             </div>
-            <div class="right-button h-10 w-10 bg-blue-300 flex justify-center items-center md:h-16 md:w-16">
+            <div class="right-button h-10 w-10  flex justify-center items-center md:h-16 md:w-16">
                 <img class="h-8 w-8 md:h-14 md:w-14" alt="leaf" src="../static/images/leaf_icon.png" />
             </div>
         </div>
