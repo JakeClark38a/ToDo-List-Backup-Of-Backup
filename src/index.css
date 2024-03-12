@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .logo-image {
+        height: 100%;
+        padding: .75rem .75rem;
+        margin: .15rem .15rem;
+    }
+
+    .product-image {
+        height: 100%; 
+    }
+
+    .image-wrapper{
+        @apply h-64 w-96 flex justify-center items-center; 
+    }
+
+    .title {
+        @apply font-sans text-5xl font-bold text-left;
+    }
+
+    .content {
+        @apply text-2xl font-light text-left;
+    }
+
+    .statistic-frame {
+        @apply flex flex-col justify-center items-center m-5;
+    }
+    .section{
+        @apply flex flex-col justify-center items-center mb-56;
+    }
+
+    .footer-text{
+        @apply font-medium text-base text-center underline-offset-4 lg:text-left hover:underline hover:scale-110 my-2 hover:text-slate-500 ;
+    }
+    .footer-title{
+        @apply font-light text-xl text-center my-3;
+    }
+}
