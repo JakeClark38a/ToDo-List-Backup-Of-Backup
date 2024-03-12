@@ -11,4 +11,10 @@
     .task-container {
         @apply border-4 rounded-[3vh] mx-[2vw] flex-none;
     }
+    .carousel-container {
+        @apply hidden ease-in-out duration-700;
+    }
+    .task-content-container {
+        @apply flex justify-between items-center border-2 mx-[5vw] md:mx-[10vw] my-[2vh] px-[2vh] rounded-[3vh]
+    }
 }

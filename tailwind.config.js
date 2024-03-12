@@ -7,7 +7,19 @@ module.exports = {
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {
+    screen: {
+      tablet: "640px",
+      laptop: "1024px",
+      desktop: "1280px",
+    },
+    fontFamily: {
+      sans: ["Graphik", "sans-serif"],
+      serif: ["Merriweather", "serif"],
+    },
     extend: {
+      height: {
+        "50%": "50%",
+      },
       colors: {
         primary: {
           red: "#FAB6B6",

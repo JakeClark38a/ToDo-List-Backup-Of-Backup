@@ -13,7 +13,7 @@
 </head>
 <style>
 </style>
-<body class="m-0 p-0 box-border">
+<body class="*:m-0 *:p-0 *:box-border">
     <div class="relative w-full h-[100vh] bg-gradient-to-t from-cyan-200 from-0% via-cyan-50 via-70% to-white to-100%">
         <!-- Header div -->
         <div class="header flex justify-end content-start">
@@ -24,7 +24,7 @@
         <div class="main">
             <!-- Greeting div centered -->
             <div class="greeting object-center flex justify-between items-center px-[8.5vh] py-[3vh]">
-                <div class="title">
+                <div class="title *:md:inline">
                     <div class="text-xl">Xin chào,</div>
                     <div class="font-bold text-3xl">Chí Thành</div>
                 </div>
@@ -35,49 +35,16 @@
             </div>
         </div>
         <!-- Main List -->
-        <div class="lists flex items-end justify-center whitespace-nowrap overflow-hidden mt-[5vh] relative hidden">
-            <div class="nav">
-                <img src="../static/images/lt_icon.png" alt="Go to left" class="left z-10 absolute left-0 top-[50%] -translate-y-[50%] w-[10vw]">
-                <img src="../static/images/gt_icon.png" alt="Go to right" class="right z-10 absolute right-0 top-[50%] -translate-y-[50%] w-[10vw]">
-            </div>
-            
-            <!-- New left div insert here -->
-
-            <!-- Left div -->
-            <div class="green task-container border-primary-green">
-                
-            </div>
-            <!-- Center div -->
-            <div class="pink task-container border-primary-red ">
-                <!-- Contents -->
-                <div class="flex justify-between items-center border-primary-red border-2 m-[2vh] px-[2vh] rounded-[3vh]">
-                    <div>
-                        <p class="font-semibold text-[3.01vh] text-wrap leading-none">Làm roadmap lập trình mạng</p>
-                        <p>11pm, today</p>
-                    </div>
-                    <div class="bg-primary-red w-[4vh] h-[4vh] flex-none rounded-lg shadow-lg">
-                        <img src="../static/images/tick_icon.png" alt="tick_icon" class="hidden">
-                    </div>
-                </div>
-            </div>
-            <!-- Right div -->
-            <div class="blue task-container border-primary-blue">
-                
-            </div>
-
-            <!-- New right div insert here -->
-            
-        </div>
         <div id="controls-carousel" class="relative w-full" data-carousel="static">
             <!-- Carousel wrapper -->
-            <div class="relative h-[50vh] overflow-hidden">
+            <div class="relative h-[50vh] mt-[3vh] overflow-hidden">
                  <!-- Item 1 -->
                 <!-- <div class="hidden duration-700 ease-in-out" data-carousel-item>
                     <img src="../static/images/calendar_icon.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                 </div> -->
                 <div class="hidden ease-in-out duration-700 pink task-container border-primary-red" data-carousel-item="active">
                     <!-- Contents -->
-                    <div class="flex justify-between items-center border-primary-red border-2 mx-[5vh] my-[2vh] px-[2vh] rounded-[3vh]">
+                    <div class="task-content-container border-primary-red">
                         <div>
                             <p class="font-semibold text-[3.01vh] text-wrap leading-none">Làm roadmap lập trình mạng</p>
                             <p>11pm, today</p>
@@ -90,7 +57,7 @@
                 <!-- Item 2 -->
                 <div class="hidden ease-in-out duration-700 green task-container border-primary-green" data-carousel-item>
                     <!-- Contents -->
-                    <div class="flex justify-between items-center border-primary-red border-2 m-[2vh] px-[2vh] rounded-[3vh]">
+                    <div class="task-content-container border-primary-green">
                         <div>
                             <p class="font-semibold text-[3.01vh] text-wrap leading-none">Làm roadmap lập trình mạng</p>
                             <p>11pm, today</p>
@@ -103,7 +70,7 @@
                 <!-- Item 3 -->
                 <div class="hidden ease-in-out duration-700 blue task-container border-primary-blue" data-carousel-item>
                     <!-- Contents -->
-                    <div class="flex justify-between items-center border-primary-red border-2 m-[2vh] px-[2vh] rounded-[3vh]">
+                    <div class="task-content-container border-primary-blue">
                         <div>
                             <p class="font-semibold text-[3.01vh] text-wrap leading-none">Làm roadmap lập trình mạng</p>
                             <p>11pm, today</p>
@@ -116,7 +83,7 @@
                 <!-- Item 4 -->
                 <div class="hidden ease-in-out duration-700 yellow task-container border-primary-yellow" data-carousel-item>
                     <!-- Contents -->
-                    <div class="flex justify-between items-center border-primary-red border-2 m-[2vh] px-[2vh] rounded-[3vh]">
+                    <div class="task-content-container border-primary-yellow">
                         <div>
                             <p class="font-semibold text-[3.01vh] text-wrap leading-none">Làm roadmap lập trình mạng</p>
                             <p>11pm, today</p>
@@ -126,6 +93,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- Slider indicators -->
+            <div class="absolute z-30 flex -translate-x-1/2 translate-y-[7vh] bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
             </div>
             <!-- Slider controls -->
             <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
@@ -146,7 +120,7 @@
             </button>
         </div>
         <div class="navigation-bottom flex justify-evenly items-end fixed bottom-3 inset-x-0">
-            <div class="left-button h-10 w-10  flex justify-center items-center md:h-16 md:w-16">
+            <div class="left-button h-10 w-10 flex justify-center items-center md:h-16 md:w-16">
                 <img class="h-8 w-8 md:h-14 md:w-14" alt="leaf" src="../static/images/calendar_icon.png" />
             </div>
             <div class="main-button h-16 w-16 bg-background-main border-primary-red border-[3px] rounded-md shadow-2xl flex justify-center items-center mb-[2vh] md:h-24 md:w-24">
