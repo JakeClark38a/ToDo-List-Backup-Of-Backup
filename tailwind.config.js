@@ -4,9 +4,20 @@ module.exports = {
   theme: {
     screens: {
       sm: "300px",
+      md: "420px",
       lg: "800px",
     },
+    fontFamily: {
+      sans: ["Graphik", "sans-serif"],
+      serif: ["Merriweather", "serif"],
+    },
     extend: {
+      height: {
+        "50%": "50%",
+      },
+      padding: {
+        "placeholder-10": "10px",
+      },
       backgroundImage: {
         heroxl: "url('/src/resources/heroxl.jpg')",
         herosm: "url('/src/resources/herosm.jpg')",
