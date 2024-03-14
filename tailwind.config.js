@@ -14,12 +14,14 @@ module.exports = {
     extend: {
       height: {
         "50%": "50%",
+        "100%": "100%",
       },
       padding: {
         "placeholder-10": "10px",
       },
       backgroundImage: {
         heroxl: "url('/src/resources/heroxl.jpg')",
+        heromd: "url('/src/resources/heromd.jpg')",
         herosm: "url('/src/resources/herosm.jpg')",
       },
       colors: {
