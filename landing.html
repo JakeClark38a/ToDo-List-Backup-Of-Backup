@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./src/styles.css">
+    <script defer src="./FX.js"></script>
 </head>
 
-<body class="bg-gradient-to-b from-background-main to-background-thirdary overflow-x-hidden">
+<body class="bg-gradient-to-b from-background-main to-primary-green overflow-x-hidden">
     <!--Navbar Start-->
     <div class="navbar h-[8vh] p-3 bg-primary-red flex justify-between items-center">
         <div class="logo ml-[3vw] flex items-center">
@@ -16,7 +17,7 @@
             <div class="ml-2 font-bold font-sans md:visible invisible">Donow</div>
         </div>
         <div class="menu mr-[3vw]">
-            <div class="group/sg base-anim overflow-hidden button-signin w-20 border-2 h-7 rounded-md hover:shadow-lg ">
+            <div class="group/sg base-anim overflow-hidden button-signin w-20 border-2 h-7 rounded-md hover:shadow-lg">
                 <div
                     class="group-hover/sg:w-20 base-anim h-10 w-0 bg-gradient-to-r from-accent-red to-primary-red absolute">
                 </div>
@@ -28,7 +29,8 @@
     </div>
     <!--Navbar End-->
     <!--Hero Start-->
-    <div class="hero h-[120vh] flex bg-herosm bg-cover md:heromd lg:bg-heroxl md:flex-col md:items-center ">
+    <div id="hero"
+        class="hero h-[120vh] flex bg-herosm bg-center bg-cover md:heromd xl:bg-heroxl md:flex-col md:items-center">
         <div
             class="hero-text sm:mt-10 sm:ml-10 flex flex-col justify-start md:mt-[20vh] md:items-center md:justify-center">
             <div class="main-text title md:text-center">Free from distractions.</div>
@@ -75,26 +77,26 @@
     <div class="section des flex justify-center items-center">
         <div></div>
         <div>
-            <div class="text-center md:text-left px-14 md:w-[45vw] my-5 md:my-8">
+            <div class="text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
                 <span class="content font-bold">Zero-Effort Organization: </span>
                 <span class="content font-light font-md">Manage your time, tasks, and life with just a few clicks. Stop
                     wasting energy, start crushing goals.</span>
             </div>
 
-            <div class="text-center md:text-left px-14 md:w-[45vw] my-5 md:my-8">
+            <div class="text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
                 <span class="content font-bold">Laser Focus, Unleashed: </span>
                 <span class="content font-light font-md">Ditch the distractions and prioritize what needs to get done.
                     Get ready to experience peak productivity.</span>
             </div>
 
 
-            <div class="text-center md:text-left px-14 md:w-[45vw] my-5 md:my-8">
+            <div class="text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
                 <span class="content font-bold">Effortless Doesn't Mean Basic: </span>
                 <span class="content font-light font-md">We've got all the features you need to stay on top of your
                     game.</span>
             </div>
 
-            <div class="text-center md:text-left px-14 md:w-[45vw] my-5 md:my-8">
+            <div class="text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
                 <span class="content font-bold">Celebrate Every Win: </span>
                 <span class="content font-light font-md">Track your progress and reward yourself, keeping motivation
                     high.</span>
@@ -175,9 +177,9 @@
         <div class="title text-center mb-3 text-xl"> Every day. Forever.</div>
         <div class="content text-center mb-7">Get it now!</div>
         <div
-            class="group/btn items-center base-anim h-14 w-48 bg-primary-green rounded-2xl overflow-hidden hover:-translate-y-2 shadow-md hover:shadow-xl hover:shadow-slate-500 ">
+            class="group/btn items-center base-anim h-14 w-48 bg-accent-green rounded-2xl overflow-hidden hover:-translate-y-2 shadow-md hover:shadow-xl hover:shadow-slate-500 ">
             <div
-                class="group-hover/btn:w-48 base-anim absolute h-20 w-0 bg-gradient-to-l from-primary-green to-accent-blue">
+                class="group-hover/btn:w-48 base-anim absolute h-20 w-0 bg-gradient-to-l from-accent-green to-accent-blue">
             </div>
             <div class="absolute">
                 <button class="base-anim hover:scale-100 w-48 h-14 text-center font-medium text-xl">Make me
@@ -187,37 +189,39 @@
     </div>
     <!--CTA End-->
     <!--Statistic Start-->
-    <div
-        class="section statistics flex justify-center items-center lg:justify-evenly lg:items-start flex-col lg:flex-row">
-        <div class="statistic-frame">
-            <div class="image-wrapper">
-                <img class="logo-image" src="./src/resources/Team Building - 640x469.png" alt="img">
+    <div class="carousel">
+        <div
+            class="section statistics flex justify-center items-center lg:justify-evenly lg:items-start flex-col lg:flex-row">
+            <div class="statistic-frame">
+                <div class="image-wrapper">
+                    <img class="logo-image" src="./src/resources/Team Building - 640x469.png" alt="img">
+                </div>
+                <div class="content text-center text-lg">1+ millions teams</div>
             </div>
-            <div class="content text-center text-lg">1+ millions teams</div>
-        </div>
-        <div class="statistic-frame">
-            <div class="image-wrapper">
-                <img class="logo-image" src="./src/resources/Work scheduling - 640x427.png" alt="img">
+            <div class="statistic-frame">
+                <div class="image-wrapper">
+                    <img class="logo-image" src="./src/resources/Work scheduling - 640x427.png" alt="img">
+                </div>
+                <div class="content text-center text-lg">47+ millions hours saved</div>
             </div>
-            <div class="content text-center text-lg">47+ millions hours saved</div>
-        </div>
-        <div class="statistic-frame">
-            <div class="image-wrapper">
-                <img class="logo-image" src="./src/resources/Global Impact - 640x608.png" alt="img">
+            <div class="statistic-frame">
+                <div class="image-wrapper">
+                    <img class="logo-image" src="./src/resources/Global Impact - 640x608.png" alt="img">
+                </div>
+                <div class="content text-center text-lg">67+ countries</div>
             </div>
-            <div class="content text-center text-lg">67+ countries</div>
-        </div>
-        <div class="statistic-frame">
-            <div class="image-wrapper">
-                <img class="logo-image" src="./src/resources/Guidance - 480x480.png" alt="img">
+            <div class="statistic-frame">
+                <div class="image-wrapper">
+                    <img class="logo-image" src="./src/resources/Guidance - 480x480.png" alt="img">
+                </div>
+                <div class="content text-center text-lg">50k+ successful projects</div>
             </div>
-            <div class="content text-center text-lg">50k+ successful projects</div>
         </div>
     </div>
     <!--Statistic End-->
 
     <!-- Footer Start -->
-    <footer class=" bg-accent-green text-gray-800 flex flex-col items-center justify-center ">
+    <footer class=" bg-primary-yellow  text-gray-800 flex flex-col items-center justify-center ">
         <div
             class="flex flex-col items-center justify-center lg:flex-row lg:justify-evenly lg:items-start mx-8 my-10 lg:w-[100vw]">
             <div class="mb-7 flex flex-col items-center lg:items-start ">
@@ -262,9 +266,9 @@
         <div class="flex flex-col justify-center items-center lg:items-start ">
             <div class="font-medium text-base text-center lg:text-left my-3 px-1">Join our email list!</div>
             <form class="flex justify-center items-center flex-col md:flex-row" action="">
-                <input class="h-10 rounded-xl m-3 px-3 py-1" type="email" value placeholder="example@email.com">
+                <input class="h-10 rounded-xl m-3 px-3 py-1 shadow-md" type="email" value placeholder="example@email.com">
                 <input
-                    class="h-10 w-28 base-anim bg-primary-red text-base font-medium text-center rounded-xl hover:bg-accent-red hover:-translate-y-0.5"
+                    class="h-10 w-28 base-anim bg-primary-green text-base font-medium text-center rounded-xl hover:bg-accent-green hover:-translate-y-0.5 shadow-md hover:shadow-lg"
                     type="submit" value="Subscribe">
             </form>
         </div>

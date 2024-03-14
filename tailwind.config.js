@@ -6,6 +6,7 @@ module.exports = {
       sm: "300px",
       md: "420px",
       lg: "800px",
+      xl: "1000px",
     },
     fontFamily: {
       sans: ["Graphik", "sans-serif"],

@@ -8,7 +8,9 @@
         padding: .75rem .75rem;
         margin: .15rem .15rem;
     }
-
+    .background-pic {
+        background-image: url('/image/istockphoto-943620668-612x612.jpg');
+    }
     .product-image {
         height: 100%; 
     }
@@ -26,7 +28,7 @@
     }
 
     .statistic-frame {
-        @apply flex flex-col justify-center items-center m-5;
+        @apply flex flex-col justify-center items-center m-5 base-anim rounded-xl bg-accent-blue shadow-md hover:shadow-lg hover:bg-primary-blue;
     }
     .section{
         @apply flex flex-col justify-center items-center mb-56;
