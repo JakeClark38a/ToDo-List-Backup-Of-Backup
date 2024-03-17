@@ -34,3 +34,22 @@ $(document).ready(function() {
   });
 });
 
+
+// 3 button này để test lần lượt từ trên xuống giống như demo
+$(document).ready(function() {
+    $('#dropdownButton').click(function() {
+        $('#dropdownList').toggleClass('hidden');
+    });
+});
+
+$(document).ready(function() {
+    $('#dropdownButtonPersonal').click(function() {
+        $('#dropdownListPersonal').toggleClass('hidden');
+    });
+});
+
+$(document).ready(function() {
+    $('#dropdownButtonTeam').click(function() {
+        $('#dropdownListTeam').toggleClass('hidden');
+    });
+});
