@@ -1,52 +1,69 @@
-//Update: js
-const el1 = document.getElementById("dropMenu");
-const el1_trig = document.getElementById("dropMenuClick");
-el1_trig.addEventListener("click", () => {
-  if (el1.classList.contains("h-0")) {
-    el1.classList.remove("h-0");
-    el1.classList.add("h-full");
-  } else if (el1.classList.contains("h-full")) {
-    el1.classList.remove("h-full");
-    el1.classList.add("h-0");
-  }
-});
-
-const el2 = document.getElementById("dropSubMenuInfo");
-const el2_trig = document.getElementById("dropSubMenuInfoClick");
-el2_trig.addEventListener("click", () => {
-  if (el2.classList.contains("h-0")) {
-    el2.classList.remove("h-0");
-    el2.classList.add("h-full");
-  } else if (el2.classList.contains("h-full")) {
-    el2.classList.remove("h-full");
-    el2.classList.add("h-0");
-  }
-});
-
-const el3 = document.getElementById("dropPersonal");
-const el3_trig = document.getElementById("dropPersonalClick");
-el3_trig.addEventListener("click", () => {
-  if (el3.classList.contains("h-0")) {
-    el3.classList.remove("h-0");
-    el3.classList.add("h-full");
-  } else if (el3.classList.contains("h-full")) {
-    el3.classList.remove("h-full");
-    el3.classList.add("h-0");
-  }
-});
-
-/*
 // This is the main file for the app
 // using jQuery
 // Toggle cogwheel icon on click
 $(document).ready(function () {
-  $("#dropMenuTrig").click(function () {});
+  const el1 = $("#dropMenu");
+  const el1_trig = $("#dropMenuClick");
 
-  $(".cogwheel").click(function () {
-    // A popup will appear with the settings
+  el1_trig.click(function () {
+    if (el1.hasClass("h-0")) {
+      el1.removeClass("h-0").addClass("h-full");
+    } else if (el1.hasClass("h-full")) {
+      el1.removeClass("h-full").addClass("h-0");
+    }
   });
-  // Hide the settings popup when the user clicks outside of it
-  // Later...
+
+  var tagSectionTemplate = `
+  <div id="MMenu-Tag" class="MMenu-Tag flex items-center ml-3">
+            <div class="h-full">
+                <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
+                </svg>
+            </div>
+
+            <div class="text-lg px-1 my-1 center">Tag name</div>
+
+        </div>
+  
+  `;
+
+  var groupSectionTemplate = `
+  
+  <div id="MMenu-Team-Proj-Group" class="MMenu-Team-Proj-Group"><!--block-->
+    <!-- Greeting div, status centered -->
+    <div class="flex justify-between items-center mx-2 *:mx-2">
+        <div class="text-xl">Group name</div>
+
+        <div id="MMenu-Team-Proj-AddTag" class="MMenu-Team-Proj-Add">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 12h14m-7 7V5" />
+            </svg>
+        </div>
+
+
+    </div>
+    <div id="MMenu-Tag-Section" class="MMenu-Team-Proj-GroupTag-List">
+        <!--tag-->
+
+    </div>
+</div><!--eoblock-->
+
+  
+  `;
+
+  $("#MMenu-Group-Add").click(function () {
+    $("#MMenu-Group-Section").append(groupSectionTemplate);
+  });
+
+  $("#MMenu-Group-Section").on("click", "#MMenu-Team-Proj-AddTag", function () {
+    var gr = $(this).closest("#MMenu-Group-Section");
+    //console.log(index);
+    gr.find("#MMenu-Tag-Section").append(tagSectionTemplate);
+  });
 
   // Slide list of item left
   $("img.left").click(function () {
@@ -78,4 +95,3 @@ $(document).ready(function () {
   });
 });
 // End of app.js
-*/

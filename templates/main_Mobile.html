@@ -9,40 +9,59 @@
 
 </head>
 
-<body class="overflow-hidden">
-    <div class="bg-background-thirdary"> <!--Container-->
+<body class="overflow-hidden bg-background-main">
+    <div class=""> <!--Container-->
 
         <!--Begin header-->
-        <div class="p-3">
-            <div class="border-2 rounded-xl border-accent-red">
-                <div class="flex justify-between items-center">
-                    <div class="flex justify-evenly items-center p-2 gap-2">
-
-                        <div id="dropMenuClick" class="headbar-button overflow-hidden" isOpen="false">
-                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+        <div class="">
+            <div class="">
+                <div class="flex justify-between items-center bg-shade_green-200 py-2 shadow-lg">
+                    <div class="flex justify-evenly items-center gap-2 md:gap-8">
+                        <!--button-->
+                        <div id="dropMenuClick" class="headbar-button overflow-hidden p-2 mx-2">
+                            <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                                    d="M5 7h14M5 12h14M5 17h14" />
+                                    d="M5 7h14M5 12h14M5 17h10" />
+                            </svg>
+
+                        </div>
+                        <!--name project-->
+                        <div class="flex flex-col justify-center items-start">
+                            <div class="">JakeClark Projaaaa </div>
+                            <div>List: 09%</div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="lg:flex justify-end items-center p-2 gap-2 hidden ">
+                        <div class="font-light text-xl"> The Something Matrix</div>
+                        <div class="headbar-button p-1 border-0">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 9-7 7-7-7" />
                             </svg>
                         </div>
-
-                        <div class="flex flex-col justify-center items-start">
-                            <div>JakeClark Proj</div>
-                            <div>List: 99%</div>
-                        </div>
-
                     </div>
+
+
                     <div class="flex justify-end items-center p-2 gap-2">
-                        <div class="headbar-button">
-                            <img class=""
-                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAABJklEQVR4nO2YQUrEQBBFX+eWYsZruC1dudBZKQh6kzmSK/UAJUItQpjOrHrodP0HBQkJpOt3VX06IIQQQgghxLUpwC1wE9epKMAb4BGfwETS5D2TCKWSfAoRyoXkhxahAO+rRL8q1x7vlpF3/gN4WNwb8DpiJZRK8lMkvRSgjCjCy0ZprwWotcqRHfO70dfnBDgnwjc75hH4iUpYD7WaAMS7zyHg+tkw2IYAKTAJgCrA1QJoBriGIHIBIyEmF0Au4HIB5AIuF0AuYCTEsrvAYSHATEKmSHze+4/PNExRtodOd6z5+u4WPfv/kd5ovj7rfGo3X59JAFQBrhZAM8A1BJELGMlt8ATcdxanawrgnYe1Pr565zG3PL4+dR46XgshhBBCCC7zB9eCREG4l8/PAAAAAElFTkSuQmCC">
-                        </div>
-                        <div class="headbar-button">
-                            <img
-                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAPElEQVR4nGNgGAWjYBQMT+DNwMDwhIGB4TEDA4MnBeI4AUjhfyh+RIH4wFngCdUEUuxBgfgoGAWjYNgAAIMDJKaeed9aAAAAAElFTkSuQmCC">
+                        <div class="headbar-button p-1 border-0">
+                            <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                    d="M6 12h.01m6 0h.01m5.99 0h.01" />
+                            </svg>
+
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -51,152 +70,79 @@
 
 
 
-        <!-- Dropdown menu -->
-        <div id="dropMenu" class="dropdown-anim duration-300 h-0 ml-3 px-3 z-10 absolute bg-primary-green rounded-xl">
-            <div>
-                <div class="">
-                    <div id="dropSubMenuInfoClick" class="button">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m19 9-7 7-7-7" />
+        <!-- Dropdown Main menu -->
+        <div id="dropMenu" class="dropdown-anim duration-300 h-0 z-10 absolute *:pl-3 flex flex-col items-start w-64 bg-shade_green-200">
+
+
+            <div class="MMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="MMenu-Primary-Image-Wrapper">
+                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
                         </svg>
-                        <div class="text-2xl px-[2vh]">More</div>
                     </div>
 
-                    <div class="dropdown-anim h-0 bg-slate-300 overflow-hidden rounded-md " id="dropSubMenuInfo">
-                        <div class="text-xl">Team: J4ckP0t</div>
-                        <div class="text-xl">AI recommender: Off</div>
-                        <div class="text-xl">Task Completed: 5/5</div>
-                        <div class="text-xl">Online: 32m ago (Synced)</div>
-                        <div class="more-choice">
-                            <div class="Setting button flex items-center my-3">
-                                <img src="../static/images/cogwheel_icon.png" alt="cogwheel-icon"
-                                    class="w-[4vh] inline">
-                                <div class="text-xl px-[2vh]">Settings</div>
-                            </div>
-
-                            <div class="Team-activity button flex items-center my-3">
-                                <img src="../static/images/add-group.png" alt="group-icon" class="w-[4vh] inline">
-                                <div class="text-xl px-[2vh]">Add / Join a Team</div>
-                            </div>
-
-                            <div class="Log button flex items-center my-3">
-                                <img src="../static/images/log.png" alt="log-icon" class="w-[4vh] inline">
-                                <div class="text-xl px-[2vh]">Activity Log</div>
-                            </div>
-                            <div class="Logout button flex items-center my-3">
-                                <img src="../static/images/logout.png" alt="logout-icon" class="w-[4vh] inline">
-                                <div class="text-xl px-[2vh]">Log out</div>
-                            </div>
-                        </div>
+                    <div class="MMenu-Primary-Text">Search</div>
+                </div>
+            </div><!--eoblock-->
+            <div class="MMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="MMenu-Primary-Image-Wrapper">
+                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+                        </svg>
                     </div>
+
+                    <div class="MMenu-Primary-Text">Today</div>
+                </div>
+            </div><!--eoblock-->
+            <div class="MMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="MMenu-Primary-Image-Wrapper">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
+                        </svg>
+
+                    </div>
+
+                    <div class="MMenu-Primary-Text">Calendar</div>
+                </div>
+            </div><!--eoblock-->
+            <div class="MMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="MMenu-Primary-Image-Wrapper">
+                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z" />
+                        </svg>
+
+                    </div>
+
+                    <div class="MMenu-Primary-Text">Notifications</div>
+                </div>
+            </div><!--eoblock-->
+
+            <!--Devider and mini menu-->
+            <div class="divider flex justify-end border-gray-400 border-t-[1px] border-b-[1px] my-3">
+                <div id="MMenu-Group-Add" class="MMenu-Mini-Btn m-2">
+                    <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h14m-7 7V5" />
+                    </svg>
                 </div>
             </div>
+            <!--eo Devider and mini menu-->
+            <div id="MMenu-Group-Section" class="MMenu-Group-Section">
+                <!--group here-->
 
-
-            <div>
-                <div class="search button">
-                    <img src="../static/images/search-icon.png" alt="search-icon" class="w-[4vh] inline">
-                    <div class="text-2xl px-[2vh]">Search</div>
-                </div>
-            </div>
-            <div>
-                <div class="todo button">
-                    <img src="../static/images/check-box.png" alt="checkbox-icon" class="w-[4vh] inline">
-                    <div class="text-2xl px-[2vh] justify-center">Todo Today</div>
-                </div>
-            </div>
-            <div>
-                <div class="tree button">
-                    <img src="../static/images/leaf_icon.png" alt="leaf-icon" class="w-[4vh] inline">
-                    <div class="text-2xl px-[2vh]">Tree</div>
-                </div>
-            </div>
-            <div>
-                <div class="notification button">
-                    <img src="../static/images/bell-icon.png" alt="bell-icon" class="w-[4vh] inline">
-                    <div class="text-2xl px-[2vh] center">Notifications</div>
-                </div>
-            </div>
-            <div>
-                <div class="grey-border-rounded">
-                    <!-- Greeting div, status centered -->
-                    <div id="dropPersonalClick"
-                        class="greeting object-center flex justify-between items-center my-2 hover:bg-slate-200">
-                        <div class="title *:md:inline">
-                            <div class="text-xl">JakeClark's Project</div>
-                        </div>
-                        <div class="up-arrow flex items-end justify between">
-                            <img src="../static/images/down-arrow.png" alt="down-arrow" class="w-[4.5vh] inline mr-1">
-                        </div>
-                    </div>
-
-                    <!-- Dropdown list -->
-                    <div id="dropPersonal" class="dropdown-anim h-0 overflow-hidden rounded-md py-1 w-full z-10 px-[3vh]">
-                        <div class="Completed button">
-                            <img src="../static/images/check.png" alt="check-icon" class="w-[3vh] inline">
-                            <label class="text-xl px-[2vh] center">Completed</label>
-                        </div>
-                        <div class="Uncompleted button">
-                            <img src="../static/images/close.png" alt="uncheck-icon" class="w-[3vh] inline">
-                            <label class="text-xl px-[2vh] center">Uncompleted</label>
-                        </div>
-                        <div class="List button">
-                            <img src="../static/images/list.png" alt="list-icon" class="w-[3vh] inline">
-                            <label class="text-xl px-[2vh] center">List1</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="grey-border-rounded">
-                    <!-- Greeting div, status centered -->
-                    <div class="greeting object-center flex justify-between items-center px-[2vh] my-2">
-                        <div class="title *:md:inline">
-                            <div class="text-xl">Team's Project</div>
-                        </div>
-                        <div class="up-arrow flex items-end justify between">
-                            <img src="../static/images/down-arrow.png" alt="down-arrow" class="w-[4.5vh] inline mr-1"
-                                id="dropdownButtonTeam">
-                        </div>
-                    </div>
-                    <!-- Dropdown list -->
-                    <div class="dropdown hidden shadow-md rounded-md py-1 w-full z-10 px-[3vh]" id="dropdownListTeam">
-                        <div class="Completed button">
-                            <img src="../static/images/check.png" alt="check-icon" class="w-[3vh] inline">
-                            <label class="text-xl px-[2vh] center">Completed</label>
-                        </div>
-                        <div class="Uncompleted button">
-                            <img src="../static/images/close.png" alt="uncheck-icon" class="w-[3vh] inline">
-                            <label class="text-xl px-[2vh] center">Uncompleted</label>
-                        </div>
-                        <div class="List button">
-                            <img src="../static/images/list.png" alt="list-icon" class="w-[3vh] inline">
-                            <label class="text-xl px-[2vh] center">List1</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="justify-end">
-                <div class="flex justify-between items-start *:m-3">
-                    <div class="adjust flex items-center">
-                        <img src="../static/images/light-mode.png" alt="sun-icon" class="w-[3vh] mx-3">
-                        <div class="toggle flex items-center">
-                            <div class="toggle-button" onclick=""></div>
-                        </div>
-                        <img src="../static/images/night-mode.png" alt="moon-icon" class="w-[3vh] mx-3">
-                    </div>
-                    <div class="adjust flex items-center">
-                        <img src="../static/images/vietnam.png" alt="vietnam-icon" class="w-[3vh] mx-3">
-                        <div class="toggle flex items-center">
-                            <div class="toggle-button" onclick=""></div>
-                        </div>
-                        <img src="../static/images/united-kingdom.png" alt="moon-icon" class="w-[3vh] mx-3">
-                    </div>
-                </div>
             </div>
         </div>
         <!--End Dropdown menu-->
@@ -254,8 +200,8 @@
         <!--Begin Matrix-->
         <div class="p-6 m-3">
             <div class="">
-                <div class="flex flex-col justify-center items-center gap-2">
-                    <div class="flex gap-2 justify-center items-center">
+                <div class="flex flex-col justify-center items-center gap-8 ">
+                    <div class="flex gap-4 justify-center items-center">
                         <!--matrix-->
                         <div class="todobox bg-primary-red">
                             <div class="todobox-title">Do:</div>
@@ -269,7 +215,7 @@
                         </div>
                     </div>
 
-                    <div class="flex gap-2 justify-center items-center">
+                    <div class="flex gap-4 justify-center items-center">
                         <div class="todobox bg-primary-blue">
                             <div class="todobox-title">Delegate:</div>
                             <div class=""></div>
@@ -284,7 +230,10 @@
         </div>
         <!--End Matrix-->
     </div>
-    <script defer src="../static/js/app.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="../static/js/app.js"></script>
 </body>
 
 </html>
