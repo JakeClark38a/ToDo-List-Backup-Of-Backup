@@ -13,7 +13,8 @@
     <!--Addons-->
 
     <!-- modal-->
-    <div id="modal-container" class="opacity-0 flex justify-center items-center fixed z-50 h-full w-full pointer-events-none bg-slate-300">
+    <div id="modal-container"
+        class="opacity-0 flex justify-center items-center fixed z-50 h-full w-full pointer-events-none bg-slate-300">
         <div id="modal" class="border-2 rounded-2xl shadow-xl h-[80vh] w-64 md:w-80  bg-white ">
 
             <div class="flex justify-between items-center border-b-2 p-3 px-5">
@@ -37,18 +38,19 @@
                 <div class="content w-full pl-3 my-2"> Tags </div>
                 <div id="Tag-list" class="flex flex-wrap gap-1 ">
                     <!--tag list-->
-                    <div id="Tag-item" class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center border-dashed">
+                    <div id="add-tag-bt" class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center border-dashed">
                         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M5 12h14m-7 7V5" />
                         </svg>
                     </div>
+
                 </div>
             </div>
 
             <div class="wrapper flex justify-around items-center w-full h-32 ">
-                <div class="content h-10 w-24 "><button
+                <div class="content h-10 w-24 "><button id="add-task-bt"
                         class=" border-[1px] border-gray-400 rounded-2xl h-full w-full">Submit</button></div>
                 <div class="content h-10 w-24 "><button id="cancle-bt"
                         class="border-[1px] border-gray-400 rounded-2xl h-full w-full ">Cancel</button></div>
@@ -232,7 +234,7 @@
 
 
         <!--Begin Sidebar-->
-        <div class="bg-transparent Sidebar-Right z-10 absolute right-0 h-96">
+        <div class="bg-transparent Sidebar-Right z-10 absolute right-0 h-96 hidden">
             <div class="transform transition-all ease-in-out duration-300 bg-shade_green-200 h-full px-2 py-5">
 
 
@@ -269,7 +271,9 @@
 
 
         <!--Begin Main screen-->
-        <div class="Container bg-shade_red-200">
+        <div id="Main-Screen" class="Container bg-shade_red-200">
+            <!--Formatter-->
+            
 
 
         </div>
