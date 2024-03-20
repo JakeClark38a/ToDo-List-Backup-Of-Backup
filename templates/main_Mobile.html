@@ -9,9 +9,57 @@
 
 </head>
 
-<body class="overflow-hidden bg-background-main">
-    <div class=""> <!--Container-->
+<body class="overflow-x-hidden bg-background-main">
+    <!--Addons-->
 
+    <!-- modal-->
+    <div id="modal-container" class="opacity-0 flex justify-center items-center fixed z-50 h-full w-full pointer-events-none bg-slate-300">
+        <div id="modal" class="border-2 rounded-2xl shadow-xl h-[80vh] w-64 md:w-80  bg-white ">
+
+            <div class="flex justify-between items-center border-b-2 p-3 px-5">
+                <h2>Create Task</h2>
+                <div><button id="close-bt">X</button></div>
+            </div>
+
+            <div class="flex flex-col items-center h-32 w-full p-4 m-0">
+                <div class="content w-full h-16 my-3">
+                    <input type="text"
+                        class="text-center border-2 border-gray-400 rounded-lg  w-full h-full text-[1rem]"
+                        placeholder="Task Input Here">
+                </div>
+
+                <div class="content w-full h-32"><textarea
+                        class="text-center border-2 border-gray-400 rounded-lg  w-full h-full text-[1rem] resize-none"
+                        placeholder="Description Input here"></textarea></div>
+            </div>
+
+            <div class="flex flex-col w-full p-4 my-4">
+                <div class="content w-full pl-3 my-2"> Tags </div>
+                <div id="Tag-list" class="flex flex-wrap gap-1 ">
+                    <!--tag list-->
+                    <div id="Tag-item" class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center border-dashed">
+                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h14m-7 7V5" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wrapper flex justify-around items-center w-full h-32 ">
+                <div class="content h-10 w-24 "><button
+                        class=" border-[1px] border-gray-400 rounded-2xl h-full w-full">Submit</button></div>
+                <div class="content h-10 w-24 "><button id="cancle-bt"
+                        class="border-[1px] border-gray-400 rounded-2xl h-full w-full ">Cancel</button></div>
+            </div>
+        </div>
+    </div>
+    <!--kết thúc phần modal-->
+
+    <!--eoAddons-->
+
+    <div class=""> <!--Container-->
         <!--Begin header-->
         <div class="">
             <div class="">
@@ -29,7 +77,7 @@
                         </div>
                         <!--name project-->
                         <div class="flex flex-col justify-center items-start">
-                            <div class="">JakeClark Projaaaa </div>
+                            <div id="Usernamedp" class="">JakeClark Projaaaa </div>
                             <div>List: 09%</div>
                         </div>
 
@@ -37,15 +85,8 @@
 
 
                     <div class="lg:flex justify-end items-center p-2 gap-2 hidden ">
-                        <div class="font-light text-xl"> The Something Matrix</div>
-                        <div class="headbar-button p-1 border-0">
-                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m19 9-7 7-7-7" />
-                            </svg>
-                        </div>
+                        <div class="font-light text-base"> 20/03/2024 20:32:45 PM</div>
+
                     </div>
 
 
@@ -67,11 +108,26 @@
         </div>
         <!--End header-->
 
+        <!-- add question action button here-->
+        <div class="">
+            <div id="a0002" class="">
+                <div id="moveButton"
+                    class="hover:w-14 hover:h-14 shadow-xl absolute rounded-full w-12 h-12 bg-accent-red p-2">
+                    <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h14m-7 7V5" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <!-- kết thúc phần nút -->
 
 
 
         <!-- Dropdown Main menu -->
-        <div id="dropMenu" class="dropdown-anim duration-300 h-0 z-10 absolute *:pl-3 flex flex-col items-start w-64 bg-shade_green-200">
+        <div id="dropMenu"
+            class="dropdown-anim duration-300 h-0 z-10 absolute *:pl-3 items-start w-64 bg-shade_green-200">
 
 
             <div class="MMenu-Primary-Section"> <!--block-->
@@ -128,22 +184,26 @@
                     <div class="MMenu-Primary-Text">Notifications</div>
                 </div>
             </div><!--eoblock-->
-
-            <!--Devider and mini menu-->
-            <div class="divider flex justify-end border-gray-400 border-t-[1px] border-b-[1px] my-3">
-                <div id="MMenu-Group-Add" class="MMenu-Mini-Btn m-2">
-                    <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5 12h14m-7 7V5" />
-                    </svg>
+            <div id="MMenu-Group-Add" class="MMenu-Primary-Section border-t-[1px] border-b-[1px] border-accent-green">
+                <!--block-->
+                <div class="flex items-center justify-end">
+                    <div class="MMenu-Primary-Image-Wrapper">
+                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h14m-7 7V5" />
+                        </svg>
+                    </div>
                 </div>
-            </div>
-            <!--eo Devider and mini menu-->
+            </div><!--eoblock-->
+
             <div id="MMenu-Group-Section" class="MMenu-Group-Section">
                 <!--group here-->
-
             </div>
+
+
+
+
         </div>
         <!--End Dropdown menu-->
 
@@ -171,69 +231,57 @@
 
 
 
-        <!--Begin selection-->
-        <div class="bg-slate-300 bg-opacity-50">
-            <div class="flex justify-center items-center gap-3">
-                <div class="font-light text-xl"> The Something Matrix</div>
-                <div class="headbar-button p-1 border-0" data-dropdown-toggle="drop-matrix-Click"
-                    data-dropdown-trigger="click">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m19 9-7 7-7-7" />
-                    </svg>
-                </div>
+        <!--Begin Sidebar-->
+        <div class="bg-transparent Sidebar-Right z-10 absolute right-0 h-96">
+            <div class="transform transition-all ease-in-out duration-300 bg-shade_green-200 h-full px-2 py-5">
 
-                <!-- Dropdown select-->
-                <div id="drop-matrix-Click" class="z-10 hidden p-3 py-5 bg-background-main rounded-xl">
-                    <div class="flex flex-col gap-2 *:py-2 *:text-center *:px-5 *:bg-slate-200 *:rounded-lg">
-                        <div class="">Eisenhauer Matrix</div>
-                        <div class="">Carousel</div>
-                        <div class="">List</div>
+
+
+                <div class=""> <!--Sidebar btn-->
+                    <div class="headbar-button hover:bg-shade_red-400 border-0" data-dropdown-toggle="drop-matrix-Click"
+                        data-dropdown-trigger="click" data-dropdown-placement="left-end">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z" />
+                        </svg>
                     </div>
-                </div>
-                <!--End Dropdown select-->
+                    <!-- Dropdown select-->
+                    <div id="drop-matrix-Click" class="z-10 hidden p-3 py-5 bg-background-main rounded-xl">
+                        <div class="flex flex-col gap-2 *:py-2 *:text-center *:px-5 *:bg-slate-200 *:rounded-lg">
+                            <div class="">Eisenhauer Matrix</div>
+                            <div class="">Carousel</div>
+                            <div class="">List</div>
+                        </div>
+                    </div>
+                    <!--End Dropdown select-->
+                </div><!--eoSidebar btn-->
+
+
 
             </div>
         </div>
-        <!--End Selection-->
-        <!--Begin Matrix-->
-        <div class="p-6 m-3">
-            <div class="">
-                <div class="flex flex-col justify-center items-center gap-8 ">
-                    <div class="flex gap-4 justify-center items-center">
-                        <!--matrix-->
-                        <div class="todobox bg-primary-red">
-                            <div class="todobox-title">Do:</div>
-                            <div class=""></div>
-                        </div>
-                        <!--box-->
+        <!--End Sidebar-->
 
-                        <div class="todobox bg-primary-green">
-                            <div class="todobox-title">Schedule:</div>
-                            <div class=""></div>
-                        </div>
-                    </div>
 
-                    <div class="flex gap-4 justify-center items-center">
-                        <div class="todobox bg-primary-blue">
-                            <div class="todobox-title">Delegate:</div>
-                            <div class=""></div>
-                        </div>
-                        <div class="todobox bg-primary-yellow">
-                            <div class="todobox-title">Delete:</div>
-                            <div class=""></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+
+
+        <!--Begin Main screen-->
+        <div class="Container bg-shade_red-200">
+
+
         </div>
-        <!--End Matrix-->
-    </div>
+        <!--End Main screen-->
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="../static/js/app.js"></script>
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="../static/js/app.js"></script>
 </body>
 
 </html>
