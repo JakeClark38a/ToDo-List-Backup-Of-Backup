@@ -9,7 +9,7 @@
 
 </head>
 
-<body class="overflow-x-hidden bg-background-main">
+<body class="overflow-x-hidden bg-background1 bg-cover bg-opacity-50">
     <!--Addons-->
 
     <!-- modal-->
@@ -42,8 +42,8 @@
                     <!--tag list-->
                     <!--tag dropdown list-->
                     <div id="add-tag-bt" data-dropdown-toggle="dropdown"
-                        class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center border-dashed">
-                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                        class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center border-dashed ">
+                        <svg class="w-full h-full text-gray-800 dark:text-white hover:rotate-3" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M5 12h14m-7 7V5" />
@@ -90,10 +90,10 @@
         <div class="">
             <div class="">
                 <div
-                    class="flex justify-between items-center bg-gradient-to-br from-shade_green-300 to-shade_green-600 lg:py-2 shadow-xl">
+                    class="flex justify-between items-center bg-gradient-to-b from-shade_green-300 to-shade_green-600 py-0 h-16 lg:h-18 lg:py-2 shadow-xl">
                     <div class="flex justify-evenly items-center gap-2 md:gap-8">
                         <!--button-->
-                        <div id="dropMenuClick" class="headbar-button overflow-hidden p-2 mx-2">
+                        <div id="dropMenuClick" class="headbar-button overflow-hidden p-2 mx-2 hover:roa">
                             <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -154,7 +154,7 @@
 
         <!-- Dropdown Main menu -->
         <div id="dropMenu"
-            class="dropdown-anim duration-300 h-0 z-10 absolute items-start py-0 w-52 lg:w-64 bg-shade_green-200 overflow-hidden">
+            class="dropdown-anim duration-300 h-0 z-10 absolute items-start py-0 w-52 lg:w-64 bg-gradient-to-br from-shade_green-200 to-shade_yellow-200 overflow-hidden">
 
 
             <div class="MMenu-Primary-Section"> <!--block-->
@@ -170,7 +170,7 @@
                     <div class="MMenu-Primary-Text">Search</div>
                 </div>
             </div><!--eoblock-->
-            <div class="MMenu-Primary-Section"> <!--block-->
+            <div id="MMenu-Today" class="MMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
@@ -183,7 +183,7 @@
                     <div class="MMenu-Primary-Text">Today</div>
                 </div>
             </div><!--eoblock-->
-            <div class="MMenu-Primary-Section"> <!--block-->
+            <div id="MMenu-Calendar" class="MMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -262,7 +262,8 @@
 
         <!--Begin Sidebar-->
         <div class="bg-transparent Sidebar-Right z-10 absolute right-0 h-96 hidden">
-            <div class="transform transition-all ease-in-out duration-300 bg-shade_green-200 h-full px-2 py-5">
+            <div
+                class="transform transition-all ease-in-out duration-300 bg-gradient-to-r from-shade_green-200 to-green-500 shadow-xl h-full px-2 py-5">
 
 
 
@@ -294,7 +295,7 @@
 
 
         <!-- Begin Calendar -->
-        <div class="container">
+        <div id="Calendar-Container" class="container hidden">
             <div class="left">
                 <div class="calendar">
                     <div class="month">

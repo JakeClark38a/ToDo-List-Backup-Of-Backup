@@ -106,7 +106,7 @@
         @apply text-xl font-light;
     }
     .MMenu-Primary-Section{
-        @apply hover:bg-shade_green-300 py-3  cursor-pointer;
+        @apply hover:bg-gradient-to-r from-shade_green-300 to-transparent py-3  cursor-pointer;
     }
     .MMenu-Mini-Btn{
         @apply h-7 w-7;
@@ -114,7 +114,7 @@
 
 
 
-     /* calendar tailwind css*/
+    /* calendar tailwind css*/
   :root {
 	--primary-clr: #b38add;
   }
@@ -407,4 +407,12 @@
 	@apply text-white no-underline font-semibold hover:underline;
   }
   /* End calendar */
+
+  .task-outer{
+    @apply rounded-lg hover:bg-slate-200;
+  }
+  
+  #Task-Destroyer{
+    @apply w-8 h-8 rounded-lg hover:bg-shade_green-200 checked:bg-shade_green-300 ;
+  }
 }

@@ -11,7 +11,7 @@ $(document).ready(function () {
     
     <div id="` +
       id +
-      `" class="MMenu-Tag flex items-center ml-3 hover:bg-shade_green-300  cursor-pointer">
+      `" class="MMenu-Tag flex items-center pl-5 hover:bg-gradient-to-r from-shade_yellow-600 to-transparent  cursor-pointer">
     <div class="h-full">
         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -35,10 +35,10 @@ $(document).ready(function () {
   
   <div id="` +
       id +
-      `" class=""><!--block-->
+      `" class="hover:bg-gradient-to-r from-shade_yellow-500 to-transparent"><!--block-->
     <!-- Greeting div, status centered -->
     <div class="flex justify-between items-center mx-2 *:mx-2">
-        <div class="text-xl">` +
+        <div class="text-xl  ">` +
       title +
       `</div>
 
@@ -178,7 +178,7 @@ $(document).ready(function () {
         ` 
     <div id="` +
         id +
-        `" class="task-outer">
+        `" class=" task-outer">
       <div class=" rounded-lg h-20 border-2 border-slate-700">
           <div class=" px-2 flex justify-between border-b-2 border-slate-700">
               <div class="font-bold">` +
@@ -215,7 +215,7 @@ $(document).ready(function () {
         `
     <div id="` +
         id +
-        `" class="overflow-y-auto bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-[var(--changeBorderColor,violet)] w-64 h-64 p-1 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
+        `" class="overflow-y-auto bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-shade_green-300 w-64 h-64 p-1 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
         <div id="Task-Group-Title" class="todobox-title">` +
         title +
         `</div>
@@ -559,6 +559,17 @@ $(document).ready(function () {
     // Close dropdown
     $("#dropdown").removeClass("block");
     $("#dropdown").addClass("hidden");
+  });
+
+  $("#Calendar-Container").hide();
+  $("#Main-Screen").show();
+  $("#MMenu-Calendar").click(function () {
+    $("#Calendar-Container").show();
+    $("#Main-Screen").hide();
+  });
+  $("#MMenu-Today").click(function () {
+    $("#Calendar-Container").hide();
+    $("#Main-Screen").show();
   });
 });
 // End of app.js

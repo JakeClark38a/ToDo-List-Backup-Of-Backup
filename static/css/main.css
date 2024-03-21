@@ -1325,13 +1325,16 @@ input:checked + .toggle-bg {
 
 .MMenu-Primary-Section {
   cursor: pointer;
+  --tw-gradient-from: #6feb9a var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(111 235 154 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  --tw-gradient-to: transparent var(--tw-gradient-to-position);
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
 
 .MMenu-Primary-Section:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(111 235 154 / var(--tw-bg-opacity));
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
 
 /* calendar tailwind css*/
@@ -2265,6 +2268,31 @@ input:checked + .toggle-bg {
 
 /* End calendar */
 
+.task-outer {
+  border-radius: 0.5rem;
+}
+
+.task-outer:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+}
+
+#Task-Destroyer {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 0.5rem;
+}
+
+#Task-Destroyer:checked {
+  --tw-bg-opacity: 1;
+  background-color: rgb(111 235 154 / var(--tw-bg-opacity));
+}
+
+#Task-Destroyer:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(201 235 213 / var(--tw-bg-opacity));
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -3098,10 +3126,6 @@ input:checked + .toggle-bg {
   border-style: dashed;
 }
 
-.border-\[var\(--changeBorderColor\2c violet\)\] {
-  border-color: var(--changeBorderColor,violet);
-}
-
 .border-accent-green {
   --tw-border-opacity: 1;
   border-color: rgb(121 204 150 / var(--tw-border-opacity));
@@ -3160,6 +3184,11 @@ input:checked + .toggle-bg {
 .border-primary-yellow {
   --tw-border-opacity: 1;
   border-color: rgb(217 189 123 / var(--tw-border-opacity));
+}
+
+.border-shade_green-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(111 235 154 / var(--tw-border-opacity));
 }
 
 .border-shade_green-600 {
@@ -3245,11 +3274,6 @@ input:checked + .toggle-bg {
   background-color: rgb(240 82 82 / var(--tw-bg-opacity));
 }
 
-.bg-shade_green-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(201 235 213 / var(--tw-bg-opacity));
-}
-
 .bg-slate-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(203 213 225 / var(--tw-bg-opacity));
@@ -3277,6 +3301,10 @@ input:checked + .toggle-bg {
   --tw-bg-opacity: 0.5;
 }
 
+.bg-background1 {
+  background-image: url('/static/images/wallpaper.jpg');
+}
+
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
@@ -3302,7 +3330,7 @@ input:checked + .toggle-bg {
 }
 
 .bg-herosm {
-  background-image: url('/src/resources/herosm.jpg');
+  background-image: url('/static/images/herosm.jpg');
 }
 
 .from-accent-green {
@@ -3335,6 +3363,12 @@ input:checked + .toggle-bg {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-shade_green-200 {
+  --tw-gradient-from: #c9ebd5 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(201 235 213 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .from-shade_green-300 {
   --tw-gradient-from: #6feb9a var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(111 235 154 / 0) var(--tw-gradient-to-position);
@@ -3344,6 +3378,24 @@ input:checked + .toggle-bg {
 .from-shade_green-500 {
   --tw-gradient-from: #79cc96 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(121 204 150 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-shade_yellow-300 {
+  --tw-gradient-from: #eadfc6 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(234 223 198 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-shade_yellow-600 {
+  --tw-gradient-from: #b0a280 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(176 162 128 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-shade_yellow-500 {
+  --tw-gradient-from: #dccaa0 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(220 202 160 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
@@ -3368,6 +3420,10 @@ input:checked + .toggle-bg {
   --tw-gradient-to: #fc9999 var(--tw-gradient-to-position);
 }
 
+.to-green-500 {
+  --tw-gradient-to: #0E9F6E var(--tw-gradient-to-position);
+}
+
 .to-primary-green {
   --tw-gradient-to: #c1efd2 var(--tw-gradient-to-position);
 }
@@ -3384,8 +3440,16 @@ input:checked + .toggle-bg {
   --tw-gradient-to: #fab6b6 var(--tw-gradient-to-position);
 }
 
+.to-shade_yellow-200 {
+  --tw-gradient-to: #f1ead9 var(--tw-gradient-to-position);
+}
+
 .to-white {
   --tw-gradient-to: #ffffff var(--tw-gradient-to-position);
+}
+
+.to-transparent {
+  --tw-gradient-to: transparent var(--tw-gradient-to-position);
 }
 
 .to-100\% {
@@ -3542,6 +3606,10 @@ input:checked + .toggle-bg {
 
 .pt-5 {
   padding-top: 1.25rem;
+}
+
+.pl-5 {
+  padding-left: 1.25rem;
 }
 
 .text-left {
@@ -3847,6 +3915,11 @@ input:checked + .toggle-bg {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.hover\:rotate-3:hover {
+  --tw-rotate: 3deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .hover\:scale-100:hover {
   --tw-scale-x: 1;
   --tw-scale-y: 1;
@@ -3886,6 +3959,10 @@ input:checked + .toggle-bg {
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-gradient-to-r:hover {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
 
 .hover\:text-blue-600:hover {
@@ -4284,7 +4361,7 @@ input:checked + .toggle-bg {
 
 @media (min-width: 1000px) {
   .xl\:bg-heroxl {
-    background-image: url('/src/resources/heroxl.jpg');
+    background-image: url('/static/images/heroxl.jpg');
   }
 }
 

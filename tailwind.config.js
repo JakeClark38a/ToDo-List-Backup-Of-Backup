@@ -26,9 +26,10 @@ module.exports = {
         "placeholder-10": "10px",
       },
       backgroundImage: {
-        heroxl: "url('/src/resources/heroxl.jpg')",
-        heromd: "url('/src/resources/heromd.jpg')",
-        herosm: "url('/src/resources/herosm.jpg')",
+        heroxl: "url('/static/images/heroxl.jpg')",
+        heromd: "url('/static/images/heromd.jpg')",
+        herosm: "url('/static/images/herosm.jpg')",
+        background1: "url('/static/images/wallpaper.jpg')",
       },
       colors: {
         primary: {
