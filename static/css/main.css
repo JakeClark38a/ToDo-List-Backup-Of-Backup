@@ -1179,7 +1179,6 @@ input[type="range"]::-ms-fill-lower {
 
 .dropdown-anim {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  overflow-y: scroll;
   transition-property: all;
   transition-duration: 150ms;
   transition-duration: 0s;
@@ -1209,6 +1208,7 @@ input[type="range"]::-ms-fill-lower {
 }
 
 .MMenu-Primary-Section {
+  cursor: pointer;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
@@ -2143,6 +2143,10 @@ input[type="range"]::-ms-fill-lower {
   right: 0px;
 }
 
+.bottom-0 {
+  bottom: 0px;
+}
+
 .bottom-3 {
   bottom: 0.75rem;
 }
@@ -2399,6 +2403,10 @@ input[type="range"]::-ms-fill-lower {
 
 .h-7 {
   height: 1.75rem;
+}
+
+.h-72 {
+  height: 18rem;
 }
 
 .h-8 {
@@ -2676,8 +2684,16 @@ input[type="range"]::-ms-fill-lower {
   overflow: hidden;
 }
 
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
 .overflow-x-hidden {
   overflow-x: hidden;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
 }
 
 .scroll-smooth {
@@ -2762,6 +2778,10 @@ input[type="range"]::-ms-fill-lower {
 
 .border-r-2 {
   border-right-width: 2px;
+}
+
+.border-t-2 {
+  border-top-width: 2px;
 }
 
 .border-t-8 {
@@ -3073,6 +3093,11 @@ input[type="range"]::-ms-fill-lower {
   padding-right: 8.5vh;
 }
 
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -3096,6 +3121,10 @@ input[type="range"]::-ms-fill-lower {
 .py-\[3vh\] {
   padding-top: 3vh;
   padding-bottom: 3vh;
+}
+
+.pb-14 {
+  padding-bottom: 3.5rem;
 }
 
 .pl-2 {
@@ -3328,10 +3357,6 @@ input[type="range"]::-ms-fill-lower {
   padding-bottom: 0.5rem;
 }
 
-.\*\:pl-3 > * {
-  padding-left: 0.75rem;
-}
-
 .\*\:text-center > * {
   text-align: center;
 }
@@ -3368,6 +3393,11 @@ input[type="range"]::-ms-fill-lower {
 .hover\:bg-accent-green:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(121 204 150 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-shade_green-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(111 235 154 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-shade_red-400:hover {
@@ -3584,6 +3614,10 @@ input[type="range"]::-ms-fill-lower {
 
   .lg\:h-80 {
     height: 20rem;
+  }
+
+  .lg\:w-64 {
+    width: 16rem;
   }
 
   .lg\:w-80 {

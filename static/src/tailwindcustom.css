@@ -90,9 +90,11 @@
 	@apply h-12 w-12 lg:w-14 lg:h-14 bg-transparent p-1 rounded-lg flex justify-center items-center overflow-hidden;
   }
 
-  .dropdown-anim {
-	@apply transform transition-all ease-in-out duration-0 overflow-y-scroll;
-  }
+    .dropdown-anim{
+        @apply transform transition-all ease-in-out duration-0;
+    }
+    
+
 
   /*Main menu*/
   .MMenu-Primary-Image-Wrapper {
@@ -103,7 +105,7 @@
 	@apply text-xl font-light;
   }
   .MMenu-Primary-Section {
-	@apply hover:bg-shade_green-300 py-3;
+	@apply hover:bg-shade_green-300 py-3 cursor-pointer;
   }
   .MMenu-Mini-Btn {
 	@apply h-7 w-7;

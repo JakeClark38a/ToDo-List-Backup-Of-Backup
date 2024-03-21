@@ -4,28 +4,42 @@
 $(document).ready(function () {
   /// HTML templates
 
-  var tagSectionTemplate = `
-  <div id="MMenu-Tag" class="MMenu-Tag flex items-center ml-3">
-            <div class="h-full">
-                <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
-                </svg>
-            </div>
+  function MainMenuTagTempplate(id, tagName) {
+    return (
+      `
+    
+    <div id="` +
+      id +
+      `" class="MMenu-Tag flex items-center ml-3 hover:bg-shade_green-300  cursor-pointer">
+    <div class="h-full">
+        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
+        </svg>
+    </div>
 
-            <div class="text-lg px-1 my-1 center">Tag name</div>
+    <div class="text-lg px-1 my-1 center">` +
+      tagName +
+      `</div>
 
-        </div>
+</div>
+
+`
+    );
+  }
+  function MainMenuGroupTemplates(id, title) {
+    return (
+      `
   
-  `;
-
-  var groupSectionTemplate = `
-  
-  <div id="MMenu-Team-Proj-Group" class=""><!--block-->
+  <div id="` +
+      id +
+      `" class=""><!--block-->
     <!-- Greeting div, status centered -->
     <div class="flex justify-between items-center mx-2 *:mx-2">
-        <div class="text-xl">Group name</div>
+        <div class="text-xl">` +
+      title +
+      `</div>
 
         <div class="MMenu-Tag-Add">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +58,9 @@ $(document).ready(function () {
 </div><!--eoblock-->
 
   
-  `;
+  `
+    );
+  }
 
   var tagSelection = ` <div id="Tag-item" class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center">Sample</div>`;
 
@@ -59,21 +75,25 @@ $(document).ready(function () {
         title: "Do",
         tags: ["tag1"],
         color: "#7aa5cf",
+        current_html: "",
       },
       gid002: {
         title: "Delegate",
         tags: ["tag2"],
         color: "#63c074",
+        current_html: "",
       },
       gid003: {
         title: "Schedule",
         tags: ["tag3", "tag5"],
         color: "#7aa5cf",
+        current_html: "",
       },
       gid004: {
         title: "Delete",
         tags: ["tag4"],
         color: "#6dce81",
+        current_html: "",
       },
     },
     tasks: {
@@ -85,14 +105,14 @@ $(document).ready(function () {
         points: 4,
       },
       id002: {
-        title: "Meeting",
+        title: "Crying",
         description: "about making a website",
         tag: "tag3",
         deadline: 62783,
         points: 4,
       },
       id004: {
-        title: "Meeting",
+        title: "Laughing",
         description: "about making a website",
         tag: "tag5",
         deadline: 62783,
@@ -132,34 +152,43 @@ $(document).ready(function () {
     return "#731E7D";
   }
   $("#MMenu-Group-Add").click(function () {
-    $("#MMenu-Group-Section").append(groupSectionTemplate);
+    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(getUuid(), "none"));
+
+    // create group dict
+    Dict.groups[getUuid()] = {
+      title: "New Group",
+      tags: [],
+      color: "#731E7D",
+      current_html: "",
+    };
+    RefreshMainScreen();
   });
 
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
     addNewTagMainMenu(
       $(this).parent().parent().find("#MMenu-Tag-Section"),
-      tagSelection
+      "none"
     );
   });
 
   function genTaskTemplate(id, title, dl) {
     return (
       ` 
-    <div class="` +
+    <div id="` +
       id +
-      `">
-      <div class="rounded-lg h-20 border-2 border-slate-700">
+      `" class="task-outer">
+      <div class=" rounded-lg h-20 border-2 border-slate-700">
           <div class=" px-2 flex justify-between border-b-2 border-slate-700">
               <div class="font-bold">` +
       title +
       `</div>
-              <div class="text-red-500 font-bold">X</div>
+              <button id="Task-Cancel" class="text-red-500 font-bold">X</button>
           </div>
           <div class="p-2 flex justify-between items-center">
               <div class="text-center">End: ` +
       dl +
       `</div>
-              <input type="checkbox" id="checkbox_task"
+              <input id="Task-Destroyer" type="checkbox" id="checkbox_task"
                   class="h-8 w-8 rounded-md border-2 border-shade_red-800 ">
           </div>
       </div>
@@ -174,7 +203,7 @@ $(document).ready(function () {
       `
     <div id="` +
       id +
-      `" class="bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-[var(--changeBorderColor,violet)] w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
+      `" class="overflow-y-auto bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-[var(--changeBorderColor,violet)] w-64 h-64 p-1 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
         <div id="Task-Group-Title" class="todobox-title">` +
       title +
       `</div>
@@ -209,12 +238,37 @@ $(document).ready(function () {
 
   */
 
+<<<<<<< HEAD
   function addNewTaskMainScreen(task_html, task) {
     var temp = genTaskTemplate(task_html, task.title, "17:00 PM"); // Assuming genTaskTemplate function is defined elsewhere
     task_html.append(temp);
+=======
+  function renderTaskMainScreen(task_html, task, id) {
+    var temp = genTaskTemplate(id, task.title, "17:00 PM"); // Assuming genTaskTemplate function is defined elsewhere
+    var t = task_html.append(temp);
+
+    //Remove task
+    t.find("#Task-Cancel").click(function () {
+      // Get the HTML id of the task
+      var taskId = $(this).closest(".task-outer").attr("id");
+      console.log(taskId);
+      Dict.tasks[taskId] = "";
+      RefreshMainScreen();
+    });
+
+    //Complete task
+    t.find("#Task-Destroyer").click(function () {
+      // Get the HTML id of the task
+      var taskId = $(this).closest(".task-outer").attr("id");
+      Dict.tasks[taskId] = "";
+      Dict.completed[taskId] = Dict.tasks[taskId];
+      console.log(Dict.completed);
+      setTimeout(RefreshMainScreen, 1000);
+    });
+>>>>>>> a0a8263f8df9f71d9a20ab383e86d3c147e33f17
   }
 
-  function addNewGroupMainScreen(group_html, group, mode) {
+  function renderGroupMainScreen(group_html, group, mode) {
     var unique_id = getUuid();
     group_html.append(genGroupTemplate(unique_id, group.title, group.color));
     return $("#" + unique_id);
@@ -228,7 +282,7 @@ $(document).ready(function () {
     for (var groupId in Dict.groups) {
       if (Dict.groups.hasOwnProperty(groupId)) {
         var group = Dict.groups[groupId];
-        var g = addNewGroupMainScreen(
+        var g = renderGroupMainScreen(
           $(formatter_html).find("#Main-Formatter"),
           group,
           1
@@ -240,8 +294,8 @@ $(document).ready(function () {
             Dict.tasks.hasOwnProperty(taskId) &&
             group.tags.includes(Dict.tasks[taskId].tag)
           ) {
-            // Pass task details to addNewTaskMainScreen
-            addNewTaskMainScreen(task_html, Dict.tasks[taskId]);
+            // Pass task details to renderTaskMainScreen
+            renderTaskMainScreen(task_html, Dict.tasks[taskId], taskId);
           }
         }
       }
@@ -250,11 +304,13 @@ $(document).ready(function () {
 
   function addNewTagMainMenu(group_html, tag) {
     //console.log(group_html);
-    group_html.append(tagSectionTemplate);
+    group_html.append(MainMenuTagTempplate(getUuid(), tag));
   }
 
-  function addNewGroupMainMenu(group) {
-    return $("#MMenu-Group-Section").append(groupSectionTemplate);
+  function addNewGroupMainMenu(id, group) {
+    return $("#MMenu-Group-Section").append(
+      MainMenuGroupTemplates(id, group.title)
+    );
   }
 
   function LoadGroups_Tag() {
@@ -262,7 +318,7 @@ $(document).ready(function () {
     for (var groupId in Dict.groups) {
       if (Dict.groups.hasOwnProperty(groupId)) {
         var group = Dict.groups[groupId];
-        var g = addNewGroupMainMenu(group);
+        var g = addNewGroupMainMenu(groupId, group);
         // console.log("Group: " + group.title);
         // Iterate over tags in the current group
         for (var j = 0; j < group.tags.length; j++) {
@@ -310,22 +366,37 @@ $(document).ready(function () {
   // Biến lưu trữ vị trí ban đầu của nút
   var startLeft, startTop;
 
+  function close() {
+    modal_container.classList.remove("bg-opacity-50", "pointer-events-auto");
+    modal_container.classList.add("opacity-0", "pointer-events-none");
+  }
+
+  function open() {
+    modal_container.classList.remove("opacity-0", "pointer-events-none");
+    modal_container.classList.add("bg-opacity-50", "pointer-events-auto");
+  }
+
   addtag_btn.addEventListener("click", function () {});
 
   addtask_btn.addEventListener("click", function () {
-    console.log("add task");
-
+    var title = document.getElementById("Add-Task-Title");
+    var desc = document.getElementById("Add-Task-Desc");
+    if (title.value == "") {
+      console.log("Empty task is not valid");
+      return;
+    }
+    console.log(title.value, desc.value);
     // Adding a new task to the tasks object within Dict
     Dict.tasks[getUuid()] = {
-      title: "New Task",
-      description: "New Description",
+      title: title.value,
+      description: desc.value,
       tag: "tag3",
       deadline: 62783,
       points: 4,
     };
-
     // Assuming RefreshMainScreen function is properly defined and accessible
     RefreshMainScreen();
+    close();
   });
 
   // Bắt sự kiện khi chuột được nhấn xuống trên nút
@@ -365,16 +436,9 @@ $(document).ready(function () {
     if (Math.abs(startX - e.clientX) > 5 || Math.abs(startY - e.clientY) > 5) {
       return; // Nếu nút đang di chuyển, không thực hiện hành động click
     }
-    modal_container.classList.remove("opacity-0", "pointer-events-none");
-    modal_container.classList.add("bg-opacity-50", "pointer-events-auto");
+    open(e);
   });
-  close_button.addEventListener("click", function () {
-    modal_container.classList.remove("bg-opacity-50", "pointer-events-auto");
-    modal_container.classList.add("opacity-0", "pointer-events-none");
-  });
-  cancle_button.addEventListener("click", function () {
-    modal_container.classList.remove("bg-opacity-50", "pointer-events-auto");
-    modal_container.classList.add("opacity-0", "pointer-events-none");
-  });
+  close_button.addEventListener("click", close);
+  cancle_button.addEventListener("click", close);
 });
 // End of app.js
