@@ -401,4 +401,5 @@
   .credits a {
 	@apply text-white no-underline font-semibold hover:underline;
   }
+  /* End calendar */
 }

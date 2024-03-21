@@ -2098,6 +2098,8 @@ input[type="range"]::-ms-fill-lower {
   }
 }
 
+/* End calendar */
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -2682,10 +2684,6 @@ input[type="range"]::-ms-fill-lower {
 
 .overflow-hidden {
   overflow: hidden;
-}
-
-.overflow-y-auto {
-  overflow-y: auto;
 }
 
 .overflow-x-hidden {
@@ -3393,11 +3391,6 @@ input[type="range"]::-ms-fill-lower {
 .hover\:bg-accent-green:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(121 204 150 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-shade_green-300:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(111 235 154 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-shade_red-400:hover {
