@@ -40,13 +40,35 @@
                 <div class="content w-full pl-3 my-2"> Tags </div>
                 <div id="Tag-list" class="flex flex-wrap gap-1 ">
                     <!--tag list-->
-                    <div id="add-tag-bt" class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center border-dashed">
+                    <!--tag dropdown list-->
+                    <div id="add-tag-bt" data-dropdown-toggle="dropdown"
+                        class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center border-dashed">
                         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M5 12h14m-7 7V5" />
                         </svg>
                     </div>
+                    <!-- Dropdown menu -->
+                    <div id="dropdown"
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownDefaultButton">
+                            <!-- <li>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                        </li>
+                        <li>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                        </li>
+                        <li>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+                        </li> -->
+                        </ul>
+                    </div>
+
 
                 </div>
             </div>
@@ -67,7 +89,8 @@
         <!--Begin header-->
         <div class="">
             <div class="">
-                <div class="flex justify-between items-center bg-shade_green-300 lg:py-2 shadow-lg">
+                <div
+                    class="flex justify-between items-center bg-gradient-to-br from-shade_green-300 to-shade_green-600 lg:py-2 shadow-xl">
                     <div class="flex justify-evenly items-center gap-2 md:gap-8">
                         <!--button-->
                         <div id="dropMenuClick" class="headbar-button overflow-hidden p-2 mx-2">
@@ -116,7 +139,7 @@
         <div class="">
             <div id="a0002" class="">
                 <div id="moveButton"
-                    class="hover:w-14 hover:h-14 shadow-xl absolute rounded-full w-12 h-12 bg-shade_green-300 p-2">
+                    class="hover:w-14 hover:h-14 border-2 border-shade_green-600 shadow-xl absolute rounded-full w-12 h-12 bg-gradient-to-bl from-shade_green-500 to-shade_red-500 p-2">
                     <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -270,6 +293,105 @@
         <!--End Sidebar-->
 
 
+        <!-- Begin Calendar -->
+        <div class="container">
+            <div class="left">
+                <div class="calendar">
+                    <div class="month">
+                        <i class="prev">
+                            &lt;</i>
+                        <div class="date">december 2015</div>
+                        <i class="next">&gt;</i>
+                    </div>
+                    <div class="weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="days"></div>
+                    <div class="goto-today">
+                        <div class="goto">
+                            <input type="text" placeholder="mm/yyyy" class="date-input" />
+                            <button class="goto-btn">Go</button>
+                        </div>
+                        <button class="today-btn">Today</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="tasks-display">
+                    <div class="today-date">
+                        <div class="day-and-date">
+                            <div class="event-day">wed</div>
+                            <div class="event-date">12th december 2022</div>
+                        </div>
+
+                        <!-- today-date equivilent to events -->
+                        <!-- task-container is equivilent to event -->
+                        <!-- this events div call a lot of function, be ware deleted it -->
+                        <div class="events"></div>
+
+                        <!-- `<div class="event">
+									//       <div class="title">
+									//         <i class="fas fa-circle"></i>
+									//         <h3 class="event-title">${event.title}</h3>
+									//       </div>
+									//       <div class="event-time">
+									//         <span class="event-time">${event.time}</span>
+									//       </div>
+									//   </div>` -->
+
+                        <!-- if we click in the event class div it will have delete function available -->
+
+                        <!-- <div class="task-container">
+									<div class="time-display">8:30</div>
+									<div class="task-information">
+										<div class="task-title">đi nhà nghỉ</div>
+										<div class="task-description">Không nên nghỉ</div> 
+										<div class="tags-display">
+											<div class="tag-important">important</div>
+											<div class="tag-urgent">urgent</div>
+										</div>
+									</div>
+								</div> -->
+
+                    </div>
+                </div>
+                <div class="add-event-wrapper">
+                    <div class="add-event-header">
+                        <div class="title">Add Event</div>
+                        <i class="fas fa-times close"></i>
+                    </div>
+                    <div class="add-event-body">
+                        <div class="add-event-input">
+                            <input type="text" placeholder="Event Name" class="event-name" />
+                        </div>
+                        <div class="add-event-input">
+                            <input type="text" placeholder="Event Time From" class="event-time-from" />
+                        </div>
+                        <div class="add-event-input">
+                            <input type="text" placeholder="Event Time To" class="event-time-to" />
+                        </div>
+                        <div class="add-event-input">
+                            <input type="text" placeholder="Description" class="event-description" />
+                        </div>
+                    </div>
+                    <div class="add-event-footer">
+                        <button class="add-event-btn">Add Event</button>
+                    </div>
+                </div>
+            </div>
+            <button class="add-event">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        <script src="../static/js/calendar.js"></script>
+        <!-- End Calendar -->
 
 
 
@@ -287,6 +409,7 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="../static/js/app.js"></script>
+        <script src="../static/js/calendar.js"></script>
 </body>
 
 </html>

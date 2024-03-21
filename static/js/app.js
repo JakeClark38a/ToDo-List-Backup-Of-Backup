@@ -432,7 +432,7 @@ $(document).ready(function () {
   }
 
   function initUser() {
-    currentMode = 1;
+    currentMode = 0;
     LoadUser();
   }
   initUser();
@@ -469,24 +469,24 @@ $(document).ready(function () {
     modal_container.classList.add("bg-opacity-50", "pointer-events-auto");
   }
 
-  addtag_btn.addEventListener("click", function () {});
-
   addtask_btn.addEventListener("click", function () {
     var title = document.getElementById("Add-Task-Title");
     var desc = document.getElementById("Add-Task-Desc");
-    if (title.value == "") {
+    var tag_ = document.getElementById("add-tag-bt").innerText;
+    if (title.value == "" || tag_ == "") {
       console.log("Empty task is not valid");
       return;
     }
-    console.log(title.value, desc.value);
+    console.log(title.value, desc.value, tag_);
     // Adding a new task to the tasks object within Dict
     Dict.tasks[getUuid()] = {
       title: title.value,
       description: desc.value,
-      tag: "tag3",
+      tag: tag_,
       deadline: 62783,
       points: 4,
     };
+    console.log(Dict.tasks);
     // Assuming RefreshMainScreen function is properly defined and accessible
     RefreshMainScreen();
     close();
@@ -533,5 +533,32 @@ $(document).ready(function () {
   });
   close_button.addEventListener("click", close);
   cancle_button.addEventListener("click", close);
+
+  // My work at adding tags
+  // When user click at the add tag button, dropdown will change content
+  $("#add-tag-bt").click(function () {
+    // Empty ul
+    $("#dropdown ul").empty();
+    // With each tag in nav bar
+    $(".text-lg.px-1.my-1.center").each(function () {
+      // Append list into ul
+      $("#dropdown ul").append(`
+    <li>
+    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">${$(
+      this
+    ).text()}</a>
+    </li>
+    `);
+    });
+  });
+
+  // When user clicked at list item, it will add tag to the task and also close dropdown
+  $("#dropdown ul").on("click", "li", function () {
+    // Add tag to the task
+    $("#add-tag-bt").text($(this).text());
+    // Close dropdown
+    $("#dropdown").removeClass("block");
+    $("#dropdown").addClass("hidden");
+  });
 });
 // End of app.js
