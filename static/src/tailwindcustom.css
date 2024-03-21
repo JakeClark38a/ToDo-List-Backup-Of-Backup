@@ -387,12 +387,14 @@
 	.calendar .days .day {
 	  @apply h-10 text-[0.8rem];
 	}
-	.calendar .days .day.active,
-	.calendar .days .day.today {
-	  @apply text-base;
-	}
-	.right .today-date {
-	  @apply p-5;
+	.calendar .days .day.active{
+    @apply text-base;
+  }
+  .calendar .days .day.today {
+    @apply text-base;
+  }
+  .right .today-date {
+    @apply p-5;
 	}
   }
   .credits {
