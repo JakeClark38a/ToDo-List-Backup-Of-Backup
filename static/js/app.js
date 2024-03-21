@@ -210,13 +210,13 @@ $(document).ready(function () {
   */
 
   function addNewTaskMainScreen(task_html, task) {
-    var temp = genTaskTemplate(task_html, task.title,"17:00 PM"); // Assuming genTaskTemplate function is defined elsewhere
+    var temp = genTaskTemplate(task_html, task.title, "17:00 PM"); // Assuming genTaskTemplate function is defined elsewhere
     task_html.append(temp);
   }
 
   function addNewGroupMainScreen(group_html, group, mode) {
     var unique_id = getUuid();
-    group_html.append(genGroupTemplate(unique_id, group.title,group.color));
+    group_html.append(genGroupTemplate(unique_id, group.title, group.color));
     return $("#" + unique_id);
   }
 
