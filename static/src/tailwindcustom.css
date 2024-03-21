@@ -84,11 +84,8 @@
 
 
     /*main page */
-    .todobox{
-        @apply w-28 h-28 sm:h-40 sm:w-40 rounded-xl md:w-52 md:h-52 lg:w-64 lg:h-64 ; 
-    }
     .todobox-title{
-        @apply text-center text-lg font-light bg-slate-200 bg-opacity-50 rounded-xl;
+        @apply text-center text-lg font-light rounded-xl;
     }
     .headbar-button{
         @apply h-12 w-12 lg:w-14 lg:h-14 bg-transparent p-1 rounded-lg flex justify-center items-center overflow-hidden; 

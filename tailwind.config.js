@@ -32,16 +32,16 @@ module.exports = {
       },
       colors: {
         primary: {
-          red: "#FAB6B6",
-          green: "#9ADAB0",
-          yellow: "#DCCAA0",
-          blue: "#75C6CC",
+          red: "#f18080",
+          green: "#c1efd2",
+          yellow: "#d9bd7b",
+          blue: "#79e6ed",
         },
 
         shade_green: {
           100: "#e4f5ea",
           200: "#c9ebd5",
-          300: "#afe0c0",
+          300: "#6feb9a",
           400: "#94d6ab",
           500: "#79cc96",
           600: "#61a378",
@@ -94,7 +94,7 @@ module.exports = {
         },
 
         background: {
-          main: "#FCF6F6",
+          main: "#f6f6f6",
           dark: "#4a4848",
         },
       },

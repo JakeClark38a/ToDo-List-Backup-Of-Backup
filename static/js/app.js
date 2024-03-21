@@ -52,20 +52,28 @@ $(document).ready(function () {
   // Variables
   var Dict = {
     // sample dict
-    username: "User Name",
+    username: "JakeClark",
     userid: "User ID",
     groups: {
       gid001: {
-        title: "Group Name",
+        title: "Do",
         tags: ["tag1"],
+        color: "#7aa5cf",
       },
       gid002: {
-        title: "Group Name",
+        title: "Delegate",
         tags: ["tag2"],
+        color: "#63c074",
       },
       gid003: {
-        title: "Group Name",
+        title: "Schedule",
         tags: ["tag3", "tag5"],
+        color: "#7aa5cf",
+      },
+      gid004: {
+        title: "Delete",
+        tags: ["tag4"],
+        color: "#6dce81",
       },
     },
     tasks: {
@@ -120,6 +128,9 @@ $(document).ready(function () {
     return "prefix_" + Math.random().toString(36).substring(2, 6);
   }
 
+  function randHexColor() {
+    return "#731E7D";
+  }
   $("#MMenu-Group-Add").click(function () {
     $("#MMenu-Group-Section").append(groupSectionTemplate);
   });
@@ -137,8 +148,8 @@ $(document).ready(function () {
     <div class="` +
       id +
       `">
-      <div class="bg-slate-400 rounded-lg h-20 border-2 border-shade_red-800">
-          <div class="bg-shade_red-500 rounded-lg px-2 flex justify-between">
+      <div class="rounded-lg h-20 border-2 border-slate-700">
+          <div class=" px-2 flex justify-between border-b-2 border-slate-700">
               <div class="font-bold">` +
       title +
       `</div>
@@ -158,16 +169,16 @@ $(document).ready(function () {
     );
   }
 
-  function genGroupTemplate(id, title) {
+  function genGroupTemplate(id, title, hex_color) {
     return (
       `
     <div id="` +
       id +
-      `" class="todobox bg-primary-red">
+      `" class="bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-[var(--changeBorderColor,violet)] w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
         <div id="Task-Group-Title" class="todobox-title">` +
       title +
       `</div>
-        <div id="Task-Section" class="p-3">
+        <div id="Task-Section" class="p-3 flex flex-col gap-3">
             <!--task here-->
         </div>
     </div>
@@ -198,14 +209,14 @@ $(document).ready(function () {
 
   */
 
-  function addNewTaskMainScreen(task_html, taskId, title, time) {
-    var temp = genTaskTemplate(taskId, title, time); // Assuming genTaskTemplate function is defined elsewhere
+  function addNewTaskMainScreen(task_html, task) {
+    var temp = genTaskTemplate(task_html, task.title,"17:00 PM"); // Assuming genTaskTemplate function is defined elsewhere
     task_html.append(temp);
   }
 
-  function addNewGroupMainScreen(group_html, mode) {
+  function addNewGroupMainScreen(group_html, group, mode) {
     var unique_id = getUuid();
-    group_html.append(genGroupTemplate(unique_id, unique_id));
+    group_html.append(genGroupTemplate(unique_id, group.title,group.color));
     return $("#" + unique_id);
   }
 
@@ -218,7 +229,9 @@ $(document).ready(function () {
       if (Dict.groups.hasOwnProperty(groupId)) {
         var group = Dict.groups[groupId];
         var g = addNewGroupMainScreen(
-          $(formatter_html).find("#Main-Formatter")
+          $(formatter_html).find("#Main-Formatter"),
+          group,
+          1
         );
         var task_html = $(g).find("#Task-Section");
         // Iterate over tasks
@@ -228,7 +241,7 @@ $(document).ready(function () {
             group.tags.includes(Dict.tasks[taskId].tag)
           ) {
             // Pass task details to addNewTaskMainScreen
-            addNewTaskMainScreen(task_html);
+            addNewTaskMainScreen(task_html, Dict.tasks[taskId]);
           }
         }
       }
