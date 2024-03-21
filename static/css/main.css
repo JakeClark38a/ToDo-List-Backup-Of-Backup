@@ -1829,6 +1829,10 @@ input:checked + .toggle-bg {
   width: 100%;
 }
 
+.w-5 {
+  width: 1.25rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -2016,6 +2020,10 @@ input:checked + .toggle-bg {
   margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.self-end {
+  align-self: flex-end;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -2120,6 +2128,10 @@ input:checked + .toggle-bg {
   border-top-width: 1px;
 }
 
+.border-t-2 {
+  border-top-width: 2px;
+}
+
 .border-dashed {
   border-style: dashed;
 }
@@ -2201,6 +2213,38 @@ input:checked + .toggle-bg {
 .border-slate-800 {
   --tw-border-opacity: 1;
   border-color: rgb(30 41 59 / var(--tw-border-opacity));
+}
+
+.border-\[var\(--BorderColor\2c gray-400\)\] {
+  border-color: var(--BorderColor,gray-400);
+}
+
+.border-\[var\(--BorderColor\2c \"\"\)\] {
+  border-color: var(--BorderColor,"");
+}
+
+.border-\[var\(--BorderColor\2c \"\#\"\)\] {
+  border-color: var(--BorderColor,"#");
+}
+
+.border-\[var\(--BorderColor\2c \)\] {
+  border-color: var(--BorderColor,);
+}
+
+.border-\[var\(--BorderColor\2c border-gray-400\)\] {
+  border-color: var(--BorderColor,border-gray-400);
+}
+
+.border-\[var\(--BorderColor\2c \#\)\] {
+  border-color: var(--BorderColor,#);
+}
+
+.border-\[var\(--BorderColor\2c \'black\'\)\] {
+  border-color: var(--BorderColor,'black');
+}
+
+.border-\[var\(--BorderColor\2c \'\'\)\] {
+  border-color: var(--BorderColor,'');
 }
 
 .bg-accent-green {
@@ -3219,6 +3263,10 @@ input:checked + .toggle-bg {
 
   .lg\:w-\[55vw\] {
     width: 55vw;
+  }
+
+  .lg\:w-64 {
+    width: 16rem;
   }
 
   .lg\:flex-row {

@@ -24,14 +24,16 @@
 
             <div class="flex flex-col items-center h-32 w-full p-4 m-0">
                 <div class="content w-full h-16 my-3">
-                    <input type="text"
-                        class="text-center border-2 border-gray-400 rounded-lg  w-full h-full text-[1rem]"
+                    <input id="Add-Task-Title" type="text"
+                        class="text-center border-2 border-gray-400 rounded-lg  w-full h-full text-[1rem] "
                         placeholder="Task Input Here">
                 </div>
 
-                <div class="content w-full h-32"><textarea
+                <div class="content w-full h-32">
+                    <textarea id="Add-Task-Desc"
                         class="text-center border-2 border-gray-400 rounded-lg  w-full h-full text-[1rem] resize-none"
-                        placeholder="Description Input here"></textarea></div>
+                        placeholder="Description Input here"></textarea>
+                </div>
             </div>
 
             <div class="flex flex-col w-full p-4 my-4">
@@ -49,7 +51,7 @@
                 </div>
             </div>
 
-            <div class="wrapper flex justify-around items-center w-full h-32 ">
+            <div class="flex justify-around items-center w-full h-16 border-t-2 bottom-0">
                 <div class="content h-10 w-24 "><button id="add-task-bt"
                         class=" border-[1px] border-gray-400 rounded-2xl h-full w-full">Submit</button></div>
                 <div class="content h-10 w-24 "><button id="cancle-bt"
@@ -129,7 +131,7 @@
 
         <!-- Dropdown Main menu -->
         <div id="dropMenu"
-            class="dropdown-anim duration-300 h-0 z-10 absolute *:pl-3 items-start w-64 bg-shade_green-200">
+            class="dropdown-anim duration-300 h-0 z-10 absolute *:pl-3 items-start w-52 lg:w-64 bg-shade_green-200">
 
 
             <div class="MMenu-Primary-Section"> <!--block-->
