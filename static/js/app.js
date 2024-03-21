@@ -4,10 +4,13 @@
 $(document).ready(function () {
   /// HTML templates
 
-  function MainMenuTagTempplate(id,tagName) {
-    return  `
+  function MainMenuTagTempplate(id, tagName) {
+    return (
+      `
     
-    <div id="`+id+`" class="MMenu-Tag flex items-center ml-3">
+    <div id="` +
+      id +
+      `" class="MMenu-Tag flex items-center ml-3 hover:bg-shade_green-300  cursor-pointer">
     <div class="h-full">
         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -16,19 +19,27 @@ $(document).ready(function () {
         </svg>
     </div>
 
-    <div class="text-lg px-1 my-1 center">`+tagName+`</div>
+    <div class="text-lg px-1 my-1 center">` +
+      tagName +
+      `</div>
 
 </div>
 
-`;
-  } 
-function MainMenuGroupTemplates(id,title) {
-  return `
+`
+    );
+  }
+  function MainMenuGroupTemplates(id, title) {
+    return (
+      `
   
-  <div id="`+id+`" class=""><!--block-->
+  <div id="` +
+      id +
+      `" class=""><!--block-->
     <!-- Greeting div, status centered -->
     <div class="flex justify-between items-center mx-2 *:mx-2">
-        <div class="text-xl">`+title+`</div>
+        <div class="text-xl">` +
+      title +
+      `</div>
 
         <div class="MMenu-Tag-Add">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +58,9 @@ function MainMenuGroupTemplates(id,title) {
 </div><!--eoblock-->
 
   
-  `;};
+  `
+    );
+  }
 
   var tagSelection = ` <div id="Tag-item" class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center">Sample</div>`;
 
@@ -139,13 +152,22 @@ function MainMenuGroupTemplates(id,title) {
     return "#731E7D";
   }
   $("#MMenu-Group-Add").click(function () {
-    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(getUuid(),"none"));
+    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(getUuid(), "none"));
+
+    // create group dict
+    Dict.groups[getUuid()] = {
+      title: "New Group",
+      tags: [],
+      color: "#731E7D",
+      current_html: "",
+    };
+    RefreshMainScreen();
   });
 
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
     addNewTagMainMenu(
       $(this).parent().parent().find("#MMenu-Tag-Section"),
-      MainMenuTagTempplate(getUuid(),"none")
+      "none"
     );
   });
 
@@ -181,7 +203,7 @@ function MainMenuGroupTemplates(id,title) {
       `
     <div id="` +
       id +
-      `" class="bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-[var(--changeBorderColor,violet)] w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
+      `" class="overflow-y-auto bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-[var(--changeBorderColor,violet)] w-64 h-64 p-1 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
         <div id="Task-Group-Title" class="todobox-title">` +
       title +
       `</div>
@@ -216,7 +238,6 @@ function MainMenuGroupTemplates(id,title) {
 
   */
 
-
   function renderTaskMainScreen(task_html, task, id) {
     var temp = genTaskTemplate(id, task.title, "17:00 PM"); // Assuming genTaskTemplate function is defined elsewhere
     var t = task_html.append(temp);
@@ -237,7 +258,7 @@ function MainMenuGroupTemplates(id,title) {
       Dict.tasks[taskId] = "";
       Dict.completed[taskId] = Dict.tasks[taskId];
       console.log(Dict.completed);
-      setTimeout(RefreshMainScreen,1000);
+      setTimeout(RefreshMainScreen, 1000);
     });
   }
 
@@ -277,11 +298,13 @@ function MainMenuGroupTemplates(id,title) {
 
   function addNewTagMainMenu(group_html, tag) {
     //console.log(group_html);
-    group_html.append(MainMenuTagTempplate(getUuid(),tag));
+    group_html.append(MainMenuTagTempplate(getUuid(), tag));
   }
 
-  function addNewGroupMainMenu(id,group) {
-    return $("#MMenu-Group-Section").append(MainMenuGroupTemplates(id,group.title));
+  function addNewGroupMainMenu(id, group) {
+    return $("#MMenu-Group-Section").append(
+      MainMenuGroupTemplates(id, group.title)
+    );
   }
 
   function LoadGroups_Tag() {
@@ -289,7 +312,7 @@ function MainMenuGroupTemplates(id,title) {
     for (var groupId in Dict.groups) {
       if (Dict.groups.hasOwnProperty(groupId)) {
         var group = Dict.groups[groupId];
-        var g = addNewGroupMainMenu(groupId,group);
+        var g = addNewGroupMainMenu(groupId, group);
         // console.log("Group: " + group.title);
         // Iterate over tags in the current group
         for (var j = 0; j < group.tags.length; j++) {

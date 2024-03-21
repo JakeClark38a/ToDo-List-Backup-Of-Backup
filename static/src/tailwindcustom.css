@@ -92,7 +92,7 @@
     }
 
     .dropdown-anim{
-        @apply transform transition-all ease-in-out duration-0 overflow-y-scroll;
+        @apply transform transition-all ease-in-out duration-0;
     }
     
 
@@ -106,10 +106,10 @@
         @apply text-xl font-light;
     }
     .MMenu-Primary-Section{
-        @apply hover:bg-shade_green-300 py-3;
+        @apply hover:bg-shade_green-300 py-3  cursor-pointer;
     }
     .MMenu-Mini-Btn{
         @apply h-7 w-7;
     }
-   
+
 }
