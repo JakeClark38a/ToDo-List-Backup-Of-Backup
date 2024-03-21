@@ -3,6 +3,7 @@
 // Toggle cogwheel icon on click
 $(document).ready(function () {
   /// HTML templates
+  var currentMode = 0;
 
   function MainMenuTagTempplate(id, tagName) {
     return (
@@ -171,23 +172,24 @@ $(document).ready(function () {
     );
   });
 
-  function genTaskTemplate(id, title, dl) {
-    return (
-      ` 
+  function genTaskTemplate(id, title, dl, mode = 0) {
+    if (mode == 0) {
+      return (
+        ` 
     <div id="` +
-      id +
-      `" class="task-outer">
+        id +
+        `" class="task-outer">
       <div class=" rounded-lg h-20 border-2 border-slate-700">
           <div class=" px-2 flex justify-between border-b-2 border-slate-700">
               <div class="font-bold">` +
-      title +
-      `</div>
+        title +
+        `</div>
               <button id="Task-Cancel" class="text-red-500 font-bold">X</button>
           </div>
           <div class="p-2 flex justify-between items-center">
               <div class="text-center">End: ` +
-      dl +
-      `</div>
+        dl +
+        `</div>
               <input id="Task-Destroyer" type="checkbox" id="checkbox_task"
                   class="h-8 w-8 rounded-md border-2 border-shade_red-800 ">
           </div>
@@ -195,33 +197,118 @@ $(document).ready(function () {
   </div>
 
   `
-    );
+      );
+    } else if (mode == 1) {
+      return (
+        `
+      <div  id="` +
+        id +
+        `" class="w-full h-20 bg-red-500">sdsd</div>
+      `
+      );
+    }
   }
 
-  function genGroupTemplate(id, title, hex_color) {
-    return (
-      `
+  function genGroupTemplate(id, title, mode = 0) {
+    if (mode == 0) {
+      return (
+        `
     <div id="` +
-      id +
-      `" class="overflow-y-auto bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-[var(--changeBorderColor,violet)] w-64 h-64 p-1 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
+        id +
+        `" class="overflow-y-auto bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-[var(--changeBorderColor,violet)] w-64 h-64 p-1 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
         <div id="Task-Group-Title" class="todobox-title">` +
-      title +
-      `</div>
+        title +
+        `</div>
         <div id="Task-Section" class="p-3 flex flex-col gap-3">
             <!--task here-->
         </div>
     </div>
     
     `
-    );
+      );
+    } else if (mode == 1) {
+      return (
+        `
+      <!-- Item  -->
+
+      <div id="` +
+        id +
+        `" data-carousel-item="active" class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 pink z-0">
+      <div id="Task-Group-Title" class="text-center">` +
+        title +
+        `</div>
+      <div id="" class="Task-Section border-primary-red w-80 h-96 " >
+          <!-- Contents -->
+        
+      </div>
+  </div>
+      `
+      );
+    }
   }
 
-  function genFormatterTemplate() {
-    return `
-    <div id="Main-Formatter" class="flex flex-wrap justify-center items-center gap-8 py-10">
+  function genFormatterTemplate(mode = 0) {
+    if (mode == 0) {
+      return `
+    <div id="Main-Formatter" class="">
+      
+        <div id="Wrapper" class="flex flex-wrap justify-center items-center gap-8 py-10">
         <!--Group-->
+        </div>
     </div>
     `;
+    } else if (mode == 1) {
+      return `
+      <!-- Main List -->
+      <div id="Main-Formatter" class="relative w-full" data-carousel="static">
+          <!-- Carousel wrapper -->
+          <div id="Wrapper" class="relative h-96 mt-[3vh] overflow-hidden">
+
+
+          </div>
+      </div>
+
+      `;
+    }
+  }
+
+  function FormmatterAddons(mode = 0) {
+    if (mode == 0) {
+    } else if (mode == 1) {
+      return `
+      
+      <!-- Slider controls -->
+      <div class="slider z-10">
+          <button type="button"
+              class="absolute top-0 start-0 z-30 flex items-start justify-center h-full px-4 cursor-pointer group focus:outline-none"
+              data-carousel-prev>
+              <span
+                  class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
+                  <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="2" d="M5 1 1 5l4 4" />
+                  </svg>
+                  <span class="sr-only">Previous</span>
+              </span>
+          </button>
+          <button type="button"
+              class="absolute top-0 end-0 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
+              data-carousel-next>
+              <span
+                  class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
+                  <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="2" d="m1 9 4-4-4-4" />
+                  </svg>
+                  <span class="sr-only">Next</span>
+              </span>
+          </button>
+      </div>
+
+      `;
+    }
   }
 
   /* Main Display rule
@@ -238,8 +325,12 @@ $(document).ready(function () {
 
   */
 
-  function renderTaskMainScreen(task_html, task, id) {
-    var temp = genTaskTemplate(id, task.title, "17:00 PM"); // Assuming genTaskTemplate function is defined elsewhere
+  function renderFormatterAddons(formatter_html, mode = 0) {
+    formatter_html.append(FormmatterAddons(mode));
+  }
+
+  function renderTaskMainScreen(task_html, task, id, mode) {
+    var temp = genTaskTemplate(id, task.title, "17:00 PM", mode); // Assuming genTaskTemplate function is defined elsewhere
     var t = task_html.append(temp);
 
     //Remove task
@@ -264,7 +355,7 @@ $(document).ready(function () {
 
   function renderGroupMainScreen(group_html, group, mode) {
     var unique_id = getUuid();
-    group_html.append(genGroupTemplate(unique_id, group.title, group.color));
+    group_html.append(genGroupTemplate(unique_id, group.title, mode));
     return $("#" + unique_id);
   }
 
@@ -277,9 +368,9 @@ $(document).ready(function () {
       if (Dict.groups.hasOwnProperty(groupId)) {
         var group = Dict.groups[groupId];
         var g = renderGroupMainScreen(
-          $(formatter_html).find("#Main-Formatter"),
+          $(formatter_html).find("#Main-Formatter").find("#Wrapper"),
           group,
-          1
+          currentMode
         );
         var task_html = $(g).find("#Task-Section");
         // Iterate over tasks
@@ -289,11 +380,18 @@ $(document).ready(function () {
             group.tags.includes(Dict.tasks[taskId].tag)
           ) {
             // Pass task details to renderTaskMainScreen
-            renderTaskMainScreen(task_html, Dict.tasks[taskId], taskId);
+            renderTaskMainScreen(
+              task_html,
+              Dict.tasks[taskId],
+              taskId,
+              currentMode
+            );
           }
         }
       }
     }
+
+    renderFormatterAddons(formatter_html, currentMode);
   }
 
   function addNewTagMainMenu(group_html, tag) {
@@ -334,6 +432,7 @@ $(document).ready(function () {
   }
 
   function initUser() {
+    currentMode = 1;
     LoadUser();
   }
   initUser();
