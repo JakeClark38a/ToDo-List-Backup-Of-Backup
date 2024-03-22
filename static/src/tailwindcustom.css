@@ -136,7 +136,7 @@
     @apply relative text-white flex my-0 p-[5px] rounded-[10px] mx-auto max-h-[800px];
   }
   .container .left {
-    @apply absolute w-3/5 h-screen p-5;
+    @apply w-3/5 h-screen p-5;
   }
   .task-container-calendar {
     @apply w-full flex;

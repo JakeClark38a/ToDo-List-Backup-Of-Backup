@@ -1264,7 +1264,6 @@ input[type="range"]::-ms-fill-lower {
 }
 
 .container .left {
-  position: absolute;
   height: 100vh;
   width: 60%;
   padding: 1.25rem;
