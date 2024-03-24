@@ -66,7 +66,7 @@
     }
 
     .statistic-frame {
-        @apply flex flex-col justify-center items-center m-5 base-anim rounded-xl bg-accent-blue shadow-md hover:shadow-lg hover:bg-primary-blue;
+        @apply flex flex-col justify-center items-center m-5 base-anim rounded-xl bg-primary-100 shadow-md hover:shadow-lg hover:bg-primary-100;
     }
     .section{
         @apply flex flex-col justify-center items-center mb-56;
@@ -106,7 +106,7 @@
         @apply text-xl font-light;
     }
     .MMenu-Primary-Section{
-        @apply hover:bg-gradient-to-r from-shade_green-300 to-transparent py-3  cursor-pointer;
+        @apply hover:bg-gradient-to-r from-primary-100 to-transparent py-3  cursor-pointer;
     }
     .MMenu-Mini-Btn{
         @apply h-7 w-7;
@@ -252,7 +252,7 @@
 	@apply border-l-[color:var(--primary-clr)] rounded-none border-[none] border-l border-solid;
   }
   .container .right {
-	@apply relative w-2/5 px-0 py-5 bg-green-400 rounded overflow-y-scroll;
+	@apply relative w-2/5 px-0 py-5 bg-green-300 rounded overflow-y-scroll;
   }
   .right .today-date {
 	@apply w-full flex flex-col gap-2.5 items-center justify-between capitalize
@@ -413,6 +413,6 @@
   }
   
   #Task-Destroyer{
-    @apply w-8 h-8 rounded-lg hover:bg-shade_green-200 checked:bg-shade_green-300 ;
+    @apply w-8 h-8 rounded-lg hover:bg-primary-200 checked:bg-primary-100;
   }
 }
