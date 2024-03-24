@@ -131,8 +131,8 @@ $(document).ready(function () {
     },
   };
 
-  const el1 = $("#dropMenu");
-  const el1_trig = $("#dropMenuClick");
+  const el1 = $("#Main-Menu");
+  const el1_trig = $("#Main-Menu-Click");
   // eo Variables
 
   // website events
@@ -426,7 +426,6 @@ $(document).ready(function () {
   }
 
   function LoadUser() {
-    $("#Usernamedp").text(Dict.username);
     LoadGroups_Tag();
     LoadMainScreen();
   }
@@ -436,6 +435,13 @@ $(document).ready(function () {
     LoadUser();
   }
   initUser();
+
+  function initweb() {
+    document
+      .querySelector("#Main-Menu")
+      .style.setProperty("--paddingMainMen", "5");
+  }
+  initweb();
 
   // website events
 
