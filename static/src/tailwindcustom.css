@@ -132,16 +132,16 @@
   }
 
   .MMenu-Primary-Section {
-    @apply transition-all duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-r from-primary-200/45 to-transparent py-3 cursor-pointer;
+    @apply transition-all duration-150 ease-in-out active:scale-105 active:bg-gradient-to-r from-primary-200/45 to-transparent py-3 cursor-pointer;
   }
 
   /*Task box*/
   .task-outer {
-    @apply rounded-lg hover:bg-slate-200;
+    @apply rounded-lg active:bg-slate-200;
   }
 
   #Task-Destroyer {
-    @apply w-8 h-8 rounded-lg hover:bg-primary-200 checked:bg-primary-100;
+    @apply w-8 h-8 rounded-lg active:bg-primary-200 checked:bg-primary-100;
   }
 
   /*End task box*/
@@ -163,7 +163,7 @@
 
   ::-webkit-scrollbar-track {
     @apply rounded-[50px];
-    background: #f5f5f5;
+    background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {

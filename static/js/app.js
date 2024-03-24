@@ -11,7 +11,7 @@ $(document).ready(function () {
     
     <div id="` +
       id +
-      `" class="MMenu-Tag flex items-center pl-5 hover:bg-gradient-to-r from-shade_yellow-600 to-transparent  cursor-pointer">
+      `" class="MMenu-Tag flex items-center pl-5 cursor-pointer">
     <div class="h-full">
         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -250,9 +250,9 @@ $(document).ready(function () {
   function genFormatterTemplate(mode = 0) {
     if (mode == 0) {
       return `
-    <div id="Main-Formatter" class="">
+    <div id="Main-Formatter" class="relative w-full">
       
-        <div id="Wrapper" class="flex flex-wrap justify-center items-center gap-8 py-10">
+        <div id="Wrapper" class="relative flex flex-wrap justify-center items-center gap-8 py-10 lg:px-36">
         <!--Group-->
         </div>
     </div>
