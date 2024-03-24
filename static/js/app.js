@@ -3,68 +3,6 @@
 // Toggle cogwheel icon on click
 $(document).ready(function () {
   /// HTML templates
-  var currentMode = 0;
-
-  function MainMenuTagTempplate(id, tagName) {
-    return (
-      `
-    
-    <div id="` +
-      id +
-      `" class="MMenu-Tag flex items-center pl-5 cursor-pointer">
-    <div class="h-full">
-        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
-        </svg>
-    </div>
-
-    <div class="text-lg px-1 my-1 center">` +
-      tagName +
-      `</div>
-
-</div>
-
-`
-    );
-  }
-  function MainMenuGroupTemplates(id, title) {
-    return (
-      `
-  
-  <div id="` +
-      id +
-      `" class="hover:bg-gradient-to-r from-shade_yellow-500 to-transparent"><!--block-->
-    <!-- Greeting div, status centered -->
-    <div class="flex justify-between items-center mx-2 *:mx-2">
-        <div class="text-xl  ">` +
-      title +
-      `</div>
-
-        <div class="MMenu-Tag-Add">
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M5 12h14m-7 7V5" />
-            </svg>
-        </div>
-
-
-    </div>
-    <div id="MMenu-Tag-Section" class="">
-        <!--tag-->
-
-    </div>
-</div><!--eoblock-->
-
-  
-  `
-    );
-  }
-
-  var tagSelection = ` <div id="Tag-item" class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center">Sample</div>`;
-
   // eo HTML templates
   // Variables
   var Dict = {
@@ -131,48 +69,80 @@ $(document).ready(function () {
     },
   };
 
-  const el1 = $("#Main-Menu");
-  const el1_trig = $("#Main-Menu-Click");
+  var currentMode = 0;
+
   // eo Variables
 
-  // website events
+  //################################################### Templates #########################################################
+  function MainMenuTagTempplate(id, tagName) {
+    return (
+      `
+    
+    <div id="` +
+      id +
+      `" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
+    <div class="h-full">
+        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
+        </svg>
+    </div>
 
-  el1_trig.click(function () {
-    if (el1.hasClass("h-0")) {
-      el1.removeClass("h-0").addClass("h-full");
-    } else if (el1.hasClass("h-full")) {
-      el1.removeClass("h-full").addClass("h-0");
-    }
-  });
+    <div class="text-lg px-1 my-1 center">` +
+      tagName +
+      `</div>
 
-  function getUuid() {
-    return "prefix_" + Math.random().toString(36).substring(2, 6);
-  }
+</div>
 
-  function randHexColor() {
-    return "#731E7D";
-  }
-  $("#MMenu-Group-Add").click(function () {
-    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(getUuid(), "none"));
-
-    // create group dict
-    Dict.groups[getUuid()] = {
-      title: "New Group",
-      tags: [],
-      color: "#731E7D",
-      current_html: "",
-    };
-    RefreshMainScreen();
-  });
-
-  $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
-    addNewTagMainMenu(
-      $(this).parent().parent().find("#MMenu-Tag-Section"),
-      "none"
+`
     );
-  });
+  }
 
-  function genTaskTemplate(id, title, dl, mode = 0) {
+  function MainMenuGroupTemplates(id, title) {
+    return (
+      `
+  
+  <div id="` +
+      id +
+      `" class="MMenu-Group"><!--block-->
+    <!-- Greeting div, status centered -->
+    <div class="flex justify-between items-center px-3">
+        <div class="MMenu-Toggle-Hidden flex items-center">
+            <div class="MMenu-Dropdown-Arrow">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+          </svg>          
+            </div>
+
+                <div class="text-xl  ml-2">` +
+      title +
+      `</div>
+        </div>
+        <div class="MMenu-Tag-Add">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 12h14m-7 7V5" />
+            </svg>
+        </div>
+
+
+    </div>
+    <div id="MMenu-Tag-Section" class="">
+        <!--tag-->
+
+    </div>
+</div><!--eoblock-->
+
+  
+  `
+    );
+  }
+
+  var tagSelection = ` <div id="Tag-item" class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center">Sample</div>`;
+
+  function MainScreenTaskTemplate(id, title, dl, mode = 0) {
     if (mode == 0) {
       return (
         ` 
@@ -209,7 +179,7 @@ $(document).ready(function () {
     }
   }
 
-  function genGroupTemplate(id, title, mode = 0) {
+  function MainScreenGroupTemplate(id, title, mode = 0) {
     if (mode == 0) {
       return (
         `
@@ -247,7 +217,7 @@ $(document).ready(function () {
     }
   }
 
-  function genFormatterTemplate(mode = 0) {
+  function MainScreenFormatterTemplate(mode = 0) {
     if (mode == 0) {
       return `
     <div id="Main-Formatter" class="relative w-full">
@@ -324,13 +294,87 @@ $(document).ready(function () {
 
 
   */
+  //################################################### Fuctions #########################################################
+
+  //================================================================\\
+  //=========================== General ============================\\
+  //================================================================\\
+  function getUuid() {
+    return "id_" + Math.random().toString(36).substring(2, 6);
+  }
+
+  function randHexColor() {
+    return "#731E7D";
+  }
+
+  //================================================================\\
+  //=========================== Main Menu ==========================\\
+  //================================================================\\
+
+  $("#Main-Menu-Click").click(function () {
+    $("#Main-Menu").toggleClass("h-full");
+  });
+
+  $("#MMenu-Group-Add").click(function () {
+    $("#MMenu-Group-Section").append(
+      MainMenuGroupTemplates(getUuid(), "New Group")
+    );
+  });
+
+  $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
+    addNewTagMainMenu(
+      $(this).parent().parent().find("#MMenu-Tag-Section"),
+      "New tag"
+    );
+  });
+
+  function toggleHiddenMMenuGroup(group) {
+    group.find("#MMenu-Tag-Section").toggle("hidden");
+    group.find(".MMenu-Dropdown-Arrow").toggleClass("-rotate-90");
+  }
+
+  $("#MMenu-Group-Section").on("click", ".MMenu-Toggle-Hidden", function () {
+    toggleHiddenMMenuGroup($(this).parent().parent());
+  });
+
+  function addNewTagMainMenu(group_html, tag) {
+    //console.log(group_html);
+    group_html.append(MainMenuTagTempplate(getUuid(), tag));
+  }
+
+  function addNewGroupMainMenu(unique_id, group) {
+    $("#MMenu-Group-Section").append(
+      MainMenuGroupTemplates(unique_id, group.title)
+    );
+    return $("#" + unique_id);
+  }
+
+  function LoadGroups_Tag() {
+    // Iterate over each group in Dict.groups
+    for (var groupId in Dict.groups) {
+      if (Dict.groups.hasOwnProperty(groupId)) {
+        var group = Dict.groups[groupId];
+        var g = addNewGroupMainMenu(groupId, group);
+        // console.log("Group: " + group.title);
+        // Iterate over tags in the current group
+        for (var j = 0; j < group.tags.length; j++) {
+          addNewTagMainMenu(g.find("#MMenu-Tag-Section"), group.tags[j]);
+        }
+        toggleHiddenMMenuGroup(g);
+      }
+    }
+  }
+
+  //================================================================\\
+  //========================== Main Screen =========================\\
+  //================================================================\\
 
   function renderFormatterAddons(formatter_html, mode = 0) {
     formatter_html.append(FormmatterAddons(mode));
   }
 
   function renderTaskMainScreen(task_html, task, id, mode) {
-    var temp = genTaskTemplate(id, task.title, "17:00 PM", mode); // Assuming genTaskTemplate function is defined elsewhere
+    var temp = MainScreenTaskTemplate(id, task.title, "17:00 PM", mode); // Assuming MainScreenTaskTemplate function is defined elsewhere
     var t = task_html.append(temp);
 
     //Remove task
@@ -355,13 +399,15 @@ $(document).ready(function () {
 
   function renderGroupMainScreen(group_html, group, mode) {
     var unique_id = getUuid();
-    group_html.append(genGroupTemplate(unique_id, group.title, mode));
+    group_html.append(MainScreenGroupTemplate(unique_id, group.title, mode));
     return $("#" + unique_id);
   }
 
   function LoadMainScreen() {
-    var formatter_html = $("#Main-Screen").append(genFormatterTemplate());
-    // Assuming genGroupTemplate and genTaskTemplate functions are defined elsewhere
+    var formatter_html = $("#Main-Screen").append(
+      MainScreenFormatterTemplate()
+    );
+    // Assuming MainScreenGroupTemplate and MainScreenTaskTemplate functions are defined elsewhere
 
     // Iterate over groups
     for (var groupId in Dict.groups) {
@@ -394,31 +440,9 @@ $(document).ready(function () {
     renderFormatterAddons(formatter_html, currentMode);
   }
 
-  function addNewTagMainMenu(group_html, tag) {
-    //console.log(group_html);
-    group_html.append(MainMenuTagTempplate(getUuid(), tag));
-  }
-
-  function addNewGroupMainMenu(id, group) {
-    return $("#MMenu-Group-Section").append(
-      MainMenuGroupTemplates(id, group.title)
-    );
-  }
-
-  function LoadGroups_Tag() {
-    // Iterate over each group in Dict.groups
-    for (var groupId in Dict.groups) {
-      if (Dict.groups.hasOwnProperty(groupId)) {
-        var group = Dict.groups[groupId];
-        var g = addNewGroupMainMenu(groupId, group);
-        // console.log("Group: " + group.title);
-        // Iterate over tags in the current group
-        for (var j = 0; j < group.tags.length; j++) {
-          addNewTagMainMenu($(g), group.tags[j]);
-        }
-      }
-    }
-  }
+  //================================================================\\
+  //========================== Initialize ==========================\\
+  //================================================================\\
 
   function RefreshMainScreen() {
     $("#Main-Screen").empty();
@@ -442,6 +466,10 @@ $(document).ready(function () {
       .style.setProperty("--paddingMainMen", "5");
   }
   initweb();
+
+  //================================================================\\
+  //================================================================\\
+  //================================================================\\
 
   // website events
 

@@ -1336,10 +1336,25 @@ input:checked + .toggle-bg {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.MMenu-Primary-Section:active {
+.MMenu-Primary-Section:hover {
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.MMenu-Group {
+  cursor: pointer;
+}
+
+.MMenu-Tag {
+  --tw-gradient-from: rgb(112 148 152 / 0.55) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(112 148 152 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  --tw-gradient-to: transparent var(--tw-gradient-to-position);
+}
+
+.MMenu-Tag:hover {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
 
@@ -1349,7 +1364,7 @@ input:checked + .toggle-bg {
   border-radius: 0.5rem;
 }
 
-.task-outer:active {
+.task-outer:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(226 232 240 / var(--tw-bg-opacity));
 }
@@ -1365,7 +1380,7 @@ input:checked + .toggle-bg {
   background-color: rgb(181 114 80 / var(--tw-bg-opacity));
 }
 
-#Task-Destroyer:active {
+#Task-Destroyer:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(112 148 152 / var(--tw-bg-opacity));
 }
@@ -2876,6 +2891,26 @@ input:checked + .toggle-bg {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.rotate-90 {
+  --tw-rotate: 90deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.-rotate-90 {
+  --tw-rotate: -90deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.rotate-1 {
+  --tw-rotate: 1deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.rotate-0 {
+  --tw-rotate: 0deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .scale-150 {
   --tw-scale-x: 1.5;
   --tw-scale-y: 1.5;
@@ -3230,9 +3265,8 @@ input:checked + .toggle-bg {
   background-color: rgb(17 24 39 / 0.5);
 }
 
-.bg-main {
-  --tw-bg-opacity: 1;
-  background-color: rgb(246 246 246 / var(--tw-bg-opacity));
+.bg-main\/55 {
+  background-color: rgb(246 246 246 / 0.55);
 }
 
 .bg-red-500 {
@@ -3263,11 +3297,6 @@ input:checked + .toggle-bg {
   background-color: rgb(255 255 255 / 0.5);
 }
 
-.bg-yellow-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(245 208 156 / var(--tw-bg-opacity));
-}
-
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }
@@ -3292,12 +3321,22 @@ input:checked + .toggle-bg {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
 
+.bg-gradient-to-tr {
+  background-image: linear-gradient(to top right, var(--tw-gradient-stops));
+}
+
 .bg-herosm {
   background-image: url('/static/images/herosm.jpg');
 }
 
 .from-accent-100 {
   --tw-gradient-from: #eeb15a var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(238 177 90 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-accent-100\/55 {
+  --tw-gradient-from: rgb(238 177 90 / 0.55) var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(238 177 90 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
@@ -3493,8 +3532,8 @@ input:checked + .toggle-bg {
   padding-left: 0.75rem;
 }
 
-.pl-5 {
-  padding-left: 1.25rem;
+.pl-8 {
+  padding-left: 2rem;
 }
 
 .pt-2 {
@@ -3743,11 +3782,6 @@ input:checked + .toggle-bg {
   margin: 0px;
 }
 
-.\*\:mx-2 > * {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
 .\*\:box-border > * {
   box-sizing: border-box;
 }
@@ -3836,10 +3870,6 @@ input:checked + .toggle-bg {
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-gradient-to-r:hover {
-  background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
 
 .hover\:text-blue-600:hover {

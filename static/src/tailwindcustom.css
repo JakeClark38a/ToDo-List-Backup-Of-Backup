@@ -116,12 +116,6 @@
     @apply transform transition-all ease-in-out duration-0;
   }
 
-
-
-
-
-
-
   /*Main menu*/
   .MMenu-Primary-Image-Wrapper {
     @apply h-5 w-5 mx-3 lg:w-8 lg:h-8;
@@ -132,16 +126,22 @@
   }
 
   .MMenu-Primary-Section {
-    @apply transition-all duration-150 ease-in-out active:scale-105 active:bg-gradient-to-r from-primary-200/45 to-transparent py-3 cursor-pointer;
+    @apply transition-all duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-r from-primary-200/45 to-transparent py-3 cursor-pointer;
   }
 
+  .MMenu-Group{
+    @apply cursor-pointer;
+  }
+  .MMenu-Tag {
+    @apply hover:bg-gradient-to-r from-primary-200/55 to-transparent;
+  }
   /*Task box*/
   .task-outer {
-    @apply rounded-lg active:bg-slate-200;
+    @apply rounded-lg hover:bg-slate-200;
   }
 
   #Task-Destroyer {
-    @apply w-8 h-8 rounded-lg active:bg-primary-200 checked:bg-primary-100;
+    @apply w-8 h-8 rounded-lg hover:bg-primary-200 checked:bg-primary-100;
   }
 
   /*End task box*/
