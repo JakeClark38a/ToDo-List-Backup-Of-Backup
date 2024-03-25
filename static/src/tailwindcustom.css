@@ -139,7 +139,7 @@
 
   /*Task box*/
   .task-outer {
-    @apply rounded-lg hover:bg-slate-200;
+    @apply rounded-lg bg-slate-200;
   }
 
   #Task-Destroyer {

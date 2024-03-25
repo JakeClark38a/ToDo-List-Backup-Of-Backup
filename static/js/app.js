@@ -158,7 +158,7 @@ $(document).ready(function () {
 
           <div class="p-2 flex justify-between items-center lg:h-24">
               <div class="text-center lg:text-xl">`+ task.description + `</div>
-              <input id="Task-Destroyer" type="checkbox" class="bg-green-200 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
+              <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
           </div>
       </div>
   </div>
@@ -168,7 +168,21 @@ $(document).ready(function () {
     } else if (mode == 1) {
       return (
         `
-      <div  id="` +id +`" class="w-full h-20 bg-red-500">sdsd</div>
+      <div id="`+ id + `" class="task-outer">
+        <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
+  
+            <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
+                <div class="font-bold lg:text-2xl">` + task.title + `</div>
+                <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
+            </div>
+  
+            <div class="p-2 flex justify-between items-center lg:h-24">
+                <div class="text-center lg:text-xl">`+ task.description + `</div>
+                <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
+            </div>
+          </div>
+      </div>
+  
       `
       );
     }
@@ -180,7 +194,7 @@ $(document).ready(function () {
         `
     <div id="` +id +`" class="">
         <div id="Task-Group-Title" class="todobox-title">` + group.title +`</div>
-        <div id="Task-Section" class="p-3 flex flex-col gap-3 overflow-y-auto overflow-x-hidden bg-[`+group.color+`] border-t-8 border-b-4 border-l-2 border-r-2 border-primary-100 w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
+        <div id="Task-Section" class=" p-3 flex flex-col gap-3 overflow-y-auto overflow-x-hidden border-t-8 border-b-4 border-l-2 border-r-2 w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
             <!--task here-->
         </div>
     </div>
@@ -192,13 +206,13 @@ $(document).ready(function () {
         `
       <!-- Item  -->
 
-      <div id="` +id +`" data-carousel-item="active" class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 pink z-0">
-      <div id="Task-Group-Title" class="text-center">` +title +`</div>
-      <div id="" class="Task-Section border-primary-red w-80 h-96 " >
+      <div id="` +id +`" data-carousel-item class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 z-0">
+        <div id="Task-Group-Title" class="text-center">` + group.title +`</div>
+          <div id="" class="Task-Section border-primary-100 w-80 h-96 border-2" >
           <!-- Contents -->
         
+          </div>
       </div>
-  </div>
       `
       );
     }
@@ -217,7 +231,7 @@ $(document).ready(function () {
     } else if (mode == 1) {
       return `
       <!-- Main List -->
-      <div id="Main-Formatter" class="relative w-full" data-carousel="static">
+      <div id="Main-Formatter" class="relative w-full bg-red-300" data-carousel="static">
           <!-- Carousel wrapper -->
           <div id="Wrapper" class="relative h-96 mt-[3vh] overflow-hidden">
 
@@ -237,7 +251,7 @@ $(document).ready(function () {
       <!-- Slider controls -->
       <div class="slider z-10">
           <button type="button"
-              class="absolute top-0 start-0 z-30 flex items-start justify-center h-full px-4 cursor-pointer group focus:outline-none"
+              class="absolute top-1/2 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
               data-carousel-prev>
               <span
                   class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
@@ -250,7 +264,7 @@ $(document).ready(function () {
               </span>
           </button>
           <button type="button"
-              class="absolute top-0 end-0 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
+              class="absolute top-1/2 right-0 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
               data-carousel-next>
               <span
                   class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
@@ -295,7 +309,7 @@ $(document).ready(function () {
   }
 
   function randHexColor() {
-    return "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0);
+    return "#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0'));
   }
 
   //================================================================\\
@@ -307,15 +321,14 @@ $(document).ready(function () {
   });
 
   $("#MMenu-Group-Add").click(function () {
-    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(getUuid(), "New Group"));
     var x = Dict.groups[getUuid()] = {
       title: "New Group",
       tags: [],
       color: randHexColor(),
     };
-    
-
-    /// Main Screen Add FX
+    /// Main Menu Add 
+    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(getUuid(), x));
+    /// Main Screen Add 
     renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),x, currentMode);
   });
 
@@ -412,8 +425,10 @@ $(document).ready(function () {
   });
   
 
-  function renderGroupMainScreen(group_html, group, mode = 0) {
-    group_html.append(MainScreenGroupTemplate(getUuid(), group, mode));
+  function renderGroupMainScreen(group_html, group,unique_id, mode = 0) {
+    var unique_id = getUuid();
+    group_html.append(MainScreenGroupTemplate(unique_id, group, mode));
+    $("#" + unique_id).find("#Task-Section").css({"background-color": randHexColor()});
     return $("#" + unique_id);
   }
 
@@ -422,7 +437,7 @@ $(document).ready(function () {
       MainScreenFormatterTemplate()
     );
     // Assuming MainScreenGroupTemplate and MainScreenTaskTemplate functions are defined elsewhere
-
+    var isFirst = false; 
     // Iterate over groups
     for (var groupId in Dict.groups) {
       if (Dict.groups.hasOwnProperty(groupId)) {
@@ -430,6 +445,7 @@ $(document).ready(function () {
         var g = renderGroupMainScreen(
           $(formatter_html).find("#Main-Formatter").find("#Wrapper"),
           group,
+          groupId,
           currentMode
         );
         var task_html = $(g).find("#Task-Section");
@@ -450,7 +466,6 @@ $(document).ready(function () {
         }
       }
     }
-
     renderFormatterAddons(formatter_html, currentMode);
   }
 
@@ -465,7 +480,7 @@ $(document).ready(function () {
 
   function LoadUser() {
     LoadGroups_Tag();
-    LoadMainScreen();
+    RefreshMainScreen();
   }
 
   function initUser() {
