@@ -160,7 +160,7 @@ $(document).ready(function () {
         ` 
     <div id="` +
         id +
-        `" class=" task-outer">
+        `" class=" task-outer transform transition-all duration-150 ease-in-out">
       <div class=" rounded-lg h-20 border-2 border-slate-700">
           <div class=" px-2 flex justify-between border-b-2 border-slate-700">
               <div class="font-bold">` +
@@ -197,11 +197,11 @@ $(document).ready(function () {
         `
     <div id="` +
         id +
-        `" class="overflow-y-auto bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-shade_green-300 w-64 h-64 p-1 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
+        `" class="">
         <div id="Task-Group-Title" class="todobox-title">` +
         title +
         `</div>
-        <div id="Task-Section" class="p-3 flex flex-col gap-3">
+        <div id="Task-Section" class="p-3 flex flex-col gap-3 overflow-y-auto bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-shade_green-300 w-64 h-64 p-1 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
             <!--task here-->
         </div>
     </div>
@@ -395,7 +395,7 @@ $(document).ready(function () {
       var taskId = $(this).closest(".task-outer").attr("id");
       console.log(taskId);
       Dict.tasks[taskId] = "";
-      $(this).closest(".task-outer").toggleClass("scale-50");
+      $(this).closest(".task-outer").toggleClass("scale-50 blur-xl");
       setTimeout(RefreshMainScreen, 1000);
     });
 
