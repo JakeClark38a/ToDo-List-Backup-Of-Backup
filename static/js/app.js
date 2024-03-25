@@ -26,13 +26,13 @@ $(document).ready(function () {
       gid003: {
         title: "Schedule",
         tags: ["tag3", "tag5"],
-        color: "#7aa5cf",
+        color: "#ac7acf",
         current_html: "",
       },
       gid004: {
         title: "Later",
         tags: ["tag4"],
-        color: "#6dce81",
+        color: "#c5e875",
         current_html: "",
       },
     },
@@ -86,9 +86,7 @@ $(document).ready(function () {
     return (
       `
     
-    <div id="` +
-      id +
-      `" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
+    <div id="` +id +`" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
     <div class="h-full">
         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -97,9 +95,7 @@ $(document).ready(function () {
         </svg>
     </div>
 
-    <div class="text-lg px-1 my-1 center">` +
-      tagName +
-      `</div>
+    <div class="text-lg px-1 my-1 center">` + tagName +`</div>
 
 </div>
 
@@ -107,25 +103,21 @@ $(document).ready(function () {
     );
   }
 
-  function MainMenuGroupTemplates(id, title) {
+  function MainMenuGroupTemplates(id, group) {
     return (
       `
   
-  <div id="` +
-      id +
-      `" class="MMenu-Group"><!--block-->
+  <div id="` +id +`" class="MMenu-Group"><!--block-->
     <!-- Greeting div, status centered -->
     <div class="flex justify-between items-center px-3">
-        <div class="MMenu-Toggle-Hidden flex items-center">
+        <div class="MMenu-Toggle-Hidden flex items-center w-full">
             <div class="MMenu-Dropdown-Arrow">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
           </svg>          
             </div>
 
-                <div class="text-xl  ml-2">` +
-      title +
-      `</div>
+                <div class="text-xl  ml-2">` + group.title + `</div>
         </div>
         <div class="MMenu-Tag-Add">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -152,28 +144,21 @@ $(document).ready(function () {
   //=========================== Main Screen ========================\\
   //================================================================\\
 
-  var tagSelection = ` <div id="Tag-item" class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center">Sample</div>`;
-
-  function MainScreenTaskTemplate(id, title, dl, mode = 0) {
+  function MainScreenTaskTemplate(id, task, mode = 0) {
     if (mode == 0) {
       return (
         ` 
-    <div id="` +
-        id +
-        `" class=" task-outer transform transition-all duration-150 ease-in-out">
-      <div class=" rounded-lg h-20 border-2 border-slate-700">
-          <div class=" px-2 flex justify-between border-b-2 border-slate-700">
-              <div class="font-bold">` +
-        title +
-        `</div>
-              <button id="Task-Cancel" class="text-red-500 font-bold">X</button>
+    <div id="`+ id + `" class="task-outer">
+      <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
+
+          <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
+              <div class="font-bold lg:text-2xl">` + task.title + `</div>
+              <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
           </div>
-          <div class="p-2 flex justify-between items-center">
-              <div class="text-center">End: ` +
-        dl +
-        `</div>
-              <input id="Task-Destroyer" type="checkbox" id="checkbox_task"
-                  class="h-8 w-8 rounded-md border-2 border-shade_red-800 ">
+
+          <div class="p-2 flex justify-between items-center lg:h-24">
+              <div class="text-center lg:text-xl">`+ task.description + `</div>
+              <input id="Task-Destroyer" type="checkbox" class="bg-green-200 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
           </div>
       </div>
   </div>
@@ -183,25 +168,19 @@ $(document).ready(function () {
     } else if (mode == 1) {
       return (
         `
-      <div  id="` +
-        id +
-        `" class="w-full h-20 bg-red-500">sdsd</div>
+      <div  id="` +id +`" class="w-full h-20 bg-red-500">sdsd</div>
       `
       );
     }
   }
 
-  function MainScreenGroupTemplate(id, title, mode = 0) {
+  function MainScreenGroupTemplate(id, group, mode = 0) {
     if (mode == 0) {
       return (
         `
-    <div id="` +
-        id +
-        `" class="">
-        <div id="Task-Group-Title" class="todobox-title">` +
-        title +
-        `</div>
-        <div id="Task-Section" class="p-3 flex flex-col gap-3 overflow-y-auto bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-shade_green-300 w-64 h-64 p-1 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
+    <div id="` +id +`" class="">
+        <div id="Task-Group-Title" class="todobox-title">` + group.title +`</div>
+        <div id="Task-Section" class="p-3 flex flex-col gap-3 overflow-y-auto overflow-x-hidden bg-[`+group.color+`] border-t-8 border-b-4 border-l-2 border-r-2 border-primary-100 w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
             <!--task here-->
         </div>
     </div>
@@ -213,12 +192,8 @@ $(document).ready(function () {
         `
       <!-- Item  -->
 
-      <div id="` +
-        id +
-        `" data-carousel-item="active" class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 pink z-0">
-      <div id="Task-Group-Title" class="text-center">` +
-        title +
-        `</div>
+      <div id="` +id +`" data-carousel-item="active" class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 pink z-0">
+      <div id="Task-Group-Title" class="text-center">` +title +`</div>
       <div id="" class="Task-Section border-primary-red w-80 h-96 " >
           <!-- Contents -->
         
@@ -312,11 +287,15 @@ $(document).ready(function () {
   //=========================== General ============================\\
   //================================================================\\
   function getUuid() {
-    return "id_" + Math.random().toString(36).substring(2, 6);
+    return (
+      "id_" +
+      Math.random().toString(36).substring(2, 6) +
+      Math.random().toString(36).substring(2, 6)
+    );
   }
 
   function randHexColor() {
-    return "#731E7D";
+    return "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0);
   }
 
   //================================================================\\
@@ -324,13 +303,20 @@ $(document).ready(function () {
   //================================================================\\
 
   $("#Main-Menu-Click").click(function () {
-    $("#Main-Menu").toggleClass("h-full");
+    $("#Main-Menu").toggleClass("h-[90vh]");
   });
 
   $("#MMenu-Group-Add").click(function () {
-    $("#MMenu-Group-Section").append(
-      MainMenuGroupTemplates(getUuid(), "New Group")
-    );
+    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(getUuid(), "New Group"));
+    var x = Dict.groups[getUuid()] = {
+      title: "New Group",
+      tags: [],
+      color: randHexColor(),
+    };
+    
+
+    /// Main Screen Add FX
+    renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),x, currentMode);
   });
 
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
@@ -356,7 +342,7 @@ $(document).ready(function () {
 
   function addNewGroupMainMenu(unique_id, group) {
     $("#MMenu-Group-Section").append(
-      MainMenuGroupTemplates(unique_id, group.title)
+      MainMenuGroupTemplates(unique_id, group)
     );
     return $("#" + unique_id);
   }
@@ -385,34 +371,49 @@ $(document).ready(function () {
     formatter_html.append(FormmatterAddons(mode));
   }
 
-  function renderTaskMainScreen(task_html, task, id, mode) {
-    var temp = MainScreenTaskTemplate(id, task.title, "17:00 PM", mode); // Assuming MainScreenTaskTemplate function is defined elsewhere
-    var t = task_html.append(temp);
-
-    //Remove task
-    t.find("#Task-Cancel").click(function () {
-      // Get the HTML id of the task
-      var taskId = $(this).closest(".task-outer").attr("id");
-      console.log(taskId);
-      Dict.tasks[taskId] = "";
-      $(this).closest(".task-outer").toggleClass("scale-50 blur-xl");
-      setTimeout(RefreshMainScreen, 1000);
-    });
-
-    //Complete task
-    t.find("#Task-Destroyer").click(function () {
-      // Get the HTML id of the task
-      var taskId = $(this).closest(".task-outer").attr("id");
-      Dict.tasks[taskId] = "";
-      Dict.completed[taskId] = Dict.tasks[taskId];
-      console.log(Dict.completed);
-      setTimeout(RefreshMainScreen, 1000);
-    });
+  function renderTaskMainScreen(task_html, task, id, mode = 0) {
+    task_html.append(MainScreenTaskTemplate(id, task, mode));
   }
 
-  function renderGroupMainScreen(group_html, group, mode) {
-    var unique_id = getUuid();
-    group_html.append(MainScreenGroupTemplate(unique_id, group.title, mode));
+  //Remove task
+  $("#Main-Screen").on("click", "#Task-Cancel", function () {
+    var task_ = $(this).closest(".task-outer");
+    var taskId = task_.attr("id");
+    delete Dict.tasks[taskId];
+    console.log("Cancelled: " + taskId);
+    //console.log(Dict.tasks);
+
+    task_.toggleClass("transform transition-all duration-350 delay-75 ease-in-out scale-0 blur-md translate-y-20");
+    setTimeout(() => {
+      task_.remove();
+    }, 400);
+  });
+
+  // Complete task
+  $("#Main-Screen").on("click", "#Task-Destroyer", function () {
+    var task_ = $(this).closest(".task-outer");
+    var taskId = task_.attr("id");
+    
+    // Disable the checkbox
+    $(this).prop("disabled", true);
+  
+    console.log("Completed: " + taskId);
+
+    Dict.completed[taskId] = Dict.tasks[taskId];
+    delete Dict.tasks[taskId]; 
+
+    //console.log(Dict.completed);
+    //console.log(Dict.tasks);
+
+    task_.toggleClass(" transform transition-all duration-350 delay-500 ease-in-out scale-150 blur-xl -translate-y-20");
+    setTimeout(() => {
+      task_.remove();
+    }, 800);
+  });
+  
+
+  function renderGroupMainScreen(group_html, group, mode = 0) {
+    group_html.append(MainScreenGroupTemplate(getUuid(), group, mode));
     return $("#" + unique_id);
   }
 
@@ -592,8 +593,8 @@ $(document).ready(function () {
       $("#dropdown ul").append(`
     <li>
     <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">${$(
-      this
-    ).text()}</a>
+        this
+      ).text()}</a>
     </li>
     `);
     });

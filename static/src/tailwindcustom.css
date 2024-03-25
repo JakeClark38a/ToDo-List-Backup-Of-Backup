@@ -105,7 +105,7 @@
 
   /*main page */
   .todobox-title {
-    @apply text-center text-lg font-light rounded-xl;
+    @apply text-center text-xl font-bold text-gray-600;
   }
 
   .headbar-button {
@@ -129,19 +129,21 @@
     @apply transition-all duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-r from-primary-200/45 to-transparent py-3 cursor-pointer;
   }
 
-  .MMenu-Group{
+  .MMenu-Group {
     @apply cursor-pointer;
   }
+
   .MMenu-Tag {
     @apply hover:bg-gradient-to-r from-primary-200/55 to-transparent;
   }
+
   /*Task box*/
   .task-outer {
     @apply rounded-lg hover:bg-slate-200;
   }
 
   #Task-Destroyer {
-    @apply w-8 h-8 rounded-lg hover:bg-primary-200 checked:bg-primary-100;
+    @apply w-8 h-8 rounded-lg hover:bg-primary-200/55 checked:bg-primary-200;
   }
 
   /*End task box*/
