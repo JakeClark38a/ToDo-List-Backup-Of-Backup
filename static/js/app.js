@@ -1,10 +1,11 @@
-// This is the main file for the app
-// using jQuery
-// Toggle cogwheel icon on click
 $(document).ready(function () {
-  /// HTML templates
-  // eo HTML templates
-  // Variables
+  //
+  //
+  //
+
+  //================================================================\\
+  //=========================== Sample var =========================\\
+  //================================================================\\
   var Dict = {
     // sample dict
     username: "JakeClark",
@@ -29,7 +30,7 @@ $(document).ready(function () {
         current_html: "",
       },
       gid004: {
-        title: "Delete",
+        title: "Later",
         tags: ["tag4"],
         color: "#6dce81",
         current_html: "",
@@ -71,9 +72,16 @@ $(document).ready(function () {
 
   var currentMode = 0;
 
-  // eo Variables
+  //
+  //
+  //
 
   //################################################### Templates #########################################################
+
+  //================================================================\\
+  //=========================== Main Menu ==========================\\
+  //================================================================\\
+
   function MainMenuTagTempplate(id, tagName) {
     return (
       `
@@ -139,6 +147,10 @@ $(document).ready(function () {
   `
     );
   }
+
+  //================================================================\\
+  //=========================== Main Screen ========================\\
+  //================================================================\\
 
   var tagSelection = ` <div id="Tag-item" class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center">Sample</div>`;
 
@@ -285,13 +297,13 @@ $(document).ready(function () {
 
         |_MainScreen
         |____Formatter
-              | id 
-              |_____title
-              |
-              |_____section (Task-Section , Group-Section)
-              |
-              |_____tag(Tag-Section)
-
+        |     | id 
+        |     |_____title
+        |     |
+        |     |_____section (Task-Section , Group-Section)
+        |     |
+        |     |_____tag(Tag-Section)
+        |______Addons
 
   */
   //################################################### Fuctions #########################################################
@@ -383,7 +395,8 @@ $(document).ready(function () {
       var taskId = $(this).closest(".task-outer").attr("id");
       console.log(taskId);
       Dict.tasks[taskId] = "";
-      RefreshMainScreen();
+      $(this).closest(".task-outer").toggleClass("scale-50");
+      setTimeout(RefreshMainScreen, 1000);
     });
 
     //Complete task
