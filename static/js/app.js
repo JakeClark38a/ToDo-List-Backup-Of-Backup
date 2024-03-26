@@ -1,72 +1,11 @@
-// This is the main file for the app
-// using jQuery
-// Toggle cogwheel icon on click
 $(document).ready(function () {
-  /// HTML templates
-  var currentMode = 0;
+  //
+  //
+  //
 
-  function MainMenuTagTempplate(id, tagName) {
-    return (
-      `
-    
-    <div id="` +
-      id +
-      `" class="MMenu-Tag flex items-center pl-5 hover:bg-gradient-to-r from-shade_yellow-600 to-transparent  cursor-pointer">
-    <div class="h-full">
-        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
-        </svg>
-    </div>
-
-    <div class="text-lg px-1 my-1 center">` +
-      tagName +
-      `</div>
-
-</div>
-
-`
-    );
-  }
-  function MainMenuGroupTemplates(id, title) {
-    return (
-      `
-  
-  <div id="` +
-      id +
-      `" class="hover:bg-gradient-to-r from-shade_yellow-500 to-transparent"><!--block-->
-    <!-- Greeting div, status centered -->
-    <div class="flex justify-between items-center mx-2 *:mx-2">
-        <div class="text-xl  ">` +
-      title +
-      `</div>
-
-        <div class="MMenu-Tag-Add">
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M5 12h14m-7 7V5" />
-            </svg>
-        </div>
-
-
-    </div>
-    <div id="MMenu-Tag-Section" class="">
-        <!--tag-->
-
-    </div>
-</div><!--eoblock-->
-
-  
-  `
-    );
-  }
-
-  var tagSelection = ` <div id="Tag-item" class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center">Sample</div>`;
-
-  // eo HTML templates
-  // Variables
+  //================================================================\\
+  //=========================== Sample var =========================\\
+  //================================================================\\
   var Dict = {
     // sample dict
     username: "JakeClark",
@@ -87,13 +26,13 @@ $(document).ready(function () {
       gid003: {
         title: "Schedule",
         tags: ["tag3", "tag5"],
-        color: "#7aa5cf",
+        color: "#ac7acf",
         current_html: "",
       },
       gid004: {
-        title: "Delete",
+        title: "Later",
         tags: ["tag4"],
-        color: "#6dce81",
+        color: "#c5e875",
         current_html: "",
       },
     },
@@ -131,67 +70,95 @@ $(document).ready(function () {
     },
   };
 
-  const el1 = $("#dropMenu");
-  const el1_trig = $("#dropMenuClick");
-  // eo Variables
+  var currentMode = 0;
 
-  // website events
+  //
+  //
+  //
 
-  el1_trig.click(function () {
-    if (el1.hasClass("h-0")) {
-      el1.removeClass("h-0").addClass("h-full");
-    } else if (el1.hasClass("h-full")) {
-      el1.removeClass("h-full").addClass("h-0");
-    }
-  });
+  //################################################### Templates #########################################################
 
-  function getUuid() {
-    return "prefix_" + Math.random().toString(36).substring(2, 6);
-  }
+  //================================================================\\
+  //=========================== Main Menu ==========================\\
+  //================================================================\\
 
-  function randHexColor() {
-    return "#731E7D";
-  }
-  $("#MMenu-Group-Add").click(function () {
-    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(getUuid(), "none"));
+  function MainMenuTagTempplate(id, tagName) {
+    return (
+      `
+    
+    <div id="` +id +`" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
+    <div class="h-full">
+        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
+        </svg>
+    </div>
 
-    // create group dict
-    Dict.groups[getUuid()] = {
-      title: "New Group",
-      tags: [],
-      color: "#731E7D",
-      current_html: "",
-    };
-    RefreshMainScreen();
-  });
+    <div class="text-lg px-1 my-1 center">` + tagName +`</div>
 
-  $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
-    addNewTagMainMenu(
-      $(this).parent().parent().find("#MMenu-Tag-Section"),
-      "none"
+</div>
+
+`
     );
-  });
+  }
 
-  function genTaskTemplate(id, title, dl, mode = 0) {
+  function MainMenuGroupTemplates(id, group) {
+    return (
+      `
+  
+  <div id="` +id +`" class="MMenu-Group"><!--block-->
+    <!-- Greeting div, status centered -->
+    <div class="flex justify-between items-center px-3">
+        <div class="MMenu-Toggle-Hidden flex items-center w-full">
+            <div class="MMenu-Dropdown-Arrow">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+          </svg>          
+            </div>
+
+                <div class="text-xl  ml-2">` + group.title + `</div>
+        </div>
+        <div class="MMenu-Tag-Add">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 12h14m-7 7V5" />
+            </svg>
+        </div>
+
+
+    </div>
+    <div id="MMenu-Tag-Section" class="">
+        <!--tag-->
+
+    </div>
+</div><!--eoblock-->
+
+  
+  `
+    );
+  }
+
+  //================================================================\\
+  //=========================== Main Screen ========================\\
+  //================================================================\\
+
+  function MainScreenTaskTemplate(id, task, mode = 0) {
     if (mode == 0) {
       return (
         ` 
-    <div id="` +
-        id +
-        `" class=" task-outer">
-      <div class=" rounded-lg h-20 border-2 border-slate-700">
-          <div class=" px-2 flex justify-between border-b-2 border-slate-700">
-              <div class="font-bold">` +
-        title +
-        `</div>
-              <button id="Task-Cancel" class="text-red-500 font-bold">X</button>
+    <div id="`+ id + `" class="task-outer">
+      <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
+
+          <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
+              <div class="font-bold lg:text-2xl">` + task.title + `</div>
+              <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
           </div>
-          <div class="p-2 flex justify-between items-center">
-              <div class="text-center">End: ` +
-        dl +
-        `</div>
-              <input id="Task-Destroyer" type="checkbox" id="checkbox_task"
-                  class="h-8 w-8 rounded-md border-2 border-shade_red-800 ">
+
+          <div class="p-2 flex justify-between items-center lg:h-24">
+              <div class="text-center lg:text-xl">`+ task.description + `</div>
+              <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
           </div>
       </div>
   </div>
@@ -201,25 +168,33 @@ $(document).ready(function () {
     } else if (mode == 1) {
       return (
         `
-      <div  id="` +
-        id +
-        `" class="w-full h-20 bg-red-500">sdsd</div>
+      <div id="`+ id + `" class="task-outer">
+        <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
+  
+            <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
+                <div class="font-bold lg:text-2xl">` + task.title + `</div>
+                <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
+            </div>
+  
+            <div class="p-2 flex justify-between items-center lg:h-24">
+                <div class="text-center lg:text-xl">`+ task.description + `</div>
+                <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
+            </div>
+          </div>
+      </div>
+  
       `
       );
     }
   }
 
-  function genGroupTemplate(id, title, mode = 0) {
+  function MainScreenGroupTemplate(id, group, mode = 0) {
     if (mode == 0) {
       return (
         `
-    <div id="` +
-        id +
-        `" class="overflow-y-auto bg-transparent border-t-8 border-b-4 border-l-2 border-r-2 border-shade_green-300 w-64 h-64 p-1 rounded-xl md:w-72 md:h-72 lg:w-80 lg:h-80">
-        <div id="Task-Group-Title" class="todobox-title">` +
-        title +
-        `</div>
-        <div id="Task-Section" class="p-3 flex flex-col gap-3">
+    <div id="` +id +`" class="">
+        <div id="Task-Group-Title" class="todobox-title">` + group.title +`</div>
+        <div id="Task-Section" class=" p-3 flex flex-col gap-3 overflow-y-auto overflow-x-hidden border-t-8 border-b-4 border-l-2 border-r-2 w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
             <!--task here-->
         </div>
     </div>
@@ -231,28 +206,24 @@ $(document).ready(function () {
         `
       <!-- Item  -->
 
-      <div id="` +
-        id +
-        `" data-carousel-item="active" class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 pink z-0">
-      <div id="Task-Group-Title" class="text-center">` +
-        title +
-        `</div>
-      <div id="" class="Task-Section border-primary-red w-80 h-96 " >
+      <div id="` +id +`" data-carousel-item class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 z-0">
+        <div id="Task-Group-Title" class="text-center">` + group.title +`</div>
+          <div id="" class="Task-Section border-primary-100 w-80 h-96 border-2" >
           <!-- Contents -->
         
+          </div>
       </div>
-  </div>
       `
       );
     }
   }
 
-  function genFormatterTemplate(mode = 0) {
+  function MainScreenFormatterTemplate(mode = 0) {
     if (mode == 0) {
       return `
-    <div id="Main-Formatter" class="">
+    <div id="Main-Formatter" class="relative w-full">
       
-        <div id="Wrapper" class="flex flex-wrap justify-center items-center gap-8 py-10">
+        <div id="Wrapper" class="relative flex flex-wrap justify-center items-center gap-8 py-10 lg:px-36">
         <!--Group-->
         </div>
     </div>
@@ -260,7 +231,7 @@ $(document).ready(function () {
     } else if (mode == 1) {
       return `
       <!-- Main List -->
-      <div id="Main-Formatter" class="relative w-full" data-carousel="static">
+      <div id="Main-Formatter" class="relative w-full bg-red-300" data-carousel="static">
           <!-- Carousel wrapper -->
           <div id="Wrapper" class="relative h-96 mt-[3vh] overflow-hidden">
 
@@ -280,7 +251,7 @@ $(document).ready(function () {
       <!-- Slider controls -->
       <div class="slider z-10">
           <button type="button"
-              class="absolute top-0 start-0 z-30 flex items-start justify-center h-full px-4 cursor-pointer group focus:outline-none"
+              class="absolute top-1/2 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
               data-carousel-prev>
               <span
                   class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
@@ -293,7 +264,7 @@ $(document).ready(function () {
               </span>
           </button>
           <button type="button"
-              class="absolute top-0 end-0 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
+              class="absolute top-1/2 right-0 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
               data-carousel-next>
               <span
                   class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
@@ -315,54 +286,158 @@ $(document).ready(function () {
 
         |_MainScreen
         |____Formatter
-              | id 
-              |_____title
-              |
-              |_____section (Task-Section , Group-Section)
-              |
-              |_____tag(Tag-Section)
-
+        |     | id 
+        |     |_____title
+        |     |
+        |     |_____section (Task-Section , Group-Section)
+        |     |
+        |     |_____tag(Tag-Section)
+        |______Addons
 
   */
+  //################################################### Fuctions #########################################################
+
+  //================================================================\\
+  //=========================== General ============================\\
+  //================================================================\\
+  function getUuid() {
+    return (
+      "id_" +
+      Math.random().toString(36).substring(2, 6) +
+      Math.random().toString(36).substring(2, 6)
+    );
+  }
+
+  function randHexColor() {
+    return "#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0'));
+  }
+
+  //================================================================\\
+  //=========================== Main Menu ==========================\\
+  //================================================================\\
+
+  $("#Main-Menu-Click").click(function () {
+    $("#Main-Menu").toggleClass("h-[90vh]");
+  });
+
+  $("#MMenu-Group-Add").click(function () {
+    var x = Dict.groups[getUuid()] = {
+      title: "New Group",
+      tags: [],
+      color: randHexColor(),
+    };
+    /// Main Menu Add 
+    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(getUuid(), x));
+    /// Main Screen Add 
+    renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),x, currentMode);
+  });
+
+  $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
+    addNewTagMainMenu(
+      $(this).parent().parent().find("#MMenu-Tag-Section"),
+      "New tag"
+    );
+  });
+
+  function toggleHiddenMMenuGroup(group) {
+    group.find("#MMenu-Tag-Section").toggle("hidden");
+    group.find(".MMenu-Dropdown-Arrow").toggleClass("-rotate-90");
+  }
+
+  $("#MMenu-Group-Section").on("click", ".MMenu-Toggle-Hidden", function () {
+    toggleHiddenMMenuGroup($(this).parent().parent());
+  });
+
+  function addNewTagMainMenu(group_html, tag) {
+    //console.log(group_html);
+    group_html.append(MainMenuTagTempplate(getUuid(), tag));
+  }
+
+  function addNewGroupMainMenu(unique_id, group) {
+    $("#MMenu-Group-Section").append(
+      MainMenuGroupTemplates(unique_id, group)
+    );
+    return $("#" + unique_id);
+  }
+
+  function LoadGroups_Tag() {
+    // Iterate over each group in Dict.groups
+    for (var groupId in Dict.groups) {
+      if (Dict.groups.hasOwnProperty(groupId)) {
+        var group = Dict.groups[groupId];
+        var g = addNewGroupMainMenu(groupId, group);
+        // console.log("Group: " + group.title);
+        // Iterate over tags in the current group
+        for (var j = 0; j < group.tags.length; j++) {
+          addNewTagMainMenu(g.find("#MMenu-Tag-Section"), group.tags[j]);
+        }
+        toggleHiddenMMenuGroup(g);
+      }
+    }
+  }
+
+  //================================================================\\
+  //========================== Main Screen =========================\\
+  //================================================================\\
 
   function renderFormatterAddons(formatter_html, mode = 0) {
     formatter_html.append(FormmatterAddons(mode));
   }
 
-  function renderTaskMainScreen(task_html, task, id, mode) {
-    var temp = genTaskTemplate(id, task.title, "17:00 PM", mode); // Assuming genTaskTemplate function is defined elsewhere
-    var t = task_html.append(temp);
-
-    //Remove task
-    t.find("#Task-Cancel").click(function () {
-      // Get the HTML id of the task
-      var taskId = $(this).closest(".task-outer").attr("id");
-      console.log(taskId);
-      Dict.tasks[taskId] = "";
-      RefreshMainScreen();
-    });
-
-    //Complete task
-    t.find("#Task-Destroyer").click(function () {
-      // Get the HTML id of the task
-      var taskId = $(this).closest(".task-outer").attr("id");
-      Dict.tasks[taskId] = "";
-      Dict.completed[taskId] = Dict.tasks[taskId];
-      console.log(Dict.completed);
-      setTimeout(RefreshMainScreen, 1000);
-    });
+  function renderTaskMainScreen(task_html, task, id, mode = 0) {
+    task_html.append(MainScreenTaskTemplate(id, task, mode));
   }
 
-  function renderGroupMainScreen(group_html, group, mode) {
+  //Remove task
+  $("#Main-Screen").on("click", "#Task-Cancel", function () {
+    var task_ = $(this).closest(".task-outer");
+    var taskId = task_.attr("id");
+    delete Dict.tasks[taskId];
+    console.log("Cancelled: " + taskId);
+    //console.log(Dict.tasks);
+
+    task_.toggleClass("transform transition-all duration-350 delay-75 ease-in-out scale-0 blur-md translate-y-20");
+    setTimeout(() => {
+      task_.remove();
+    }, 400);
+  });
+
+  // Complete task
+  $("#Main-Screen").on("click", "#Task-Destroyer", function () {
+    var task_ = $(this).closest(".task-outer");
+    var taskId = task_.attr("id");
+    
+    // Disable the checkbox
+    $(this).prop("disabled", true);
+  
+    console.log("Completed: " + taskId);
+
+    Dict.completed[taskId] = Dict.tasks[taskId];
+    delete Dict.tasks[taskId]; 
+
+    //console.log(Dict.completed);
+    //console.log(Dict.tasks);
+
+    task_.toggleClass(" transform transition-all duration-350 delay-500 ease-in-out scale-150 blur-xl -translate-y-20");
+    setTimeout(() => {
+      task_.remove();
+    }, 800);
+  });
+  
+
+  function renderGroupMainScreen(group_html, group,unique_id, mode = 0) {
     var unique_id = getUuid();
-    group_html.append(genGroupTemplate(unique_id, group.title, mode));
+    group_html.append(MainScreenGroupTemplate(unique_id, group, mode));
+    $("#" + unique_id).find("#Task-Section").css({"background-color": randHexColor()});
     return $("#" + unique_id);
   }
 
   function LoadMainScreen() {
-    var formatter_html = $("#Main-Screen").append(genFormatterTemplate());
-    // Assuming genGroupTemplate and genTaskTemplate functions are defined elsewhere
-
+    var formatter_html = $("#Main-Screen").append(
+      MainScreenFormatterTemplate()
+    );
+    // Assuming MainScreenGroupTemplate and MainScreenTaskTemplate functions are defined elsewhere
+    var isFirst = false; 
     // Iterate over groups
     for (var groupId in Dict.groups) {
       if (Dict.groups.hasOwnProperty(groupId)) {
@@ -370,6 +445,7 @@ $(document).ready(function () {
         var g = renderGroupMainScreen(
           $(formatter_html).find("#Main-Formatter").find("#Wrapper"),
           group,
+          groupId,
           currentMode
         );
         var task_html = $(g).find("#Task-Section");
@@ -390,35 +466,12 @@ $(document).ready(function () {
         }
       }
     }
-
     renderFormatterAddons(formatter_html, currentMode);
   }
 
-  function addNewTagMainMenu(group_html, tag) {
-    //console.log(group_html);
-    group_html.append(MainMenuTagTempplate(getUuid(), tag));
-  }
-
-  function addNewGroupMainMenu(id, group) {
-    return $("#MMenu-Group-Section").append(
-      MainMenuGroupTemplates(id, group.title)
-    );
-  }
-
-  function LoadGroups_Tag() {
-    // Iterate over each group in Dict.groups
-    for (var groupId in Dict.groups) {
-      if (Dict.groups.hasOwnProperty(groupId)) {
-        var group = Dict.groups[groupId];
-        var g = addNewGroupMainMenu(groupId, group);
-        // console.log("Group: " + group.title);
-        // Iterate over tags in the current group
-        for (var j = 0; j < group.tags.length; j++) {
-          addNewTagMainMenu($(g), group.tags[j]);
-        }
-      }
-    }
-  }
+  //================================================================\\
+  //========================== Initialize ==========================\\
+  //================================================================\\
 
   function RefreshMainScreen() {
     $("#Main-Screen").empty();
@@ -426,9 +479,8 @@ $(document).ready(function () {
   }
 
   function LoadUser() {
-    $("#Usernamedp").text(Dict.username);
     LoadGroups_Tag();
-    LoadMainScreen();
+    RefreshMainScreen();
   }
 
   function initUser() {
@@ -436,6 +488,17 @@ $(document).ready(function () {
     LoadUser();
   }
   initUser();
+
+  function initweb() {
+    document
+      .querySelector("#Main-Menu")
+      .style.setProperty("--paddingMainMen", "5");
+  }
+  initweb();
+
+  //================================================================\\
+  //================================================================\\
+  //================================================================\\
 
   // website events
 
@@ -545,8 +608,8 @@ $(document).ready(function () {
       $("#dropdown ul").append(`
     <li>
     <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">${$(
-      this
-    ).text()}</a>
+        this
+      ).text()}</a>
     </li>
     `);
     });
