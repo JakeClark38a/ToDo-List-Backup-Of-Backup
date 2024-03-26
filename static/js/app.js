@@ -90,13 +90,20 @@ $(document).ready(function () {
     <div class="h-full">
         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                 d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
         </svg>
     </div>
 
     <div class="text-lg px-1 my-1 center">` + tagName +`</div>
+    <div class="MMenu-Tag-Settings mx-1">
+    <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+</svg>
 
+
+
+</div>
 </div>
 
 `
@@ -109,20 +116,29 @@ $(document).ready(function () {
   
   <div id="` +id +`" class="MMenu-Group"><!--block-->
     <!-- Greeting div, status centered -->
-    <div class="flex justify-between items-center px-3">
-        <div class="MMenu-Toggle-Hidden flex items-center w-full">
+        <div class="flex justify-between items-center pl-3 pr-1">
+
+          <div class="MMenu-Toggle-Hidden flex items-center w-full">
             <div class="MMenu-Dropdown-Arrow">
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+            <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19 9-7 7-7-7"/>
           </svg>          
             </div>
 
-                <div class="text-xl  ml-2">` + group.title + `</div>
+                <div class="text-xl ml-2">` + group.title + `</div>
+        </div>
+
+        <div class="MMenu-Group-Settings mx-1">
+        <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+      </svg>
+      
+      
         </div>
         <div class="MMenu-Tag-Add">
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                     d="M5 12h14m-7 7V5" />
             </svg>
         </div>
@@ -194,7 +210,7 @@ $(document).ready(function () {
         `
     <div id="` +id +`" class="">
         <div id="Task-Group-Title" class="todobox-title">` + group.title +`</div>
-        <div id="Task-Section" class=" p-3 flex flex-col gap-3 overflow-y-auto overflow-x-hidden border-t-8 border-b-4 border-l-2 border-r-2 w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
+        <div id="Task-Section" class=" p-3 flex flex-col gap-3 overflow-y-auto overflow-x-hidden border-2 backdrop-blur-sm  w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
             <!--task here-->
         </div>
     </div>
@@ -258,7 +274,7 @@ $(document).ready(function () {
                   <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                          stroke-width="2" d="M5 1 1 5l4 4" />
+                          stroke-width="1.5" d="M5 1 1 5l4 4" />
                   </svg>
                   <span class="sr-only">Previous</span>
               </span>
@@ -271,7 +287,7 @@ $(document).ready(function () {
                   <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                          stroke-width="2" d="m1 9 4-4-4-4" />
+                          stroke-width="1.5" d="m1 9 4-4-4-4" />
                   </svg>
                   <span class="sr-only">Next</span>
               </span>
@@ -342,6 +358,11 @@ $(document).ready(function () {
       $(this).parent().parent().find("#MMenu-Tag-Section"),
       "New tag"
     );
+  });
+
+  /// Double click to edit group title
+  $("#MMenu-Group-Section").on("click", ".MMenu-Group-Settings", function () {
+    console.log($(this).closest(".MMenu-Group").attr("id"));
   });
 
   function toggleHiddenMMenuGroup(group) {
@@ -445,10 +466,10 @@ $(document).ready(function () {
     <div id="add-draggable"  class="z-40 absolute">
         <div  class="touch-none select-none">
             <div id="moveButton" 
-                class="hover:w-14 hover:h-14 border-2 border-primary-100 absolute rounded-full w-12 h-12 bg-gradient-to-bl from-shade_green-500 to-shade_red-500 p-2">
+                class="hover:w-12 hover:h-12 border-2 border-primary-100 absolute rounded-full w-12 h-12 bg-primary-200/35 backdrop-blur-sm p-2">
                 <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                         d="M5 12h14m-7 7V5" />
                 </svg>
             </div>
@@ -540,7 +561,9 @@ $(document).ready(function () {
   //================================================================\\
   //================================================================\\
 
-  // website events
+  //================================================================\\
+  //========================= CRUD modal ===========================\\
+  //================================================================\\
 
     // My work at U in CRUD modal
     $('#Main-Screen').on("click", ".task-outer", function(e){

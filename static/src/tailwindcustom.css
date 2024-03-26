@@ -126,11 +126,11 @@
   }
 
   .MMenu-Primary-Section {
-    @apply transition-all duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-r from-primary-200/45 to-transparent py-3 cursor-pointer;
+    @apply transition-all duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-r from-accent-400 to-transparent py-3 cursor-pointer;
   }
 
   .MMenu-Group {
-    @apply cursor-pointer;
+    @apply my-2 cursor-pointer;
   }
 
   .MMenu-Tag {

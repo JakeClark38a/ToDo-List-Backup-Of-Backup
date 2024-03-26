@@ -14,7 +14,7 @@ module.exports = {
       xl: "1000px",
     },
     fontFamily: {
-      sans: ["Graphik", "sans-serif"],
+      sans: ["Oswald", "sans-serif"],
       serif: ["Merriweather", "serif"],
     },
     extend: {
@@ -34,12 +34,13 @@ module.exports = {
       colors: {
         primary: {
           100: "#b57250",
-          200: "#709498",
+          200: "#8cb9be",
         },
         accent: {
-          100: "#eeb15a",
+          100: "#eaa038",
           200: "#8cb9be",
           300: "#c48e73",
+          400: "#6faeb4"
         },
         blue: {
           100: "#e8f1f2",
