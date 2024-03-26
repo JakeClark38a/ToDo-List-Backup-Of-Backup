@@ -351,6 +351,7 @@ $(document).ready(function () {
 
   function addGroup(){
     var id = getUuid();
+    addEdit_TagGroupModal.show()
     var x = Dict.groups[id] = {
       title: "New Group",
       tags: [],
@@ -362,6 +363,7 @@ $(document).ready(function () {
 
   function addTag(group){
     //console.log(group);
+    addEdit_TagGroupModal.show()
     group.tags.push("New Tag");
     LoadTags();
   }
@@ -752,5 +754,49 @@ $(document).ready(function () {
   })
 
   // When user clicked at list item, it will add tag to the task and also close dropdown
+
+
+
+  const $addEdit_TagGroupModalEle = document.getElementById('Add-Edit-Tag-Group');
+
+  // options with default values
+  const options = {
+      placement: 'center',
+      backdrop: 'dynamic',
+      backdropClasses:
+          'bg-gray-600/50 dark:bg-gray-900/80 fixed inset-0 z-40',
+      closable: true,
+      onHide: () => {
+          console.log('modal is hidden');
+      },
+      onShow: () => {
+          console.log('modal is shown');
+      },
+      onToggle: () => {
+          console.log('modal has been toggled');
+      },
+  };
+
+  const addEdit_TagGroupModal = new Modal($addEdit_TagGroupModalEle,options);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 })
 // End of app.js

@@ -18,7 +18,7 @@
 
     <!--########################################################### Addons ######################################################################-->
 
-    <!-- Main modal -->
+    <!-- Main modal  Add&Edit Task -->
     <div id="crud-modal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
@@ -95,7 +95,23 @@
             </div>
         </div>
     </div>
-    <!--eoModal-->
+    <!--eoModal Add&Edit Task-->
+
+
+
+
+
+
+
+    <!--Modal Add&Edit Tag_Group-->
+    <div id="Add-Edit-Tag-Group" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        You have been trolled !
+    </div>
+    <!--Modal Add&Edit Tag_Group-->
+
+
+
     <!--########################################################### EoAddons ######################################################################-->
 
 
@@ -379,7 +395,7 @@
                     // Set value to current date and time
                     document.getElementById('todo-expired').value = minDatetime;
 
-                    
+
                     console.log('modal is shown');
                 },
                 onToggle: () => {
