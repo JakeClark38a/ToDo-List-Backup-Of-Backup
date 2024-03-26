@@ -165,7 +165,7 @@ $(document).ready(function () {
       <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
 
         <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
-              <div class="font-bold lg:text-2xl">` + task.title + `</div>
+              <div class="font-bold lg:text-2xl">` + `[ `+ task.tag +` ] ` + task.title + `</div>
 
               <div class="flex items-center gap-2">
                       <div class="Task-Edit mx-1">
@@ -195,7 +195,7 @@ $(document).ready(function () {
         <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
   
             <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
-                <div class="font-bold lg:text-2xl">` + task.title + `</div>
+                <div class="font-bold lg:text-2xl">` + `[`+ task.tag +`]` + task.title + `</div>
                 <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
             </div>
   
@@ -349,6 +349,23 @@ $(document).ready(function () {
     return "#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0'));
   }
 
+  function addGroup(){
+    var id = getUuid();
+    var x = Dict.groups[id] = {
+      title: "New Group",
+      tags: [],
+      color: randHexColor(),
+    };
+    console.log(Dict.groups);
+    return id;
+  }
+
+  function addTag(group){
+    //console.log(group);
+    group.tags.push("New Tag");
+    LoadTags();
+  }
+
   //================================================================\\
   //=========================== Main Menu ==========================\\
   //================================================================\\
@@ -358,13 +375,10 @@ $(document).ready(function () {
   });
 
   $("#MMenu-Group-Add").click(function () {
-    var x = Dict.groups[getUuid()] = {
-      title: "New Group",
-      tags: [],
-      color: randHexColor(),
-    };
+    var id = addGroup();
+    var x= Dict.groups[id];
     /// Main Menu Add 
-    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(getUuid(), x));
+    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(id, x));
     /// Main Screen Add 
     renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),x, currentMode);
   });
@@ -374,6 +388,12 @@ $(document).ready(function () {
       $(this).parent().parent().find("#MMenu-Tag-Section"),
       "New tag"
     );
+    /// add tag
+    var gid = $(this).closest(".MMenu-Group").attr("id")
+    //console.log(gid);
+    var groupDict =  Dict.groups[gid];
+    //console.log(groupDict);
+    addTag(groupDict)
   });
 
   /// Edit Group
@@ -398,6 +418,7 @@ $(document).ready(function () {
   function addNewTagMainMenu(group_html, tag) {
     //console.log(group_html);
     group_html.append(MainMenuTagTempplate(getUuid(), tag));
+   // LoadTags();
   }
 
   function addNewGroupMainMenu(unique_id, group) {
@@ -549,7 +570,9 @@ $(document).ready(function () {
   }
 
   // Take all tags on Dict and put them in the "Select tag" dropdown
-  (function LoadTags() {
+  function LoadTags() {
+    console.log("Loading tags");
+    console.log(Dict.groups);
     var tagArray = [];
     // Iterate over each group in Dict.groups
     for (var groupId in Dict.groups) {
@@ -559,11 +582,12 @@ $(document).ready(function () {
             }
         }
     }
+    $("#crud-modal select#tags").empty();
     tagArray.forEach(element => {
         let options = `<option value="${element}">${element}</option>`
         $("#crud-modal select#tags").append(options)
     });
-  })();
+  };
 
   function initUser() {
     currentMode = 0;

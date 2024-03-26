@@ -332,7 +332,7 @@
         <script src="../static/js/app.js"></script>
         <script src="../static/js/calendar.js"></script>
         <script>
-            
+
             function dragMoveListener(event) {
                 var target = event.target
                 // keep the dragged position in the data-x/data-y attributes
@@ -378,6 +378,8 @@
                     document.getElementById('todo-expired').setAttribute('min', minDatetime);
                     // Set value to current date and time
                     document.getElementById('todo-expired').value = minDatetime;
+
+                    
                     console.log('modal is shown');
                 },
                 onToggle: () => {
