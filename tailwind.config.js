@@ -1,16 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  mode: 'jit',
+  mode: "jit",
   content: [
     "./templates/**/*.{html,htm}",
     "./static/**/*.js",
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {
-    screen: {
-      tablet: "640px",
-      laptop: "1024px",
-      desktop: "1280px",
+    screens: {
+      sm: "300px",
+      md: "420px",
+      lg: "800px",
+      xl: "1000px",
     },
     fontFamily: {
       sans: ["Graphik", "sans-serif"],
@@ -19,29 +20,65 @@ module.exports = {
     extend: {
       height: {
         "50%": "50%",
+        "100%": "100%",
+      },
+      padding: {
+        "placeholder-10": "10px",
+      },
+      backgroundImage: {
+        heroxl: "url('/static/images/heroxl.jpg')",
+        heromd: "url('/static/images/heromd.jpg')",
+        herosm: "url('/static/images/herosm.jpg')",
+        background1: "url('/static/images/wallpaper.jpg')",
+        background2 : "url('/static/images/wallpaper2.jpg')",
       },
       colors: {
         primary: {
-          red: "#FAB6B6",
-          green: "#9ADAB0",
-          yellow: "#DCCAA0",
-          blue: "#75C6CC",
+          100: "#b57250",
+          200: "#709498",
         },
         accent: {
-          red: "#fc9999",
-          green: "#79cc96",
-          yellow: "#cdb784",
-          blue: "#8be0e7",
+          100: "#eeb15a",
+          200: "#8cb9be",
+          300: "#c48e73",
         },
-        background: {
-          main: "#FCF6F6",
-          secondary: "#FCF0FF",
-          thirdary: "#F0FEFF",
+        blue: {
+          100: "#e8f1f2",
+          200: "#d1e3e5",
+          300: "#bad5d8",
+          400: "#a3c7cb",
+          500: "#8cb9be",
+          600: "#709498",
+          700: "#546f72",
+          800: "#384a4c",
+          900: "#1c2526",
         },
+        beige: {
+          100: "#f0e3dc",
+          200: "#e1c7b9",
+          300: "#d3aa96",
+          400: "#c48e73",
+          500: "#b57250",
+          600: "#915b40",
+          700: "#6d4430",
+          800: "#482e20",
+          900: "#241710",
+        },
+        yellow: {
+          100: "#fcefde",
+          200: "#f8e0bd",
+          300: "#f5d09c",
+          400: "#f1c17b",
+          500: "#eeb15a",
+          600: "#be8e48",
+          700: "#8f6a36",
+          800: "#5f4724",
+          900: "#302312",
+        },
+        main: "#f6f6f6",
+        dark: "#4a4848",
       },
     },
   },
-  plugins: [
-    require("flowbite/plugin")
-  ]
-}
+  plugins: [require("flowbite/plugin")],
+};
