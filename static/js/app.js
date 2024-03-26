@@ -445,7 +445,7 @@ $(document).ready(function () {
     <div id="add-draggable"  class="z-40 absolute">
         <div  class="touch-none select-none">
             <div id="moveButton" 
-                class="hover:w-14 hover:h-14 border-2 border-shade_green-600 shadow-xl absolute rounded-full w-12 h-12 bg-gradient-to-bl from-shade_green-500 to-shade_red-500 p-2">
+                class="hover:w-14 hover:h-14 border-2 border-primary-100 absolute rounded-full w-12 h-12 bg-gradient-to-bl from-shade_green-500 to-shade_red-500 p-2">
                 <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -16,19 +16,23 @@
     <!--########################################################### Addons ######################################################################-->
 
     <!-- Main modal -->
-    <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div id="crud-modal" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="relative bg-white rounded-lg dark:bg-gray-700">
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                         Create Task
                     </h3>
                     <!-- close btn -->
-                    <button id="btn-close-modal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" >
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    <button id="btn-close-modal" type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                         </svg>
                         <span class="sr-only">Close modal</span>
                     </button>
@@ -37,30 +41,51 @@
                 <form class="p-4 md:p-5">
                     <div class="grid gap-4 mb-4 grid-cols-2">
                         <div class="col-span-2">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
-                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type todo title" required="" maxlength="128">
+                            <label for="name"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                            <input type="text" name="name" id="name"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Type todo title" required="" maxlength="128">
                         </div>
                         <div class="col-span-2">
-                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task Description</label>
-                            <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none" placeholder="Write task description here" maxlength="256"></textarea>                    
+                            <label for="description"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task
+                                Description</label>
+                            <textarea id="description" rows="4"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
+                                placeholder="Write task description here" maxlength="256"></textarea>
                         </div>
                         <div class="col-span-2">
-                            <label for="todo-expired" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expired Time</label>
-                            <input type="datetime-local" name="" id="todo-expired" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                            <label for="todo-expired"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expired
+                                Time</label>
+                            <input type="datetime-local" name="" id="todo-expired"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required="">
                         </div>
                         <div class="col-span-2 sm:col-span-1">
-                            <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tag</label>
-                            <select id="tags" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+                            <label for="tags"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tag</label>
+                            <select id="tags"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                required="">
                                 <option>Select tag</option>
                                 <!-- Dynamic JS options here -->
                             </select>
                         </div>
-                        
+
                     </div>
                     <!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
-                    <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden" autocomplete="off" tabindex="-1">
-                    <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                    <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
+                        autocomplete="off" tabindex="-1">
+                    <button type="submit"
+                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                clip-rule="evenodd"></path>
+                        </svg>
                         Create
                     </button>
                 </form>
@@ -77,7 +102,7 @@
         <!--Begin header-->
 
         <div
-            class="flex justify-between items-center bg-gradient-to-bl from-accent-100 to-yellow-400  py-0 h-16 lg:h-18 lg:py-2 shadow-xl shadow-orange-300">
+            class="flex justify-between items-center bg-gradient-to-bl from-accent-100 to-yellow-400  py-0 h-16 lg:h-18 lg:py-2 ">
             <div class="flex justify-evenly items-center gap-2 md:gap-8">
                 <!--button-->
                 <div id="Main-Menu-Click" class="headbar-button overflow-hidden p-2 mx-2 hover:roa">
@@ -110,7 +135,7 @@
 
 
         <!--########################################################### Float Btn ######################################################################-->
-        
+
         <!--########################################################### EoFloat Btn ######################################################################-->
 
 
@@ -119,7 +144,7 @@
 
         <!-- Dropdown Main menu -->
         <div id="Main-Menu"
-            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-52 lg:w-64 bg-gradient-to-b from-green-200 to-primary-200/95 overflow-hidden shadow-lg shadow-orange-300 rounded-br-xl">
+            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-52 lg:w-64 bg-gradient-to-b from-green-200 to-primary-200/95 overflow-hidden  rounded-br-xl">
 
 
             <div class="MMenu-Primary-Section"> <!--block-->
@@ -207,7 +232,7 @@
         <!--Begin Sidebar-->
         <div class="bg-transparent Sidebar-Right z-10 absolute right-0 h-96 hidden">
             <div
-                class="transform transition-all ease-in-out duration-300 bg-gradient-to-r from-primary-100 to-accent-100 shadow-xl h-full px-2 py-5">
+                class="transform transition-all ease-in-out duration-300 bg-gradient-to-r from-primary-100 to-accent-100  h-full px-2 py-5">
 
                 <div class=""> <!--Sidebar btn-->
                     <div class="headbar-button hover:bg-blue-500 border-0" data-dropdown-toggle="drop-matrix-Click"
@@ -265,7 +290,7 @@
         <script src="../static/js/app.js"></script>
         <script src="../static/js/calendar.js"></script>
         <script>
-            function dragMoveListener (event) {
+            function dragMoveListener(event) {
                 var target = event.target
                 // keep the dragged position in the data-x/data-y attributes
                 var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
@@ -327,45 +352,45 @@
                 });
                 // target elements with the "draggable" class
                 interact('#add-draggable')
-                .draggable({
-                    // enable inertial throwing
-                    inertia: true,
-                    // keep the element within the area of it's parent
-                    modifiers: [
-                    interact.modifiers.restrict({
-                        restriction: "#Main-Screen",
-                        elementRect: {top: 0, left: 0, bottom: 0.1, right: 0.1},
-                        endOnly: true
+                    .draggable({
+                        // enable inertial throwing
+                        inertia: true,
+                        // keep the element within the area of it's parent
+                        modifiers: [
+                            interact.modifiers.restrict({
+                                restriction: "#Main-Screen",
+                                elementRect: { top: 0, left: 0, bottom: 0.1, right: 0.1 },
+                                endOnly: true
+                            })
+                        ],
+                        // disable autoScroll
+                        autoScroll: false,
+
+                        listeners: {
+                            // call this function on every dragmove event
+                            move: dragMoveListener,
+                        }
                     })
-                    ],
-                    // disable autoScroll
-                    autoScroll: false,
+                    .on('tap', function (event) {
+                        event.preventDefault();
+                        // Clean modal first
+                        $('#crud-modal label[for="name"]').text("Title");
+                        $('#crud-modal label[for="description"]').text("Task Description");
 
-                    listeners: {
-                        // call this function on every dragmove event
-                        move: dragMoveListener,
-                    }
-                })
-                .on('tap', function (event) {
-                    event.preventDefault();
-                    // Clean modal first
-                    $('#crud-modal label[for="name"]').text("Title");
-                    $('#crud-modal label[for="description"]').text("Task Description");
-
-                    $('#crud-modal h3').text("Create Task");
-                    $('#crud-modal #name').val("");
-                    $('#crud-modal #description').val("");
-                    $('#crud-modal #tags option').removeAttr("selected");
-                    $('#crud-modal #todo-expired').val("");
-                    $('#crud-modal button[type="submit"]').html(`
+                        $('#crud-modal h3').text("Create Task");
+                        $('#crud-modal #name').val("");
+                        $('#crud-modal #description').val("");
+                        $('#crud-modal #tags option').removeAttr("selected");
+                        $('#crud-modal #todo-expired').val("");
+                        $('#crud-modal button[type="submit"]').html(`
                         <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                         Create`);
-                    $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
-                    
-                    // Show modal
-                    modal.show();
-                    
-                })
+                        $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+
+                        // Show modal
+                        modal.show();
+
+                    })
             });
 
         </script>
