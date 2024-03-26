@@ -118,7 +118,7 @@
 
   /*Main menu*/
   .MMenu-Primary-Image-Wrapper {
-    @apply h-5 w-5 mx-3 lg:w-8 lg:h-8;
+    @apply h-4 w-5 mx-3 lg:w-8 lg:h-8;
   }
 
   .MMenu-Primary-Text {
@@ -126,7 +126,7 @@
   }
 
   .MMenu-Primary-Section {
-    @apply transition-all duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-r from-accent-400 to-transparent py-3 cursor-pointer;
+    @apply flex items-center h-[3.25rem] lg:h-14 transition-all duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-r from-accent-400 to-transparent py-2 lg:py-3 cursor-pointer;
   }
 
   .MMenu-Group {

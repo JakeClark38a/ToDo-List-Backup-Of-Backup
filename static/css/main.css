@@ -1301,7 +1301,7 @@ input:checked + .toggle-bg {
 .MMenu-Primary-Image-Wrapper {
   margin-left: 0.75rem;
   margin-right: 0.75rem;
-  height: 1.25rem;
+  height: 1rem;
   width: 1.25rem;
 }
 
@@ -1319,13 +1319,16 @@ input:checked + .toggle-bg {
 }
 
 .MMenu-Primary-Section {
+  display: flex;
+  height: 3.25rem;
   cursor: pointer;
+  align-items: center;
   --tw-gradient-from: #6faeb4 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(111 174 180 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   --tw-gradient-to: transparent var(--tw-gradient-to-position);
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   transition-property: all;
   transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1336,6 +1339,14 @@ input:checked + .toggle-bg {
   --tw-scale-y: 1.05;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+@media (min-width: 800px) {
+  .MMenu-Primary-Section {
+    height: 3.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
 }
 
 .MMenu-Group {
@@ -2601,6 +2612,10 @@ input:checked + .toggle-bg {
   height: 3rem;
 }
 
+.h-\[40vh\] {
+  height: 40vh;
+}
+
 .h-\[4vh\] {
   height: 4vh;
 }
@@ -2611,6 +2626,10 @@ input:checked + .toggle-bg {
 
 .h-\[70vh\] {
   height: 70vh;
+}
+
+.h-\[85vh\] {
+  height: 85vh;
 }
 
 .h-\[8vh\] {
@@ -2633,6 +2652,14 @@ input:checked + .toggle-bg {
   height: 100%;
 }
 
+.h-\[87vh\] {
+  height: 87vh;
+}
+
+.h-\[86vh\] {
+  height: 86vh;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -2647,6 +2674,10 @@ input:checked + .toggle-bg {
 
 .w-10 {
   width: 2.5rem;
+}
+
+.w-11 {
+  width: 2.75rem;
 }
 
 .w-11\/12 {
@@ -3147,6 +3178,10 @@ input:checked + .toggle-bg {
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
+.bg-gray-300\/35 {
+  background-color: rgb(209 213 219 / 0.35);
+}
+
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -3236,10 +3271,6 @@ input:checked + .toggle-bg {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
 
-.bg-gradient-to-tr {
-  background-image: linear-gradient(to top right, var(--tw-gradient-stops));
-}
-
 .bg-herosm {
   background-image: url('/static/images/herosm.jpg');
 }
@@ -3247,12 +3278,6 @@ input:checked + .toggle-bg {
 .from-cyan-200 {
   --tw-gradient-from: #a5f3fc var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(165 243 252 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.from-gray-400\/65 {
-  --tw-gradient-from: rgb(156 163 175 / 0.65) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(156 163 175 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
@@ -3277,10 +3302,6 @@ input:checked + .toggle-bg {
 
 .to-accent-100 {
   --tw-gradient-to: #eaa038 var(--tw-gradient-to-position);
-}
-
-.to-transparent {
-  --tw-gradient-to: transparent var(--tw-gradient-to-position);
 }
 
 .to-white {
@@ -3726,6 +3747,65 @@ input:checked + .toggle-bg {
   text-align: center;
 }
 
+.after\:absolute::after {
+  content: var(--tw-content);
+  position: absolute;
+}
+
+.after\:start-\[2px\]::after {
+  content: var(--tw-content);
+  inset-inline-start: 2px;
+}
+
+.after\:top-\[2px\]::after {
+  content: var(--tw-content);
+  top: 2px;
+}
+
+.after\:h-5::after {
+  content: var(--tw-content);
+  height: 1.25rem;
+}
+
+.after\:w-5::after {
+  content: var(--tw-content);
+  width: 1.25rem;
+}
+
+.after\:rounded-full::after {
+  content: var(--tw-content);
+  border-radius: 9999px;
+}
+
+.after\:border::after {
+  content: var(--tw-content);
+  border-width: 1px;
+}
+
+.after\:border-gray-300::after {
+  content: var(--tw-content);
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+
+.after\:bg-white::after {
+  content: var(--tw-content);
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.after\:transition-all::after {
+  content: var(--tw-content);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.after\:content-\[\'\'\]::after {
+  --tw-content: '';
+  content: var(--tw-content);
+}
+
 .hover\:h-12:hover {
   height: 3rem;
 }
@@ -3888,6 +3968,23 @@ input:checked + .toggle-bg {
 
 .group:focus .group-focus\:ring-gray-800\/70 {
   --tw-ring-color: rgb(31 41 55 / 0.7);
+}
+
+.peer:checked ~ .peer-checked\:bg-blue-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(112 148 152 / var(--tw-bg-opacity));
+}
+
+.peer:checked ~ .peer-checked\:after\:translate-x-full::after {
+  content: var(--tw-content);
+  --tw-translate-x: 100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.peer:checked ~ .peer-checked\:after\:border-white::after {
+  content: var(--tw-content);
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
 :is(.dark .dark\:border-blue-500) {
@@ -4172,20 +4269,24 @@ input:checked + .toggle-bg {
     height: 8rem;
   }
 
-  .lg\:h-96 {
-    height: 24rem;
-  }
-
-  .lg\:h-6 {
-    height: 1.5rem;
-  }
-
   .lg\:h-7 {
     height: 1.75rem;
   }
 
+  .lg\:h-96 {
+    height: 24rem;
+  }
+
+  .lg\:h-\[45vh\] {
+    height: 45vh;
+  }
+
   .lg\:w-64 {
     width: 16rem;
+  }
+
+  .lg\:w-7 {
+    width: 1.75rem;
   }
 
   .lg\:w-96 {
@@ -4202,18 +4303,6 @@ input:checked + .toggle-bg {
 
   .lg\:w-\[55vw\] {
     width: 55vw;
-  }
-
-  .lg\:w-3 {
-    width: 0.75rem;
-  }
-
-  .lg\:w-6 {
-    width: 1.5rem;
-  }
-
-  .lg\:w-7 {
-    width: 1.75rem;
   }
 
   .lg\:flex-row {
@@ -4274,4 +4363,10 @@ input:checked + .toggle-bg {
 
 .rtl\:space-x-reverse:where([dir="rtl"], [dir="rtl"] *) > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 1;
+}
+
+.peer:checked ~ .rtl\:peer-checked\:after\:-translate-x-full:where([dir="rtl"], [dir="rtl"] *)::after {
+  content: var(--tw-content);
+  --tw-translate-x: -100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }

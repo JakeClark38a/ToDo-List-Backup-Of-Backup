@@ -96,13 +96,10 @@ $(document).ready(function () {
     </div>
 
     <div class="text-lg px-1 my-1 center">` + tagName +`</div>
-    <div class="MMenu-Tag-Settings mx-1">
+    <div class="MMenu-Tag-Edit mx-1">
     <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
 </svg>
-
-
-
 </div>
 </div>
 
@@ -128,7 +125,7 @@ $(document).ready(function () {
                 <div class="text-xl ml-2">` + group.title + `</div>
         </div>
 
-        <div class="MMenu-Group-Settings mx-1">
+        <div class="MMenu-Group-Edit mx-1">
         <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
       </svg>
@@ -167,10 +164,20 @@ $(document).ready(function () {
     <div id="`+ id + `" class="task-outer">
       <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
 
-          <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
+        <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
               <div class="font-bold lg:text-2xl">` + task.title + `</div>
+
+              <div class="flex items-center gap-2">
+                      <div class="Task-Edit mx-1">
+                      <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                    </svg>
+                    </div>
+
+              
               <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
-          </div>
+              </div>
+        </div>
 
           <div class="p-2 flex justify-between items-center lg:h-24">
               <div class="text-center lg:text-xl">`+ task.description + `</div>
@@ -209,7 +216,16 @@ $(document).ready(function () {
       return (
         `
     <div id="` +id +`" class="">
+      <div class="flex justify-between items-center px-3 ">
         <div id="Task-Group-Title" class="todobox-title">` + group.title +`</div>
+        <div class="Group-Task-Add">
+                <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 12h14m-7 7V5" />
+                </svg>
+            </div>
+        </div>
         <div id="Task-Section" class=" p-3 flex flex-col gap-3 overflow-y-auto overflow-x-hidden border-2 backdrop-blur-sm  w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
             <!--task here-->
         </div>
@@ -338,7 +354,7 @@ $(document).ready(function () {
   //================================================================\\
 
   $("#Main-Menu-Click").click(function () {
-    $("#Main-Menu").toggleClass("h-[90vh]");
+    $("#Main-Menu").toggleClass("h-[86vh]");
   });
 
   $("#MMenu-Group-Add").click(function () {
@@ -360,9 +376,14 @@ $(document).ready(function () {
     );
   });
 
-  /// Double click to edit group title
-  $("#MMenu-Group-Section").on("click", ".MMenu-Group-Settings", function () {
+  /// Edit Group
+  $("#MMenu-Group-Section").on("click", ".MMenu-Group-Edit", function () {
     console.log($(this).closest(".MMenu-Group").attr("id"));
+  });
+
+  /// Edit Tag
+  $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Edit", function () {
+    console.log($(this).closest(".MMenu-Tag").attr("id"));
   });
 
   function toggleHiddenMMenuGroup(group) {
@@ -564,10 +585,32 @@ $(document).ready(function () {
   //================================================================\\
   //========================= CRUD modal ===========================\\
   //================================================================\\
+    // Create 
+    $('#Main-Screen').on("click", ".Group-Task-Add", function(e){
+        e.preventDefault();
+        // Clean modal first
+        $('#crud-modal label[for="name"]').text("Title");
+        $('#crud-modal label[for="description"]').text("Task Description");
 
-    // My work at U in CRUD modal
-    $('#Main-Screen').on("click", ".task-outer", function(e){
-      let id = $(this).attr("id");
+        $('#crud-modal h3').text("Create Task");
+        $('#crud-modal #name').val("");
+        $('#crud-modal #description').val("");
+        $('#crud-modal #tags option').removeAttr("selected");
+        $('#crud-modal #todo-expired').val("");
+        $('#crud-modal button[type="submit"]').html(`
+        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+        Create`);
+        $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+
+        // Show modal
+        modal.show();
+        e.stopPropagation();
+    });
+
+    // My work at U in CRUD modal  /// NULL -change the activate condition to prevent conflict with cancel button 
+    $('#Main-Screen').on("click", ".Task-Edit", function(e){
+
+      let id = $(this).closest(".task-outer").attr("id");
       let title = Dict.tasks[id].title;
       let desc = Dict.tasks[id].description;
       let tag = Dict.tasks[id].tag;
