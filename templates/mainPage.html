@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 </head>
 
 <body class="overflow-hidden bg-background1 bg-cover">
@@ -15,77 +15,59 @@
 
     <!--########################################################### Addons ######################################################################-->
 
-    <!-- modal-->
-    <div id="modal-container"
-        class="opacity-0 flex justify-center items-center fixed z-50 h-full w-full pointer-events-none bg-slate-300">
-        <div id="modal" class="border-2 rounded-2xl shadow-xl bg-white ">
-
-            <div class="flex justify-between items-center border-b-2 p-3 px-5">
-                <h2>Create Task</h2>
-                <div><button id="close-bt">X</button></div>
-            </div>
-
-            <div class="flex flex-col items-center h-32 p-4 m-0">
-                <div class="content h-16 my-3">
-                    <input id="Add-Task-Title" type="text"
-                        class="text-center border-2 border-gray-400 rounded-lg text-[1rem] "
-                        placeholder="Task Input Here">
-                </div>
-
-                <div class="content w-full h-32">
-                    <textarea id="Add-Task-Desc"
-                        class="text-center border-2 border-gray-400 rounded-lg w-full text-[1rem] resize-none"
-                        placeholder="Description Input here"></textarea>
-                </div>
-            </div>
-
-            <div class="flex flex-col w-full p-4 my-4">
-                <div class="content pl-3 my-2"> Tags </div>
-                <div id="Tag-list" class="flex flex-wrap gap-1 ">
-                    <!--tag list-->
-                    <!--tag dropdown list-->
-                    <div id="add-tag-bt" data-dropdown-toggle="dropdown"
-                        class="w-20 h-8 border-2 border-gray-400 rounded-lg text-center border-dashed ">
-                        <svg class="w-full h-full text-gray-800 dark:text-white hover:rotate-3" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 12h14m-7 7V5" />
+    <!-- Main modal -->
+    <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                        Create Task
+                    </h3>
+                    <!-- close btn -->
+                    <button id="btn-close-modal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" >
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>
-                    </div>
-                    <!-- Dropdown menu -->
-                    <div id="dropdown"
-                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                            aria-labelledby="dropdownDefaultButton">
-                            <!-- <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
-                        </li> -->
-                        </ul>
-                    </div>
-
-
+                        <span class="sr-only">Close modal</span>
+                    </button>
                 </div>
+                <!-- Modal body -->
+                <form class="p-4 md:p-5">
+                    <div class="grid gap-4 mb-4 grid-cols-2">
+                        <div class="col-span-2">
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type todo title" required="" maxlength="128">
+                        </div>
+                        <div class="col-span-2">
+                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task Description</label>
+                            <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none" placeholder="Write task description here" maxlength="256"></textarea>                    
+                        </div>
+                        <div class="col-span-2">
+                            <label for="todo-expired" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expired Time</label>
+                            <input type="datetime-local" name="" id="todo-expired" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                        </div>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tag</label>
+                            <select id="tags" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+                                <option>Select tag</option>
+                                <!-- Dynamic JS options here -->
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
+                    <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden" autocomplete="off" tabindex="-1">
+                    <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                        Create
+                    </button>
+                </form>
             </div>
-
-            <div class="relative flex justify-around items-center w-full h-16 border-t-2 bottom-0">
-                <div class="content h-10 w-24 "><button id="add-task-bt"
-                        class=" border-[1px] border-gray-400 rounded-2xl h-full w-full">Submit</button></div>
-                <div class="content h-10 w-24 "><button id="cancle-bt"
-                        class="border-[1px] border-gray-400 rounded-2xl h-full w-full ">Cancel</button></div>
-            </div>
-
         </div>
     </div>
-    <!--kết thúc phần modal-->
+    <!--eoModal-->
     <!--########################################################### EoAddons ######################################################################-->
 
 
@@ -128,20 +110,7 @@
 
 
         <!--########################################################### Float Btn ######################################################################-->
-        <!-- add question action button here-->
-        <div class="">
-            <div id="a0002" class="">
-                <div id="moveButton"
-                    class="hover:w-14 hover:h-14 border-2 border-primary-100 shadow-xl absolute rounded-full w-12 h-12 bg-accent-200 p-2">
-                    <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5 12h14m-7 7V5" />
-                    </svg>
-                </div>
-            </div>
-        </div>
-        <!-- kết thúc phần nút -->
+        
         <!--########################################################### EoFloat Btn ######################################################################-->
 
 
@@ -268,104 +237,7 @@
 
 
         <!--########################################################### Calendar ######################################################################-->
-        <!-- Begin Calendar -->
-        <div id="Calendar-Container" class="container hidden">
-            <div class="left">
-                <div class="calendar">
-                    <div class="month">
-                        <i class="prev">
-                            &lt;</i>
-                        <div class="date">december 2015</div>
-                        <i class="next">&gt;</i>
-                    </div>
-                    <div class="weekdays">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
-                    </div>
-                    <div class="days"></div>
-                    <div class="goto-today">
-                        <div class="goto">
-                            <input type="text" placeholder="mm/yyyy" class="date-input" />
-                            <button class="goto-btn">Go</button>
-                        </div>
-                        <button class="today-btn">Today</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="right">
-                <div class="tasks-display">
-                    <div class="today-date">
-                        <div class="day-and-date">
-                            <div class="event-day">wed</div>
-                            <div class="event-date">12th december 2022</div>
-                        </div>
-
-                        <!-- today-date equivilent to events -->
-                        <!-- task-container is equivilent to event -->
-                        <!-- this events div call a lot of function, be ware deleted it -->
-                        <div class="events"></div>
-
-                        <!-- `<div class="event">
-									//       <div class="title">
-									//         <i class="fas fa-circle"></i>
-									//         <h3 class="event-title">${event.title}</h3>
-									//       </div>
-									//       <div class="event-time">
-									//         <span class="event-time">${event.time}</span>
-									//       </div>
-									//   </div>` -->
-
-                        <!-- if we click in the event class div it will have delete function available -->
-
-                        <!-- <div class="task-container">
-									<div class="time-display">8:30</div>
-									<div class="task-information">
-										<div class="task-title">đi nhà nghỉ</div>
-										<div class="task-description">Không nên nghỉ</div> 
-										<div class="tags-display">
-											<div class="tag-important">important</div>
-											<div class="tag-urgent">urgent</div>
-										</div>
-									</div>
-								</div> -->
-
-                    </div>
-                </div>
-                <div class="add-event-wrapper">
-                    <div class="add-event-header">
-                        <div class="title">Add Event</div>
-                        <i class="fas fa-times close"></i>
-                    </div>
-                    <div class="add-event-body">
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Event Name" class="event-name" />
-                        </div>
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Event Time From" class="event-time-from" />
-                        </div>
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Event Time To" class="event-time-to" />
-                        </div>
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Description" class="event-description" />
-                        </div>
-                    </div>
-                    <div class="add-event-footer">
-                        <button class="add-event-btn">Add Event</button>
-                    </div>
-                </div>
-            </div>
-            <button class="add-event">
-                <i class="fas fa-plus"></i>
-            </button>
-        </div>
-        <!-- End Calendar -->
+        <!-- Redirect to Backend Generator here -->
         <!--########################################################### EoCalendar ######################################################################-->
 
 
@@ -373,8 +245,8 @@
         <!--########################################################### Main Screen ######################################################################-->
         <!--Begin Main screen-->
         <div id="Main-Screen" class="Container bg-main/55 py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
-
-
+            <!-- Dynamic draggable button here -->
+            <!--Formatter-->
         </div>
         <!--End Main screen-->
         <!--########################################################### EoMain Screen ######################################################################-->
@@ -392,6 +264,111 @@
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="../static/js/app.js"></script>
         <script src="../static/js/calendar.js"></script>
+        <script>
+            function dragMoveListener (event) {
+                var target = event.target
+                // keep the dragged position in the data-x/data-y attributes
+                var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+                var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+                // translate the element
+                target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+
+                // update the posiion attributes
+                target.setAttribute('data-x', x)
+                target.setAttribute('data-y', y)
+            }
+            // set the modal menu element
+            const $targetEl = document.getElementById('crud-modal');
+
+            // options with default values
+            const options = {
+                // placement: 'bottom-right',
+                backdrop: 'dynamic',
+                backdropClasses:
+                    'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
+                closable: true,
+                onHide: () => {
+                    console.log('modal is hidden');
+                },
+                onShow: () => {
+                    // Limit the date picker to today and future dates
+                    // Get the current date and time
+                    const now = new Date();
+
+                    // Format the date and time as required by the min attribute
+                    const year = now.getFullYear();
+                    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed, so we add 1
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const hour = String(now.getHours()).padStart(2, '0');
+                    const minute = String(now.getMinutes()).padStart(2, '0');
+
+                    // Construct the string for the min attribute
+                    const minDatetime = `${year}-${month}-${day}T${hour}:${minute}`;
+
+                    // Set the min attribute of the input element
+                    document.getElementById('todo-expired').setAttribute('min', minDatetime);
+                    // Set value to current date and time
+                    document.getElementById('todo-expired').value = minDatetime;
+                    console.log('modal is shown');
+                },
+                onToggle: () => {
+                    console.log('modal has been toggled');
+                },
+            };
+            // instance options object
+            const modal = new Modal($targetEl, options);
+
+
+            $(document).ready(function () {
+                // Close modal manually
+                $('#btn-close-modal').click(function () {
+                    modal.hide();
+                });
+                // target elements with the "draggable" class
+                interact('#add-draggable')
+                .draggable({
+                    // enable inertial throwing
+                    inertia: true,
+                    // keep the element within the area of it's parent
+                    modifiers: [
+                    interact.modifiers.restrict({
+                        restriction: "#Main-Screen",
+                        elementRect: {top: 0, left: 0, bottom: 0.1, right: 0.1},
+                        endOnly: true
+                    })
+                    ],
+                    // disable autoScroll
+                    autoScroll: false,
+
+                    listeners: {
+                        // call this function on every dragmove event
+                        move: dragMoveListener,
+                    }
+                })
+                .on('tap', function (event) {
+                    event.preventDefault();
+                    // Clean modal first
+                    $('#crud-modal label[for="name"]').text("Title");
+                    $('#crud-modal label[for="description"]').text("Task Description");
+
+                    $('#crud-modal h3').text("Create Task");
+                    $('#crud-modal #name').val("");
+                    $('#crud-modal #description').val("");
+                    $('#crud-modal #tags option').removeAttr("selected");
+                    $('#crud-modal #todo-expired').val("");
+                    $('#crud-modal button[type="submit"]').html(`
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                        Create`);
+                    $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+                    
+                    // Show modal
+                    modal.show();
+                    
+                })
+            });
+
+        </script>
 </body>
 
 </html>

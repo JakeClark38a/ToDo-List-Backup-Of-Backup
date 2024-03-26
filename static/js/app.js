@@ -301,10 +301,15 @@ $(document).ready(function () {
   //=========================== General ============================\\
   //================================================================\\
   function getUuid() {
-    return (
-      "id_" +
-      Math.random().toString(36).substring(2, 6) +
-      Math.random().toString(36).substring(2, 6)
+    // old uuid
+    // return (
+    //   "id_" +
+    //   Math.random().toString(36).substring(2, 6) +
+    //   Math.random().toString(36).substring(2, 6)
+    // );
+    // use uuidv4
+    return "id_" + "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+        (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
     );
   }
 
@@ -389,7 +394,7 @@ $(document).ready(function () {
   }
 
   //Remove task
-  $("#Main-Screen").on("click", "#Task-Cancel", function () {
+  $("#Main-Screen").on("click", "#Task-Cancel", function (e) {
     var task_ = $(this).closest(".task-outer");
     var taskId = task_.attr("id");
     delete Dict.tasks[taskId];
@@ -397,6 +402,7 @@ $(document).ready(function () {
     //console.log(Dict.tasks);
 
     task_.toggleClass("transform transition-all duration-350 delay-75 ease-in-out scale-0 blur-md translate-y-20");
+    
     setTimeout(() => {
       task_.remove();
     }, 400);
@@ -433,6 +439,23 @@ $(document).ready(function () {
   }
 
   function LoadMainScreen() {
+    // Also add Draggable button again
+    $("#Main-Screen").append($(`
+    <!-- add question action button here-->
+    <div id="add-draggable"  class="z-40 absolute">
+        <div  class="touch-none select-none">
+            <div id="moveButton" 
+                class="hover:w-14 hover:h-14 border-2 border-shade_green-600 shadow-xl absolute rounded-full w-12 h-12 bg-gradient-to-bl from-shade_green-500 to-shade_red-500 p-2">
+                <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 12h14m-7 7V5" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <!-- kết thúc phần nút -->
+    `))
     var formatter_html = $("#Main-Screen").append(
       MainScreenFormatterTemplate()
     );
@@ -483,6 +506,23 @@ $(document).ready(function () {
     RefreshMainScreen();
   }
 
+  // Take all tags on Dict and put them in the "Select tag" dropdown
+  (function LoadTags() {
+    var tagArray = [];
+    // Iterate over each group in Dict.groups
+    for (var groupId in Dict.groups) {
+        if (Dict.groups.hasOwnProperty(groupId)) {
+            if (Dict.groups[groupId].hasOwnProperty("tags")){
+                tagArray = [...tagArray, ...Dict.groups[groupId].tags]
+            }
+        }
+    }
+    tagArray.forEach(element => {
+        let options = `<option value="${element}">${element}</option>`
+        $("#crud-modal select#tags").append(options)
+    });
+  })();
+
   function initUser() {
     currentMode = 0;
     LoadUser();
@@ -502,137 +542,125 @@ $(document).ready(function () {
 
   // website events
 
-  const close_button = document.getElementById("close-bt");
-  const cancle_button = document.getElementById("cancle-bt");
-  const modal_container = document.getElementById("modal-container");
-  const addtask_btn = document.getElementById("add-task-bt");
-  const addtag_btn = document.getElementById("add-tag-bt");
-  //  thiết lập chiều dài bằng chiều rộng khi chiều rộng là biến thiên
-  // đặt id-a0001 là biến x
+    // My work at U in CRUD modal
+    $('#Main-Screen').on("click", ".task-outer", function(e){
+      let id = $(this).attr("id");
+      let title = Dict.tasks[id].title;
+      let desc = Dict.tasks[id].description;
+      let tag = Dict.tasks[id].tag;
+      let expired = Dict.tasks[id].deadline;
+      console.log(id, desc);
+      // Clean up
+      // Clean modal first
+      $('#crud-modal label[for="name"]').text("Title");
+      $('#crud-modal label[for="description"]').text("Task Description");
+      // Change task header
+      $('#crud-modal h3').text("Edit Task");
+      // Change input to task details
+      $('#crud-modal #name').val(title);
+      $('#crud-modal #description').val(desc);
+      $('#crud-modal').find(`#tags option[value="${tag}"]`).attr("selected", title);
+      $('#crud-modal #todo-expired').val(expired);
+      $('#crud-modal button[type="submit"]').text("Edit");
+      // Change honeypot to id
+      $('#crud-modal input[type="checkbox"]').attr("id", `task_${id}`);
+      // Get current date
+      let current_date = new Date();
+      // Get date input
+      let date_element = $('#crud-modal #todo-expired');
+      // Get input date
+      let input_date = new Date(date_element.val());
+      // If input date is less than current date, show alert
+      if (input_date < current_date){
+          date_element.css("border", "2px solid red");
+      }
+      else {
+          date_element.css("border", "2px solid green");
+      }
+      // Show modal
+      modal.show();
+      e.stopPropagation();
+  })
 
-  const m = document.getElementById("a0002");
-  const n = m.clientHeight;
-  document.getElementById("a0002").style.width = n + "px";
-  document.getElementById("a0002").style.height = n + "px";
-  var button = document.getElementById("moveButton");
+  // My work at adding limitation on typing Create - Edit modal
+  $("#crud-modal").on("input", "#name, #description", function(){
+      // Take current input length
+      let input_length = $(this).val().length;
+      // Take input limitation
+      let input_limit = $(this).attr("maxlength");
+      // If length > 0, show this length and limitation at the same place in label
+      if (input_length > 0){
+          // Update length and limit
+          $(this).prev().text(function(e, text){
+              let label_content = text.split(" ");
+              // Remove old length and limit (element that starts with "(" and ends with ")")
+              label_content = label_content.filter(e => !e.startsWith("(") && !e.endsWith(")"));
+              // Join new length and limit
+              label_content.push(`(${input_length}/${input_limit})`);
+              return label_content.join(" ");
+          })
+      }
+      else {
+          // Update length and limit
+          $(this).prev().text(function(e, text){
+              let label_content = text.split(" ");
+              // Remove old length and limit (element that starts with "(" and ends with ")")
+              label_content = label_content.filter(e => !e.startsWith("(") && !e.endsWith(")"));
+              // Join just title
+              return label_content.join(" ");
+          })
+      }
+  })
+  // And also checking for expired date
+  $("#crud-modal").on("input", "#todo-expired", function(){
+      // Get current date
+      let current_date = new Date();
+      // Get input date
+      let input_date = new Date($(this).val());
+      // If input date is less than current date, show alert
+      if (input_date < current_date){
+          $(this).css("border", "2px solid red");
+      }
+      else {
+          $(this).css("border", "2px solid green");
+      }
+  })
 
-  // Biến lưu trữ vị trí chuột khi bắt đầu di chuyển
-  var startX, startY;
-
-  // Biến lưu trữ vị trí ban đầu của nút
-  var startLeft, startTop;
-
-  function close() {
-    modal_container.classList.remove("bg-opacity-50", "pointer-events-auto");
-    modal_container.classList.add("opacity-0", "pointer-events-none");
-  }
-
-  function open() {
-    modal_container.classList.remove("opacity-0", "pointer-events-none");
-    modal_container.classList.add("bg-opacity-50", "pointer-events-auto");
-  }
-
-  addtask_btn.addEventListener("click", function () {
-    var title = document.getElementById("Add-Task-Title");
-    var desc = document.getElementById("Add-Task-Desc");
-    var tag_ = document.getElementById("add-tag-bt").innerText;
-    if (title.value == "" || tag_ == "") {
-      console.log("Empty task is not valid");
-      return;
-    }
-    console.log(title.value, desc.value, tag_);
-    // Adding a new task to the tasks object within Dict
-    Dict.tasks[getUuid()] = {
-      title: title.value,
-      description: desc.value,
-      tag: tag_,
-      deadline: 62783,
-      points: 4,
-    };
-    console.log(Dict.tasks);
-    // Assuming RefreshMainScreen function is properly defined and accessible
-    RefreshMainScreen();
-    close();
-  });
-
-  // Bắt sự kiện khi chuột được nhấn xuống trên nút
-  button.addEventListener("mousedown", function (e) {
-    // Lưu trữ vị trí chuột khi bắt đầu di chuyển
-    startX = e.clientX;
-    startY = e.clientY;
-
-    // Lưu trữ vị trí ban đầu của nút
-    startLeft = button.offsetLeft;
-    startTop = button.offsetTop;
-
-    // Bắt sự kiện khi di chuyển chuột
-    document.addEventListener("mousemove", onMouseMove);
-  });
-
-  // Bắt sự kiện khi chuột được nhả ra
-  document.addEventListener("mouseup", function () {
-    // Hủy bỏ sự kiện di chuyển chuột
-    document.removeEventListener("mousemove", onMouseMove);
-  });
-
-  // Hàm xử lý sự kiện di chuyển chuột
-  function onMouseMove(e) {
-    // Tính toán khoảng cách di chuyển
-    var deltaX = e.clientX - startX;
-    var deltaY = e.clientY - startY;
-
-    // Cập nhật vị trí mới của nút
-    button.style.left = startLeft + deltaX + "px";
-    button.style.top = startTop + deltaY + "px";
-  }
-
-  // Bắt sự kiện khi nút được nhấn
-  button.addEventListener("click", function (e) {
-    // Kiểm tra xem nút có đang di chuyển hay không
-    if (Math.abs(startX - e.clientX) > 5 || Math.abs(startY - e.clientY) > 5) {
-      return; // Nếu nút đang di chuyển, không thực hiện hành động click
-    }
-    open(e);
-  });
-  close_button.addEventListener("click", close);
-  cancle_button.addEventListener("click", close);
-
-  // My work at adding tags
-  // When user click at the add tag button, dropdown will change content
-  $("#add-tag-bt").click(function () {
-    // Empty ul
-    $("#dropdown ul").empty();
-    // With each tag in nav bar
-    $(".text-lg.px-1.my-1.center").each(function () {
-      // Append list into ul
-      $("#dropdown ul").append(`
-    <li>
-    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">${$(
-        this
-      ).text()}</a>
-    </li>
-    `);
-    });
-  });
+  // Submit button
+  $('#crud-modal form').on("submit", function(e){
+      e.preventDefault();
+      // Get id from honeypot, if id is empty string, it means it's a new task
+      let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
+      // Get all input
+      let title = $('#crud-modal #name').val();
+      let desc = $('#crud-modal #description').val();
+      let tag = $('#crud-modal #tags').val();
+      let expired = $('#crud-modal #todo-expired').val();
+      console.log(id, title, desc, tag, expired);
+      // Before updatind Dict, check if tag is empty
+      if (id == ""){
+          // Adding a new task to the tasks object within Dict
+          Dict.tasks[getUuid()] = {
+              title: title,
+              description: desc,
+              tag: tag,
+              deadline: expired,
+              points: 4,
+          };
+      }
+      else {
+          // Update Dict
+          Dict.tasks[id].title = title;
+          Dict.tasks[id].description = desc;
+          Dict.tasks[id].tag = tag;
+          Dict.tasks[id].deadline = expired;
+      }
+      alert("Submitted");
+      RefreshMainScreen();
+      modal.hide();
+      // window.location = window.location;
+  })
 
   // When user clicked at list item, it will add tag to the task and also close dropdown
-  $("#dropdown ul").on("click", "li", function () {
-    // Add tag to the task
-    $("#add-tag-bt").text($(this).text());
-    // Close dropdown
-    $("#dropdown").removeClass("block");
-    $("#dropdown").addClass("hidden");
-  });
-
-  $("#Calendar-Container").hide();
-  $("#Main-Screen").show();
-  $("#MMenu-Calendar").click(function () {
-    $("#Calendar-Container").show();
-    $("#Main-Screen").hide();
-  });
-  $("#MMenu-Today").click(function () {
-    $("#Calendar-Container").hide();
-    $("#Main-Screen").show();
-  });
-});
+})
 // End of app.js
