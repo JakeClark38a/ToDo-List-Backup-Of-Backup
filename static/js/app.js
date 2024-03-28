@@ -168,7 +168,7 @@ $(document).ready(function () {
     if (mode == 0) {
       return (
         ` 
-    <div id="`+ id + `" class="task-outer cursor-default">
+    <div id="`+ id + `" class="task-outer bg-main rounded-xl cursor-default">
       <div class=" rounded-lg h-20 lg:h-32 shadow-lg border-2 border-gray-500">
 
         <div class=" px-2 py-1 flex justify-between items-center border-b-[1px] border-gray-500">
@@ -468,6 +468,21 @@ $(document).ready(function () {
   //================================================================\\
   //========================== Main Screen =========================\\
   //================================================================\\
+
+  function updateTime() {
+    const now = new Date();
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    let hours = now.getHours().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12; // Convert to 12-hour format
+    const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}`;
+    document.getElementById('clock').textContent = formattedTime;
+  }
+  
+  setInterval(updateTime, 1000);
+  
+  
 
   function renderFormatterAddons(formatter_html, mode = 0) {
     formatter_html.append(FormmatterAddons(mode));

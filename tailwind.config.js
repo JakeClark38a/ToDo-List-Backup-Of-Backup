@@ -29,7 +29,9 @@ module.exports = {
         heroxl: "url('/static/images/heroxl.jpg')",
         heromd: "url('/static/images/heromd.jpg')",
         herosm: "url('/static/images/herosm.jpg')",
-        background1: "url('/static/images/wallpaper.jpg')",
+        bg1: "url('/static/images/wallpaper.jpg')",
+        bg2: "url('/static/images/wallpaper2.jpg')",
+        bg3: "url('/static/images/wallpaper3.jpg')",
       },
       colors: {
         primary: {
