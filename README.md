@@ -14,6 +14,13 @@ Technologies:
 - Backend: Python Flask
 - Host: AWS
 
+Colaborators:
+- Leader: JakeClark (Nguyễn Chí Thành) (another account: JakeClark-chan)
+- Sub-Leader: Witnull (Trần Nguyễn Tiến Thành)
+- SeaWind (Nguyễn Hải Phong)
+- KienSD (Hồ Trung Kiên)
+- lightunderwolf (Hồ Vĩnh Nhật)
+
 ## Features Map
 
 ![](./feature-map.png)
