@@ -19,7 +19,7 @@ Colaborators:
 - Sub-Leader: Witnull (Trần Nguyễn Tiến Thành)
 - SeaWind (Nguyễn Hải Phong)
 - KienSD (Hồ Trung Kiên)
-- lightunderwolf (Hồ Vĩnh Nhật)
+- lightunderwolft (Hồ Vĩnh Nhật)
 
 ## Features Map
 
