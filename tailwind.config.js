@@ -75,7 +75,7 @@ module.exports = {
           800: "#5f4724",
           900: "#302312",
         },
-        main: "#f6f6f6",
+        main: "#fffcf7",
         dark: "#4a4848",
       },
     },

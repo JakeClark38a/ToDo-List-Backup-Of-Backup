@@ -68,10 +68,17 @@ $(document).ready(function () {
         points: 5,
       },
     },
+    tag_color: {
+      tag1: "#7aa5cf",
+      tag2: "#63c074",
+      tag3: "#ac7acf",
+      tag4: "#c5e875",
+      tag5: "#f7d38c",
+    },
   };
 
   var currentMode = 0;
-
+  var isCreateGroup = false;
   //
   //
   //
@@ -161,14 +168,14 @@ $(document).ready(function () {
     if (mode == 0) {
       return (
         ` 
-    <div id="`+ id + `" class="task-outer">
-      <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
+    <div id="`+ id + `" class="task-outer cursor-default">
+      <div class=" rounded-lg h-20 lg:h-32 shadow-lg border-2 border-gray-500">
 
-        <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
-              <div class="font-bold lg:text-2xl">` + `[ `+ task.tag +` ] ` + task.title + `</div>
+        <div class=" px-2 py-1 flex justify-between items-center border-b-[1px] border-gray-500">
+              <div class="font-medium lg:text-2xl">` + `[ `+ task.tag +` ] ` + task.title + `</div>
 
               <div class="flex items-center gap-2">
-                      <div class="Task-Edit mx-1">
+                      <div class="Task-Edit mx-1 cursor-pointer">
                       <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                     </svg>
@@ -180,7 +187,7 @@ $(document).ready(function () {
         </div>
 
           <div class="p-2 flex justify-between items-center lg:h-24">
-              <div class="text-center lg:text-xl">`+ task.description + `</div>
+              <div class="text-center font-thin lg:text-xl">`+ task.description + `</div>
               <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
           </div>
       </div>
@@ -215,7 +222,7 @@ $(document).ready(function () {
     if (mode == 0) {
       return (
         `
-    <div id="` +id +`" class="">
+    <div id="` +id +`">
       <div class="flex justify-between items-center px-3 ">
         <div id="Task-Group-Title" class="todobox-title">` + group.title +`</div>
         <div class="Group-Task-Add">
@@ -226,7 +233,7 @@ $(document).ready(function () {
                 </svg>
             </div>
         </div>
-        <div id="Task-Section" class=" p-3 flex flex-col gap-3 overflow-y-auto overflow-x-hidden border-2 backdrop-blur-sm  w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
+        <div id="Task-Section" class="transition-all duration-300 ease-in-out p-3 flex flex-col gap-3 overflow-y-auto overflow-x-hidden backdrop-blur-sm bg-[#f9fafb] shadow-xl hover:shadow-2xl w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
             <!--task here-->
         </div>
     </div>
@@ -349,25 +356,6 @@ $(document).ready(function () {
     return "#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0'));
   }
 
-  function addGroup(){
-    var id = getUuid();
-    addEdit_TagGroupModal.show()
-    var x = Dict.groups[id] = {
-      title: "New Group",
-      tags: [],
-      color: randHexColor(),
-    };
-    console.log(Dict.groups);
-    return id;
-  }
-
-  function addTag(group){
-    //console.log(group);
-    addEdit_TagGroupModal.show()
-    group.tags.push("New Tag");
-    LoadTags();
-  }
-
   //================================================================\\
   //=========================== Main Menu ==========================\\
   //================================================================\\
@@ -377,26 +365,56 @@ $(document).ready(function () {
   });
 
   $("#MMenu-Group-Add").click(function () {
-    var id = addGroup();
-    var x= Dict.groups[id];
-    /// Main Menu Add 
-    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(id, x));
-    /// Main Screen Add 
-    renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),x, currentMode);
+      isCreateGroup = true;
+      // Customize modal appearance
+      $('#crud-modal label[for="name"]').text("Title");
+
+      $('#crud-modal h3').text("Create Group");
+      $('#crud-modal #name').attr('placeholder', 'Group name');;
+      $('#crud-modal #name').val('');
+  
+      $('#crud-modal #desc-sec').hide();
+      $('#crud-modal #tags-sec').hide();
+      $('#crud-modal #todo-expired-sec').hide();
+  
+      $('#crud-modal button[type="submit"]').html(`
+      <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+      Create`);
+      $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+      // Show modal
+      addGroupnTagModal.show();
   });
 
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
-    addNewTagMainMenu(
-      $(this).parent().parent().find("#MMenu-Tag-Section"),
-      "New tag"
-    );
+    isCreateGroup = false;
     /// add tag
     var gid = $(this).closest(".MMenu-Group").attr("id")
-    //console.log(gid);
-    var groupDict =  Dict.groups[gid];
     //console.log(groupDict);
-    addTag(groupDict)
+    //addTag(groupDict)
+    LoadGroups();
+
+    // Customize modal appearance
+    $('#crud-modal label[for="name"]').text("Name");
+
+    $('#crud-modal h3').text("Create Tag");
+    $('#crud-modal #name').attr('placeholder', 'Tag name');;
+    $('#crud-modal #name').val('');
+
+    $('#crud-modal #desc-sec').hide();
+    $('#crud-modal #todo-expired-sec').hide();
+
+    $('#crud-modal label[for="tags"]').text("Groups"); 
+    $('#crud-modal').find(`#tags option[value="${gid}"]`).attr("selected","selected");
+
+    $('#crud-modal button[type="submit"]').html(`
+    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+    Create`);
+    $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+    // Show modal
+    addGroupnTagModal.show();
+
   });
+  
 
   /// Edit Group
   $("#MMenu-Group-Section").on("click", ".MMenu-Group-Edit", function () {
@@ -499,7 +517,7 @@ $(document).ready(function () {
   function renderGroupMainScreen(group_html, group,unique_id, mode = 0) {
     var unique_id = getUuid();
     group_html.append(MainScreenGroupTemplate(unique_id, group, mode));
-    $("#" + unique_id).find("#Task-Section").css({"background-color": randHexColor()});
+   // $("#" + unique_id).find("#Task-Section").css({"background-color": randHexColor()});
     return $("#" + unique_id);
   }
 
@@ -510,7 +528,7 @@ $(document).ready(function () {
     <div id="add-draggable"  class="z-40 absolute">
         <div  class="touch-none select-none">
             <div id="moveButton" 
-                class="hover:w-12 hover:h-12 border-2 border-primary-100 absolute rounded-full w-12 h-12 bg-primary-200/35 backdrop-blur-sm p-2">
+                class="hover:w-12 hover:h-12 border-2 border-gray-300 absolute rounded-full w-12 h-12 bg-main/55 backdrop-blur-sm shadow-xl p-2">
                 <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -563,7 +581,9 @@ $(document).ready(function () {
 
   function RefreshMainScreen() {
     $("#Main-Screen").empty();
+   // $("#MMenu-Group-Section").empty();
     LoadMainScreen();
+   // LoadGroups_Tag();
   }
 
   function LoadUser() {
@@ -590,6 +610,18 @@ $(document).ready(function () {
         $("#crud-modal select#tags").append(options)
     });
   };
+  LoadTags();
+
+  function LoadGroups() {
+    console.log("Loading groups");
+    var groupArray = Object.keys(Dict.groups);
+    $("#crud-modal select#tags").empty();
+
+    groupArray.forEach(element => {
+        let options = `<option value="${element}">${Dict.groups[element].title}</option>`
+        $("#crud-modal select#tags").append(options)
+    });
+  };
 
   function initUser() {
     currentMode = 0;
@@ -612,9 +644,11 @@ $(document).ready(function () {
   //========================= CRUD modal ===========================\\
   //================================================================\\
     // Create 
+
     $('#Main-Screen').on("click", ".Group-Task-Add", function(e){
         e.preventDefault();
         // Clean modal first
+        // Change modal state
         $('#crud-modal label[for="name"]').text("Title");
         $('#crud-modal label[for="description"]').text("Task Description");
 
@@ -635,7 +669,7 @@ $(document).ready(function () {
 
     // My work at U in CRUD modal  /// NULL -change the activate condition to prevent conflict with cancel button 
     $('#Main-Screen').on("click", ".Task-Edit", function(e){
-
+      
       let id = $(this).closest(".task-outer").attr("id");
       let title = Dict.tasks[id].title;
       let desc = Dict.tasks[id].description;
@@ -721,6 +755,7 @@ $(document).ready(function () {
   // Submit button
   $('#crud-modal form').on("submit", function(e){
       e.preventDefault();
+      
       // Get id from honeypot, if id is empty string, it means it's a new task
       let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
       // Get all input
@@ -728,63 +763,71 @@ $(document).ready(function () {
       let desc = $('#crud-modal #description').val();
       let tag = $('#crud-modal #tags').val();
       let expired = $('#crud-modal #todo-expired').val();
-      console.log(id, title, desc, tag, expired);
+      let color = $('#crud-modal #colors').val();
+      console.log(id, title, desc, tag, expired,color);
       // Before updatind Dict, check if tag is empty
-      if (id == ""){
-          // Adding a new task to the tasks object within Dict
-          Dict.tasks[getUuid()] = {
-              title: title,
-              description: desc,
-              tag: tag,
-              deadline: expired,
-              points: 4,
-          };
+      if (modal.isVisible()){
+        if (id == ""){
+            // Adding a new task to the tasks object within Dict
+            Dict.tasks[getUuid()] = {
+                title: title,
+                description: desc,
+                tag: tag,
+                deadline: expired,
+                points: 4,
+            };
+        }
+        else {
+            // Update Dict
+            Dict.tasks[id].title = title;
+            Dict.tasks[id].description = desc;
+            Dict.tasks[id].tag = tag;
+            Dict.tasks[id].deadline = expired;
+        }
       }
-      else {
-          // Update Dict
-          Dict.tasks[id].title = title;
-          Dict.tasks[id].description = desc;
-          Dict.tasks[id].tag = tag;
-          Dict.tasks[id].deadline = expired;
+      if (addGroupnTagModal.isVisible()){
+        var id_ = getUuid()
+        if(isCreateGroup == true){   /// Create a new group
+            var g = Dict.groups[id_] = {
+                title: title,
+                tags: [],
+                color: color,
+                current_html: "",
+            };
+            $("#MMenu-Group-Section").append(MainMenuGroupTemplates(id_, g));
+            /// Main Screen Add 
+            renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),g, currentMode);
+        }
+        else if(isCreateGroup == false){   ///  Create a new tag
+          var t = title;
+          Dict.tag_color[t]= randHexColor();
+          Dict.groups[tag].tags.push(t);
+          addNewTagMainMenu($("#"+tag).find("#MMenu-Tag-Section"), t);
+        }
+
       }
       alert("Submitted");
       RefreshMainScreen();
-      modal.hide();
+      closeModal();
+      //resetModalState();
       // window.location = window.location;
   })
 
   // When user clicked at list item, it will add tag to the task and also close dropdown
-
-
-
-  const $addEdit_TagGroupModalEle = document.getElementById('Add-Edit-Tag-Group');
-
-  // options with default values
-  const options = {
-      placement: 'center',
-      backdrop: 'dynamic',
-      backdropClasses:
-          'bg-gray-600/50 dark:bg-gray-900/80 fixed inset-0 z-40',
-      closable: true,
-      onHide: () => {
-          console.log('modal is hidden');
-      },
-      onShow: () => {
-          console.log('modal is shown');
-      },
-      onToggle: () => {
-          console.log('modal has been toggled');
-      },
+  function closeModal() { 
+    modal.hide();
+    addGroupnTagModal.hide();
+    LoadTags();
   };
+  // Close modal manually
+  $('#btn-close-modal').click(function () {
+      closeModal();
+  });
 
-  const addEdit_TagGroupModal = new Modal($addEdit_TagGroupModalEle,options);
+  closeModal();
+  //modal.show();
 
-
-
-
-
-
-
+  //addGroupnTagModal.show()
 
 
 

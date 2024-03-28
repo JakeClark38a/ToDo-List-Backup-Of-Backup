@@ -12,20 +12,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 </head>
 
-<body class="overflow-hidden bg-background1 bg-cover font-sans">
+<body class="overflow-hidden">
 
 
 
     <!--########################################################### Addons ######################################################################-->
 
-    <!-- Main modal  Add&Edit Task -->
+    <!-- Main modal  -->
     <div id="crud-modal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <!-- Modal content -->
-            <div class="relative bg-white rounded-lg dark:bg-gray-700">
+            <div class="relative bg-main rounded-lg dark:bg-gray-700">
                 <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <div class="flex items-center justify-between p-2 md:p-4 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                         Create Task
                     </h3>
@@ -43,14 +43,14 @@
                 <!-- Modal body -->
                 <form class="p-4 md:p-5">
                     <div class="grid gap-4 mb-4 grid-cols-2">
-                        <div class="col-span-2">
+                        <div id="name-sec" class="col-span-2">
                             <label for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
                             <input type="text" name="name" id="name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Type todo title" required="" maxlength="128">
                         </div>
-                        <div class="col-span-2">
+                        <div id="desc-sec" class="col-span-2">
                             <label for="description"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task
                                 Description</label>
@@ -58,7 +58,7 @@
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
                                 placeholder="Write task description here" maxlength="256"></textarea>
                         </div>
-                        <div class="col-span-2">
+                        <div id="todo-expired-sec" class="col-span-2">
                             <label for="todo-expired"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expired
                                 Time</label>
@@ -66,7 +66,7 @@
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required="">
                         </div>
-                        <div class="col-span-2 sm:col-span-1">
+                        <div id="tags-sec" class="col-span-2 sm:col-span-1">
                             <label for="tags"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tag</label>
                             <select id="tags"
@@ -77,12 +77,19 @@
                             </select>
                         </div>
 
+                        <div id="colors-sec" class="col-span-2 sm:col-span-1">
+                            <label for="colors"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+                            <input id="colors" type="color"
+                                class="bg-gray-50 border border-gray-300 p-1 h-[2.65rem]  w-20 rounded-lg focus:ring-primary-500 focus:border-primary-500 block dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </div>
+
                     </div>
                     <!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
                     <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
                         autocomplete="off" tabindex="-1">
-                    <button type="submit"
-                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <button id="submit-sec" type="submit"
+                        class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
                         <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -95,20 +102,8 @@
             </div>
         </div>
     </div>
-    <!--eoModal Add&Edit Task-->
+    <!--eoModal -->
 
-
-
-
-
-
-
-    <!--Modal Add&Edit Tag_Group-->
-    <div id="Add-Edit-Tag-Group" tabindex="-1" aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        You have been trolled !
-    </div>
-    <!--Modal Add&Edit Tag_Group-->
 
 
 
@@ -116,11 +111,12 @@
 
 
 
-    <!--########################################################### NavBar ######################################################################-->
-    <div class=""> <!--Container-->
+
+    <div class="bg-main"> <!--Body Container-->
         <!--Begin header-->
 
-        <div class="flex justify-between items-center bg-primary-100 shadow-xl py-0 h-16 lg:h-18 lg:py-2 ">
+        <!--########################################################### NavBar ######################################################################-->
+        <div class="flex justify-between items-center shadow-xl py-0 h-16 lg:h-18 lg:py-2 ">
             <div class="flex justify-evenly items-center gap-2 md:gap-8">
                 <!--button-->
                 <div id="Main-Menu-Click" class="headbar-button overflow-hidden p-2 mx-2 hover:roa">
@@ -162,10 +158,10 @@
 
         <!-- Dropdown Main menu -->
         <div id="Main-Menu"
-            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-52 lg:w-64 bg-primary-200 shadow-xl overflow-hidden  rounded-br-xl">
+            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-52 lg:w-64 bg-main shadow-xl overflow-hidden  rounded-br-xl">
 
 
-            <div class="MMenu-Primary-Section"> <!--block-->
+            <div id="MMenu-Search" class="MMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
@@ -206,7 +202,7 @@
                     <div class="MMenu-Primary-Text">Calendar</div>
                 </div>
             </div><!--eoblock-->
-            <div class="MMenu-Primary-Section"> <!--block-->
+            <div id="MMenu-Garden" class="MMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
@@ -217,7 +213,7 @@
 
                     </div>
 
-                    <div class="MMenu-Primary-Text">Notifications</div>
+                    <div class="MMenu-Primary-Text">My Garden</div>
                 </div>
             </div><!--eoblock-->
             <div id="MMenu-Group-Add"
@@ -373,6 +369,40 @@
                     'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
                 closable: true,
                 onHide: () => {
+                    $('#crud-modal h3').text("Create");
+                    $('#crud-modal h3').show();
+
+                    $('#crud-modal label[for="name"]').text("Name");
+                    $('#crud-modal #name').attr("placeholder", "Name");
+                    $('#crud-modal #name').val("");
+                    $('#crud-modal #name-sec').show();
+
+                    $('#crud-modal label[for="description"]').text("Description");
+                    $('#crud-modal #description').val("");
+                    $('#crud-modal #description').attr("placeholder", "Description");
+                    $('#crud-modal #desc-sec').show();
+
+                    $('#crud-modal label[for="todo-expired"]').text("Deadline");
+                    $('#crud-modal #todo-expired').val("");
+                    $('#crud-modal #todo-expired-sec').show();
+
+                    $('#crud-modal label[for="tags"]').text("Tags");
+                    $('#crud-modal #tags option').removeAttr("selected");
+                    $('#crud-modal #tags-sec').show();
+
+                    $('#crud-modal label[for="colors"]').text("Color");
+                    $('#crud-modal #colors').val("#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0')));
+                    $('#crud-modal #colors-sec').show();
+
+                    $('#crud-modal button[type="submit"]').html(`Create`);
+                    $('#crud-modal button[type="submit"]').html(`
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                        Create`);
+                    $('#crud-modal #submit-sec').show();
+
+                    $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+                    console.log("Reset modal complete!")
+
                     console.log('modal is hidden');
                 },
                 onShow: () => {
@@ -395,22 +425,18 @@
                     // Set value to current date and time
                     document.getElementById('todo-expired').value = minDatetime;
 
-
                     console.log('modal is shown');
                 },
                 onToggle: () => {
                     console.log('modal has been toggled');
                 },
             };
+
             // instance options object
             const modal = new Modal($targetEl, options);
-
+            const addGroupnTagModal = new Modal($targetEl, options);
 
             $(document).ready(function () {
-                // Close modal manually
-                $('#btn-close-modal').click(function () {
-                    modal.hide();
-                });
                 // target elements with the "draggable" class
                 interact('#add-draggable')
                     .draggable({
@@ -434,6 +460,7 @@
                     })
                     .on('tap', function (event) {
                         event.preventDefault();
+                        //resetModalState();
                         // Clean modal first
                         $('#crud-modal label[for="name"]').text("Title");
                         $('#crud-modal label[for="description"]').text("Task Description");
