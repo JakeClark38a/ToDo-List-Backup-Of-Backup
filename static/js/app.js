@@ -233,7 +233,7 @@ $(document).ready(function () {
                 </svg>
             </div>
         </div>
-        <div id="Task-Section" class="transition-all duration-300 ease-in-out p-3 flex flex-col gap-3 overflow-y-auto overflow-x-hidden backdrop-blur-sm bg-[#f9fafb] shadow-xl hover:shadow-2xl w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
+        <div id="Task-Section" class="transition-all duration-300 ease-in-out p-3 flex flex-col gap-3 overflow-y-auto overflow-x-hidden backdrop-blur-sm shadow-xl hover:shadow-2xl w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
             <!--task here-->
         </div>
     </div>
@@ -445,6 +445,7 @@ $(document).ready(function () {
     $("#MMenu-Group-Section").append(
       MainMenuGroupTemplates(unique_id, group)
     );
+    
     return $("#" + unique_id);
   }
 
@@ -517,7 +518,7 @@ $(document).ready(function () {
   function renderGroupMainScreen(group_html, group,unique_id, mode = 0) {
     var unique_id = getUuid();
     group_html.append(MainScreenGroupTemplate(unique_id, group, mode));
-   // $("#" + unique_id).find("#Task-Section").css({"background-color": randHexColor()});
+    $("#" + unique_id).find("#Task-Section").css({"background-color": group.color});
     return $("#" + unique_id);
   }
 
@@ -649,6 +650,7 @@ $(document).ready(function () {
         e.preventDefault();
         // Clean modal first
         // Change modal state
+        $('#crud-modal #colors-sec').hide();
         $('#crud-modal label[for="name"]').text("Title");
         $('#crud-modal label[for="description"]').text("Task Description");
 
@@ -678,6 +680,8 @@ $(document).ready(function () {
       console.log(id, desc);
       // Clean up
       // Clean modal first
+      $('#crud-modal #colors-sec').hide();
+
       $('#crud-modal label[for="name"]').text("Title");
       $('#crud-modal label[for="description"]').text("Task Description");
       // Change task header
