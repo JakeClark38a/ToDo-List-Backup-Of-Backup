@@ -6,38 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-
+    <!-- pixel font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <!-- pixel font -->
 </head>
 
-<body class="overflow-x-hidden bg-background1 bg-cover bg-opacity-50">
-    <!--Addons-->
+<body class="overflow-hidden bg-background1 bg-cover">
+
+
+
+    <!--########################################################### Addons ######################################################################-->
 
     <!-- modal-->
     <div id="modal-container"
         class="opacity-0 flex justify-center items-center fixed z-50 h-full w-full pointer-events-none bg-slate-300">
-        <div id="modal" class="border-2 rounded-2xl shadow-xl h-[80vh] w-64 md:w-80  bg-white ">
+        <div id="modal" class="border-2 rounded-2xl shadow-xl bg-white ">
 
             <div class="flex justify-between items-center border-b-2 p-3 px-5">
                 <h2>Create Task</h2>
                 <div><button id="close-bt">X</button></div>
             </div>
 
-            <div class="flex flex-col items-center h-32 w-full p-4 m-0">
-                <div class="content w-full h-16 my-3">
+            <div class="flex flex-col items-center h-32 p-4 m-0">
+                <div class="content h-16 my-3">
                     <input id="Add-Task-Title" type="text"
-                        class="text-center border-2 border-gray-400 rounded-lg  w-full h-full text-[1rem] "
+                        class="text-center border-2 border-gray-400 rounded-lg text-[1rem] "
                         placeholder="Task Input Here">
                 </div>
 
                 <div class="content w-full h-32">
                     <textarea id="Add-Task-Desc"
-                        class="text-center border-2 border-gray-400 rounded-lg  w-full h-full text-[1rem] resize-none"
+                        class="text-center border-2 border-gray-400 rounded-lg w-full text-[1rem] resize-none"
                         placeholder="Description Input here"></textarea>
                 </div>
             </div>
 
             <div class="flex flex-col w-full p-4 my-4">
-                <div class="content w-full pl-3 my-2"> Tags </div>
+                <div class="content pl-3 my-2"> Tags </div>
                 <div id="Tag-list" class="flex flex-wrap gap-1 ">
                     <!--tag list-->
                     <!--tag dropdown list-->
@@ -73,73 +80,63 @@
                 </div>
             </div>
 
-            <div class="flex justify-around items-center w-full h-16 border-t-2 bottom-0">
+            <div class="relative flex justify-around items-center w-full h-16 border-t-2 bottom-0">
                 <div class="content h-10 w-24 "><button id="add-task-bt"
                         class=" border-[1px] border-gray-400 rounded-2xl h-full w-full">Submit</button></div>
                 <div class="content h-10 w-24 "><button id="cancle-bt"
                         class="border-[1px] border-gray-400 rounded-2xl h-full w-full ">Cancel</button></div>
             </div>
+
         </div>
     </div>
     <!--kết thúc phần modal-->
+    <!--########################################################### EoAddons ######################################################################-->
 
-    <!--eoAddons-->
 
+
+    <!--########################################################### NavBar ######################################################################-->
     <div class=""> <!--Container-->
         <!--Begin header-->
-        <div class="">
-            <div class="">
-                <div
-                    class="flex justify-between items-center bg-gradient-to-b from-shade_green-300 to-shade_green-600 py-0 h-16 lg:h-18 lg:py-2 shadow-xl">
-                    <div class="flex justify-evenly items-center gap-2 md:gap-8">
-                        <!--button-->
-                        <div id="dropMenuClick" class="headbar-button overflow-hidden p-2 mx-2 hover:roa">
-                            <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                                    d="M5 7h14M5 12h14M5 17h10" />
-                            </svg>
 
-                        </div>
-                        <!--name project-->
-                        <div class="flex flex-col justify-center items-start">
-                            <div id="Usernamedp" class="">JakeClark Projaaaa </div>
-                            <div>List: 09%</div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="lg:flex justify-end items-center p-2 gap-2 hidden ">
-                        <div class="font-light text-base"> 20/03/2024 20:32:45 PM</div>
-
-                    </div>
-
-
-                    <div class="flex justify-end items-center p-2 gap-2">
-                        <div class="headbar-button p-1 border-0">
-                            <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                                    d="M6 12h.01m6 0h.01m5.99 0h.01" />
-                            </svg>
-
-                        </div>
-                    </div>
-
+        <div
+            class="flex justify-between items-center bg-gradient-to-bl from-accent-100 to-yellow-400  py-0 h-16 lg:h-18 lg:py-2 shadow-xl shadow-orange-300">
+            <div class="flex justify-evenly items-center gap-2 md:gap-8">
+                <!--button-->
+                <div id="Main-Menu-Click" class="headbar-button overflow-hidden p-2 mx-2 hover:roa">
+                    <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                            d="M5 7h14M5 12h14M5 17h10" />
+                    </svg>
 
                 </div>
             </div>
-        </div>
-        <!--End header-->
 
+            <div class="flex justify-end items-center p-2 gap-2">
+                <div class="headbar-button p-1 border-0">
+                    <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                            d="M6 12h.01m6 0h.01m5.99 0h.01" />
+                    </svg>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <!--End header-->
+        <!--########################################################### EoNavBar ######################################################################-->
+
+
+
+        <!--########################################################### Float Btn ######################################################################-->
         <!-- add question action button here-->
         <div class="">
             <div id="a0002" class="">
                 <div id="moveButton"
-                    class="hover:w-14 hover:h-14 border-2 border-shade_green-600 shadow-xl absolute rounded-full w-12 h-12 bg-gradient-to-bl from-shade_green-500 to-shade_red-500 p-2">
+                    class="hover:w-14 hover:h-14 border-2 border-primary-100 shadow-xl absolute rounded-full w-12 h-12 bg-accent-200 p-2">
                     <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -149,12 +146,15 @@
             </div>
         </div>
         <!-- kết thúc phần nút -->
+        <!--########################################################### EoFloat Btn ######################################################################-->
 
 
+
+        <!--########################################################### Dropdown Main Menu ######################################################################-->
 
         <!-- Dropdown Main menu -->
-        <div id="dropMenu"
-            class="dropdown-anim duration-300 h-0 z-10 absolute items-start py-0 w-52 lg:w-64 bg-gradient-to-br from-shade_green-200 to-shade_yellow-200 overflow-hidden">
+        <div id="Main-Menu"
+            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-52 lg:w-64 bg-gradient-to-b from-green-200 to-primary-200/95 overflow-hidden shadow-lg shadow-orange-300 rounded-br-xl">
 
 
             <div class="MMenu-Primary-Section"> <!--block-->
@@ -175,25 +175,13 @@
                     <div class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                                d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7H5a2 2 0 0 0-2 2v4m5-6h8M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m0 0h3a2 2 0 0 1 2 2v4m0 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6m18 0s-4 2-9 2-9-2-9-2m9-2h.01" />
                         </svg>
+
                     </div>
 
                     <div class="MMenu-Primary-Text">Today</div>
-                </div>
-            </div><!--eoblock-->
-            <div id="MMenu-Tree" class="MMenu-Primary-Section"> <!--block-->
-                <div class="flex items-center">
-                    <div class="MMenu-Primary-Image-Wrapper">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> 
-                        <g> 
-                          <path fill="none" d="M0 0H24V24H0z"/> 
-                          <path d="M21 3v2c0 9.627-5.373 14-12 14H7.098c.212-3.012 1.15-4.835 3.598-7.001 1.204-1.065 1.102-1.68.509-1.327-4.084 2.43-6.112 5.714-6.202 10.958L5 22H3c0-1.363.116-2.6.346-3.732C3.116 16.974 3 15.218 3 13 3 7.477 7.477 3 13 3c2 0 4 1 8 0z"/> 
-                        </g> 
-                      </svg> 
-                    </div>
-                    <div class="MMenu-Primary-Text">Tree</div>
                 </div>
             </div><!--eoblock-->
             <div id="MMenu-Calendar" class="MMenu-Primary-Section"> <!--block-->
@@ -208,6 +196,19 @@
                     </div>
 
                     <div class="MMenu-Primary-Text">Calendar</div>
+                </div>
+            </div><!--eoblock-->
+            <div id="MMenu-Tree" class="MMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="MMenu-Primary-Image-Wrapper">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> 
+                        <g> 
+                          <path fill="none" d="M0 0H24V24H0z"/> 
+                          <path d="M21 3v2c0 9.627-5.373 14-12 14H7.098c.212-3.012 1.15-4.835 3.598-7.001 1.204-1.065 1.102-1.68.509-1.327-4.084 2.43-6.112 5.714-6.202 10.958L5 22H3c0-1.363.116-2.6.346-3.732C3.116 16.974 3 15.218 3 13 3 7.477 7.477 3 13 3c2 0 4 1 8 0z"/> 
+                        </g> 
+                      </svg> 
+                    </div>
+                    <div class="MMenu-Primary-Text">Tree</div>
                 </div>
             </div><!--eoblock-->
             <div class="MMenu-Primary-Section"> <!--block-->
@@ -225,7 +226,7 @@
                 </div>
             </div><!--eoblock-->
             <div id="MMenu-Group-Add"
-                class="MMenu-Primary-Section border-t-[1px] border-b-[1px] border-accent-green flex items-center justify-between pl-3">
+                class="MMenu-Primary-Section border-t-[1px] border-b-[1px] border-yellow-700 flex items-center justify-between pl-3">
                 <!--block-->
                 <div class="MMenu-Primary-Text">Add Group</div>
                 <div class="flex items-center justify-end">
@@ -239,49 +240,25 @@
                 </div>
             </div><!--eoblock-->
 
-            <div id="MMenu-Group-Section" class="MMenu-Group-Section overflow-y-scroll h-72 pt-5 pb-14">
+            <div id="MMenu-Group-Section"
+                class="MMenu-Group-Section overflow-y-scroll py-5 h-[50vh] border-b-[1px] border-primary-100 bg-gradient-to-tr from-accent-100/55 to-transparent ">
                 <!--group here-->
             </div>
 
-
-
-
         </div>
         <!--End Dropdown menu-->
+        <!--########################################################### EoDropdown Main Menu ######################################################################-->
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <!--########################################################### Right sidebar ######################################################################-->
         <!--Begin Sidebar-->
         <div class="bg-transparent Sidebar-Right z-10 absolute right-0 h-96 hidden">
             <div
-                class="transform transition-all ease-in-out duration-300 bg-gradient-to-r from-shade_green-200 to-green-500 shadow-xl h-full px-2 py-5">
-
-
+                class="transform transition-all ease-in-out duration-300 bg-gradient-to-r from-primary-100 to-accent-100 shadow-xl h-full px-2 py-5">
 
                 <div class=""> <!--Sidebar btn-->
-                    <div class="headbar-button hover:bg-shade_red-400 border-0" data-dropdown-toggle="drop-matrix-Click"
+                    <div class="headbar-button hover:bg-blue-500 border-0" data-dropdown-toggle="drop-matrix-Click"
                         data-dropdown-trigger="click" data-dropdown-placement="left-end">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -300,13 +277,14 @@
                     <!--End Dropdown select-->
                 </div><!--eoSidebar btn-->
 
-
-
             </div>
         </div>
         <!--End Sidebar-->
+        <!--########################################################### EoRight sidebar ######################################################################-->
 
 
+
+        <!--########################################################### Calendar ######################################################################-->
         <!-- Begin Calendar -->
         <div id="Calendar-Container" class="container">
             <div class="left">
@@ -404,32 +382,63 @@
                 <i class="">+</i>
             </button>
         </div>
-        <script src="../static/js/calendar.js"></script>
         <!-- End Calendar -->
+        <!--########################################################### EoCalendar ######################################################################-->
 
-        <!-- Begin Tree -->
+
+        <!--########################################################### Tree ######################################################################-->
         <div id="Tree-Container">
-            <div id="Trees" class = "bg-[#50c293] w-screen h-screen flex flex-wrap">
-                <img id="currTree" src="../static/images/tree1.gif" alt="myTree" class="m-auto">
+            <div id="Trees" class="bg-[#50c293] w-screen h-screen flex overflow-y-scroll">
+                <div class=""></div>
+                <img src="../static/images/tree1.gif" alt="myTree" class="currTree w-auto m-auto tree">
+                <div id="Items-hub" class="absolute right-0 mr-20 mt-10"> <!-- Adjust margin-right -->
+                    <div id="treeCount" class="text-5xl vt323-regular">Number of Trees: 0</div>
+                    <div class="water-hub flex items-center">
+                        <img src="../static/images/watercan-full.png"> <!-- Adjust margin-right -->
+                        <div id="waterCount" class="text-5xl vt323-regular">: 1</div>
+                    </div>
+                    <div class="fertilizer-hub flex items-center">
+                        <img src="../static/images/fertilizer-opened.png"> <!-- Adjust margin-right -->
+                        <div id="fertilizerCount" class="text-5xl vt323-regular">: 1</div>
+                    </div>
+                </div>
+                <div id="Items-buttons">
+                    <div class="watercan-button absolute bottom-0 left-0">
+                        <img src="../static/images/watercan-full.png">
+                    </div>
+                    <div class="fertilizer-button absolute bottom-0 right-0">
+                        <img src="../static/images/fertilizer-opened.png">
+                    </div>
+                </div>
             </div>
         </div>
-        <script src="../static/js/tree.js"></script>
-        <!-- End tree -->
+        <!--########################################################### EoTree ######################################################################-->
 
+        <!--########################################################### Main Screen ######################################################################-->
         <!--Begin Main screen-->
-        <div id="Main-Screen" class="Container bg-transparent">
-            <!--Formatter-->
+        <div id="Main-Screen" class="Container bg-main/55 py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
+
+
         </div>
         <!--End Main screen-->
+        <!--########################################################### EoMain Screen ######################################################################-->
 
 
+
+
+        <div class="Bottom-Bar w-full bottom-0 bg-accent-200 flex justify-between m-0">
+            <div class=""></div>
+        </div>
 
 
 
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+            ntegrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="../static/js/tree.js"></script>
         <script src="../static/js/tree(app-copy).js"></script>
         <script src="../static/js/calendar.js"></script>
-</body>
-
+    </body>
 </html>
+
+
+
