@@ -523,5 +523,50 @@
     font-weight: 400;
     font-style: normal;
   }
+  #waterbutton img,
+  #fertilizebutton img {
+    @apply cursor-pointer mr-2.5 p-[5px] border-2 border-solid border-transparent;
+    /* Adjust margin as needed */
+    /* Add a transparent border initially */
+    /* Add padding for spacing */
+  }
+  #waterbutton img:hover,
+  #fertilizebutton img:hover {
+    @apply border-[black];
+    /* Change border color on hover */
+  }
+  @media screen and (max-width: 1000px) {
+    #Items-hub {
+      @apply absolute translate-x-2/4 mr-0 mt-6 right-2/4 top-0;
+    }
+  }
+  @media screen and (max-width: 1000px) {
+    .tree-container {
+      @apply justify-center;
+    }
+  }
+  .progress-container {
+    @apply w-full bg-[#fff] h-5 mb-2.5;
+    @apply rounded-lg border-black border-solid border-2;
+  }
+  .progress-bar {
+    @apply bg-[#4caf50] h-full w-0 transition-[width] duration-[0.3s] rounded-md border-solid;
+    /* Initial width is 0 */
+    /* Add smooth transition effect */
+    /* Add border */
+    /* Add border radius */
+    
+  }
+  @keyframes wiggle {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(10deg); }
+    50% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+    100% { transform: rotate(0); }
+  }
+
+  .animate-wiggle {
+      animation: wiggle 0.5s;
+  }
   /* end tree */
 }

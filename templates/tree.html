@@ -387,18 +387,18 @@
 
 
         <!--########################################################### Tree ######################################################################-->
-        <div id="Tree-Container">
+        <!-- <div id="Tree-Container">
             <div id="Trees" class="bg-[#50c293] w-screen h-screen flex overflow-y-scroll">
                 <div class=""></div>
                 <img src="../static/images/tree1.gif" alt="myTree" class="currTree w-auto m-auto tree">
-                <div id="Items-hub" class="absolute right-0 mr-20 mt-10"> <!-- Adjust margin-right -->
+                <div id="Items-hub" class="absolute right-0 mr-20 mt-10"> 
                     <div id="treeCount" class="text-5xl vt323-regular">Number of Trees: 0</div>
                     <div class="water-hub flex items-center">
-                        <img src="../static/images/watercan-full.png"> <!-- Adjust margin-right -->
+                        <img src="../static/images/watercan-full.png"> 
                         <div id="waterCount" class="text-5xl vt323-regular">: 1</div>
                     </div>
                     <div class="fertilizer-hub flex items-center">
-                        <img src="../static/images/fertilizer-opened.png"> <!-- Adjust margin-right -->
+                        <img src="../static/images/fertilizer-opened.png"> 
                         <div id="fertilizerCount" class="text-5xl vt323-regular">: 1</div>
                     </div>
                 </div>
@@ -411,7 +411,37 @@
                     </div>
                 </div>
             </div>
+        </div> -->
+
+        <div class="tree-container relative w-screen h-screen bg-[#50c293] flex flex-col items-center">
+            <button id="toggleButton" onclick="toggleAudio()">Toggle Audio</button>
+            <audio id="backgroundAudio" loop>
+                <source src="../static/sounds/forest-wind-and-bird-ambient.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <div id="Items-hub" class="absolute right-0 top-0 mr-8 mt-24"> 
+                <div id="treeCount" class="text-5xl vt323-regular">Number of Trees: 0</div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar">
+                        <div class="percentage" id="percentage">0%</div>
+                    </div>
+                </div>
+            </div>
+            <img id="tree" src="../static/images/tree1.gif" alt="Tree">
+            <div class="options flex justify-between bottom-0 ml-6">
+                <div id="waterbutton" class="flex">
+                    <img src="../static/images/watercan-full.png" alt="Watering Can" onclick="waterTree()"> 
+                    <div id="waterCount" class="text-5xl vt323-regular absolute pointer-events-none">1</div>
+                </div>
+                <div id="fertilizebutton" class="flex">
+                    <img src="../static/images/fertilizer-opened.png" alt="Fertilizer" onclick="fertilizeTree()"> 
+                    <div id="fertilizerCount" class="text-5xl vt323-regular absolute pointer-events-none">1</div>
+                </div>
+            </div>
         </div>
+        
+        
+
         <!--########################################################### EoTree ######################################################################-->
 
         <!--########################################################### Main Screen ######################################################################-->
