@@ -1,167 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Home</title>
-	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<!-- Link to TailwindCSS main css file, in the future href will change to {{url_for('static', filename='css/main.css')}} -->
-	<link rel="stylesheet" href="../static/css/main.css">
-	<script src="../static/js/app.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../static/css/main.css" rel="stylesheet">
 </head>
-<style>
-</style>
-<body class="*:m-0 *:p-0 *:box-border">
-	<div class="relative w-full h-[100vh] bg-gradient-to-t from-cyan-200 from-0% via-cyan-50 via-70% to-white to-100%">
-		<!-- Header div -->
-		<div class="top pt-5">
-			<!-- test div -->
-			<div class="main">
-				<!-- Greeting div, status centered -->
-				<div class="greeting object-center flex justify-between items-center px-[2vh] py-[3vh]">
-					<div class="papertask flex justify between">
-						<img src="../static/images/papertask.png" alt="papertask" class="w-[6vh] inline"> 
-					</div>
-					<div class="title *:md:inline">
-						<div class="text-xl">Welcom, JakeClark!</div>
-						<div class="text-xl">Overall Progress: 90%</div>
-					</div>
-					<div class="up-arrow flex items-end justify between">
-						<img src="../static/images/down-arrow.png" alt="down-arrow" class="w-[4.5vh] inline mr-1" id="dropdownButton">
-					</div>
-				</div>
-				<!-- Drop down list -->
-				<div class="dropdown grey-border-rounded ml-auto mr-auto hidden shadow-md rounded-md py-1 w-11/12 z-10 px-[3vh]" id="dropdownList">
-					<div class="text-xl">Team: J4ckP0t</div>
-					<div class="text-xl">AI recommender: Off</div>
-					<div class="text-xl">Task Completed: 5/5</div>
-					<div class="text-xl">Online: 32m ago (Synced)</div>
-					<div class="more-choice">
-						<div class="Setting button flex items-center my-3">
-							<img src="../static/images/cogwheel_icon.png" alt="cogwheel-icon" class="w-[4vh] inline">
-							<div class="text-xl px-[2vh]">Settings</div> 
-						</div>
 
-						<div class="Team-activity button flex items-center my-3">
-							<img src="../static/images/add-group.png" alt="group-icon" class="w-[4vh] inline">
-							<div class="text-xl px-[2vh]">Add / Join a Team</div> 
-						</div>
-
-						<div class="Log button flex items-center my-3">
-							<img src="../static/images/log.png" alt="log-icon" class="w-[4vh] inline">
-							<div class="text-xl px-[2vh]">Activity Log</div> 
-						</div>
-						<div class="Logout button flex items-center my-3">
-							<img src="../static/images/logout.png" alt="logout-icon" class="w-[4vh] inline">
-							<div class="text-xl px-[2vh]">Log out</div> 
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Main List -->
-		<div class="middle mb-20">
-			<div class="main-choice px-[3vh] my-5">
-				<div class="search button">
-					<img src="../static/images/search-icon.png" alt="search-icon" class="w-[4vh] inline">
-					<div class="text-2xl px-[2vh]">Search</div>
-				</div>
-				<div class="todo button">
-					<img src="../static/images/check-box.png" alt="checkbox-icon" class="w-[4vh] inline">
-					<div class="text-2xl px-[2vh] justify-center">Todo Today</div>
-				</div>
-				<div class="tree button">
-					<img src="../static/images/leaf_icon.png" alt="leaf-icon" class="w-[4vh] inline">
-					<div class="text-2xl px-[2vh]">Tree</div>
-				</div>
-				<div class="notification button">
-					<img src="../static/images/bell-icon.png" alt="bell-icon" class="w-[4vh] inline">
-					<div class="text-2xl px-[2vh] center">Notifications</div>
-				</div>
-			</div>
-			<div class="grey-border-rounded">
-				<!-- Greeting div, status centered -->
-				<div class="greeting object-center flex justify-between items-center px-[2vh] my-2" data-offsetDistance="10">
-					<div class="title *:md:inline">
-						<div class="text-xl">JakeClark's Project</div>
-					</div>
-					<div class="up-arrow flex items-end justify between">
-						<img src="../static/images/down-arrow.png" alt="down-arrow" class="w-[4.5vh] inline mr-1" id="dropdownButtonPersonal">
-					</div>
-				</div>
-					<!-- Dropdown list -->
-				<div class="dropdown hidden shadow-md rounded-md py-1 w-full z-10 px-[3vh] bg-slate-400" id="dropdownListPersonal">
-					<div class="Completed button">
-						<img src="../static/images/check.png" alt="check-icon" class="w-[3vh] inline">
-						<label class="text-xl px-[2vh] center">Completed</label>
-					</div>
-					<div class="Uncompleted button">
-						<img src="../static/images/close.png" alt="uncheck-icon" class="w-[3vh] inline">
-						<label class="text-xl px-[2vh] center">Uncompleted</label>
-					</div>
-					<div class="List button">
-						<img src="../static/images/list.png" alt="list-icon" class="w-[3vh] inline">
-						<label class="text-xl px-[2vh] center">List1</label>
-					</div>
-				</div>
-			</div>
-
-			
-			<div class="grey-border-rounded">
-				<!-- Greeting div, status centered -->
-				<div class="greeting object-center flex justify-between items-center px-[2vh] my-2">
-					<div class="title *:md:inline">
-						<div class="text-xl">Team's Project</div>
-					</div>
-					<div class="up-arrow flex items-end justify between">
-						<img src="../static/images/down-arrow.png" alt="down-arrow" class="w-[4.5vh] inline mr-1" id="dropdownButtonTeam">
-					</div>
-				</div>
-				<!-- Dropdown list -->
-				<div class="dropdown hidden shadow-md rounded-md py-1 w-full z-10 px-[3vh]" id="dropdownListTeam">
-					<div class="Completed button">
-						<img src="../static/images/check.png" alt="check-icon" class="w-[3vh] inline">
-						<label class="text-xl px-[2vh] center">Completed</label>
-					</div>
-					<div class="Uncompleted button">
-						<img src="../static/images/close.png" alt="uncheck-icon" class="w-[3vh] inline">
-						<label class="text-xl px-[2vh] center">Uncompleted</label>
-					</div>
-					<div class="List button">
-						<img src="../static/images/list.png" alt="list-icon" class="w-[3vh] inline">
-						<label class="text-xl px-[2vh] center">List1</label>
-					</div>
-				</div>
-			</div>	
-		</div>
-
-		<div class="bottom">
-			<div class="toggler flex justify-between pt-3">
-				<div class="adjust flex items-center">
-					<img src="../static/images/light-mode.png" alt="sun-icon" class="w-[3vh] mx-3"> 
-					<div class="toggle flex items-center">
-						<div class="toggle-button" onclick=""></div>
-					</div>
-					<img src="../static/images/night-mode.png" alt="moon-icon" class="w-[3vh] mx-3">
-				</div>
-				<div class="adjust flex items-center">
-					<img src="../static/images/vietnam.png" alt="vietnam-icon" class="w-[3vh] mx-3"> 
-					<div class="toggle flex items-center">
-						<div class="toggle-button" onclick=""></div>
-					</div>
-					<img src="../static/images/united-kingdom.png" alt="moon-icon" class="w-[3vh] mx-3">
-				</div>			
-			</div>
-			<div class="Team-activity button">
-				<img src="../static/images/add-group.png" alt="group-icon" class="w-[3vh] mx-3">
-				<!-- <p>Add / Join a Team</p> -->
-				<div class="text-xl">Add / Join a Team</div>
-			</div>
-		</div>
-
-	</div>
+<body>
+  <div class="bg-cover bg-center h-[120vh]" 
+    style="background-image: url('/static/images/istockphoto-943620668-612x612.jpg');">
+    <div style="padding-left: 30px; padding-top: 30px;">
+      <image class="h-24 w-24 rounded-full  scale-150 fill-bg" src="/static/images/Untitled.png" alt="page-image">
+    </div>
+    <div class="flex flex-col justify-center items-center h-[70vh] ">
+      <div class="text-2xl font-bold h-10 text-w ">Sign in </div>
+      <div
+        class="border-black border-2 rounded-xl bg-white sm:w-[240px] md:w-[25rem] h-[3rem]   text font-sans flex flex-col justify-center">
+        <button class="font-bold p-3 ">
+          <image class="h-5 inline-block pl-2"
+            src="data:image/png;base64,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">
+            Continue with Google
+        </button>
+      </div>
+      <span class="h-14 flex flex-col justify-center items-center ">or</span>
+      <div> <input class="border-black border-2 rounded-xl bg-white sm:w-[240px] md:w-[25rem] h-[3rem] placeholder-10"
+          type="text" style="padding-left: 10px;" placeholder="Email/Username"></div>
+      <div class="h-5"></div>
+      <div> <input class="border-black border-2 rounded-xl bg-white sm:w-[240px] md:w-[25rem] h-[3rem] placeholder-10"
+          type="password" style="padding-left: 10px;" placeholder="Password"></div>
+      <div class="h-11 font-light flex flex-col justify-center w-[207px] sm:w-[240px] md:w-[25rem]"> <a
+          class=" inline-block align-bottom text-blue-600 hover:text-blue-900 hover:underline " href="">Forgot the
+          Password ?</a></div>
+      <div><button
+          class=" border-blue-800 border-2 rounded-xl bg-blue-800 w-[207px] sm:w-[240px] md:w-[25rem] h-[3rem] text-white text font-sans drop-shadow-xl text-lg"><a href="./main_Mobile.html">Login</a></Button></div>
+      <div class="text-black mt-3"> Have no account ? <a class="text-blue-600 hover:text-blue-900 hover:underline" href="">
+          Create here </a></div>
+    </div>
+  </div>
 </body>
+
 </html>

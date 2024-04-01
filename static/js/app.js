@@ -33,4 +33,4 @@ $(document).ready(function() {
     $('.lists > div:not(.nav):first').remove();
   });
 });
-
+// End of app.js
