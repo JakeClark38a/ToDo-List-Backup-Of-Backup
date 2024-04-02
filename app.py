@@ -3,7 +3,7 @@ import mysql.connector
 from flask_mail import Mail, Message
 from secrets import token_bytes
 from database import ToDoDatabase
-import hashlib
+import hashlib, os
 from authlib.integrations.flask_client import OAuth
 
 app = Flask(__name__, template_folder='templates')
@@ -14,9 +14,9 @@ oauth = OAuth(app)
 
 appConf = {
     "OAUTH2_CLIENT_ID": "1002415781087-d1a74175n9vk48ehrir794qghma573qi.apps.googleusercontent.com",
-    "OAUTH2_CLIENT_SECRET": "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",
+    "OAUTH2_CLIENT_SECRET": os.getenv("OAUTH2_CLIENT_SECRET"),
     "OAUTH2_META_URL": "https://accounts.google.com/.well-known/openid-configuration",
-    "FLASK_SECRET": "647b1138-40f2-4022-8261-f447e62e7572",
+    "FLASK_SECRET": os.getenv("FLASK_SECRET"),
     "FLASK_PORT": 1337
 }
 
