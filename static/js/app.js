@@ -347,7 +347,7 @@ $(document).ready(function () {
     //   Math.random().toString(36).substring(2, 6)
     // );
     // use uuidv4
-    return "id_" + "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+    return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
         (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
     );
   }
@@ -496,6 +496,22 @@ $(document).ready(function () {
   $("#Main-Screen").on("click", "#Task-Cancel", function (e) {
     var task_ = $(this).closest(".task-outer");
     var taskId = task_.attr("id");
+
+    // Send AJAX request to backend at /todo/delete to delete task
+    $.ajax({
+      type: "POST",
+      url: "/todo/delete",
+      data: JSON.stringify({ taskId: taskId }),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        console.log("Success");
+      },  
+      error: function (data) {
+        console.log("Error");
+      }
+    });
+
     delete Dict.tasks[taskId];
     console.log("Cancelled: " + taskId);
     //console.log(Dict.tasks);
@@ -519,6 +535,21 @@ $(document).ready(function () {
 
     Dict.completed[taskId] = Dict.tasks[taskId];
     delete Dict.tasks[taskId]; 
+
+    // Also send to backend at /todo/completed/<id>
+    $.ajax({
+      type: "POST", 
+      url: "/todo/completed/" + taskId,
+      data: JSON.stringify(Dict.completed[taskId]),
+      contentType: "application/json",
+      dataType: "json",
+      success: function(data){
+        console.log("Success");
+      },
+      error: function(data){
+        console.log("Error");
+      }
+    });
 
     //console.log(Dict.completed);
     //console.log(Dict.tasks);
@@ -774,7 +805,7 @@ $(document).ready(function () {
   // Submit button
   $('#crud-modal form').on("submit", function(e){
       e.preventDefault();
-      
+      console.log($('#crud-modal h3').text())
       // Get id from honeypot, if id is empty string, it means it's a new task
       let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
       // Get all input
@@ -786,15 +817,66 @@ $(document).ready(function () {
       console.log(id, title, desc, tag, expired,color);
       // Before updatind Dict, check if tag is empty
       if (modal.isVisible()){
-        if (id == ""){
-            // Adding a new task to the tasks object within Dict
-            Dict.tasks[getUuid()] = {
-                title: title,
-                description: desc,
-                tag: tag,
-                deadline: expired,
-                points: 4,
-            };
+        // Check if modal header text contains "Create Group" or "Create Tag"
+        let headerText = $('#crud-modal h3').text();
+        if (headerText.includes("Create")){
+          if (headerText.includes("Group")){
+            // Call AJAX at /todo/group/create with JSON data
+            $.ajax({
+                url: "/todo/group/create",
+                type: "POST",
+                data: JSON.stringify({
+                    title: title,
+                    color: color,
+                }),
+                contentType: "application/json",
+                success: function(data){
+                    console.log(data);
+                }
+            });
+          }
+          else if (headerText.includes("Tag")){
+            // Call AJAX at /todo/tag/create with JSON data
+            $.ajax({
+                url: "/todo/tag/create",
+                type: "POST",
+                data: JSON.stringify({
+                    title: title,
+                    group: tag,
+                }),
+                contentType: "application/json",
+                success: function(data){
+                    console.log(data);
+                }
+            });
+          }
+          // If id is empty, it means it's a new task
+          else if (id == "" && headerText.includes("Task")){
+              // Adding a new task to the tasks object within Dict
+              Dict.tasks[getUuid()] = {
+                  title: title,
+                  description: desc,
+                  tag: tag,
+                  deadline: expired,
+                  points: 4,
+              };
+              // Call AJAX at /todo/create with JSON data
+              $.ajax({
+                  url: "/todo/create",
+                  type: "POST",
+                  data: JSON.stringify({
+                      title: title,
+                      description: desc,
+                      tag: tag,
+                      deadline: expired,
+                      points: 4,
+                  }),
+                  contentType: "application/json",
+                  success: function(data){
+                      console.log(data);
+                  }
+              });
+          }
         }
         else {
             // Update Dict
@@ -802,6 +884,22 @@ $(document).ready(function () {
             Dict.tasks[id].description = desc;
             Dict.tasks[id].tag = tag;
             Dict.tasks[id].deadline = expired;
+            // Call AJAX at /todo/update with JSON data
+            $.ajax({
+                url: "/todo/update",
+                type: "POST",
+                data: JSON.stringify({
+                    id: id,
+                    title: title,
+                    description: desc,
+                    tag: tag,
+                    deadline: expired,
+                }),
+                contentType: "application/json",
+                success: function(data){
+                    console.log(data);
+                }
+            });
         }
       }
       if (addGroupnTagModal.isVisible()){
