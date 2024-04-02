@@ -2423,6 +2423,22 @@ input:checked + .toggle-bg {
 
 /* end tree */
 
+/* start bird*/
+
+#bird-container {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+}
+
+#bird {
+  width: 50px;
+  /* Adjust as needed */
+  height: auto;
+}
+
+/* end bird */
+
 .sr-only {
   position: absolute;
   width: 1px;

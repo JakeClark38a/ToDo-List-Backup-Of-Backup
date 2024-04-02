@@ -70,7 +70,7 @@ function updateTree() {
     let stage = Math.floor(treeStage / 20) + 1;
     if (stage === 12) stage = 11;
     // Set the tree image based on the current stage
-    document.getElementById('tree').src = `../static/images/tree${stage}.gif`;
+    document.getElementById('tree').src = `../static/images/tree_game/tree${stage}.gif`;
 
     // Check if treeStage reaches maximum
     if (treeStage >= 220) {
@@ -84,7 +84,7 @@ function animate(action) {
     // Create a new image element for the animation
     const animation = document.createElement('img');
     // Set the source of the animation based on the action
-    animation.src = action === 'water' ? '../static/images/watercan-ful-watering.gif' : '../static/images/fertilizer-anim-loop.gif';
+    animation.src = action === 'water' ? '../static/images/tree_game/watercan-full-watering.gif' : '../static/images/tree_game/fertilizer-anim-loop.gif';
     // Set its position and styling
     animation.style.position = 'absolute';
 
@@ -139,7 +139,7 @@ function updateWaterCount() {
     // Update water count display
     document.getElementById('waterCount').innerText = wateringsLeft;
     if (wateringsLeft === 0) {
-        document.getElementById('waterbutton').querySelector('img').src = '../static/images/watercan-empty.png';
+        document.getElementById('waterbutton').querySelector('img').src = '../static/images/tree_game/watercan-empty.png';
     }
 }
 
@@ -147,7 +147,7 @@ function updateFertilizerCount() {
     // Update fertilizer count display
     document.getElementById('fertilizerCount').innerText = fertilizationsLeft;
     if (fertilizationsLeft === 0) {
-        document.getElementById('fertilizebutton').querySelector('img').src = '../static/images/fertilizer-notopen.png';
+        document.getElementById('fertilizebutton').querySelector('img').src = '../static/images/tree_game/fertilizer-notopen.png';
     }
 }
 
@@ -165,8 +165,3 @@ function toggleAudio() {
     }
 }
 
-// Automatically play audio if treeContainer is active
-var treeContainer = document.getElementById("treeContainer");
-if (treeContainer.classList.contains("active")) {
-    audio.play();
-}
