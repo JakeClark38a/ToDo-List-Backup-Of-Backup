@@ -13,7 +13,7 @@ app.secret_key = token_bytes(16).hex()
 oauth = OAuth(app)
 
 appConf = {
-    "OAUTH2_CLIENT_ID": "1002415781087-d1a74175n9vk48ehrir794qghma573qi.apps.googleusercontent.com",
+    "OAUTH2_CLIENT_ID": os.getenv("OAUTH2_CLIENT_ID"),
     "OAUTH2_CLIENT_SECRET": os.getenv("OAUTH2_CLIENT_SECRET"),
     "OAUTH2_META_URL": "https://accounts.google.com/.well-known/openid-configuration",
     "FLASK_SECRET": os.getenv("FLASK_SECRET"),
