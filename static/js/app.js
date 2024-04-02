@@ -172,7 +172,7 @@ $(document).ready(function () {
       <div class=" rounded-lg h-20 lg:h-32 shadow-lg border-2 border-gray-500">
 
         <div class=" px-2 py-1 flex justify-between items-center border-b-[1px] border-gray-500">
-              <div class="font-medium lg:text-2xl">` + `[ `+ task.tag +` ] ` + task.title + `</div>
+              <div class="font-medium lg:text-2xl truncate w-full">` + `[ `+ task.tag +` ] ` + task.title + `</div>
 
               <div class="flex items-center gap-2">
                       <div class="Task-Edit mx-1 cursor-pointer">
@@ -182,12 +182,12 @@ $(document).ready(function () {
                     </div>
 
               
-              <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
+              <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
               </div>
         </div>
 
-          <div class="p-2 flex justify-between items-center lg:h-24">
-              <div class="text-center font-thin lg:text-xl">`+ task.description + `</div>
+          <div class="p-2 flex items-center h-fit">
+              <p class="bg-red-500 h-full w-full text-center font-thin truncate lg:text-xl">`+ task.description + `</p>
               <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
           </div>
       </div>
