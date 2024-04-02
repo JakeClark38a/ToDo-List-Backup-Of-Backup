@@ -2438,6 +2438,10 @@ input:checked + .toggle-bg {
   margin-bottom: 0.25rem;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -2524,10 +2528,6 @@ input:checked + .toggle-bg {
 
 .mt-\[5vh\] {
   margin-top: 5vh;
-}
-
-.mb-10 {
-  margin-bottom: 2.5rem;
 }
 
 .block {
@@ -2679,10 +2679,6 @@ input:checked + .toggle-bg {
   height: 100%;
 }
 
-.h-72 {
-  height: 18rem;
-}
-
 .max-h-full {
   max-height: 100%;
 }
@@ -2711,8 +2707,16 @@ input:checked + .toggle-bg {
   width: 3rem;
 }
 
+.w-14 {
+  width: 3.5rem;
+}
+
 .w-16 {
   width: 4rem;
+}
+
+.w-2\/3 {
+  width: 66.666667%;
 }
 
 .w-20 {
@@ -2725,6 +2729,10 @@ input:checked + .toggle-bg {
 
 .w-3 {
   width: 0.75rem;
+}
+
+.w-32 {
+  width: 8rem;
 }
 
 .w-4 {
@@ -2767,8 +2775,8 @@ input:checked + .toggle-bg {
   width: 20rem;
 }
 
-.w-\[100vp\] {
-  width: 100vp;
+.w-\[100vw\] {
+  width: 100vw;
 }
 
 .w-\[3\.5vh\] {
@@ -2797,30 +2805,6 @@ input:checked + .toggle-bg {
 
 .w-full {
   width: 100%;
-}
-
-.w-32 {
-  width: 8rem;
-}
-
-.w-2\/3 {
-  width: 66.666667%;
-}
-
-.w-3\/4 {
-  width: 75%;
-}
-
-.w-14 {
-  width: 3.5rem;
-}
-
-.w-\[100vw\] {
-  width: 100vw;
-}
-
-.w-96 {
-  width: 24rem;
 }
 
 .max-w-md {
@@ -3132,22 +3116,8 @@ input:checked + .toggle-bg {
   border-top-right-radius: 0.25rem;
 }
 
-.rounded-l {
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-}
-
-.rounded-t-lg {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-}
-
 .rounded-br-xl {
   border-bottom-right-radius: 0.75rem;
-}
-
-.rounded-tr-lg {
-  border-top-right-radius: 0.5rem;
 }
 
 .border {
@@ -3299,10 +3269,6 @@ input:checked + .toggle-bg {
 
 .bg-main\/25 {
   background-color: rgb(255 252 247 / 0.25);
-}
-
-.bg-main\/35 {
-  background-color: rgb(255 252 247 / 0.35);
 }
 
 .bg-main\/55 {
@@ -3994,6 +3960,11 @@ input:checked + .toggle-bg {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-red-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 82 82 / var(--tw-bg-opacity));
+}
+
 .hover\:text-blue-600:hover {
   --tw-text-opacity: 1;
   color: rgb(112 148 152 / var(--tw-text-opacity));
@@ -4433,18 +4404,6 @@ input:checked + .toggle-bg {
 
   .lg\:h-\[45vh\] {
     height: 45vh;
-  }
-
-  .lg\:h-72 {
-    height: 18rem;
-  }
-
-  .lg\:h-1\/2 {
-    height: 50%;
-  }
-
-  .lg\:h-2\/3 {
-    height: 66.666667%;
   }
 
   .lg\:w-6 {
