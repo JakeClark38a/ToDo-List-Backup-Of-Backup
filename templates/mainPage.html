@@ -446,6 +446,11 @@
                 },
             };
 
+            // If screen is small, change option backdrop to static
+            if (window.innerWidth < 768) {
+                options.backdrop = 'static';
+            }
+
             // instance options object
             const modal = new Modal($targetEl, options);
             const addGroupnTagModal = new Modal($targetEl, options);
