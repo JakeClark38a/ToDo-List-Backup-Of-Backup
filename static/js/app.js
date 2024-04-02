@@ -68,17 +68,37 @@ $(document).ready(function () {
         points: 5,
       },
     },
-    tag_color: {
-      tag1: "#7aa5cf",
-      tag2: "#63c074",
-      tag3: "#ac7acf",
-      tag4: "#c5e875",
-      tag5: "#f7d38c",
-    },
+    tags: {
+      tag1: {
+          title: "tag1",
+          color: "#7aa5cf",
+      },
+      tag2: {
+          title: "tag2",
+          color: "#63c074",
+      },
+      tag3: {
+          title: "tag3",
+          color: "#ac7acf",
+      },
+      tag4: {
+          title: "tag4",
+          color: "#c5e875",
+      },
+      tag5: {
+          title: "tag5",
+          color: "#f7d38c",
+      },
+      none: {
+          title: "none",
+          color: "#ffffff",
+      }
+  }
+  
   };
 
   var currentMode = 0;
-  var isCreateGroup = false;
+  var isMakeChangeGroup = false;
   //
   //
   //
@@ -89,7 +109,7 @@ $(document).ready(function () {
   //=========================== Main Menu ==========================\\
   //================================================================\\
 
-  function MainMenuTagTempplate(id, tagName) {
+  function MainMenuTagTempplate(id, tag) {
     return (
       `
     
@@ -102,7 +122,7 @@ $(document).ready(function () {
         </svg>
     </div>
 
-    <div class="text-lg px-1 my-1 center">` + tagName +`</div>
+    <div id="MMenu-Tag-Title" class="text-lg px-1 my-1 center">` + tag.title +`</div>
     <div class="MMenu-Tag-Edit mx-1">
     <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
@@ -129,7 +149,7 @@ $(document).ready(function () {
           </svg>          
             </div>
 
-                <div class="text-xl ml-2">` + group.title + `</div>
+                <div id="MMenu-Group-Title" class="text-xl ml-2">` + group.title + `</div>
         </div>
 
         <div class="MMenu-Group-Edit mx-1">
@@ -168,10 +188,11 @@ $(document).ready(function () {
     if (mode == 0) {
       return (
         ` 
-    <div id="`+ id + `" class="task-outer bg-main rounded-xl cursor-default">
-      <div class=" rounded-lg h-20 lg:h-32 shadow-lg border-2 border-gray-500">
+    <div id="`+ id + `" class="task-outer bg-main  rounded-xl cursor-default">
+      <div class=" rounded-lg shadow-lg border-2 border-gray-500">
 
         <div class=" px-2 py-1 flex justify-between items-center border-b-[1px] border-gray-500">
+              <div class="font-medium lg:text-2xl truncate w-full">` + `[ `+ Dict.tags[task.tag].title +` ] ` + task.title + `</div>
               <div class="font-medium lg:text-2xl truncate w-full">` + `[ `+ task.tag +` ] ` + task.title + `</div>
 
               <div class="flex items-center gap-2">
@@ -183,9 +204,12 @@ $(document).ready(function () {
 
               
               <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
+              <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
               </div>
         </div>
 
+          <div class="p-2 flex items-center h-fit">
+              <p class="h-full w-full text-left p-2 font-thin truncate lg:text-xl">`+ task.description + `</p>
           <div class="p-2 flex items-center h-fit">
               <p class="bg-red-500 h-full w-full text-center font-thin truncate lg:text-xl">`+ task.description + `</p>
               <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
@@ -210,7 +234,9 @@ $(document).ready(function () {
                 <div class="text-center lg:text-xl">`+ task.description + `</div>
                 <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
             </div>
+            
           </div>
+
       </div>
   
       `
@@ -348,6 +374,7 @@ $(document).ready(function () {
     // );
     // use uuidv4
     return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+    return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
         (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
     );
   }
@@ -365,7 +392,7 @@ $(document).ready(function () {
   });
 
   $("#MMenu-Group-Add").click(function () {
-      isCreateGroup = true;
+      isMakeChangeGroup = true;
       // Customize modal appearance
       $('#crud-modal label[for="name"]').text("Title");
 
@@ -376,6 +403,7 @@ $(document).ready(function () {
       $('#crud-modal #desc-sec').hide();
       $('#crud-modal #tags-sec').hide();
       $('#crud-modal #todo-expired-sec').hide();
+
   
       $('#crud-modal button[type="submit"]').html(`
       <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
@@ -386,7 +414,7 @@ $(document).ready(function () {
   });
 
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
-    isCreateGroup = false;
+    isMakeChangeGroup = false;
     /// add tag
     var gid = $(this).closest(".MMenu-Group").attr("id")
     //console.log(groupDict);
@@ -397,14 +425,13 @@ $(document).ready(function () {
     $('#crud-modal label[for="name"]').text("Name");
 
     $('#crud-modal h3').text("Create Tag");
-    $('#crud-modal #name').attr('placeholder', 'Tag name');;
+    $('#crud-modal #name').attr('placeholder', 'Tag name');
     $('#crud-modal #name').val('');
 
     $('#crud-modal #desc-sec').hide();
     $('#crud-modal #todo-expired-sec').hide();
-
-    $('#crud-modal label[for="tags"]').text("Groups"); 
-    $('#crud-modal').find(`#tags option[value="${gid}"]`).attr("selected","selected");
+    $('#crud-modal #tags-sec').hide();
+    $('#crud-modal #groups-sec').show();
 
     $('#crud-modal button[type="submit"]').html(`
     <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
@@ -419,11 +446,66 @@ $(document).ready(function () {
   /// Edit Group
   $("#MMenu-Group-Section").on("click", ".MMenu-Group-Edit", function () {
     console.log($(this).closest(".MMenu-Group").attr("id"));
+    var gid = $(this).closest(".MMenu-Group").attr("id");
+    var gInfo = Dict.groups[gid] ;
+    isMakeChangeGroup = true;
+    $('#crud-modal label[for="name"]').text("Title");
+
+      $('#crud-modal h3').text("Edit Group");
+      $('#crud-modal #name').attr('placeholder', 'Group name');;
+      $('#crud-modal #name').val(gInfo.title);
+  
+      $('#crud-modal #desc-sec').hide();
+      $('#crud-modal #tags-sec').hide();
+      $('#crud-modal #groups-sec').hide();
+      $('#crud-modal #todo-expired-sec').hide();
+
+      $('#crud-modal #colors').val(gInfo.color);
+  
+      $('#crud-modal button[type="submit"]').html(`
+      <svg class="w-5 lg:w-7 h-5 lg:h-7 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+    </svg> Edit
+      `);
+
+      $('#crud-modal #delete-sec').show();
+
+      $('#crud-modal input[type="checkbox"]').attr("id", `group_${gid}`);
+      
+    // Show modal
+    addGroupnTagModal.show();
   });
 
   /// Edit Tag
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Edit", function () {
     console.log($(this).closest(".MMenu-Tag").attr("id"));
+    var tid = $(this).closest(".MMenu-Tag").attr("id")
+    var tagInfo = Dict.tags[tid] ;
+    isMakeChangeGroup = false;
+
+     // Customize modal appearance
+    $('#crud-modal label[for="name"]').text("Name");
+
+    $('#crud-modal h3').text("Edit Tag");
+    $('#crud-modal #name').attr('placeholder', 'Tag name');
+    $('#crud-modal #name').val(tagInfo.title);
+
+    $('#crud-modal #desc-sec').hide();
+    $('#crud-modal #todo-expired-sec').hide();
+    $('#crud-modal #tags-sec').hide();
+    $('#crud-modal #groups-sec').hide();
+
+    $('#crud-modal #delete-sec').show();
+
+    $('#crud-modal button[type="submit"]').html(`
+    <svg class="w-5 lg:w-7 h-5 lg:h-7 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+  </svg> Edit
+    `);
+
+    $('#crud-modal input[type="checkbox"]').attr("id", `tag_${tid}`);
+    // Show modal
+    addGroupnTagModal.show();
   });
 
   function toggleHiddenMMenuGroup(group) {
@@ -435,9 +517,9 @@ $(document).ready(function () {
     toggleHiddenMMenuGroup($(this).parent().parent());
   });
 
-  function addNewTagMainMenu(group_html, tag) {
+  function addNewTagMainMenu(group_html, id, tag) {
     //console.log(group_html);
-    group_html.append(MainMenuTagTempplate(getUuid(), tag));
+    group_html.append(MainMenuTagTempplate(id,tag));
    // LoadTags();
   }
 
@@ -458,7 +540,7 @@ $(document).ready(function () {
         // console.log("Group: " + group.title);
         // Iterate over tags in the current group
         for (var j = 0; j < group.tags.length; j++) {
-          addNewTagMainMenu(g.find("#MMenu-Tag-Section"), group.tags[j]);
+          addNewTagMainMenu(g.find("#MMenu-Tag-Section"),group.tags[j] ,Dict.tags[group.tags[j]]);
         }
         toggleHiddenMMenuGroup(g);
       }
@@ -642,34 +724,29 @@ $(document).ready(function () {
   function LoadTags() {
     console.log("Loading tags");
     console.log(Dict.groups);
-    var tagArray = [];
-    // Iterate over each group in Dict.groups
-    for (var groupId in Dict.groups) {
-        if (Dict.groups.hasOwnProperty(groupId)) {
-            if (Dict.groups[groupId].hasOwnProperty("tags")){
-                tagArray = [...tagArray, ...Dict.groups[groupId].tags]
-            }
-        }
-    }
+    var tagArray = Object.keys(Dict.tags);
     $("#crud-modal select#tags").empty();
     tagArray.forEach(element => {
-        let options = `<option value="${element}">${element}</option>`
-        $("#crud-modal select#tags").append(options)
+      let options = `<option value="${element}">${Dict.tags[element].title}</option>`
+      $("#crud-modal select#tags").append(options)
     });
+
+    $("#crud-modal select#tags").append(`<option value="None">None</option>`);
   };
   LoadTags();
 
   function LoadGroups() {
     console.log("Loading groups");
     var groupArray = Object.keys(Dict.groups);
-    $("#crud-modal select#tags").empty();
+    $("#crud-modal select#groups").empty();
 
     groupArray.forEach(element => {
         let options = `<option value="${element}">${Dict.groups[element].title}</option>`
-        $("#crud-modal select#tags").append(options)
+        $("#crud-modal select#groups").append(options)
     });
   };
-
+  LoadGroups();
+  
   function initUser() {
     currentMode = 0;
     LoadUser();
@@ -727,6 +804,7 @@ $(document).ready(function () {
       // Clean up
       // Clean modal first
       $('#crud-modal #colors-sec').hide();
+      $('#crud-modal #delete-sec').show();
 
       $('#crud-modal label[for="name"]').text("Title");
       $('#crud-modal label[for="description"]').text("Task Description");
@@ -809,14 +887,26 @@ $(document).ready(function () {
       // Get id from honeypot, if id is empty string, it means it's a new task
       let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
       // Get all input
+      let mode = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[0];
       let title = $('#crud-modal #name').val();
       let desc = $('#crud-modal #description').val();
       let tag = $('#crud-modal #tags').val();
+      let group = $('#crud-modal #groups').val();
       let expired = $('#crud-modal #todo-expired').val();
       let color = $('#crud-modal #colors').val();
-      console.log(id, title, desc, tag, expired,color);
+      console.log(mode, id, title, desc, tag, expired,color);
       // Before updatind Dict, check if tag is empty
       if (modal.isVisible()){
+        if (id == ""){
+            // Adding a new task to the tasks object within Dict
+            Dict.tasks[getUuid()] = {
+                title: title,
+                description: desc,
+                tag: tag,
+              //  group: group,
+                deadline: expired,
+                points: 4,
+            };
         // Check if modal header text contains "Create Group" or "Create Tag"
         let headerText = $('#crud-modal h3').text();
         if (headerText.includes("Create")){
@@ -883,53 +973,98 @@ $(document).ready(function () {
             Dict.tasks[id].title = title;
             Dict.tasks[id].description = desc;
             Dict.tasks[id].tag = tag;
+           // Dict.tasks[id].group = group;
             Dict.tasks[id].deadline = expired;
-            // Call AJAX at /todo/update with JSON data
-            $.ajax({
-                url: "/todo/update",
-                type: "POST",
-                data: JSON.stringify({
-                    id: id,
-                    title: title,
-                    description: desc,
-                    tag: tag,
-                    deadline: expired,
-                }),
-                contentType: "application/json",
-                success: function(data){
-                    console.log(data);
-                }
-            });
         }
       }
-      if (addGroupnTagModal.isVisible()){
-        var id_ = getUuid()
-        if(isCreateGroup == true){   /// Create a new group
-            var g = Dict.groups[id_] = {
-                title: title,
-                tags: [],
-                color: color,
-                current_html: "",
+      if (addGroupnTagModal.isVisible())
+      {
+          var id_ = getUuid()
+          if(isMakeChangeGroup == true){ 
+            if(id ==""){  /// Create a new group
+              var g = Dict.groups[id_] = {
+                  title: title,
+                  tags: [],
+                  color: color,
+                  current_html: "",
+              };
+              $("#MMenu-Group-Section").append(MainMenuGroupTemplates(id_, g));
+              /// Main Screen Add 
+              renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),g, currentMode);
+            }
+            else{ // Edit groups
+              Dict.groups[id].title = title;
+              Dict.groups[id].color = color;
+              $("#MMenu-Group-Section").find("#"+id).find("#MMenu-Group-Title").text(title);
+              
+            }
+          }
+        else if(isMakeChangeGroup == false){  
+          if(id ==""){  /// Create a new tags
+            var t = Dict.tags[id_] = {
+              title: title,
+              color: randHexColor(),
             };
-            $("#MMenu-Group-Section").append(MainMenuGroupTemplates(id_, g));
-            /// Main Screen Add 
-            renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),g, currentMode);
-        }
-        else if(isCreateGroup == false){   ///  Create a new tag
-          var t = title;
-          Dict.tag_color[t]= randHexColor();
-          Dict.groups[tag].tags.push(t);
-          addNewTagMainMenu($("#"+tag).find("#MMenu-Tag-Section"), t);
+            Dict.groups[group].tags.push(id_);
+            addNewTagMainMenu($("#"+group).find("#MMenu-Tag-Section"),id_,t);
+          }
+          else{ //Edit tags
+              Dict.tags[id].title = title;
+              Dict.tags[id].color = color;
+              $("#MMenu-Group-Section").find("#"+id).find("#MMenu-Tag-Title").text(title);
+          }
         }
 
       }
+      console.log(Dict);
       alert("Submitted");
       RefreshMainScreen();
       closeModal();
       //resetModalState();
       // window.location = window.location;
   })
+  
+  //Delete button
+  $('#crud-modal #delete-sec').on("click", function(e){
+    e.preventDefault();
+      
+      // Get id from honeypot, if id is empty string, it means it's a new task
+      let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
+      // Get all input
+      let group = $('#crud-modal #groups').val();
+    // Before updatind Dict, check if tag is empty
+      if (modal.isVisible()){
+        if (id != ""){
+            // Deleting task
+            delete Dict.tasks[id];
+            var task_ = $('#'+id);
+            task_.remove();
+        }
+      }
+      if (addGroupnTagModal.isVisible())
+      {
+          if(isMakeChangeGroup == true){ 
+            if(id !=""){  /// Delete a new group
+              delete Dict.groups[id];
+              var group_ = $('#'+id);
+              group_.remove();
+            }
+          }
+        else if(isMakeChangeGroup == false){   ///  Delete a new tag
+          if(id !="")
+          {
+            Dict.groups[group].tags = Dict.groups[group].tags.filter(e => e != id);
+            delete Dict.tags[id];
+            var tag_ = $('#'+id);
+            tag_.remove();
+          }
+        }
 
+      }
+      alert("Deleted: " + id);
+      RefreshMainScreen();
+      closeModal();
+  })
   // When user clicked at list item, it will add tag to the task and also close dropdown
   function closeModal() { 
     modal.hide();
