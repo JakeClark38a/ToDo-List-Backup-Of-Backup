@@ -14,7 +14,7 @@ module.exports = {
       xl: "1000px",
     },
     fontFamily: {
-      sans: ["Graphik", "sans-serif"],
+      sans: ["Oswald", "sans-serif"],
       serif: ["Merriweather", "serif"],
     },
     extend: {
@@ -29,18 +29,20 @@ module.exports = {
         heroxl: "url('/static/images/heroxl.jpg')",
         heromd: "url('/static/images/heromd.jpg')",
         herosm: "url('/static/images/herosm.jpg')",
-        background1: "url('/static/images/wallpaper.jpg')",
-        background2 : "url('/static/images/wallpaper2.jpg')",
+        bg1: "url('/static/images/wallpaper.jpg')",
+        bg2: "url('/static/images/wallpaper2.jpg')",
+        bg3: "url('/static/images/wallpaper3.jpg')",
       },
       colors: {
         primary: {
           100: "#b57250",
-          200: "#709498",
+          200: "#8cb9be",
         },
         accent: {
-          100: "#eeb15a",
+          100: "#eaa038",
           200: "#8cb9be",
           300: "#c48e73",
+          400: "#6faeb4"
         },
         blue: {
           100: "#e8f1f2",
@@ -75,7 +77,7 @@ module.exports = {
           800: "#5f4724",
           900: "#302312",
         },
-        main: "#f6f6f6",
+        main: "#fffcf7",
         dark: "#4a4848",
       },
     },
