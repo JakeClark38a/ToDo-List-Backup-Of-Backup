@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 # Tailwind node modules - skip it
 node_modules/
+_temp*.html

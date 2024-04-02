@@ -817,41 +817,9 @@ $(document).ready(function () {
       console.log(id, title, desc, tag, expired,color);
       // Before updatind Dict, check if tag is empty
       if (modal.isVisible()){
-        // Check if modal header text contains "Create Group" or "Create Tag"
-        let headerText = $('#crud-modal h3').text();
-        if (headerText.includes("Create")){
-          if (headerText.includes("Group")){
-            // Call AJAX at /todo/group/create with JSON data
-            $.ajax({
-                url: "/todo/group/create",
-                type: "POST",
-                data: JSON.stringify({
-                    title: title,
-                    color: color,
-                }),
-                contentType: "application/json",
-                success: function(data){
-                    console.log(data);
-                }
-            });
-          }
-          else if (headerText.includes("Tag")){
-            // Call AJAX at /todo/tag/create with JSON data
-            $.ajax({
-                url: "/todo/tag/create",
-                type: "POST",
-                data: JSON.stringify({
-                    title: title,
-                    group: tag,
-                }),
-                contentType: "application/json",
-                success: function(data){
-                    console.log(data);
-                }
-            });
-          }
+        
           // If id is empty, it means it's a new task
-          else if (id == "" && headerText.includes("Task")){
+          if (id == ""){
               // Adding a new task to the tasks object within Dict
               Dict.tasks[getUuid()] = {
                   title: title,
@@ -877,7 +845,7 @@ $(document).ready(function () {
                   }
               });
           }
-        }
+        
         else {
             // Update Dict
             Dict.tasks[id].title = title;
@@ -914,12 +882,40 @@ $(document).ready(function () {
             $("#MMenu-Group-Section").append(MainMenuGroupTemplates(id_, g));
             /// Main Screen Add 
             renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),g, currentMode);
+            console.log("Creating group")
+            // Call AJAX at /todo/group/create with JSON data
+            $.ajax({
+                url: "/todo/group/create",
+                type: "POST",
+                data: JSON.stringify({
+                    title: title,
+                    color: color,
+                }),
+                contentType: "application/json",
+                success: function(data){
+                    console.log(data);
+                }
+            });
         }
         else if(isCreateGroup == false){   ///  Create a new tag
           var t = title;
           Dict.tag_color[t]= randHexColor();
           Dict.groups[tag].tags.push(t);
           addNewTagMainMenu($("#"+tag).find("#MMenu-Tag-Section"), t);
+          console.log("Creating tag")
+          // Call AJAX at /todo/tag/create with JSON data
+          $.ajax({
+            url: "/todo/tag/create",
+            type: "POST",
+            data: JSON.stringify({
+                title: title,
+                group: tag,
+            }),
+            contentType: "application/json",
+            success: function(data){
+                console.log(data);
+            }
+          });
         }
 
       }
