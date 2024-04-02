@@ -93,7 +93,9 @@ $(document).ready(function () {
     return (
       `
     
-    <div id="` +id +`" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
+    <div id="` +
+      id +
+      `" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
     <div class="h-full">
         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -102,7 +104,9 @@ $(document).ready(function () {
         </svg>
     </div>
 
-    <div class="text-lg px-1 my-1 center">` + tagName +`</div>
+    <div class="text-lg px-1 my-1 center">` +
+      tagName +
+      `</div>
     <div class="MMenu-Tag-Edit mx-1">
     <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
@@ -118,7 +122,9 @@ $(document).ready(function () {
     return (
       `
   
-  <div id="` +id +`" class="MMenu-Group"><!--block-->
+  <div id="` +
+      id +
+      `" class="MMenu-Group"><!--block-->
     <!-- Greeting div, status centered -->
         <div class="flex justify-between items-center pl-3 pr-1">
 
@@ -129,7 +135,9 @@ $(document).ready(function () {
           </svg>          
             </div>
 
-                <div class="text-xl ml-2">` + group.title + `</div>
+                <div class="text-xl ml-2">` +
+      group.title +
+      `</div>
         </div>
 
         <div class="MMenu-Group-Edit mx-1">
@@ -168,11 +176,18 @@ $(document).ready(function () {
     if (mode == 0) {
       return (
         ` 
-    <div id="`+ id + `" class="task-outer bg-main rounded-xl cursor-default">
+    <div id="` +
+        id +
+        `" class="task-outer bg-main rounded-xl cursor-default">
       <div class=" rounded-lg h-20 lg:h-32 shadow-lg border-2 border-gray-500">
 
         <div class=" px-2 py-1 flex justify-between items-center border-b-[1px] border-gray-500">
-              <div class="font-medium lg:text-2xl truncate w-full">` + `[ `+ task.tag +` ] ` + task.title + `</div>
+              <div class="font-medium lg:text-2xl">` +
+        `[ ` +
+        task.tag +
+        ` ] ` +
+        task.title +
+        `</div>
 
               <div class="flex items-center gap-2">
                       <div class="Task-Edit mx-1 cursor-pointer">
@@ -182,12 +197,14 @@ $(document).ready(function () {
                     </div>
 
               
-              <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
+              <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
               </div>
         </div>
 
-          <div class="p-2 flex items-center h-fit">
-              <p class="bg-red-500 h-full w-full text-center font-thin truncate lg:text-xl">`+ task.description + `</p>
+          <div class="p-2 flex justify-between items-center lg:h-24">
+              <div class="text-center font-thin lg:text-xl">` +
+        task.description +
+        `</div>
               <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
           </div>
       </div>
@@ -198,16 +215,25 @@ $(document).ready(function () {
     } else if (mode == 1) {
       return (
         `
-      <div id="`+ id + `" class="task-outer">
+      <div id="` +
+        id +
+        `" class="task-outer">
         <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
   
             <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
-                <div class="font-bold lg:text-2xl">` + `[`+ task.tag +`]` + task.title + `</div>
+                <div class="font-bold lg:text-2xl">` +
+        `[` +
+        task.tag +
+        `]` +
+        task.title +
+        `</div>
                 <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
             </div>
   
             <div class="p-2 flex justify-between items-center lg:h-24">
-                <div class="text-center lg:text-xl">`+ task.description + `</div>
+                <div class="text-center lg:text-xl">` +
+        task.description +
+        `</div>
                 <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
             </div>
           </div>
@@ -222,9 +248,13 @@ $(document).ready(function () {
     if (mode == 0) {
       return (
         `
-    <div id="` +id +`">
+    <div id="` +
+        id +
+        `">
       <div class="flex justify-between items-center px-3 ">
-        <div id="Task-Group-Title" class="todobox-title">` + group.title +`</div>
+        <div id="Task-Group-Title" class="todobox-title">` +
+        group.title +
+        `</div>
         <div class="Group-Task-Add">
                 <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -245,8 +275,12 @@ $(document).ready(function () {
         `
       <!-- Item  -->
 
-      <div id="` +id +`" data-carousel-item class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 z-0">
-        <div id="Task-Group-Title" class="text-center">` + group.title +`</div>
+      <div id="` +
+        id +
+        `" data-carousel-item class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 z-0">
+        <div id="Task-Group-Title" class="text-center">` +
+        group.title +
+        `</div>
           <div id="" class="Task-Section border-primary-100 w-80 h-96 border-2" >
           <!-- Contents -->
         
@@ -347,13 +381,21 @@ $(document).ready(function () {
     //   Math.random().toString(36).substring(2, 6)
     // );
     // use uuidv4
-    return "id_" + "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-        (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+    return (
+      "id_" +
+      "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (c) =>
+        (
+          +c ^
+          (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (+c / 4)))
+        ).toString(16)
+      )
     );
   }
 
   function randHexColor() {
-    return "#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0'));
+    return (
+      "#" + ((Math.random() * 0xf0f0f0) << 0).toString(16).padStart(6, "0")
+    );
   }
 
   //================================================================\\
@@ -365,30 +407,30 @@ $(document).ready(function () {
   });
 
   $("#MMenu-Group-Add").click(function () {
-      isCreateGroup = true;
-      // Customize modal appearance
-      $('#crud-modal label[for="name"]').text("Title");
+    isCreateGroup = true;
+    // Customize modal appearance
+    $('#crud-modal label[for="name"]').text("Title");
 
-      $('#crud-modal h3').text("Create Group");
-      $('#crud-modal #name').attr('placeholder', 'Group name');;
-      $('#crud-modal #name').val('');
-  
-      $('#crud-modal #desc-sec').hide();
-      $('#crud-modal #tags-sec').hide();
-      $('#crud-modal #todo-expired-sec').hide();
-  
-      $('#crud-modal button[type="submit"]').html(`
+    $("#crud-modal h3").text("Create Group");
+    $("#crud-modal #name").attr("placeholder", "Group name");
+    $("#crud-modal #name").val("");
+
+    $("#crud-modal #desc-sec").hide();
+    $("#crud-modal #tags-sec").hide();
+    $("#crud-modal #todo-expired-sec").hide();
+
+    $('#crud-modal button[type="submit"]').html(`
       <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
       Create`);
-      $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
-      // Show modal
-      addGroupnTagModal.show();
+    $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+    // Show modal
+    addGroupnTagModal.show();
   });
 
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
     isCreateGroup = false;
     /// add tag
-    var gid = $(this).closest(".MMenu-Group").attr("id")
+    var gid = $(this).closest(".MMenu-Group").attr("id");
     //console.log(groupDict);
     //addTag(groupDict)
     LoadGroups();
@@ -396,15 +438,17 @@ $(document).ready(function () {
     // Customize modal appearance
     $('#crud-modal label[for="name"]').text("Name");
 
-    $('#crud-modal h3').text("Create Tag");
-    $('#crud-modal #name').attr('placeholder', 'Tag name');;
-    $('#crud-modal #name').val('');
+    $("#crud-modal h3").text("Create Tag");
+    $("#crud-modal #name").attr("placeholder", "Tag name");
+    $("#crud-modal #name").val("");
 
-    $('#crud-modal #desc-sec').hide();
-    $('#crud-modal #todo-expired-sec').hide();
+    $("#crud-modal #desc-sec").hide();
+    $("#crud-modal #todo-expired-sec").hide();
 
-    $('#crud-modal label[for="tags"]').text("Groups"); 
-    $('#crud-modal').find(`#tags option[value="${gid}"]`).attr("selected","selected");
+    $('#crud-modal label[for="tags"]').text("Groups");
+    $("#crud-modal")
+      .find(`#tags option[value="${gid}"]`)
+      .attr("selected", "selected");
 
     $('#crud-modal button[type="submit"]').html(`
     <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
@@ -412,9 +456,7 @@ $(document).ready(function () {
     $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
     // Show modal
     addGroupnTagModal.show();
-
   });
-  
 
   /// Edit Group
   $("#MMenu-Group-Section").on("click", ".MMenu-Group-Edit", function () {
@@ -438,14 +480,12 @@ $(document).ready(function () {
   function addNewTagMainMenu(group_html, tag) {
     //console.log(group_html);
     group_html.append(MainMenuTagTempplate(getUuid(), tag));
-   // LoadTags();
+    // LoadTags();
   }
 
   function addNewGroupMainMenu(unique_id, group) {
-    $("#MMenu-Group-Section").append(
-      MainMenuGroupTemplates(unique_id, group)
-    );
-    
+    $("#MMenu-Group-Section").append(MainMenuGroupTemplates(unique_id, group));
+
     return $("#" + unique_id);
   }
 
@@ -471,18 +511,16 @@ $(document).ready(function () {
 
   function updateTime() {
     const now = new Date();
-    const seconds = now.getSeconds().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    let hours = now.getHours().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const seconds = now.getSeconds().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    let hours = now.getHours().toString().padStart(2, "0");
+    const ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12 || 12; // Convert to 12-hour format
     const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}`;
-    document.getElementById('clock').textContent = formattedTime;
+    document.getElementById("clock").textContent = formattedTime;
   }
-  
+
   setInterval(updateTime, 1000);
-  
-  
 
   function renderFormatterAddons(formatter_html, mode = 0) {
     formatter_html.append(FormmatterAddons(mode));
@@ -500,8 +538,10 @@ $(document).ready(function () {
     console.log("Cancelled: " + taskId);
     //console.log(Dict.tasks);
 
-    task_.toggleClass("transform transition-all duration-350 delay-75 ease-in-out scale-0 blur-md translate-y-20");
-    
+    task_.toggleClass(
+      "transform transition-all duration-350 delay-75 ease-in-out scale-0 blur-md translate-y-20"
+    );
+
     setTimeout(() => {
       task_.remove();
     }, 400);
@@ -511,35 +551,39 @@ $(document).ready(function () {
   $("#Main-Screen").on("click", "#Task-Destroyer", function () {
     var task_ = $(this).closest(".task-outer");
     var taskId = task_.attr("id");
-    
+
     // Disable the checkbox
     $(this).prop("disabled", true);
-  
+
     console.log("Completed: " + taskId);
 
     Dict.completed[taskId] = Dict.tasks[taskId];
-    delete Dict.tasks[taskId]; 
+    delete Dict.tasks[taskId];
 
     //console.log(Dict.completed);
     //console.log(Dict.tasks);
 
-    task_.toggleClass(" transform transition-all duration-350 delay-500 ease-in-out scale-150 blur-xl -translate-y-20");
+    task_.toggleClass(
+      " transform transition-all duration-350 delay-500 ease-in-out scale-150 blur-xl -translate-y-20"
+    );
     setTimeout(() => {
       task_.remove();
     }, 800);
   });
-  
 
-  function renderGroupMainScreen(group_html, group,unique_id, mode = 0) {
+  function renderGroupMainScreen(group_html, group, unique_id, mode = 0) {
     var unique_id = getUuid();
     group_html.append(MainScreenGroupTemplate(unique_id, group, mode));
-    $("#" + unique_id).find("#Task-Section").css({"background-color": group.color});
+    $("#" + unique_id)
+      .find("#Task-Section")
+      .css({ "background-color": group.color });
     return $("#" + unique_id);
   }
 
   function LoadMainScreen() {
     // Also add Draggable button again
-    $("#Main-Screen").append($(`
+    $("#Main-Screen").append(
+      $(`
     <!-- add question action button here-->
     <div id="add-draggable"  class="z-40 absolute">
         <div  class="touch-none select-none">
@@ -554,12 +598,13 @@ $(document).ready(function () {
         </div>
     </div>
     <!-- kết thúc phần nút -->
-    `))
+    `)
+    );
     var formatter_html = $("#Main-Screen").append(
       MainScreenFormatterTemplate()
     );
     // Assuming MainScreenGroupTemplate and MainScreenTaskTemplate functions are defined elsewhere
-    var isFirst = false; 
+    var isFirst = false;
     // Iterate over groups
     for (var groupId in Dict.groups) {
       if (Dict.groups.hasOwnProperty(groupId)) {
@@ -597,9 +642,9 @@ $(document).ready(function () {
 
   function RefreshMainScreen() {
     $("#Main-Screen").empty();
-   // $("#MMenu-Group-Section").empty();
+    // $("#MMenu-Group-Section").empty();
     LoadMainScreen();
-   // LoadGroups_Tag();
+    // LoadGroups_Tag();
   }
 
   function LoadUser() {
@@ -614,18 +659,18 @@ $(document).ready(function () {
     var tagArray = [];
     // Iterate over each group in Dict.groups
     for (var groupId in Dict.groups) {
-        if (Dict.groups.hasOwnProperty(groupId)) {
-            if (Dict.groups[groupId].hasOwnProperty("tags")){
-                tagArray = [...tagArray, ...Dict.groups[groupId].tags]
-            }
+      if (Dict.groups.hasOwnProperty(groupId)) {
+        if (Dict.groups[groupId].hasOwnProperty("tags")) {
+          tagArray = [...tagArray, ...Dict.groups[groupId].tags];
         }
+      }
     }
     $("#crud-modal select#tags").empty();
-    tagArray.forEach(element => {
-        let options = `<option value="${element}">${element}</option>`
-        $("#crud-modal select#tags").append(options)
+    tagArray.forEach((element) => {
+      let options = `<option value="${element}">${element}</option>`;
+      $("#crud-modal select#tags").append(options);
     });
-  };
+  }
   LoadTags();
 
   function LoadGroups() {
@@ -633,11 +678,11 @@ $(document).ready(function () {
     var groupArray = Object.keys(Dict.groups);
     $("#crud-modal select#tags").empty();
 
-    groupArray.forEach(element => {
-        let options = `<option value="${element}">${Dict.groups[element].title}</option>`
-        $("#crud-modal select#tags").append(options)
+    groupArray.forEach((element) => {
+      let options = `<option value="${element}">${Dict.groups[element].title}</option>`;
+      $("#crud-modal select#tags").append(options);
     });
-  };
+  }
 
   function initUser() {
     currentMode = 0;
@@ -659,206 +704,211 @@ $(document).ready(function () {
   //================================================================\\
   //========================= CRUD modal ===========================\\
   //================================================================\\
-    // Create 
+  // Create
 
-    $('#Main-Screen').on("click", ".Group-Task-Add", function(e){
-        e.preventDefault();
-        // Clean modal first
-        // Change modal state
-        $('#crud-modal #colors-sec').hide();
-        $('#crud-modal label[for="name"]').text("Title");
-        $('#crud-modal label[for="description"]').text("Task Description");
+  $("#Main-Screen").on("click", ".Group-Task-Add", function (e) {
+    e.preventDefault();
+    // Clean modal first
+    // Change modal state
+    $("#crud-modal #colors-sec").hide();
+    $('#crud-modal label[for="name"]').text("Title");
+    $('#crud-modal label[for="description"]').text("Task Description");
 
-        $('#crud-modal h3').text("Create Task");
-        $('#crud-modal #name').val("");
-        $('#crud-modal #description').val("");
-        $('#crud-modal #tags option').removeAttr("selected");
-        $('#crud-modal #todo-expired').val("");
-        $('#crud-modal button[type="submit"]').html(`
+    $("#crud-modal h3").text("Create Task");
+    $("#crud-modal #name").val("");
+    $("#crud-modal #description").val("");
+    $("#crud-modal #tags option").removeAttr("selected");
+    $("#crud-modal #todo-expired").val("");
+    $('#crud-modal button[type="submit"]').html(`
         <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
         Create`);
-        $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+    $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
 
-        // Show modal
-        modal.show();
-        e.stopPropagation();
-    });
+    // Show modal
+    modal.show();
+    e.stopPropagation();
+  });
 
-    // My work at U in CRUD modal  /// NULL -change the activate condition to prevent conflict with cancel button 
-    $('#Main-Screen').on("click", ".Task-Edit", function(e){
-      
-      let id = $(this).closest(".task-outer").attr("id");
-      let title = Dict.tasks[id].title;
-      let desc = Dict.tasks[id].description;
-      let tag = Dict.tasks[id].tag;
-      let expired = Dict.tasks[id].deadline;
-      console.log(id, desc);
-      // Clean up
-      // Clean modal first
-      $('#crud-modal #colors-sec').hide();
+  // My work at U in CRUD modal  /// NULL -change the activate condition to prevent conflict with cancel button
+  $("#Main-Screen").on("click", ".Task-Edit", function (e) {
+    let id = $(this).closest(".task-outer").attr("id");
+    let title = Dict.tasks[id].title;
+    let desc = Dict.tasks[id].description;
+    let tag = Dict.tasks[id].tag;
+    let expired = Dict.tasks[id].deadline;
+    console.log(id, desc);
+    // Clean up
+    // Clean modal first
+    $("#crud-modal #colors-sec").hide();
 
-      $('#crud-modal label[for="name"]').text("Title");
-      $('#crud-modal label[for="description"]').text("Task Description");
-      // Change task header
-      $('#crud-modal h3').text("Edit Task");
-      // Change input to task details
-      $('#crud-modal #name').val(title);
-      $('#crud-modal #description').val(desc);
-      $('#crud-modal').find(`#tags option[value="${tag}"]`).attr("selected", title);
-      $('#crud-modal #todo-expired').val(expired);
-      $('#crud-modal button[type="submit"]').text("Edit");
-      // Change honeypot to id
-      $('#crud-modal input[type="checkbox"]').attr("id", `task_${id}`);
-      // Get current date
-      let current_date = new Date();
-      // Get date input
-      let date_element = $('#crud-modal #todo-expired');
-      // Get input date
-      let input_date = new Date(date_element.val());
-      // If input date is less than current date, show alert
-      if (input_date < current_date){
-          date_element.css("border", "2px solid red");
-      }
-      else {
-          date_element.css("border", "2px solid green");
-      }
-      // Show modal
-      modal.show();
-      e.stopPropagation();
-  })
+    $('#crud-modal label[for="name"]').text("Title");
+    $('#crud-modal label[for="description"]').text("Task Description");
+    // Change task header
+    $("#crud-modal h3").text("Edit Task");
+    // Change input to task details
+    $("#crud-modal #name").val(title);
+    $("#crud-modal #description").val(desc);
+    $("#crud-modal")
+      .find(`#tags option[value="${tag}"]`)
+      .attr("selected", title);
+    $("#crud-modal #todo-expired").val(expired);
+    $('#crud-modal button[type="submit"]').text("Edit");
+    // Change honeypot to id
+    $('#crud-modal input[type="checkbox"]').attr("id", `task_${id}`);
+    // Get current date
+    let current_date = new Date();
+    // Get date input
+    let date_element = $("#crud-modal #todo-expired");
+    // Get input date
+    let input_date = new Date(date_element.val());
+    // If input date is less than current date, show alert
+    if (input_date < current_date) {
+      date_element.css("border", "2px solid red");
+    } else {
+      date_element.css("border", "2px solid green");
+    }
+    // Show modal
+    modal.show();
+    e.stopPropagation();
+  });
 
   // My work at adding limitation on typing Create - Edit modal
-  $("#crud-modal").on("input", "#name, #description", function(){
-      // Take current input length
-      let input_length = $(this).val().length;
-      // Take input limitation
-      let input_limit = $(this).attr("maxlength");
-      // If length > 0, show this length and limitation at the same place in label
-      if (input_length > 0){
-          // Update length and limit
-          $(this).prev().text(function(e, text){
-              let label_content = text.split(" ");
-              // Remove old length and limit (element that starts with "(" and ends with ")")
-              label_content = label_content.filter(e => !e.startsWith("(") && !e.endsWith(")"));
-              // Join new length and limit
-              label_content.push(`(${input_length}/${input_limit})`);
-              return label_content.join(" ");
-          })
-      }
-      else {
-          // Update length and limit
-          $(this).prev().text(function(e, text){
-              let label_content = text.split(" ");
-              // Remove old length and limit (element that starts with "(" and ends with ")")
-              label_content = label_content.filter(e => !e.startsWith("(") && !e.endsWith(")"));
-              // Join just title
-              return label_content.join(" ");
-          })
-      }
-  })
+  $("#crud-modal").on("input", "#name, #description", function () {
+    // Take current input length
+    let input_length = $(this).val().length;
+    // Take input limitation
+    let input_limit = $(this).attr("maxlength");
+    // If length > 0, show this length and limitation at the same place in label
+    if (input_length > 0) {
+      // Update length and limit
+      $(this)
+        .prev()
+        .text(function (e, text) {
+          let label_content = text.split(" ");
+          // Remove old length and limit (element that starts with "(" and ends with ")")
+          label_content = label_content.filter(
+            (e) => !e.startsWith("(") && !e.endsWith(")")
+          );
+          // Join new length and limit
+          label_content.push(`(${input_length}/${input_limit})`);
+          return label_content.join(" ");
+        });
+    } else {
+      // Update length and limit
+      $(this)
+        .prev()
+        .text(function (e, text) {
+          let label_content = text.split(" ");
+          // Remove old length and limit (element that starts with "(" and ends with ")")
+          label_content = label_content.filter(
+            (e) => !e.startsWith("(") && !e.endsWith(")")
+          );
+          // Join just title
+          return label_content.join(" ");
+        });
+    }
+  });
   // And also checking for expired date
-  $("#crud-modal").on("input", "#todo-expired", function(){
-      // Get current date
-      let current_date = new Date();
-      // Get input date
-      let input_date = new Date($(this).val());
-      // If input date is less than current date, show alert
-      if (input_date < current_date){
-          $(this).css("border", "2px solid red");
-      }
-      else {
-          $(this).css("border", "2px solid green");
-      }
-  })
+  $("#crud-modal").on("input", "#todo-expired", function () {
+    // Get current date
+    let current_date = new Date();
+    // Get input date
+    let input_date = new Date($(this).val());
+    // If input date is less than current date, show alert
+    if (input_date < current_date) {
+      $(this).css("border", "2px solid red");
+    } else {
+      $(this).css("border", "2px solid green");
+    }
+  });
 
   // Submit button
-  $('#crud-modal form').on("submit", function(e){
-      e.preventDefault();
-      
-      // Get id from honeypot, if id is empty string, it means it's a new task
-      let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
-      // Get all input
-      let title = $('#crud-modal #name').val();
-      let desc = $('#crud-modal #description').val();
-      let tag = $('#crud-modal #tags').val();
-      let expired = $('#crud-modal #todo-expired').val();
-      let color = $('#crud-modal #colors').val();
-      console.log(id, title, desc, tag, expired,color);
-      // Before updatind Dict, check if tag is empty
-      if (modal.isVisible()){
-        if (id == ""){
-            // Adding a new task to the tasks object within Dict
-            Dict.tasks[getUuid()] = {
-                title: title,
-                description: desc,
-                tag: tag,
-                deadline: expired,
-                points: 4,
-            };
-        }
-        else {
-            // Update Dict
-            Dict.tasks[id].title = title;
-            Dict.tasks[id].description = desc;
-            Dict.tasks[id].tag = tag;
-            Dict.tasks[id].deadline = expired;
-        }
-      }
-      if (addGroupnTagModal.isVisible()){
-        var id_ = getUuid()
-        if(isCreateGroup == true){   /// Create a new group
-            var g = Dict.groups[id_] = {
-                title: title,
-                tags: [],
-                color: color,
-                current_html: "",
-            };
-            $("#MMenu-Group-Section").append(MainMenuGroupTemplates(id_, g));
-            /// Main Screen Add 
-            renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),g, currentMode);
-        }
-        else if(isCreateGroup == false){   ///  Create a new tag
-          var t = title;
-          Dict.tag_color[t]= randHexColor();
-          Dict.groups[tag].tags.push(t);
-          addNewTagMainMenu($("#"+tag).find("#MMenu-Tag-Section"), t);
-        }
+  $("#crud-modal form").on("submit", function (e) {
+    e.preventDefault();
 
+    // Get id from honeypot, if id is empty string, it means it's a new task
+    let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
+    // Get all input
+    let title = $("#crud-modal #name").val();
+    let desc = $("#crud-modal #description").val();
+    let tag = $("#crud-modal #tags").val();
+    let expired = $("#crud-modal #todo-expired").val();
+    let color = $("#crud-modal #colors").val();
+    console.log(id, title, desc, tag, expired, color);
+    // Before updatind Dict, check if tag is empty
+    if (modal.isVisible()) {
+      if (id == "") {
+        // Adding a new task to the tasks object within Dict
+        Dict.tasks[getUuid()] = {
+          title: title,
+          description: desc,
+          tag: tag,
+          deadline: expired,
+          points: 4,
+        };
+      } else {
+        // Update Dict
+        Dict.tasks[id].title = title;
+        Dict.tasks[id].description = desc;
+        Dict.tasks[id].tag = tag;
+        Dict.tasks[id].deadline = expired;
       }
-      alert("Submitted");
-      RefreshMainScreen();
-      closeModal();
-      //resetModalState();
-      // window.location = window.location;
-  })
+    }
+    if (addGroupnTagModal.isVisible()) {
+      var id_ = getUuid();
+      if (isCreateGroup == true) {
+        /// Create a new group
+        var g = (Dict.groups[id_] = {
+          title: title,
+          tags: [],
+          color: color,
+          current_html: "",
+        });
+        $("#MMenu-Group-Section").append(MainMenuGroupTemplates(id_, g));
+        /// Main Screen Add
+        renderGroupMainScreen(
+          $("#Main-Formatter").find("#Wrapper"),
+          g,
+          currentMode
+        );
+      } else if (isCreateGroup == false) {
+        ///  Create a new tag
+        var t = title;
+        Dict.tag_color[t] = randHexColor();
+        Dict.groups[tag].tags.push(t);
+        addNewTagMainMenu($("#" + tag).find("#MMenu-Tag-Section"), t);
+      }
+    }
+    alert("Submitted");
+    $.ajax({
+      type: "POST",
+      url: "/home",
+      data: JSON.stringify({ id, title, desc, tag, expired, color }),
+      success: function (data) {
+        alert("Success post");
+        console.log(data);
+      },
+    });
+    RefreshMainScreen();
+    closeModal();
+    //resetModalState();
+    // window.location = window.location;
+  });
 
   // When user clicked at list item, it will add tag to the task and also close dropdown
-  function closeModal() { 
+  function closeModal() {
     modal.hide();
     addGroupnTagModal.hide();
     LoadTags();
-  };
+  }
   // Close modal manually
-  $('#btn-close-modal').click(function () {
-      closeModal();
+  $("#btn-close-modal").click(function () {
+    closeModal();
   });
 
   closeModal();
   //modal.show();
 
   //addGroupnTagModal.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-})
+});
 // End of app.js

@@ -136,38 +136,21 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
                             d="M6 12h.01m6 0h.01m5.99 0h.01" />
                     </svg>
-                </div>
 
-                <div class="headbar-button p-1 border-2 rounded-full cursor-pointer"
-                    data-dropdown-toggle="Profile-Dropdown">
-                    <img class="w-full h-full rounded-full" src="/static/images/profile.jpg" alt="avtr">
                 </div>
             </div>
+
+
         </div>
+
         <!--End header-->
         <!--########################################################### EoNavBar ######################################################################-->
 
 
 
-        <!--########################################################### Profile Dropdown ######################################################################-->
-        <!-- Dropdown menu -->
-        <div id="Profile-Dropdown" class="z-10 absolute hidden bg-main mr-3 rounded-lg shadow-xl w-44 dark:bg-gray-700">
+        <!--########################################################### Float Btn ######################################################################-->
 
-            <div id="PMenu-Search" class="PMenu-Primary-Section"> <!--block-->
-                <div class="flex items-center">
-                    <div class="PMenu-Primary-Image-Wrapper">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-width="2"
-                                d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        </svg>
-                    </div>
-
-                    <div class="PMenu-Primary-Text">Profile</div>
-                </div>
-            </div><!--eoblock-->
-        </div>
-        <!--########################################################### EoProfile Dropdown ######################################################################-->
+        <!--########################################################### EoFloat Btn ######################################################################-->
 
 
 
@@ -222,8 +205,7 @@
             <div id="MMenu-Garden" class="MMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
-                        <img class="w-6 lg:w-7 h-6 lg:h-7"
-                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADG0lEQVR4nO2Zu09VQRCHP/BBAgYrQ2VE8f0oTIxG/SMsFQobWx+FoqKNFtpoIVhoNFqKFKBEjYmASKItliQa0T9BA0ZA4ZpJ5iSTzTl79jy49xb3Szb3FLOz8ztndnd2LzRoUHdsBl4DX4F5bd+AMaAPOECdcweopLR3wHHqlBPAcoCIFeAu0FKrQNcA+/Q3Lo12Am3auoAeYBBYcoR8UJuqslZzWgJ4lbFvJzDqiJgA1lOjPP+Z08clR8QtqsRB4J8ZuLeArz7jR3weogq8NYPKc1MBX03AG+PvBavMDl09ojcmEzWJ7cCsNnlOYpdZtZZTbAtzLcPbsrby7GPU2MrcKJ3DwKR5+9JOp/S5YWzl2ccZZ394X9Z8WAfcj9mY/gAdJQroUJ92DBnznsaQi43AlON0ERgOLAOyCEB9DsdsdPLl28lIi35G6+ilbkKhZBUQsTVmoxvPutENODl5kezkFRDR68y5fgI55uR80qpwW/NWHDevggDhsjMnjhLAhOnkq3Pmjd2TGBFlCEBTN/Ij9ZeX/eazLWlVGZJmcSLKErAF+GvSWWJM5LoZVErftDLggSPiqRFRlgBhKHRTjEpkad2k4xORJkBs+nUeyXzy0ROaRj+M4bYAAT4RNz0CmjXlKtpkPvnoMrbffYa/jWFroIAkEZ8TBLjBV3Q++Wg1thJjInPGcEMGAUkiXAFp8yaJdmP/K9EK+GIMpXTOStzbrWg65Q0+KrmjPjN4GDeGJ8lHnIiRAsGjC0rQJL5qDJ+RHwls2viaLRC88Nz0ld05kb1O5Rm6EsVhl9EiwXcCC6a/pJOXqQybmQ+7jPpKjiybmJTWQacvWwWeJR8jJQR/wfRfCS3mhMemoxzezxUUMJ0j+PPO9c3DrAeaT84bHKzigWbIGftjnpu7TTEiFnRFOAXsTrnTDBXQpr661fdiTPASSy7kSzxy5kSeNuDcFYX0WdG0KeXO9IjeIucVIP8HxN2HVhLapC4mpbMHuKK74YxzKsv7BebU15huUpJOdUGZB5qa0BBQaxpfoNZkuV6vS0L/4GjQgBryH6712TVA4aKcAAAAAElFTkSuQmCC">
+                        <img class="w-6 lg:w-7 h-6 lg:h-7" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADG0lEQVR4nO2Zu09VQRCHP/BBAgYrQ2VE8f0oTIxG/SMsFQobWx+FoqKNFtpoIVhoNFqKFKBEjYmASKItliQa0T9BA0ZA4ZpJ5iSTzTl79jy49xb3Szb3FLOz8ztndnd2LzRoUHdsBl4DX4F5bd+AMaAPOECdcweopLR3wHHqlBPAcoCIFeAu0FKrQNcA+/Q3Lo12Am3auoAeYBBYcoR8UJuqslZzWgJ4lbFvJzDqiJgA1lOjPP+Z08clR8QtqsRB4J8ZuLeArz7jR3weogq8NYPKc1MBX03AG+PvBavMDl09ojcmEzWJ7cCsNnlOYpdZtZZTbAtzLcPbsrby7GPU2MrcKJ3DwKR5+9JOp/S5YWzl2ccZZ394X9Z8WAfcj9mY/gAdJQroUJ92DBnznsaQi43AlON0ERgOLAOyCEB9DsdsdPLl28lIi35G6+ilbkKhZBUQsTVmoxvPutENODl5kezkFRDR68y5fgI55uR80qpwW/NWHDevggDhsjMnjhLAhOnkq3Pmjd2TGBFlCEBTN/Ij9ZeX/eazLWlVGZJmcSLKErAF+GvSWWJM5LoZVErftDLggSPiqRFRlgBhKHRTjEpkad2k4xORJkBs+nUeyXzy0ROaRj+M4bYAAT4RNz0CmjXlKtpkPvnoMrbffYa/jWFroIAkEZ8TBLjBV3Q++Wg1thJjInPGcEMGAUkiXAFp8yaJdmP/K9EK+GIMpXTOStzbrWg65Q0+KrmjPjN4GDeGJ8lHnIiRAsGjC0rQJL5qDJ+RHwls2viaLRC88Nz0ld05kb1O5Rm6EsVhl9EiwXcCC6a/pJOXqQybmQ+7jPpKjiybmJTWQacvWwWeJR8jJQR/wfRfCS3mhMemoxzezxUUMJ0j+PPO9c3DrAeaT84bHKzigWbIGftjnpu7TTEiFnRFOAXsTrnTDBXQpr661fdiTPASSy7kSzxy5kSeNuDcFYX0WdG0KeXO9IjeIucVIP8HxN2HVhLapC4mpbMHuKK74YxzKsv7BebU15huUpJOdUGZB5qa0BBQaxpfoNZkuV6vS0L/4GjQgBryH6712TVA4aKcAAAAAElFTkSuQmCC">
 
                     </div>
 
@@ -251,11 +233,15 @@
             </div>
             <div id="MMenu-Bottom" class="flex justify-between items-center p-2">
                 <div class="Log-out">
-                    <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
-                    </svg>
+                    <a href="{{url_for('logout')}}">
+                        <button>
+                            <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+                            </svg>
+                        </button>
+                    </a>
                 </div>
                 <div class="Settings">
                     <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
