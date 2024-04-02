@@ -14,10 +14,10 @@ class ToDoDatabase():
             self.cursor.execute("""
                                 CREATE TABLE IF NOT EXISTS users (user_id nvarchar(20) PRIMARY KEY, username nvarchar(100), password nvarchar(100), email nvarchar(100))
                                 """)
-            self.connection.execute("""
+            self.cursor.execute("""
                                 CREATE TABLE IF NOT EXISTS tasks (task_id nvarchar(20) PRIMARY KEY, title nvarchar(100), description nvarchar(500), tag_id nvarchar(20), user_id nvarchar(20), deadline int, points int, isCompleted boolean, FOREIGN KEY (user_id) REFERENCES users(id))
                                 """)
-            self.connection.execute("""
+            self.cursor.execute("""
                                 CREATE TABLE IF NOT EXISTS tags (tag_id nvarchar(20) PRIMARY KEY, tag_name nvarchar(100), user_id nvarchar(20), FOREIGN KEY (user_id) REFERENCES users(id))
                                     """)
     def insert_user(self,username,password,email):
