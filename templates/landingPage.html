@@ -21,7 +21,7 @@
                     class="group-hover/sg:w-20 base-anim h-10 w-0 bg-gradient-to-r from-accent-red to-primary-red absolute">
                 </div>
                 <div class="absolute">
-                    <button class="w-20"><a href="index.html">Sign in</a></button>
+                    <button class="w-20"><a href="{{ url_for('login') }}">Sign in</a></button>
                 </div>
             </div>
         </div>
@@ -43,9 +43,11 @@
                     class="group-hover/btn:w-48 base-anim absolute h-20 w-0 bg-gradient-to-l from-primary-green to-accent-red">
                 </div>
                 <div class="absolute">
-                    <button
-                        class="base-anim hover:scale-100 h-12 w-[9rem] md:h-14 md:w-48 text-center font-medium text-xl">Get
-                        started</button>
+                    <a href="{{ url_for('login')}}">
+                        <button
+                            class="base-anim hover:scale-100 h-12 w-[9rem] md:h-14 md:w-48 text-center font-medium text-xl">Get
+                            started</button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -180,8 +182,10 @@
                 class="group-hover/btn:w-48 base-anim absolute h-20 w-0 bg-gradient-to-l from-accent-green to-accent-blue">
             </div>
             <div class="absolute">
-                <button class="base-anim hover:scale-100 w-48 h-14 text-center font-medium text-xl">Make me
-                    better!</button>
+                <a href="{{url_for('login')}}">
+                    <button class="base-anim hover:scale-100 w-48 h-14 text-center font-medium text-xl">Make me
+                        better!</button>
+                </a>
             </div>
         </div>
     </div>
