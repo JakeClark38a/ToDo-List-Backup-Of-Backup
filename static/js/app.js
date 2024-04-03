@@ -817,8 +817,7 @@ $(document).ready(function () {
       console.log(id, title, desc, tag, expired,color);
       // Before updatind Dict, check if tag is empty
       if (modal.isVisible()){
-        
-          // If id is empty, it means it's a new task
+         // If id is empty, it means it's a new task
           if (id == ""){
               // Adding a new task to the tasks object within Dict
               Dict.tasks[getUuid()] = {
@@ -845,7 +844,6 @@ $(document).ready(function () {
                   }
               });
           }
-        
         else {
             // Update Dict
             Dict.tasks[id].title = title;
