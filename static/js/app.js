@@ -192,7 +192,9 @@ $(document).ready(function () {
       <div class=" rounded-lg shadow-lg border-2 border-gray-500">
 
         <div class=" px-2 py-1 flex justify-between items-center border-b-[1px] border-gray-500">
+
               <div class="font-medium lg:text-2xl truncate w-full">` + `[ `+ Dict.tags[task.tag].title +` ] ` + task.title + `</div>
+
 
               <div class="flex items-center gap-2">
                       <div class="Task-Edit mx-1 cursor-pointer">
@@ -207,7 +209,9 @@ $(document).ready(function () {
         </div>
 
           <div class="p-2 flex items-center h-fit">
+
               <p class="h-full w-full text-left p-2 font-thin truncate lg:text-xl">`+ task.description + `</p>
+
               <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
           </div>
       </div>
@@ -573,6 +577,22 @@ $(document).ready(function () {
   $("#Main-Screen").on("click", "#Task-Cancel", function (e) {
     var task_ = $(this).closest(".task-outer");
     var taskId = task_.attr("id");
+
+    // Send AJAX request to backend at /todo/delete to delete task
+    $.ajax({
+      type: "POST",
+      url: "/todo/delete",
+      data: JSON.stringify({ taskId: taskId }),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        console.log("Success");
+      },  
+      error: function (data) {
+        console.log("Error");
+      }
+    });
+
     delete Dict.tasks[taskId];
     console.log("Cancelled: " + taskId);
     //console.log(Dict.tasks);
@@ -596,6 +616,21 @@ $(document).ready(function () {
 
     Dict.completed[taskId] = Dict.tasks[taskId];
     delete Dict.tasks[taskId]; 
+
+    // Also send to backend at /todo/completed/<id>
+    $.ajax({
+      type: "POST", 
+      url: "/todo/completed/" + taskId,
+      data: JSON.stringify(Dict.completed[taskId]),
+      contentType: "application/json",
+      dataType: "json",
+      success: function(data){
+        console.log("Success");
+      },
+      error: function(data){
+        console.log("Error");
+      }
+    });
 
     //console.log(Dict.completed);
     //console.log(Dict.tasks);
@@ -847,7 +882,7 @@ $(document).ready(function () {
   // Submit button
   $('#crud-modal form').on("submit", function(e){
       e.preventDefault();
-      
+      console.log($('#crud-modal h3').text())
       // Get id from honeypot, if id is empty string, it means it's a new task
       let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
       // Get all input
@@ -861,6 +896,7 @@ $(document).ready(function () {
       console.log(mode, id, title, desc, tag, expired,color);
       // Before updatind Dict, check if tag is empty
       if (modal.isVisible()){
+
         if (id == ""){
             // Adding a new task to the tasks object within Dict
             Dict.tasks[getUuid()] = {
@@ -871,19 +907,54 @@ $(document).ready(function () {
                 deadline: expired,
                 points: 4,
             };
-        }
-        else {
+
+        
+            // Call AJAX at /todo/create with JSON data
+              $.ajax({
+                  url: "/todo/create",
+                  type: "POST",
+                  data: JSON.stringify({
+                      title: title,
+                      description: desc,
+                      tag: tag,
+                      deadline: expired,
+                      points: 4,
+                  }),
+                  contentType: "application/json",
+                  success: function(data){
+                      console.log(data);
+                  }
+              });
+          }
+          // Endif
+          else {
             // Update Dict
             Dict.tasks[id].title = title;
             Dict.tasks[id].description = desc;
             Dict.tasks[id].tag = tag;
-           // Dict.tasks[id].group = group;
             Dict.tasks[id].deadline = expired;
-        }
+            // Call AJAX at /todo/update with JSON data
+            $.ajax({
+                url: "/todo/update",
+                type: "POST",
+                data: JSON.stringify({
+                    id: id,
+                    title: title,
+                    description: desc,
+                    tag: tag,
+                    deadline: expired,
+                }),
+                contentType: "application/json",
+                success: function(data){
+                    console.log(data);
+                }
+            });
+          } // Endelse
       }
       if (addGroupnTagModal.isVisible())
       {
           var id_ = getUuid()
+          let action = "";
           if(isMakeChangeGroup == true){ 
             if(id ==""){  /// Create a new group
               var g = Dict.groups[id_] = {
@@ -895,13 +966,27 @@ $(document).ready(function () {
               $("#MMenu-Group-Section").append(MainMenuGroupTemplates(id_, g));
               /// Main Screen Add 
               renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),g, currentMode);
+              action = "create";
             }
             else{ // Edit groups
               Dict.groups[id].title = title;
               Dict.groups[id].color = color;
               $("#MMenu-Group-Section").find("#"+id).find("#MMenu-Group-Title").text(title);
-              
+              action = "update";
             }
+            // Call AJAX at /todo/group/<action> with JSON data
+            $.ajax({
+                url: `/todo/group/${action}`,
+                type: "POST",
+                data: JSON.stringify({
+                    title: title,
+                    color: color,
+                }),
+                contentType: "application/json",
+                success: function(data){
+                    console.log(data);
+                }
+            });
           }
         else if(isMakeChangeGroup == false){  
           if(id ==""){  /// Create a new tags
@@ -911,12 +996,28 @@ $(document).ready(function () {
             };
             Dict.groups[group].tags.push(id_);
             addNewTagMainMenu($("#"+group).find("#MMenu-Tag-Section"),id_,t);
+            action = "create";
           }
           else{ //Edit tags
               Dict.tags[id].title = title;
               Dict.tags[id].color = color;
               $("#MMenu-Group-Section").find("#"+id).find("#MMenu-Tag-Title").text(title);
+              action = "update";
           }
+          // Call AJAX at /todo/tag/create with JSON data
+          $.ajax({
+            url: `/todo/tag/${action}`,
+            type: "POST",
+            data: JSON.stringify({
+                title: title,
+                group: tag,
+              
+            }),
+            contentType: "application/json",
+            success: function(data){
+                console.log(data);
+            }
+          });
         }
 
       }
