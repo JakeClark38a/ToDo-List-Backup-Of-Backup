@@ -368,7 +368,7 @@ $(document).ready(function () {
   function getUuid() {
     // old uuid
     // return (
-    //   "id_" +
+    //   "generateId" +
     //   Math.random().toString(36).substring(2, 6) +
     //   Math.random().toString(36).substring(2, 6)
     // );
@@ -547,6 +547,184 @@ $(document).ready(function () {
   }
 
   //================================================================\\
+  //========================== AJAX Zone  ==========================\\
+  //================================================================\\
+
+  function AJAXaddGroup(groupId, title, color) {
+    // Send AJAX request to backend at /todo/group/create to add group
+    $.ajax({
+      type: "POST",
+      url: "/todo/group/create",
+      data: JSON.stringify({ groupId: groupId, title: title, color: color }),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        console.log("Success");
+      },
+      error: function (data) {
+        console.log("Error");
+      }
+    });
+  }
+
+  function AJAXaddTag(tagId, groupId, title, color) {
+    // Send AJAX request to backend at /todo/tag/create to add tag
+    $.ajax({
+      type: "POST",
+      url: "/todo/tag/create",
+      data: JSON.stringify({ tagId: tagId, groupId: groupId, title: title, color: color }),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        console.log("Success");
+      },
+      error: function (data) {
+        console.log("Error");
+      }
+    });
+  }
+
+  function AJAXupdateGroup(groupId, title, color) {
+    // Send AJAX request to backend at /todo/group/update to edit group
+    $.ajax({
+      type: "POST",
+      url: "/todo/group/update",
+      data: JSON.stringify({ groupId: groupId, title: title, color: color }),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        console.log("Success");
+      },
+      error: function (data) {
+        console.log("Error");
+      }
+    });
+  }
+
+  function AJAXupdateTag(tagId, groupId, title, color) {
+    // Send AJAX request to backend at /todo/tag/update to edit tag
+    $.ajax({
+      type: "POST",
+      url: "/todo/tag/update",
+      data: JSON.stringify({ tagId: tagId, groupId: groupId, title: title, color: color }),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        console.log("Success");
+      },
+      error: function (data) {
+        console.log("Error");
+      }
+    });
+  }
+
+  function AJAXdeleteGroup(groupId) {
+    // Send AJAX request to backend at /todo/group/delete to delete group
+    $.ajax({
+      type: "POST",
+      url: "/todo/group/delete",
+      data: JSON.stringify({ groupId: groupId }),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        console.log("Success");
+      },
+      error: function (data) {
+        console.log("Error");
+      }
+    });
+  }
+
+  function AJAXdeleteTag(tagId) {
+    // Send AJAX request to backend at /todo/tag/delete to delete tag
+    $.ajax({
+      type: "POST",
+      url: "/todo/tag/delete",
+      data: JSON.stringify({ tagId: tagId }),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        console.log("Success");
+      },
+      error: function (data) {
+        console.log("Error");
+      }
+    });
+  }
+
+  function AJAXcreateTask(taskId, title, description, tag, deadline, points, isCompleted=false) {
+    // Send AJAX request to backend at /todo/create to create task
+    $.ajax({
+      type: "POST",
+      url: "/todo/create",
+      data: JSON.stringify({ 
+        taskId: taskId, title: title, description: description, tag: tag, deadline: deadline, points: points, isCompleted: isCompleted
+      }),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        console.log("Success");
+      },
+      error: function (data) {
+        console.log("Error");
+      }
+    });
+  }
+
+  function AJAXdeleteTask(taskId) {
+    // Send AJAX request to backend at /todo/delete to delete task  
+    $.ajax({
+      type: "POST",
+      url: "/todo/delete",
+      data: JSON.stringify({ taskId: taskId }),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        console.log("Success");
+      },
+      error: function (data) {
+        console.log("Error");
+      }
+    });
+  }
+
+  function AJAXcompleteTask(taskId) {
+    // Send AJAX request to backend at /todo/completed/<id> to mark task as completed
+    $.ajax({
+      type: "POST",
+      url: "/todo/completed/" + taskId,
+      data: JSON.stringify({ taskId: taskId, isCompleted: true}),
+      contentType: "application/json",
+      dataType: "json",
+      success: function(data){
+        console.log("Success");
+      },
+      error: function(data){
+        console.log("Error");
+      }
+    });
+  }
+
+  function AJAXupdateTask(taskId, title, description, tag, deadline, points, isCompleted=false) {
+    // Send AJAX request to backend at /todo/update to update task
+    $.ajax({
+      type: "POST",
+      url: "/todo/update",
+      data: JSON.stringify({ 
+        taskId: taskId, title: title, description: description, tag: tag, deadline: deadline, points: points, isCompleted: isCompleted
+      }),
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        console.log("Success");
+      },
+      error: function (data) {
+        console.log("Error");
+      }
+    });
+  }
+
+  //================================================================\\
   //========================== Main Screen =========================\\
   //================================================================\\
 
@@ -579,19 +757,7 @@ $(document).ready(function () {
     var taskId = task_.attr("id");
 
     // Send AJAX request to backend at /todo/delete to delete task
-    $.ajax({
-      type: "POST",
-      url: "/todo/delete",
-      data: JSON.stringify({ taskId: taskId }),
-      contentType: "application/json",
-      dataType: "json",
-      success: function (data) {
-        console.log("Success");
-      },  
-      error: function (data) {
-        console.log("Error");
-      }
-    });
+    AJAXdeleteTask(taskId);
 
     delete Dict.tasks[taskId];
     console.log("Cancelled: " + taskId);
@@ -618,19 +784,7 @@ $(document).ready(function () {
     delete Dict.tasks[taskId]; 
 
     // Also send to backend at /todo/completed/<id>
-    $.ajax({
-      type: "POST", 
-      url: "/todo/completed/" + taskId,
-      data: JSON.stringify(Dict.completed[taskId]),
-      contentType: "application/json",
-      dataType: "json",
-      success: function(data){
-        console.log("Success");
-      },
-      error: function(data){
-        console.log("Error");
-      }
-    });
+    AJAXcompleteTask(taskId);
 
     //console.log(Dict.completed);
     //console.log(Dict.tasks);
@@ -885,6 +1039,7 @@ $(document).ready(function () {
       console.log($('#crud-modal h3').text())
       // Get id from honeypot, if id is empty string, it means it's a new task
       let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
+      let generateId = getUuid();
       // Get all input
       let mode = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[0];
       let title = $('#crud-modal #name').val();
@@ -899,7 +1054,7 @@ $(document).ready(function () {
 
         if (id == ""){
             // Adding a new task to the tasks object within Dict
-            Dict.tasks[getUuid()] = {
+            Dict.tasks[generateId] = {
                 title: title,
                 description: desc,
                 tag: tag,
@@ -910,23 +1065,8 @@ $(document).ready(function () {
 
         
             // Call AJAX at /todo/create with JSON data
-              $.ajax({
-                  url: "/todo/create",
-                  type: "POST",
-                  data: JSON.stringify({
-                      title: title,
-                      description: desc,
-                      tag: tag,
-                      deadline: expired,
-                      points: 4,
-                  }),
-                  contentType: "application/json",
-                  success: function(data){
-                      console.log(data);
-                  }
-              });
+            AJAXcreateTask(generateId, title, desc, tag, expired, 4);
           }
-          // Endif
           else {
             // Update Dict
             Dict.tasks[id].title = title;
@@ -934,90 +1074,53 @@ $(document).ready(function () {
             Dict.tasks[id].tag = tag;
             Dict.tasks[id].deadline = expired;
             // Call AJAX at /todo/update with JSON data
-            $.ajax({
-                url: "/todo/update",
-                type: "POST",
-                data: JSON.stringify({
-                    id: id,
-                    title: title,
-                    description: desc,
-                    tag: tag,
-                    deadline: expired,
-                }),
-                contentType: "application/json",
-                success: function(data){
-                    console.log(data);
-                }
-            });
-          } // Endelse
+            AJAXupdateTask(id, title, desc, tag, expired, 4);
+          }
       }
       if (addGroupnTagModal.isVisible())
       {
-          var id_ = getUuid()
+          
           let action = "";
           if(isMakeChangeGroup == true){ 
             if(id ==""){  /// Create a new group
-              var g = Dict.groups[id_] = {
+              var g = Dict.groups[generateId] = {
                   title: title,
                   tags: [],
                   color: color,
                   current_html: "",
               };
-              $("#MMenu-Group-Section").append(MainMenuGroupTemplates(id_, g));
+              $("#MMenu-Group-Section").append(MainMenuGroupTemplates(generateId, g));
               /// Main Screen Add 
               renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),g, currentMode);
-              action = "create";
+              AJAXaddGroup(generateId, title, color);
             }
             else{ // Edit groups
               Dict.groups[id].title = title;
               Dict.groups[id].color = color;
               $("#MMenu-Group-Section").find("#"+id).find("#MMenu-Group-Title").text(title);
-              action = "update";
+              generateId = id; // Keep the same id
+              AJAXupdateGroup(id, title, color);
             }
-            // Call AJAX at /todo/group/<action> with JSON data
-            $.ajax({
-                url: `/todo/group/${action}`,
-                type: "POST",
-                data: JSON.stringify({
-                    title: title,
-                    color: color,
-                }),
-                contentType: "application/json",
-                success: function(data){
-                    console.log(data);
-                }
-            });
+            
           }
         else if(isMakeChangeGroup == false){  
           if(id ==""){  /// Create a new tags
-            var t = Dict.tags[id_] = {
+            var t = Dict.tags[generateId] = {
               title: title,
               color: randHexColor(),
             };
-            Dict.groups[group].tags.push(id_);
-            addNewTagMainMenu($("#"+group).find("#MMenu-Tag-Section"),id_,t);
-            action = "create";
+            Dict.groups[group].tags.push(generateId);
+            addNewTagMainMenu($("#"+group).find("#MMenu-Tag-Section"),generateId,t);
+            AJAXaddTag(generateId, group, title, t.color);
           }
           else{ //Edit tags
               Dict.tags[id].title = title;
               Dict.tags[id].color = color;
               $("#MMenu-Group-Section").find("#"+id).find("#MMenu-Tag-Title").text(title);
-              action = "update";
+              generateId = id; // Keep the same id
+              AJAXupdateTag(id, group, title, color);
           }
-          // Call AJAX at /todo/tag/create with JSON data
-          $.ajax({
-            url: `/todo/tag/${action}`,
-            type: "POST",
-            data: JSON.stringify({
-                title: title,
-                group: tag,
-              
-            }),
-            contentType: "application/json",
-            success: function(data){
-                console.log(data);
-            }
-          });
+          
         }
 
       }
@@ -1044,6 +1147,8 @@ $(document).ready(function () {
             delete Dict.tasks[id];
             var task_ = $('#'+id);
             task_.remove();
+            // Call AJAX at /todo/delete with JSON data
+            AJAXdeleteTask(id);
         }
       }
       if (addGroupnTagModal.isVisible())
@@ -1053,6 +1158,7 @@ $(document).ready(function () {
               delete Dict.groups[id];
               var group_ = $('#'+id);
               group_.remove();
+              AJAXdeleteGroup(id);
             }
           }
         else if(isMakeChangeGroup == false){   ///  Delete a new tag
@@ -1062,6 +1168,7 @@ $(document).ready(function () {
             delete Dict.tags[id];
             var tag_ = $('#'+id);
             tag_.remove();
+            AJAXdeleteTag(id);
           }
         }
 
