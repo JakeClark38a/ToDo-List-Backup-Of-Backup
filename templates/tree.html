@@ -387,34 +387,13 @@
 
 
         <!--########################################################### Tree ######################################################################-->
-        <!-- <div id="Tree-Container">
-            <div id="Trees" class="bg-[#50c293] w-screen h-screen flex overflow-y-scroll">
-                <div class=""></div>
-                <img src="../static/images/tree1.gif" alt="myTree" class="currTree w-auto m-auto tree">
-                <div id="Items-hub" class="absolute right-0 mr-20 mt-10"> 
-                    <div id="treeCount" class="text-5xl vt323-regular">Number of Trees: 0</div>
-                    <div class="water-hub flex items-center">
-                        <img src="../static/images/watercan-full.png"> 
-                        <div id="waterCount" class="text-5xl vt323-regular">: 1</div>
-                    </div>
-                    <div class="fertilizer-hub flex items-center">
-                        <img src="../static/images/fertilizer-opened.png"> 
-                        <div id="fertilizerCount" class="text-5xl vt323-regular">: 1</div>
-                    </div>
-                </div>
-                <div id="Items-buttons">
-                    <div class="watercan-button absolute bottom-0 left-0">
-                        <img src="../static/images/watercan-full.png">
-                    </div>
-                    <div class="fertilizer-button absolute bottom-0 right-0">
-                        <img src="../static/images/fertilizer-opened.png">
-                    </div>
-                </div>
-            </div>
-        </div> -->
 
         <div class="tree-container relative w-screen h-screen bg-[#50c293] flex flex-col items-center">
-            <button id="toggleButton" class="absolute" onclick="toggleAudio()">Toggle Audio</button>
+            <button id="toggleButton" class="absolute" onclick="toggleAudio()">Pause Audio</button>
+            <audio id="treeGrowthAudio">
+                <source src="../static/sounds/big-plants-crops-growing-quickly.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
             <audio id="backgroundAudio" loop>
                 <source src="../static/sounds/forest-wind-and-bird-ambient.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
@@ -431,17 +410,15 @@
             <div class="options flex justify-between bottom-0 ml-6">
                 <div id="waterbutton" class="flex">
                     <img src="../static/images/tree_game/watercan-full.png" alt="Watering Can" onclick="waterTree()"> 
-                    <div id="waterCount" class="text-5xl vt323-regular absolute pointer-events-none">1</div>
+                    <div id="waterCount" class="text-5xl vt323-regular absolute pointer-events-none"></div>
                 </div>
                 <div id="fertilizebutton" class="flex">
                     <img src="../static/images/tree_game/fertilizer-opened.png" alt="Fertilizer" onclick="fertilizeTree()"> 
-                    <div id="fertilizerCount" class="text-5xl vt323-regular absolute pointer-events-none">1</div>
+                    <div id="fertilizerCount" class="text-5xl vt323-regular absolute pointer-events-none"></div>
                 </div>
             </div>
-            <div id="bird-container" class="">   
-                <img id="bird" src="../static/images/bird/idle.gif"">
-            </div>
             <script src="../static/js/bird.js"></script>
+            <script src="../static/js/tree.js"></script>
         </div>
 
         <!--########################################################### EoTree ######################################################################-->
@@ -466,7 +443,7 @@
 
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             ntegrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="../static/js/tree.js"></script>
+        
         <script src="../static/js/tree(app-copy).js"></script>
         <script src="../static/js/calendar.js"></script>
     </body>

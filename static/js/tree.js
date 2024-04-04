@@ -5,6 +5,11 @@ let wateringsLeft = 100; // Variable to store the number of remaining waterings
 let fertilizationsLeft = 200; // Variable to store the number of remaining fertilizations
 
 
+updateWaterCount();
+updateFertilizerCount();
+updateButtonStates();
+
+
 
 function waterTree() {
     if (wateringsLeft > 0 && treeStage < 220) {
@@ -64,21 +69,45 @@ function updateProgressBar() {
     percentage.innerText = `${Math.round(progress)}%`; // Update the percentage display
 }
 
+let prevSrc = '../static/images/tree_game/tree1.gif';
+let animationInProgress = false;
 
 function updateTree() {
     // Calculate the current stage of the tree
     let stage = Math.floor(treeStage / 20) + 1;
-    if (stage === 12) stage = 11;
+    if (stage === 12) stage = 1;
     // Set the tree image based on the current stage
-    document.getElementById('tree').src = `../static/images/tree_game/tree${stage}.gif`;
+    let newSrc = `../static/images/tree_game/tree${stage}.gif`;
+
+    if (prevSrc !== newSrc && !animationInProgress) {
+        // Set flag to indicate animation is in progress
+        animationInProgress = true;
+
+        // tree grown animation with sound
+        document.getElementById("treeGrowthAudio").play();
+        setTimeout(() => {
+            // Change tree image source after 1 second
+            document.getElementById('tree').src = `../static/images/tree_game/tree${stage-1}_grown_tree${stage}.gif`;
+
+            // Change tree image to the new source
+            setTimeout(() => {
+                document.getElementById("tree").src = newSrc;
+                prevSrc = newSrc;
+                // Reset flag after animation is complete
+                animationInProgress = false;
+            }, 500); // 1000 milliseconds = 1 second
+        }, 500); // 1000 milliseconds = 1 second
+    }
 
     // Check if treeStage reaches maximum
     if (treeStage >= 220) {
         treeStage = 0; // Reset tree stage
         treeCount++; // Increment tree count
         document.getElementById('treeCount').innerText = `Number of Trees: ${treeCount}`; // Update tree count
+        updateTree();
     }
 }
+
 
 function animate(action) {
     // Create a new image element for the animation
@@ -152,10 +181,12 @@ function updateFertilizerCount() {
 }
 
 
+// Get the audio element
 var audio = document.getElementById("backgroundAudio");
-var toggleButton = document.getElementById("toggleButton");
 
+// Function to toggle audio play/pause
 function toggleAudio() {
+    var toggleButton = document.getElementById("toggleButton");
     if (audio.paused) {
         audio.play();
         toggleButton.textContent = "Pause Audio";
@@ -165,3 +196,6 @@ function toggleAudio() {
     }
 }
 
+// Set up the toggle button click event listener
+var toggleButton = document.getElementById("toggleButton");
+toggleButton.addEventListener("click", toggleAudio);
