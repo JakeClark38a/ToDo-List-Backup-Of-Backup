@@ -158,6 +158,8 @@ $(document).ready(function () {
 
   var currentMode = 0;
   var isMakeChangeGroup = false;
+  var currentMMenuTab = 0 ;  // 0-today 1-cal 2-garden
+
   //
   //
   //
@@ -246,7 +248,7 @@ $(document).ready(function () {
   function MainScreenTagTemplate(id, tag,mode =0) {
     if(mode == 0){
       return(`
-      <div id="`+id+`" class="rounded-md text-center min-w-12 font-light text-sm border-none cursor-pointer">`+tag.title+`</div>                
+      <div id="`+id+`" class="rounded-md text-center min-w-12 font-base text-xs border-none shadow-lg cursor-pointer">`+tag.title+`</div>                
       `);
     }
   }
@@ -259,7 +261,7 @@ $(document).ready(function () {
 
             <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
 
-                <div class="font-semibold lg:text-2xl truncate w-full">`
+                <div class="font-semibold text-lg lg:text-xl truncate w-full">`
                     + task.title + `</div>
 
 
@@ -276,16 +278,16 @@ $(document).ready(function () {
 
 
                     <div id="Task-Cancel"
-                        class="bg-red-500 rounded-full h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
+                        class="bg-red-500 rounded-full shadow-lg h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
                 </div>
             </div>
 
             <div class="p-2 flex items-center h-fit">
 
-                <p class="h-full w-full text-left p-2 font-thin truncate lg:text-xl">`+ task.description + `</p>
+                <p class="h-full w-full text-left p-2 font-base truncate lg:text-xl">`+ task.description + `</p>
 
                 <input id="Task-Destroyer" type="checkbox"
-                    class="bg-primary-200 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
+                    class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer"></input>
             </div>
             <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
               
@@ -302,7 +304,7 @@ $(document).ready(function () {
         <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
   
             <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
-                <div class="font-bold lg:text-2xl">` + task.title + `</div>
+                <div class="font-bold text-xl lg:text-2xl">` + task.title + `</div>
                 <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
             </div>
   
@@ -326,7 +328,7 @@ $(document).ready(function () {
         `
     <div id="` +id +`" class="group-outer">
       <div class="flex justify-between items-center px-3 ">
-        <div id="Task-Group-Title" class="todobox-title">` + group.title +`</div>
+        <div id="Task-Group-Title" class="todobox-title lg:text-2xl">` + group.title +`</div>
         <div class="Group-Task-Add">
                 <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -460,6 +462,13 @@ $(document).ready(function () {
   function randHexColor() {
     return "#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0'));
   }
+   //================================================================\\
+  //=========================== Avatar Menu ========================\\
+  //================================================================\\
+  $("#Avatar-Menu-Click").click(function () {
+    $("#Avatar-Menu").toggleClass("h-32 lg:h-44");
+    $("#Avatar-Menu-Click").toggleClass("bg-primary-200");
+  });
 
   //================================================================\\
   //=========================== Main Menu ==========================\\
@@ -467,6 +476,25 @@ $(document).ready(function () {
 
   $("#Main-Menu-Click").click(function () {
     $("#Main-Menu").toggleClass("h-[86vh]");
+    $("#Main-Menu-Click").toggleClass("-rotate-90")
+  });
+
+  function updateMMenuTabIndicator(tab = null){
+    var $tab = tab ? tab : $("#Main-Menu").find("#MMenu-Today");
+    var currId = $tab.attr('id');
+    const indiModeCSS = 'border-r-4 border-primary-200 bg-gradient-to-l from-primary-200/35 to-transparent';
+
+    // clear all previous tab border 
+    $('#Main-Menu').find('.MMenu-Primary-Section').removeClass(indiModeCSS);
+    //console.log(currId);
+    const indicatTab = ['MMenu-Today', 'MMenu-Calendar', 'MMenu-Garden'];
+    if(indicatTab.indexOf(currId) !== -1){
+      $tab.toggleClass(indiModeCSS);
+    }
+  }
+  
+  $('#Main-Menu').on('click','.MMenu-Primary-Section',function(e){
+    updateMMenuTabIndicator($(this));
   });
 
   //Add group
@@ -990,19 +1018,17 @@ $(document).ready(function () {
     });
   };
   LoadGroups();
+
   
   function initUser() {
+    currentMMenuTab = 0; // 0-today 2-calendar 3-garden
     currentMode = 0;
     LoadUser();
+    updateMMenuTabIndicator();
   }
   initUser();
 
-  function initweb() {
-    document
-      .querySelector("#Main-Menu")
-      .style.setProperty("--paddingMainMen", "5");
-  }
-  initweb();
+
 
   //================================================================\\
   //================================================================\\
