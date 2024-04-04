@@ -140,33 +140,31 @@
   /*Task box*/
 
   #Task-Destroyer {
-    @apply w-8 h-8 rounded-lg hover:bg-primary-200/55 checked:bg-primary-200;
+    @apply w-8 h-8 rounded-lg hover:bg-primary-200/55 checked:bg-green-300;
   }
 
   /*End task box*/
 
   /* calendar tailwind css*/
   :root {
-    --primary-clr: #b38add;
+    --primary-clr: #8cb9be; 
   }
-
   * {
     @apply box-border m-0 p-0;
-    font-family: "Poppins", sans-serif;
   }
 
   /* nice scroll bar */
   ::-webkit-scrollbar {
-    @apply w-[5px];
+    @apply w-[3px] h-[3px];
   }
 
   ::-webkit-scrollbar-track {
-    @apply rounded-[50px];
+    @apply rounded-xl;
     background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-[50px] bg-primary-200;
+    @apply rounded-[50px] bg-primary-100;
   }
 
   /* body {
