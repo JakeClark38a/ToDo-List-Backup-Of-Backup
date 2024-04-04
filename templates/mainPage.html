@@ -66,6 +66,18 @@
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required="">
                         </div>
+
+                        <div id="groups-sec" class="col-span-2 sm:col-span-1">
+                            <label for="groups"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Group</label>
+                            <select id="groups"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                required="">
+                                <option>Select group</option>
+                                <!-- Dynamic JS options here -->
+                            </select>
+                        </div>
+
                         <div id="tags-sec" class="col-span-2 sm:col-span-1">
                             <label for="tags"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tag</label>
@@ -88,16 +100,32 @@
                     <!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
                     <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
                         autocomplete="off" tabindex="-1">
-                    <button id="submit-sec" type="submit"
-                        class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
-                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        Create
-                    </button>
+                    <div class="col-span-2 flex justify-between">
+                        <button id="submit-sec" type="submit"
+                            class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                            <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Create
+                        </button>
+
+                        <!--Delete btn-->
+                        <button id="delete-sec"
+                            class="text-white inline-flex items-center bg-red-300 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                            <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                            </svg>
+
+                            Delete
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -136,21 +164,38 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
                             d="M6 12h.01m6 0h.01m5.99 0h.01" />
                     </svg>
+                </div>
 
+                <div class="headbar-button p-1 border-2 rounded-full cursor-pointer"
+                    data-dropdown-toggle="Profile-Dropdown">
+                    <img class="w-full h-full rounded-full" src="/static/images/profile.jpg" alt="avtr">
                 </div>
             </div>
-
-
         </div>
-
         <!--End header-->
         <!--########################################################### EoNavBar ######################################################################-->
 
 
 
-        <!--########################################################### Float Btn ######################################################################-->
+        <!--########################################################### Profile Dropdown ######################################################################-->
+        <!-- Dropdown menu -->
+        <div id="Profile-Dropdown" class="z-10 absolute hidden bg-main mr-3 rounded-lg shadow-xl w-44 dark:bg-gray-700">
 
-        <!--########################################################### EoFloat Btn ######################################################################-->
+            <div id="PMenu-Search" class="PMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="PMenu-Primary-Image-Wrapper">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-width="2"
+                                d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                    </div>
+
+                    <div class="PMenu-Primary-Text">Profile</div>
+                </div>
+            </div><!--eoblock-->
+        </div>
+        <!--########################################################### EoProfile Dropdown ######################################################################-->
 
 
 
@@ -205,7 +250,8 @@
             <div id="MMenu-Garden" class="MMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
-                        <img class="w-6 lg:w-7 h-6 lg:h-7" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADG0lEQVR4nO2Zu09VQRCHP/BBAgYrQ2VE8f0oTIxG/SMsFQobWx+FoqKNFtpoIVhoNFqKFKBEjYmASKItliQa0T9BA0ZA4ZpJ5iSTzTl79jy49xb3Szb3FLOz8ztndnd2LzRoUHdsBl4DX4F5bd+AMaAPOECdcweopLR3wHHqlBPAcoCIFeAu0FKrQNcA+/Q3Lo12Am3auoAeYBBYcoR8UJuqslZzWgJ4lbFvJzDqiJgA1lOjPP+Z08clR8QtqsRB4J8ZuLeArz7jR3weogq8NYPKc1MBX03AG+PvBavMDl09ojcmEzWJ7cCsNnlOYpdZtZZTbAtzLcPbsrby7GPU2MrcKJ3DwKR5+9JOp/S5YWzl2ccZZ394X9Z8WAfcj9mY/gAdJQroUJ92DBnznsaQi43AlON0ERgOLAOyCEB9DsdsdPLl28lIi35G6+ilbkKhZBUQsTVmoxvPutENODl5kezkFRDR68y5fgI55uR80qpwW/NWHDevggDhsjMnjhLAhOnkq3Pmjd2TGBFlCEBTN/Ij9ZeX/eazLWlVGZJmcSLKErAF+GvSWWJM5LoZVErftDLggSPiqRFRlgBhKHRTjEpkad2k4xORJkBs+nUeyXzy0ROaRj+M4bYAAT4RNz0CmjXlKtpkPvnoMrbffYa/jWFroIAkEZ8TBLjBV3Q++Wg1thJjInPGcEMGAUkiXAFp8yaJdmP/K9EK+GIMpXTOStzbrWg65Q0+KrmjPjN4GDeGJ8lHnIiRAsGjC0rQJL5qDJ+RHwls2viaLRC88Nz0ld05kb1O5Rm6EsVhl9EiwXcCC6a/pJOXqQybmQ+7jPpKjiybmJTWQacvWwWeJR8jJQR/wfRfCS3mhMemoxzezxUUMJ0j+PPO9c3DrAeaT84bHKzigWbIGftjnpu7TTEiFnRFOAXsTrnTDBXQpr661fdiTPASSy7kSzxy5kSeNuDcFYX0WdG0KeXO9IjeIucVIP8HxN2HVhLapC4mpbMHuKK74YxzKsv7BebU15huUpJOdUGZB5qa0BBQaxpfoNZkuV6vS0L/4GjQgBryH6712TVA4aKcAAAAAElFTkSuQmCC">
+                        <img class="w-6 lg:w-7 h-6 lg:h-7"
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADG0lEQVR4nO2Zu09VQRCHP/BBAgYrQ2VE8f0oTIxG/SMsFQobWx+FoqKNFtpoIVhoNFqKFKBEjYmASKItliQa0T9BA0ZA4ZpJ5iSTzTl79jy49xb3Szb3FLOz8ztndnd2LzRoUHdsBl4DX4F5bd+AMaAPOECdcweopLR3wHHqlBPAcoCIFeAu0FKrQNcA+/Q3Lo12Am3auoAeYBBYcoR8UJuqslZzWgJ4lbFvJzDqiJgA1lOjPP+Z08clR8QtqsRB4J8ZuLeArz7jR3weogq8NYPKc1MBX03AG+PvBavMDl09ojcmEzWJ7cCsNnlOYpdZtZZTbAtzLcPbsrby7GPU2MrcKJ3DwKR5+9JOp/S5YWzl2ccZZ394X9Z8WAfcj9mY/gAdJQroUJ92DBnznsaQi43AlON0ERgOLAOyCEB9DsdsdPLl28lIi35G6+ilbkKhZBUQsTVmoxvPutENODl5kezkFRDR68y5fgI55uR80qpwW/NWHDevggDhsjMnjhLAhOnkq3Pmjd2TGBFlCEBTN/Ij9ZeX/eazLWlVGZJmcSLKErAF+GvSWWJM5LoZVErftDLggSPiqRFRlgBhKHRTjEpkad2k4xORJkBs+nUeyXzy0ROaRj+M4bYAAT4RNz0CmjXlKtpkPvnoMrbffYa/jWFroIAkEZ8TBLjBV3Q++Wg1thJjInPGcEMGAUkiXAFp8yaJdmP/K9EK+GIMpXTOStzbrWg65Q0+KrmjPjN4GDeGJ8lHnIiRAsGjC0rQJL5qDJ+RHwls2viaLRC88Nz0ld05kb1O5Rm6EsVhl9EiwXcCC6a/pJOXqQybmQ+7jPpKjiybmJTWQacvWwWeJR8jJQR/wfRfCS3mhMemoxzezxUUMJ0j+PPO9c3DrAeaT84bHKzigWbIGftjnpu7TTEiFnRFOAXsTrnTDBXQpr661fdiTPASSy7kSzxy5kSeNuDcFYX0WdG0KeXO9IjeIucVIP8HxN2HVhLapC4mpbMHuKK74YxzKsv7BebU15huUpJOdUGZB5qa0BBQaxpfoNZkuV6vS0L/4GjQgBryH6712TVA4aKcAAAAAElFTkSuQmCC">
 
                     </div>
 
@@ -322,8 +368,7 @@
 
         <!--########################################################### Main Screen ######################################################################-->
         <!--Begin Main screen-->
-        <div id="Main-Screen"
-            class="Container bg-main/35 backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
+        <div id="Main-Screen" class="Container backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
             <!-- Dynamic draggable button here -->
             <!--Formatter-->
         </div>
@@ -386,19 +431,37 @@
                     $('#crud-modal #todo-expired').val("");
                     $('#crud-modal #todo-expired-sec').show();
 
-                    $('#crud-modal label[for="tags"]').text("Tags");
+                    $('#crud-modal label[for="tags"]').text("Tag");
                     $('#crud-modal #tags option').removeAttr("selected");
                     $('#crud-modal #tags-sec').show();
+
+                    $('#crud-modal label[for="groups"]').text("Group");
+                    $('#crud-modal #groups option').removeAttr("selected");
+                    $('#crud-modal #groups-sec').hide();
 
                     $('#crud-modal label[for="colors"]').text("Color");
                     $('#crud-modal #colors').val("#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0')));
                     $('#crud-modal #colors-sec').show();
 
-                    $('#crud-modal button[type="submit"]').html(`Create`);
+
                     $('#crud-modal button[type="submit"]').html(`
                         <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                         Create`);
                     $('#crud-modal #submit-sec').show();
+
+                    $('#crud-modal #delete-sec button').html(`
+                    <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                            </svg>
+
+                            Delete
+
+                    `);
+                    $('#crud-modal #delete-sec').hide();
 
                     $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
                     console.log("Reset modal complete!")

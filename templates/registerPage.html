@@ -1,46 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../static/css/main.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../static/css/main.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-</head>
-
-<body>
-    <div class=" wrapper flex flex-col justify-center items-center h-[100vh] w-[100vw] bg-bg1 bg-cover  ">
-
-    <div class="  border-2 border-solid bg-transparent backdrop-blur rounded-2xl w-80 h-fit" >
-        <div class=" register flex flex-col justify-center items-center text-black w-full h-full ">
-        <h1 class=" flex justify-center py-3 font-bold text-3xl w-full h-15 text-white mb-10">Register</h1>
-        <form class="max-w-sm mx-auto">
+  <body>
+    <div
+      class="wrapper flex flex-col justify-center items-center h-[100vh] w-[100vw] bg-bg1 bg-cover"
+    >
+      <div
+        class="border-2 border-solid bg-transparent backdrop-blur rounded-2xl w-80 h-fit"
+      >
+        <div
+          class="register flex flex-col justify-center items-center text-black w-full h-full"
+        >
+          <h1
+            class="flex justify-center py-3 font-bold text-3xl w-full h-15 text-white mb-10"
+          >
+            Register
+          </h1>
+          <form
+            class="max-w-sm mx-auto"
+            action="{{url_for('register')}}"
+            method="post"
+          >
             <div class="mb-5">
-              <label for="email" class="block mb-2 text-sm font-medium  text-white">Your email</label>
-              <input type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="name@flowbite.com" required />
+              <label
+                for="email"
+                class="block mb-2 text-sm font-medium text-white"
+                >Your email</label
+              >
+              <input
+                type="email"
+                id="email"
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                placeholder="name@flowbite.com"
+                name="email"
+                required
+              />
             </div>
             <div class="mb-5">
-              <label for="password" class="block mb-2 text-sm font-medium text-white">Your password</label>
-              <input type="password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
+              <label
+                for="password"
+                class="block mb-2 text-sm font-medium text-white"
+                >Your password</label
+              >
+              <input
+                type="password"
+                id="password"
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                name="password"
+                required
+              />
             </div>
             <div class="mb-5">
-              <label for="repeat-password" class="block mb-2 text-sm font-medium text-white">Repeat password</label>
-              <input type="password" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
+              <label
+                for="repeat-password"
+                class="block mb-2 text-sm font-medium text-white"
+                >Repeat password</label
+              >
+              <input
+                type="password"
+                id="repeat-password"
+                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                name="repeat-password"
+                required
+              />
             </div>
             <div class="flex items-start mb-5">
               <div class="flex items-center h-5">
-                <input id="terms" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+                <input
+                  id="terms"
+                  type="checkbox"
+                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                  name="terms-and-conditions"
+                  required
+                />
               </div>
-              <label for="terms" class="ms-2 text-sm font-medium text-white">I agree with the <a href="#" class="text-blue-400 hover:underline dark:text-blue-500">terms and conditions</a></label>
+              <label for="terms" class="ms-2 text-sm font-medium text-white"
+                >I agree with the
+                <a
+                  href="https://www.termsfeed.com/live/d50450f0-15e9-4bc7-a9bd-73dfc9d2ad9c"
+                  class="text-blue-400 hover:underline dark:text-blue-500"
+                  >terms and conditions</a
+                ></label
+              >
             </div>
-            <div class="flex  justify-center">
-            <button type="submit" class="w-32 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register</button>
+            <div class="flex justify-center">
+              <button
+                type="submit"
+                class="w-32 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Register
+              </button>
             </div>
-        </form>
-        <p class="flex justify-center py-5 text-white">Already have an account?<a class="text-blue-400 hover:underline dark:text-blue-500"href="login">Login</a></p>
+            {% block display %}
+            {% with notion = get_flashed_messages() %}
+                {% if notion %}
+                    {% for msg in notion %}
+                    <strong class="text-center">{{msg}}</strong>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% endblock %}
+          </form>
+          <p class="flex justify-center py-5 text-white">
+            Already have an account?<a
+              class="text-blue-400 hover:underline dark:text-blue-500"
+              href="{{url_for('login')}}"
+              >Login</a
+            >
+          </p>
         </div>
+      </div>
     </div>
-   </div>
-</body>
-
+  </body>
 </html>
