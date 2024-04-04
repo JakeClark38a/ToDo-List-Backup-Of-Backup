@@ -105,7 +105,7 @@
 
   /*main page */
   .todobox-title {
-    @apply text-center text-xl font-bold text-gray-700;
+    @apply text-center text-xl truncate font-bold text-gray-700;
   }
 
   .headbar-button {
@@ -118,7 +118,7 @@
 
   /*Main menu*/
   .MMenu-Primary-Image-Wrapper {
-    @apply h-4 w-5 mx-3 lg:w-8 lg:h-8;
+    @apply h-5 w-5 mx-3 lg:w-8 lg:h-8;
   }
 
   .MMenu-Primary-Text {
@@ -136,6 +136,21 @@
   .MMenu-Tag {
     @apply transition-all ease-in-out duration-200 backdrop-blur-sm hover:bg-gradient-to-r from-[#b7b9bc] to-transparent hover:-translate-x-1;
   }
+
+  /*Profile menu*/
+  .PMenu-Primary-Image-Wrapper {
+    @apply h-5 w-5 mx-2 lg:w-8 lg:h-8;
+  }
+
+  .PMenu-Primary-Text {
+    @apply text-xl font-light;
+  }
+
+  .PMenu-Primary-Section {
+    @apply  flex items-center h-8 lg:h-10 transition-all rounded-lg duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-l from-[#b7b9bc] to-transparent py-2 lg:py-3 cursor-pointer;
+  }
+
+
 
   /*Task box*/
 
