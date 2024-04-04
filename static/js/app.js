@@ -43,21 +43,21 @@ $(document).ready(function () {
     tasks: {
       id001: {
         title: "Meeting",
-        description: "about making a website",
+        description: "About making a website",
         tag: "tag1",
         deadline: 62783,
         points: 4,
       },
       id002: {
         title: "Crying",
-        description: "about making a website",
+        description: "About making a website",
         tag: "tag3",
         deadline: 62783,
         points: 4,
       },
       id004: {
         title: "Laughing",
-        description: "about making a website",
+        description: "About making a website",
         tag: "tag5",
         deadline: 62783,
         points: 4,
@@ -66,7 +66,7 @@ $(document).ready(function () {
     completed: {
       id003: {
         title: "Journaling",
-        description: "about making a website",
+        description: "About making a website",
         tag: "tag1",
         deadline: 62783,
         points: 5,
@@ -255,11 +255,11 @@ $(document).ready(function () {
       return (
         ` 
         <div id="`+ id + `" class="task-outer bg-main rounded-xl cursor-default">
-        <div class=" rounded-lg shadow-lg border-2 border-gray-500">
+        <div class=" rounded-lg shadow-lg">
 
-            <div class=" px-2 py-1 flex justify-between items-center border-b-[1px] border-gray-500">
+            <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
 
-                <div class="font-medium lg:text-2xl truncate w-full">`
+                <div class="font-semibold lg:text-2xl truncate w-full">`
                     + task.title + `</div>
 
 
@@ -285,7 +285,7 @@ $(document).ready(function () {
                 <p class="h-full w-full text-left p-2 font-thin truncate lg:text-xl">`+ task.description + `</p>
 
                 <input id="Task-Destroyer" type="checkbox"
-                    class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
+                    class="bg-primary-200 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
             </div>
             <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
               
@@ -308,7 +308,7 @@ $(document).ready(function () {
   
             <div class="p-2 flex justify-between items-center lg:h-24">
                 <div class="text-center lg:text-xl">`+ task.description + `</div>
-                <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
+                <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
             </div>
             
           </div>
@@ -335,8 +335,11 @@ $(document).ready(function () {
                 </svg>
             </div>
         </div>
-        <div id="Task-Section" class="bg-main/35 transition-all duration-300 ease-in-out p-3 pb-10 flex flex-col gap-3 overflow-y-auto overflow-x-hidden shadow-xl hover:shadow-2xl w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
+        <div id="Task-Section-Outer" class="bg-main/35 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
+            <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
             <!--task here-->
+            </div>
+          
         </div>
     </div>
     
@@ -466,6 +469,7 @@ $(document).ready(function () {
     $("#Main-Menu").toggleClass("h-[86vh]");
   });
 
+  //Add group
   $("#MMenu-Group-Add").click(function () {
       isMakeChangeGroup = true;
       // Customize modal appearance
@@ -488,6 +492,7 @@ $(document).ready(function () {
       addGroupnTagModal.show();
   });
 
+  /// Add tag
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
     isMakeChangeGroup = false;
     /// add tag
@@ -885,7 +890,7 @@ $(document).ready(function () {
   function renderGroupMainScreen(group_html, group,unique_id, mode = 0) {
    // var unique_id = getUuid();
     group_html.append(MainScreenGroupTemplate(unique_id, group, mode));
-    group_html.find("#" + unique_id).find("#Task-Section").css({"border":"4px solid "+group.color});
+    group_html.find("#" + unique_id).find("#Task-Section-Outer").css({"border-color": group.color});
     return group_html.find("#" + unique_id);
   }
 
@@ -1268,13 +1273,15 @@ $(document).ready(function () {
       {
           if(isMakeChangeGroup == true){ 
             if(id !=""){  /// Delete a new group
-              delete Dict.groups[id];
+
+              delete Dict.tags[Dict.groups[id].def_tag]; // Delete def tag
+              delete Dict.groups[id]; // Delete group
               var group_ = $('#'+id);
               group_.remove();
               AJAXdeleteGroup(id);
             }
           }
-        else if(isMakeChangeGroup == false){   ///  Delete a new tag
+        else if(isMakeChangeGroup == false){   ///  Delete a tag
           if(id !="")
           {
             var groupWithAccordingTag;
