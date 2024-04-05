@@ -43,21 +43,21 @@ $(document).ready(function () {
     tasks: {
       id001: {
         title: "Meeting",
-        description: "About making a website",
+        description: "about making a website",
         tag: "tag1",
         deadline: 62783,
         points: 4,
       },
       id002: {
         title: "Crying",
-        description: "About making a website",
+        description: "about making a website",
         tag: "tag3",
         deadline: 62783,
         points: 4,
       },
       id004: {
         title: "Laughing",
-        description: "About making a website",
+        description: "about making a website",
         tag: "tag5",
         deadline: 62783,
         points: 4,
@@ -66,7 +66,7 @@ $(document).ready(function () {
     completed: {
       id003: {
         title: "Journaling",
-        description: "About making a website",
+        description: "about making a website",
         tag: "tag1",
         deadline: 62783,
         points: 5,
@@ -79,7 +79,7 @@ $(document).ready(function () {
         groupId: "gid001",
         deleteable: false,
         editable: false,
-        display: false,
+        display: true,
       },
       delegate: {
         title: "Delegate",
@@ -87,7 +87,7 @@ $(document).ready(function () {
         groupId: "gid002",
         deleteable: false,
         editable: false,
-        display: false,
+        display: true,
       },
       schedule: {
         title: "Schedule",
@@ -95,7 +95,7 @@ $(document).ready(function () {
         groupId: "gid003",
         deleteable: false,
         editable: false,
-        display: false,
+        display: true,
       },
       later: {
         title: "Later",
@@ -103,7 +103,7 @@ $(document).ready(function () {
         groupId: "gid004",
         deleteable: false,
         editable: false,
-        display: false,
+        display: true,
       },
       tag1: {
           title: "tag1",
@@ -158,8 +158,6 @@ $(document).ready(function () {
 
   var currentMode = 0;
   var isMakeChangeGroup = false;
-  var currentMMenuTab = 0 ;  // 0-today 1-cal 2-garden
-
   //
   //
   //
@@ -248,7 +246,7 @@ $(document).ready(function () {
   function MainScreenTagTemplate(id, tag,mode =0) {
     if(mode == 0){
       return(`
-      <div id="`+id+`" class="rounded-md text-center min-w-12 font-base text-xs border-none shadow-lg cursor-pointer">`+tag.title+`</div>                
+      <div id="`+id+`" class="rounded-md text-center min-w-12 font-light text-sm border-none cursor-pointer">`+tag.title+`</div>                
       `);
     }
   }
@@ -257,11 +255,11 @@ $(document).ready(function () {
       return (
         ` 
         <div id="`+ id + `" class="task-outer bg-main rounded-xl cursor-default">
-        <div class=" rounded-lg shadow-lg">
+        <div class=" rounded-lg shadow-lg border-2 border-gray-500">
 
-            <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
+            <div class=" px-2 py-1 flex justify-between items-center border-b-[1px] border-gray-500">
 
-                <div class="font-semibold text-lg lg:text-xl truncate w-full">`
+                <div class="font-medium lg:text-2xl truncate w-full">`
                     + task.title + `</div>
 
 
@@ -278,16 +276,16 @@ $(document).ready(function () {
 
 
                     <div id="Task-Cancel"
-                        class="bg-red-500 rounded-full shadow-lg h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
+                        class="bg-red-500 rounded-full h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
                 </div>
             </div>
 
             <div class="p-2 flex items-center h-fit">
 
-                <p class="h-full w-full text-left p-2 font-base truncate lg:text-xl">`+ task.description + `</p>
+                <p class="h-full w-full text-left p-2 font-thin truncate lg:text-xl">`+ task.description + `</p>
 
                 <input id="Task-Destroyer" type="checkbox"
-                    class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer"></input>
+                    class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
             </div>
             <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
               
@@ -304,13 +302,13 @@ $(document).ready(function () {
         <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
   
             <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
-                <div class="font-bold text-xl lg:text-2xl">` + task.title + `</div>
+                <div class="font-bold lg:text-2xl">` + task.title + `</div>
                 <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
             </div>
   
             <div class="p-2 flex justify-between items-center lg:h-24">
                 <div class="text-center lg:text-xl">`+ task.description + `</div>
-                <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
+                <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
             </div>
             
           </div>
@@ -328,7 +326,7 @@ $(document).ready(function () {
         `
     <div id="` +id +`" class="group-outer">
       <div class="flex justify-between items-center px-3 ">
-        <div id="Task-Group-Title" class="todobox-title lg:text-2xl">` + group.title +`</div>
+        <div id="Task-Group-Title" class="todobox-title">` + group.title +`</div>
         <div class="Group-Task-Add">
                 <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -337,11 +335,8 @@ $(document).ready(function () {
                 </svg>
             </div>
         </div>
-        <div id="Task-Section-Outer" class="bg-main/35 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
-            <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
+        <div id="Task-Section" class="bg-main/35 transition-all duration-300 ease-in-out p-3 pb-10 flex flex-col gap-3 overflow-y-auto overflow-x-hidden shadow-xl hover:shadow-2xl w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
             <!--task here-->
-            </div>
-          
         </div>
     </div>
     
@@ -462,13 +457,6 @@ $(document).ready(function () {
   function randHexColor() {
     return "#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0'));
   }
-   //================================================================\\
-  //=========================== Avatar Menu ========================\\
-  //================================================================\\
-  $("#Avatar-Menu-Click").click(function () {
-    $("#Avatar-Menu").toggleClass("h-32 lg:h-44");
-    $("#Avatar-Menu-Click").toggleClass("bg-primary-200");
-  });
 
   //================================================================\\
   //=========================== Main Menu ==========================\\
@@ -476,28 +464,8 @@ $(document).ready(function () {
 
   $("#Main-Menu-Click").click(function () {
     $("#Main-Menu").toggleClass("h-[86vh]");
-    $("#Main-Menu-Click").toggleClass("-rotate-90")
   });
 
-  function updateMMenuTabIndicator(tab = null){
-    var $tab = tab ? tab : $("#Main-Menu").find("#MMenu-Today");
-    var currId = $tab.attr('id');
-    const indiModeCSS = 'border-r-4 border-primary-200 bg-gradient-to-l from-primary-200/35 to-transparent';
-
-    // clear all previous tab border 
-    $('#Main-Menu').find('.MMenu-Primary-Section').removeClass(indiModeCSS);
-    //console.log(currId);
-    const indicatTab = ['MMenu-Today', 'MMenu-Calendar', 'MMenu-Garden'];
-    if(indicatTab.indexOf(currId) !== -1){
-      $tab.toggleClass(indiModeCSS);
-    }
-  }
-  
-  $('#Main-Menu').on('click','.MMenu-Primary-Section',function(e){
-    updateMMenuTabIndicator($(this));
-  });
-
-  //Add group
   $("#MMenu-Group-Add").click(function () {
       isMakeChangeGroup = true;
       // Customize modal appearance
@@ -520,7 +488,6 @@ $(document).ready(function () {
       addGroupnTagModal.show();
   });
 
-  /// Add tag
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
     isMakeChangeGroup = false;
     /// add tag
@@ -663,6 +630,7 @@ $(document).ready(function () {
   //================================================================\\
 
   function AJAXaddGroup(groupId, title, color) {
+    let status; // status of the AJAX request
     // Send AJAX request to backend at /todo/group/create to add group
     $.ajax({
       type: "POST",
@@ -672,14 +640,18 @@ $(document).ready(function () {
       dataType: "json",
       success: function (data) {
         console.log("Success");
+        status = data;
       },
       error: function (data) {
         console.log("Error");
+        status = data;
       }
     });
+    return status;
   }
 
   function AJAXaddTag(tagId, groupId, title, color) {
+    let status; // status of the AJAX request
     // Send AJAX request to backend at /todo/tag/create to add tag
     $.ajax({
       type: "POST",
@@ -689,14 +661,18 @@ $(document).ready(function () {
       dataType: "json",
       success: function (data) {
         console.log("Success");
+        status = data;
       },
       error: function (data) {
         console.log("Error");
+        status = data;
       }
     });
+    return status;
   }
 
   function AJAXupdateGroup(groupId, title, color) {
+    let status; // status of the AJAX request
     // Send AJAX request to backend at /todo/group/update to edit group
     $.ajax({
       type: "POST",
@@ -706,14 +682,18 @@ $(document).ready(function () {
       dataType: "json",
       success: function (data) {
         console.log("Success");
+        status = data;
       },
       error: function (data) {
         console.log("Error");
+        status = data;
       }
     });
+    return status;
   }
 
   function AJAXupdateTag(tagId, groupId, title, color) {
+    let status; // status of the AJAX request
     // Send AJAX request to backend at /todo/tag/update to edit tag
     $.ajax({
       type: "POST",
@@ -723,14 +703,18 @@ $(document).ready(function () {
       dataType: "json",
       success: function (data) {
         console.log("Success");
+        status = data;
       },
       error: function (data) {
         console.log("Error");
+        status = data;
       }
     });
+    return status;
   }
 
   function AJAXdeleteGroup(groupId) {
+    let status; // status of the AJAX request
     // Send AJAX request to backend at /todo/group/delete to delete group
     $.ajax({
       type: "POST",
@@ -740,14 +724,18 @@ $(document).ready(function () {
       dataType: "json",
       success: function (data) {
         console.log("Success");
+        status = data;
       },
       error: function (data) {
         console.log("Error");
+        status = data;
       }
     });
+    return status;
   }
 
   function AJAXdeleteTag(tagId) {
+    let status; // status of the AJAX request
     // Send AJAX request to backend at /todo/tag/delete to delete tag
     $.ajax({
       type: "POST",
@@ -757,14 +745,18 @@ $(document).ready(function () {
       dataType: "json",
       success: function (data) {
         console.log("Success");
+        status = data;
       },
       error: function (data) {
         console.log("Error");
+        status = data;
       }
     });
+    return status;
   }
 
   function AJAXcreateTask(taskId, title, description, tag, deadline, points, isCompleted=false) {
+    let status; // status of the AJAX request
     // Send AJAX request to backend at /todo/create to create task
     $.ajax({
       type: "POST",
@@ -776,14 +768,18 @@ $(document).ready(function () {
       dataType: "json",
       success: function (data) {
         console.log("Success");
+        status = data;
       },
       error: function (data) {
         console.log("Error");
+        status = data;
       }
     });
+    return status;
   }
 
   function AJAXdeleteTask(taskId) {
+    let status; // status of the AJAX request
     // Send AJAX request to backend at /todo/delete to delete task  
     $.ajax({
       type: "POST",
@@ -793,14 +789,18 @@ $(document).ready(function () {
       dataType: "json",
       success: function (data) {
         console.log("Success");
+        status = data;
       },
       error: function (data) {
         console.log("Error");
+        status = data;
       }
     });
+    return status;
   }
 
   function AJAXcompleteTask(taskId) {
+    let status; // status of the AJAX request
     // Send AJAX request to backend at /todo/completed/<id> to mark task as completed
     $.ajax({
       type: "POST",
@@ -810,14 +810,18 @@ $(document).ready(function () {
       dataType: "json",
       success: function(data){
         console.log("Success");
+        status = data;
       },
       error: function(data){
         console.log("Error");
+        status = data;
       }
     });
+    return status;
   }
 
   function AJAXupdateTask(taskId, title, description, tag, deadline, points, isCompleted=false) {
+    let status; // status of the AJAX request
     // Send AJAX request to backend at /todo/update to update task
     $.ajax({
       type: "POST",
@@ -829,11 +833,14 @@ $(document).ready(function () {
       dataType: "json",
       success: function (data) {
         console.log("Success");
+        status = data;
       },
       error: function (data) {
         console.log("Error");
+        status = data;
       }
     });
+    return status;
   }
 
   //================================================================\\
@@ -918,7 +925,7 @@ $(document).ready(function () {
   function renderGroupMainScreen(group_html, group,unique_id, mode = 0) {
    // var unique_id = getUuid();
     group_html.append(MainScreenGroupTemplate(unique_id, group, mode));
-    group_html.find("#" + unique_id).find("#Task-Section-Outer").css({"border-color": group.color});
+    group_html.find("#" + unique_id).find("#Task-Section").css({"border":"4px solid "+group.color});
     return group_html.find("#" + unique_id);
   }
 
@@ -1018,17 +1025,19 @@ $(document).ready(function () {
     });
   };
   LoadGroups();
-
   
   function initUser() {
-    currentMMenuTab = 0; // 0-today 2-calendar 3-garden
     currentMode = 0;
     LoadUser();
-    updateMMenuTabIndicator();
   }
   initUser();
 
-
+  function initweb() {
+    document
+      .querySelector("#Main-Menu")
+      .style.setProperty("--paddingMainMen", "5");
+  }
+  initweb();
 
   //================================================================\\
   //================================================================\\
@@ -1299,15 +1308,13 @@ $(document).ready(function () {
       {
           if(isMakeChangeGroup == true){ 
             if(id !=""){  /// Delete a new group
-
-              delete Dict.tags[Dict.groups[id].def_tag]; // Delete def tag
-              delete Dict.groups[id]; // Delete group
+              delete Dict.groups[id];
               var group_ = $('#'+id);
               group_.remove();
               AJAXdeleteGroup(id);
             }
           }
-        else if(isMakeChangeGroup == false){   ///  Delete a tag
+        else if(isMakeChangeGroup == false){   ///  Delete a new tag
           if(id !="")
           {
             var groupWithAccordingTag;
