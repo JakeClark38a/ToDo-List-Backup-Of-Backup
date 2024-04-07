@@ -102,6 +102,7 @@
   /*main page */
   .todobox-title {
     @apply text-center text-xl truncate font-bold text-gray-700;
+    @apply text-center text-xl truncate font-bold text-gray-700;
   }
 
   .headbar-button {
@@ -114,6 +115,7 @@
 
   /*Main menu*/
   .MMenu-Primary-Image-Wrapper {
+    @apply h-5 w-5 mx-3 lg:w-8 lg:h-8;
     @apply h-5 w-5 mx-3 lg:w-8 lg:h-8;
   }
 
@@ -165,6 +167,7 @@
 
   #Task-Destroyer {
     @apply w-8 h-8 rounded-lg hover:bg-primary-200/55 checked:bg-green-300;
+    @apply w-8 h-8 rounded-lg hover:bg-primary-200/55 checked:bg-green-300;
   }
 
   /*End task box*/
@@ -181,14 +184,17 @@
   /* nice scroll bar */
   ::-webkit-scrollbar {
     @apply w-[3px] h-[3px];
+    @apply w-[3px] h-[3px];
   }
 
   ::-webkit-scrollbar-track {
+    @apply rounded-xl;
     @apply rounded-xl;
     background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
+    @apply rounded-[50px] bg-primary-100;
     @apply rounded-[50px] bg-primary-100;
   }
 
