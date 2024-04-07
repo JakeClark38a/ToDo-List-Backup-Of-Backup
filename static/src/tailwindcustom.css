@@ -54,20 +54,16 @@
     margin: .15rem .15rem;
   }
 
-  .background-pic {
-    background-image: url('/image/istockphoto-943620668-612x612.jpg');
-  }
-
   .product-image {
     height: 100%;
   }
 
   .image-wrapper {
-    @apply h-64 w-96 flex justify-center items-center;
+    @apply h-32 w-56 lg:h-52 lg:w-96 flex justify-center items-center;
   }
 
   .title {
-    @apply font-sans text-3xl md:text-5xl font-bold text-left;
+    @apply font-sans text-2xl md:text-5xl font-bold text-left;
   }
 
   .content {
@@ -75,11 +71,11 @@
   }
 
   .statistic-frame {
-    @apply flex flex-col justify-center items-center m-5 base-anim rounded-xl bg-primary-100 hover:bg-primary-100;
+    @apply flex flex-col justify-center items-center rounded-xl border-2 bg-primary-200;
   }
 
   .section {
-    @apply flex flex-col justify-center items-center mb-56;
+    @apply bg-main mb-32 lg:mb-56;
   }
 
   .footer-text {
@@ -87,11 +83,11 @@
   }
 
   .footer-title {
-    @apply font-semibold text-lg md:text-xl text-center my-3;
+    @apply font-bold underline text-lg md:text-xl text-center my-3;
   }
 
   .base-anim {
-    @apply transform transition-all ease-in-out duration-200 delay-100 hover:duration-500 hover:scale-110;
+    @apply transform transition-all ease-in-out duration-200 delay-75 hover:scale-110;
   }
 
 
@@ -126,7 +122,7 @@
   }
 
   .MMenu-Primary-Section {
-    @apply   flex items-center h-[3.25rem] lg:h-14 transition-all duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-r from-[#b7b9bc] to-transparent py-2 lg:py-3 cursor-pointer;
+    @apply flex items-center h-[3.25rem] lg:h-14 transition-all duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-r from-[#b7b9bc] to-transparent py-2 lg:py-3 cursor-pointer;
   }
 
   .MMenu-Group {
@@ -147,7 +143,20 @@
   }
 
   .PMenu-Primary-Section {
-    @apply  flex items-center h-8 lg:h-10 transition-all rounded-lg duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-l from-[#b7b9bc] to-transparent py-2 lg:py-3 cursor-pointer;
+    @apply flex items-center h-8 lg:h-10 transition-all rounded-lg duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-l from-[#b7b9bc] to-transparent py-2 lg:py-3 cursor-pointer;
+  }
+
+  /*Mode menu*/
+  .ModeMenu-Primary-Image-Wrapper {
+    @apply h-5 w-5 mx-2 lg:w-8 lg:h-8;
+  }
+
+  .ModeMenu-Primary-Text {
+    @apply text-xl font-light;
+  }
+
+  .ModeMenu-Primary-Section {
+    @apply flex items-center h-8 lg:h-10 transition-all rounded-lg duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-l from-[#b7b9bc] to-transparent py-2 lg:py-3 cursor-pointer;
   }
 
 
@@ -162,8 +171,9 @@
 
   /* calendar tailwind css*/
   :root {
-    --primary-clr: #8cb9be; 
+    --primary-clr: #8cb9be;
   }
+
   * {
     @apply box-border m-0 p-0;
   }

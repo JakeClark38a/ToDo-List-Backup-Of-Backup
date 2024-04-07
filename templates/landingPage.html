@@ -6,45 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../static/css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 </head>
 
-<body class="bg-gradient-to-b from-background-main to-primary-green overflow-x-hidden">
+<body class="bg-main bg-cover overflow-x-hidden">
     <!--Navbar Start-->
-    <div class="navbar h-[8vh] p-3 bg-primary-red flex justify-between items-center">
+    <div id="navbar"
+        class="sticky hidden flex transition-all ease-in-out duration-200 transform w-full top-0 z-[50] navbar h-[8vh] p-3 bg-primary-100 backdrop-blur-sm shadow-xl justify-between items-center">
         <div class="logo ml-[3vw] flex items-center">
             <img class="h-10 w-10" src="/static/images/icons8-timer-50.png" alt="Logo">
             <div class="ml-2 font-bold font-sans md:visible invisible">Donow</div>
         </div>
-        <div class="menu mr-[3vw]">
-            <div class="group/sg base-anim overflow-hidden button-signin w-20 border-2 h-7 rounded-md hover:shadow-lg">
-                <div
-                    class="group-hover/sg:w-20 base-anim h-10 w-0 bg-gradient-to-r from-accent-red to-primary-red absolute">
+        <div class="menu mr-[3vw] flex gap-2">
+            <div
+                class="group/sg flex justify-center items-center base-anim overflow-hidden bg-accent-300 button-signin w-20 lg:w-24 border-2 h-8 lg:h-10 rounded-md shadow-lg hover:shadow-xl">
+                <div class="group-hover/sg:w-48 base-anim h-full w-0 bg-primary-200/75 absolute">
                 </div>
                 <div class="absolute">
                     <button class="w-20"><a href="index.html">Sign in</a></button>
+                </div>
+            </div>
+
+            <div
+                class="group/sg flex justify-center items-center base-anim overflow-hidden button-login w-20 lg:w-24 border-2 h-8 lg:h-10 rounded-md shadow-lg hover:shadow-xl">
+                <div class="group-hover/sg:w-48 base-anim h-full w-0 bg-primary-200/75 absolute">
+                </div>
+                <div class="absolute">
+                    <button class="w-20"><a href="index.html">Login</a></button>
                 </div>
             </div>
         </div>
     </div>
     <!--Navbar End-->
     <!--Hero Start-->
-    <div id="hero" class="hero h-[120vh] flex bg-herosm bg-cover md:heromd xl:bg-heroxl md:flex-col md:items-center">
-        <div
+    <div id="hero"
+        class="hero h-[120vh] flex bg-herosm bg-cover bg-center md:heroxl xl:bg-heroxl md:flex-col md:items-center">
+        <div id="hero-text"
             class="hero-text sm:mt-10 sm:ml-10 flex flex-col justify-start md:mt-[20vh] md:items-center md:justify-center">
-            <div class="main-text title md:text-center">Free from distractions.</div>
-            <div class="main-text mb-3 title md:text-center md:w-[25vw] ">Forever.</div>
+            <div class="main-text title text-4xl md:text-5xl lg:text-7xl md:text-center ">Free from distractions.</div>
+            <div class="main-text mb-3 title text-4xl md:text-5xl lg:text-7xl md:text-center">Forever.</div>
             <div class="detail-text font-serif content md:text-center mb-7 text-md md:text-2xl md:w-[45vw] lg:w-[25vw]">
                 Effort-lessly
                 organizing your time, tasks, life and many more... with Donow. The best task manager and to-do list app.
             </div>
             <div
-                class="group/btn items-center base-anim h-12 w-[9rem] md:h-14 md:w-48 bg-primary-green rounded-2xl overflow-hidden hover:-translate-y-2 shadow-md hover:shadow-xl hover:shadow-slate-500 ">
+                class="group/btn flex justify-center items-center base-anim h-12 w-[9rem] md:h-14 md:w-48 bg-accent-300 backdrop-blur-sm border-2 rounded-xl overflow-hidden hover:-translate-y-1 shadow-md hover:shadow-xl">
                 <div
-                    class="group-hover/btn:w-48 base-anim absolute h-20 w-0 bg-gradient-to-l from-primary-green to-accent-red">
+                    class="group-hover/btn:w-48 group-hover/btn:h-20 base-anim duration-300 absolute h-0 w-0 bg-primary-200">
                 </div>
                 <div class="absolute">
                     <button
-                        class="base-anim hover:scale-100 h-12 w-[9rem] md:h-14 md:w-48 text-center font-medium text-xl">Get
+                        class="base-anim scale-100 h-12 w-[9rem] md:h-14 md:w-48 text-center font-medium text-xl">Get
                         started</button>
                 </div>
             </div>
@@ -103,10 +116,11 @@
     </div>
     <!--Des End-->
     <!--Product Start-->
-    <div class="section lg:flex lg:justify-center lg:items-center ">
-        <div class="products flex flex-col justify-evenly items-start">
+    <div class="section lg:flex lg:justify-center lg:items-center " data-carousel="slide" data-carousel-interval="3500">
+        <div class="products relative h-72 w-72 overflow-hidden rounded-lg md:w-1/2 md:h-96">
 
-            <div class="flex flex-col justify-center items-center lg:flex-row">
+            <div class="flex flex-col justify-center items-center lg:flex-row duration-[1500ms] ease-in-out bg-main"
+                data-carousel-item>
                 <div class="image-wrapper">
                     <img class="product-image" src="/static/images/Time management - 640x427.png" alt="img">
                 </div>
@@ -119,7 +133,8 @@
                 </div>
             </div>
 
-            <div class="flex flex-col justify-center items-center lg:flex-row ">
+            <div class="flex flex-col justify-center items-center lg:flex-row duration-[1500ms] ease-in-out bg-main"
+                data-carousel-item>
                 <div class="image-wrapper">
                     <img class="product-image" src="/static/images/Managing time - 640x427.png" alt="img">
                 </div>
@@ -135,7 +150,8 @@
                 </div>
             </div>
 
-            <div class="flex flex-col justify-center items-center lg:flex-row">
+            <div class="flex flex-col justify-center items-center lg:flex-row duration-[1500ms] ease-in-out bg-main"
+                data-carousel-item>
                 <div class="image-wrapper">
                     <img class="product-image" src="/static/images/Guidance - 480x480.png" alt="img">
                 </div>
@@ -150,7 +166,8 @@
                 </div>
             </div>
 
-            <div class="flex flex-col justify-center items-center lg:flex-row">
+            <div class="flex flex-col justify-center items-center lg:flex-row duration-[1500ms] ease-in-out bg-main"
+                data-carousel-item>
                 <div class="image-wrapper">
                     <img class="product-image" src="/static/images/Space Robot - 640x587.png" alt="img">
                 </div>
@@ -167,7 +184,7 @@
     </div>
     <!--Product End-->
     <!--CTA Start-->
-    <div class="section call-to-action flex justify-center items-center flex-col">
+    <div class="section bg-transparent call-to-action flex justify-center items-center flex-col">
         <div class="title text-center mb-3 lg:w-[55vw] text-3xl">Productive. Proactive. Prioritize.</div>
         <div class="absolute">
             <img src="" alt="">
@@ -175,54 +192,76 @@
         <div class="title text-center mb-3 text-xl"> Every day. Forever.</div>
         <div class="content text-center mb-7">Get it now!</div>
         <div
-            class="group/btn items-center base-anim h-14 w-48 bg-accent-green rounded-2xl overflow-hidden hover:-translate-y-2 shadow-md hover:shadow-xl hover:shadow-slate-500 ">
-            <div
-                class="group-hover/btn:w-48 base-anim absolute h-20 w-0 bg-gradient-to-l from-accent-green to-accent-blue">
+            class="group/btn flex justify-center items-center base-anim h-14 w-48 bg-accent-300 border-2 rounded-2xl overflow-hidden hover:-translate-y-1 shadow-md hover:shadow-xl">
+            <div class="group-hover/btn:w-48 group-hover/btn:h-20 base-anim absolute h-0 w-0 bg-primary-200">
             </div>
             <div class="absolute">
-                <button class="base-anim hover:scale-100 w-48 h-14 text-center font-medium text-xl">Make me
+                <button class="base-anim scale-100 w-48 h-14 text-center font-medium text-xl">Make me
                     better!</button>
             </div>
         </div>
     </div>
     <!--CTA End-->
     <!--Statistic Start-->
-    <div class="carousel">
-        <div
-            class="section statistics flex justify-center items-center lg:justify-evenly lg:items-start flex-col lg:flex-row">
-            <div class="statistic-frame">
-                <div class="image-wrapper">
-                    <img class="logo-image" src="/static/images/Team Building - 640x469.png" alt="img">
+    <div class="section carousel flex flex-col justify-evenly items-center lg:flex-row">
+        <div class="">
+            <div class="title text-center mb-3 lg:w-[55vw] text-3xl">Grow with community and</div>
+        </div>
+        <div class="w-full lg:w-72 flex items-center justify-center">
+            <div class="flex items-center justify-center relative">
+
+                <div
+                    class="fade-left absolute left-0 z-20 h-56 lg:h-80 w-14 bg-gradient-to-r from-main to-transparent rounded-lg">
                 </div>
-                <div class="content text-center text-lg">1+ millions teams</div>
-            </div>
-            <div class="statistic-frame">
-                <div class="image-wrapper">
-                    <img class="logo-image" src="/static/images/Work scheduling - 640x427.png" alt="img">
+
+                <div class="relative" data-carousel="slide" data-carousel-interval="4500">
+                    <div class="statistics relative z-10 w-72 h-56 overflow-hidden rounded-lg md:w-96 md:h-80">
+
+                        <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                            <div class="image-wrapper">
+                                <img class="logo-image" src="/static/images/Team Building - 640x469.png" alt="img">
+                            </div>
+                            <div class="content text-center font-semibold text-lg">1+ millions teams</div>
+                        </div>
+
+                        <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                            <div class="image-wrapper">
+                                <img class="logo-image" src="/static/images/Work scheduling - 640x427.png" alt="img">
+                            </div>
+                            <div class="content text-center font-semibold text-lg">47+ millions hours saved</div>
+                        </div>
+
+                        <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                            <div class="image-wrapper">
+                                <img class="logo-image" src="/static/images/Global Impact - 640x608.png" alt="img">
+                            </div>
+                            <div class="content text-center font-semibold text-lg">67+ countries</div>
+                        </div>
+
+                        <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                            <div class="image-wrapper">
+                                <img class="logo-image" src="/static/images/Guidance - 480x480.png" alt="img">
+                            </div>
+                            <div class="content text-center font-semibold text-lg">50k+ successful projects</div>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="content text-center text-lg">47+ millions hours saved</div>
-            </div>
-            <div class="statistic-frame">
-                <div class="image-wrapper">
-                    <img class="logo-image" src="/static/images/Global Impact - 640x608.png" alt="img">
+
+                <div
+                    class="fade-right absolute right-0 z-20 h-56 lg:h-80 w-14 bg-gradient-to-l from-main to-transparent rounded-lg">
                 </div>
-                <div class="content text-center text-lg">67+ countries</div>
-            </div>
-            <div class="statistic-frame">
-                <div class="image-wrapper">
-                    <img class="logo-image" src="/static/images/Guidance - 480x480.png" alt="img">
-                </div>
-                <div class="content text-center text-lg">50k+ successful projects</div>
             </div>
         </div>
     </div>
+
     <!--Statistic End-->
 
     <!-- Footer Start -->
-    <footer class=" bg-primary-yellow  text-gray-800 flex flex-col items-center justify-center ">
+    <footer class=" bg-accent-300  text-gray-800 flex flex-col items-center justify-center">
         <div
-            class="flex flex-col items-center justify-center lg:flex-row lg:justify-evenly lg:items-start mx-8 my-10 lg:w-[100vw]">
-            <div class="mb-7 flex flex-col items-center lg:items-start ">
+            class="flex flex-col items-center justify-center lg:flex-row lg:justify-evenly lg:items-start mx-8 my-10 lg:my-0 lg:mt-5 lg:w-[100vw]">
+            <div class="mb-3 lg:mb-7 flex flex-col items-center lg:items-start ">
                 <div class="logo">
                     <img src="/static/images/icons8-timer-50.png" alt="Logo">
                 </div>
@@ -231,7 +270,7 @@
                     deserves to feel organized, accomplished, and in control. That's why we develop innovative
                     productivity tools that empower individuals and teams to achieve their full potential.</div>
             </div>
-            <div class="mb-7">
+            <div class="mb-3 lg:mb-7">
                 <div class="grid-rows-4 grid-flow-col gap-3">
                     <div class="footer-title">Contacts</div>
                     <div class="footer-text">Email: example@gmail.com</div>
@@ -241,7 +280,7 @@
                 </div>
 
             </div>
-            <div class="mb-7">
+            <div class="mb-3 lg:mb-7">
                 <div class="grid-rows-5 grid-flow-col gap-3">
                     <div class="footer-title">Details</div>
                     <div class="footer-text"><a href="#">About us</a></div>
@@ -250,7 +289,7 @@
                     <div class="footer-text"><a href="#">Blog</a></div>
                 </div>
             </div>
-            <div class="mb-7">
+            <div class="mb-3 lg:mb-7">
                 <div class="grid-rows-5 grid-flow-col gap-3">
                     <div class="footer-title">Important links</div>
                     <div class="footer-text"><a href="#">Terms of Services</a></div>
@@ -260,28 +299,47 @@
                 </div>
             </div>
         </div>
-
-        <div class="flex flex-col justify-center items-center lg:items-start ">
-            <div class="font-medium text-base text-center lg:text-left my-3 px-1">Join our email list!</div>
+        <div class="border-t-[1px] border-slate-800 h-3 w-80"></div>
+        <div class="flex flex-col lg:flex-row justify-center items-center">
+            <div class="font-medium text-base text-center lg:text-left px-1">Join our email list:</div>
             <form class="flex justify-center items-center flex-col md:flex-row" action="">
                 <input class="h-10 rounded-xl m-3 px-3 py-1 shadow-md" type="email" value
                     placeholder="example@email.com">
                 <input
-                    class="h-10 w-28 base-anim bg-primary-green text-base font-medium text-center rounded-xl hover:bg-accent-green hover:-translate-y-0.5 shadow-md hover:shadow-lg"
+                    class="h-10 w-28 base-anim bg-primary-200 border-2 text-base font-medium text-center rounded-xl hover:bg-accent-100/55 hover:-translate-y-0.5 shadow-md hover:shadow-lg"
                     type="submit" value="Subscribe">
             </form>
         </div>
 
-        <div class="flex flex-col justify-center items-center mt-10">
+        <div class="flex flex-col justify-center items-center mt-5">
             <div class="border-t-[1px] border-slate-800 h-3 w-52"></div>
-            <div class="text-center py-7">
+            <div class="text-center pb-7">
                 2024 Donow. All rights reserved.
             </div>
         </div>
 
     </footer>
     <!--Footer End-->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            const navbar = $('#navbar');
+            const threshold = 100; // Threshold in pixels to hide/show navbar
+            let lastScrollTop = 0;
 
+            $(window).scroll(function () {
+                let scrollTop = $(this).scrollTop();
+                let isScrollingDown = scrollTop > lastScrollTop;
+
+                if (Math.abs(scrollTop - lastScrollTop) > threshold) {
+                    navbar.toggleClass('hidden', isScrollingDown);
+                    lastScrollTop = scrollTop;
+                }
+                
+            });
+        });
+    </script>
 </body>
 
 </html>
