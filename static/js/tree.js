@@ -1,8 +1,8 @@
 let treeStage = 0; // Initial stage of the tree
 let treeCount = 0; // Initial count of trees planted
-let lastAction = ''; // Variable to store the last action (water or fertilize)
-let wateringsLeft = 100; // Variable to store the number of remaining waterings
-let fertilizationsLeft = 200; // Variable to store the number of remaining fertilizations
+let lastAction = 'fertilize'; // Variable to store the last action (water or fertilize)
+let wateringsLeft = 50; // Variable to store the number of remaining waterings
+let fertilizationsLeft = 50; // Variable to store the number of remaining fertilizations
 
 
 updateWaterCount();
@@ -76,29 +76,38 @@ function updateTree() {
     // Calculate the current stage of the tree
     let stage = Math.floor(treeStage / 20) + 1;
     if (stage === 12) stage = 1;
+
     // Set the tree image based on the current stage
     let newSrc = `../static/images/tree_game/tree${stage}.gif`;
+
 
     if (prevSrc !== newSrc && !animationInProgress) {
         // Set flag to indicate animation is in progress
         animationInProgress = true;
-
-        // tree grown animation with sound
-        document.getElementById("treeGrowthAudio").play();
+    
+        // Determine which audio to play based on the stage
+        if (stage === 1) {
+            document.getElementById("treeResetAudio").play();
+        } else {
+            document.getElementById("treeGrowthAudio").play();
+        }
+    
         setTimeout(() => {
             // Change tree image source after 1 second
+            console.log(`../static/images/tree_game/tree${stage-1}_grown_tree${stage}.gif`);
             document.getElementById('tree').src = `../static/images/tree_game/tree${stage-1}_grown_tree${stage}.gif`;
-
+    
             // Change tree image to the new source
             setTimeout(() => {
                 document.getElementById("tree").src = newSrc;
                 prevSrc = newSrc;
                 // Reset flag after animation is complete
                 animationInProgress = false;
-            }, 500); // 1000 milliseconds = 1 second
-        }, 500); // 1000 milliseconds = 1 second
+            }, stage === 1 ? 1200 : 500); // 1500 milliseconds = 1.5 seconds, 500 milliseconds = 0.5 second
+        }, 500); // 500 milliseconds = 0.5 second
     }
-
+    
+                
     // Check if treeStage reaches maximum
     if (treeStage >= 220) {
         treeStage = 0; // Reset tree stage
@@ -107,7 +116,6 @@ function updateTree() {
         updateTree();
     }
 }
-
 
 function animate(action) {
     // Create a new image element for the animation
@@ -196,6 +204,39 @@ function toggleAudio() {
     }
 }
 
-// Set up the toggle button click event listener
-var toggleButton = document.getElementById("toggleButton");
-toggleButton.addEventListener("click", toggleAudio);
+
+
+
+
+
+let autoInterval; // Variable to store the interval for auto watering and fertilizing
+
+function startAuto() {
+    autoInterval = setInterval(autoWaterAndFertilize, 500); // Call autoWaterAndFertilize every second
+}
+
+function stopAuto() {
+    clearInterval(autoInterval); // Stop the interval
+}
+
+function autoWaterAndFertilize() {
+    console.log(wateringsLeft,lastAction);
+    if ((wateringsLeft > 0 && lastAction === 'fertilize') || (wateringsLeft > 0 && fertilizationsLeft === 0)) {
+        waterTree(); // Water the tree if water is available
+    } else if ((fertilizationsLeft > 0 && lastAction === 'water') || (fertilizationsLeft > 0 && wateringsLeft === 0)) {
+        fertilizeTree(); // Fertilize the tree if fertilizer is available
+    } else {
+        stopAuto(); // Stop auto watering and fertilizing if both water and fertilizer are depleted
+    }
+}
+
+// Set up the auto button click event listener
+document.getElementById('autobutton').addEventListener('click', function() {
+    if (document.getElementById('autobutton').innerText==='Stop Auto') {
+        stopAuto(); // If autoInterval exists, stop auto watering and fertilizing
+        this.textContent = 'Start Auto'; // Change button text to "Start Auto"
+    } else {
+        startAuto(); // If autoInterval doesn't exist, start auto watering and fertilizing
+        this.textContent = 'Stop Auto'; // Change button text to "Stop Auto"
+    }
+});

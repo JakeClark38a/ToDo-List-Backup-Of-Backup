@@ -389,15 +389,22 @@
         <!--########################################################### Tree ######################################################################-->
 
         <div class="tree-container relative w-screen h-screen bg-[#50c293] flex flex-col items-center">
-            <button id="toggleButton" class="absolute" onclick="toggleAudio()">Pause Audio</button>
             <audio id="treeGrowthAudio">
                 <source src="../static/sounds/big-plants-crops-growing-quickly.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <audio id="treeResetAudio">
+                <source src="../static/sounds/treegrown.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
             <audio id="backgroundAudio" loop>
                 <source src="../static/sounds/forest-wind-and-bird-ambient.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
+
+            <button id="toggleButton" class="absolute left-0 top-0 bg-blue-600 rounded-r-lg" onclick="toggleAudio()">Play Audio</button>
+            <button id="autobutton" class="absolute right-0 top-0 bg-blue-600 rounded-l-lg">Start Auto</button>
+
             <div id="Items-hub" class="absolute right-0 top-0 mr-8 mt-24"> 
                 <div id="treeCount" class="text-5xl vt323-regular">Number of Trees: 0</div>
                 <div class="progress-container">
