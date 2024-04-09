@@ -14,7 +14,12 @@ Technologies:
 - Backend: Python Flask
 - Host: AWS
 
-[Feature Map](https://app.eraser.io/workspace/vmqimcXY0mknB9fjZzAU?origin=share)
+Collaborators:
+- Leader: JakeClark38a (Nguyễn Chí Thành) (another account: JakeClark-chan)
+- Sub-Leader: Witnull (Trần Nguyễn Tiến Thành)
+- SeaWind (Nguyễn Hải Phong)
+- KienSD (Hồ Trung Kiên)
+- lightunderwolft (Hồ Vĩnh Nhật)
 
 [UI Map](https://app.eraser.io/workspace/XPjbEJ3ls8SA8Dw6XD2m?origin=share)
 

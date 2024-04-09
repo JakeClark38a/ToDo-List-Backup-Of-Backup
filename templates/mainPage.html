@@ -9,7 +9,10 @@
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Reddit+Mono:wght@200..900&display=swap"
+        rel="stylesheet">
+
 </head>
 
 <body class="overflow-hidden bg-bg2 bg-cover bg-center">
@@ -144,21 +147,24 @@
         <!--Begin header-->
 
         <!--########################################################### NavBar ######################################################################-->
-        <div class="flex justify-between items-center shadow-xl py-0 h-16 lg:h-18 lg:py-2 ">
+        <div class="flex justify-between items-center shadow-xl py-0 pt-2 h-16 lg:h-18 lg:py-2 ">
             <div class="flex justify-evenly items-center gap-2 md:gap-8">
                 <!--button-->
-                <div id="Main-Menu-Click" class="headbar-button overflow-hidden p-2 mx-2 hover:roa">
+                <div id="Main-Menu-Click"
+                    class="transform transition-all duration-200 ease-in-out headbar-button overflow-hidden p-2 mx-2 hover:bg-main/35">
                     <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
                             d="M5 7h14M5 12h14M5 17h10" />
                     </svg>
-
                 </div>
             </div>
+
             <div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center">sdasdasdasdadasda</div>
-            <div class="flex justify-end items-center p-2 gap-2">
-                <div class="headbar-button p-1 border-0">
+
+            <div class="flex justify-end items-center p-2 gap-2 ">
+
+                <div class="headbar-button p-1 border-0 hover:bg-main/35">
                     <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
@@ -166,8 +172,8 @@
                     </svg>
                 </div>
 
-                <div class="headbar-button p-1 border-2 rounded-full cursor-pointer"
-                    data-dropdown-toggle="Profile-Dropdown">
+                <div id="Avatar-Menu-Click"
+                    class="headbar-button p-1 border-2 rounded-full cursor-pointer hover:bg-main/35">
                     <img class="w-full h-full rounded-full" src="/static/images/profile.jpg" alt="avtr">
                 </div>
             </div>
@@ -179,12 +185,14 @@
 
         <!--########################################################### Profile Dropdown ######################################################################-->
         <!-- Dropdown menu -->
-        <div id="Profile-Dropdown" class="z-10 absolute hidden bg-main mr-3 rounded-lg shadow-xl w-44 dark:bg-gray-700">
+        <div id="Avatar-Menu"
+            class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
 
-            <div id="PMenu-Search" class="PMenu-Primary-Section"> <!--block-->
+
+            <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
                     <div class="PMenu-Primary-Image-Wrapper">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-width="2"
                                 d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -194,6 +202,56 @@
                     <div class="PMenu-Primary-Text">Profile</div>
                 </div>
             </div><!--eoblock-->
+
+            <div id="PMenu-UserSett" class="PMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="PMenu-Primary-Image-Wrapper">
+                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                        </svg>
+                    </div>
+
+                    <div class="PMenu-Primary-Text">User settings</div>
+                </div>
+            </div><!--eoblock-->
+            <div id="PMenu-DarkMode" class="PMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="PMenu-Primary-Image-Wrapper">
+                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 21a9 9 0 0 1-.5-17.986V3c-.354.966-.5 1.911-.5 3a9 9 0 0 0 9 9c.239 0 .254.018.488 0A9.004 9.004 0 0 1 12 21Z" />
+                        </svg>
+
+                    </div>
+                    <div class="PMenu-Primary-Text">Dark mode</div>
+                    <label class="inline-flex items-center cursor-pointer px-3">
+                        <input type="checkbox" value="" class="sr-only peer">
+                        <div
+                            class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                        </div>
+                    </label>
+                </div>
+            </div><!--eoblock-->
+
+            <div id="PMenu-Logout" class="PMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="PMenu-Primary-Image-Wrapper">
+                        <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+                        </svg>
+                    </div>
+                    <div class="PMenu-Primary-Text">Log out</div>
+                </div>
+            </div><!--eoblock-->
+
         </div>
         <!--########################################################### EoProfile Dropdown ######################################################################-->
 
@@ -203,12 +261,12 @@
 
         <!-- Dropdown Main menu -->
         <div id="Main-Menu"
-            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-52 lg:w-64 bg-main shadow-xl overflow-hidden  rounded-br-xl">
+            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-54 lg:w-64 bg-main shadow-xl overflow-hidden  rounded-br-xl">
 
 
-            <div id="MMenu-Search" class="MMenu-Primary-Section"> <!--block-->
+            <div id="MMenu-Search" class="MMenu-Primary-Section mt-4"> <!--block-->
                 <div class="flex items-center">
-                    <div class="MMenu-Primary-Image-Wrapper">
+                    <div id="Begin-Search" class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
@@ -216,7 +274,9 @@
                         </svg>
                     </div>
 
-                    <div class="MMenu-Primary-Text">Search</div>
+                    <div class="p-2 flex items-center">
+                        <textarea name="SearchBox" id="SearchBox" class="MMenu-Primary-Text bg-main rounded-xl border-0 text-left resize-none" rows="1" placeholder="Search"></textarea>
+                    </div>
                 </div>
             </div><!--eoblock-->
             <div id="MMenu-Today" class="MMenu-Primary-Section"> <!--block-->
@@ -247,7 +307,7 @@
                     <div class="MMenu-Primary-Text">Calendar</div>
                 </div>
             </div><!--eoblock-->
-            <div id="MMenu-Garden" class="MMenu-Primary-Section"> <!--block-->
+            <div id="MMenu-Garden" class="MMenu-Primary-Section "> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
                         <img class="w-6 lg:w-7 h-6 lg:h-7"
@@ -274,7 +334,7 @@
             </div><!--eoblock-->
 
             <div id="MMenu-Group-Section"
-                class="MMenu-Group-Section overflow-y-scroll py-5 h-[40vh] lg:h-[45vh] bg-gray-300/35 ">
+                class="relative MMenu-Group-Section overflow-y-scroll py-5 h-1/2 bg-gray-300/35 ">
                 <!--group here-->
             </div>
             <div id="MMenu-Bottom" class="flex justify-between items-center p-2">
@@ -298,29 +358,7 @@
                             d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                     </svg>
 
-                </div>
-                <div class="Light-dark flex justify-between gap-2">
-                    <div><svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="1.5"
-                                d="M12 21a9 9 0 0 1-.5-17.986V3c-.354.966-.5 1.911-.5 3a9 9 0 0 0 9 9c.239 0 .254.018.488 0A9.004 9.004 0 0 1 12 21Z" />
-                        </svg>
-                    </div>
-                    <label class="cursor-pointer">
-                        <input type="checkbox" value="" class="sr-only peer">
-                        <div
-                            class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                        </div>
-                    </label>
-                    <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M12 5V3m0 18v-2M7.05 7.05 5.636 5.636m12.728 12.728L16.95 16.95M5 12H3m18 0h-2M7.05 16.95l-1.414 1.414M18.364 5.636 16.95 7.05M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" />
-                    </svg>
 
-                </div>
-            </div>
         </div>
         <!--End Dropdown menu-->
         <!--########################################################### EoDropdown Main Menu ######################################################################-->
@@ -370,7 +408,9 @@
         <!--Begin Main screen-->
         <div id="Main-Screen" class="Container backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
             <!-- Dynamic draggable button here -->
+
             <!--Formatter-->
+
         </div>
         <!--End Main screen-->
         <!--########################################################### EoMain Screen ######################################################################-->

@@ -14,24 +14,28 @@ $(document).ready(function () {
       gid001: {
         title: "Do",
         tags: ["tag1"],
+        def_tag: "do",
         color: "#7aa5cf",
         current_html: "",
       },
       gid002: {
         title: "Delegate",
         tags: ["tag2"],
+        def_tag: "delegate",
         color: "#63c074",
         current_html: "",
       },
       gid003: {
         title: "Schedule",
         tags: ["tag3", "tag5"],
+        def_tag: "schedule",
         color: "#ac7acf",
         current_html: "",
       },
       gid004: {
         title: "Later",
         tags: ["tag4"],
+        def_tag: "later",
         color: "#c5e875",
         current_html: "",
       },
@@ -39,21 +43,21 @@ $(document).ready(function () {
     tasks: {
       id001: {
         title: "Meeting",
-        description: "about making a website",
+        description: "About making a website",
         tag: "tag1",
         deadline: 62783,
         points: 4,
       },
       id002: {
         title: "Crying",
-        description: "about making a website",
+        description: "About making a website",
         tag: "tag3",
         deadline: 62783,
         points: 4,
       },
       id004: {
         title: "Laughing",
-        description: "about making a website",
+        description: "About making a website",
         tag: "tag5",
         deadline: 62783,
         points: 4,
@@ -62,36 +66,103 @@ $(document).ready(function () {
     completed: {
       id003: {
         title: "Journaling",
-        description: "about making a website",
+        description: "About making a website",
         tag: "tag1",
         deadline: 62783,
         points: 5,
       },
     },
     tags: {
+
+      do:{
+        title: "Do",
+        color: "#7aa5cf",
+        groupId: "gid001",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      delegate: {
+        title: "Delegate",
+        color: "#63c074",
+        groupId: "gid002",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      schedule: {
+        title: "Schedule",
+        color: "#ac7acf",
+        groupId: "gid003",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      later: {
+        title: "Later",
+        color: "#c5e875",
+        groupId: "gid004",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
       tag1: {
           title: "tag1",
           color: "#7aa5cf",
+          groupId: "gid001",
+          deleteable: true,
+          editable: true,
+          display: true,
+
       },
       tag2: {
           title: "tag2",
           color: "#63c074",
+
+          groupId: "gid002",
+          deleteable: true,
+          editable: true,
+          display: true,
+
       },
       tag3: {
           title: "tag3",
           color: "#ac7acf",
+
+          groupId: "gid003",
+          deleteable: true,
+          editable: true,
+          display: true,
+
       },
       tag4: {
           title: "tag4",
           color: "#c5e875",
+
+          groupId: "gid004",
+          deleteable: true,
+          editable: true,
+          display: true,
+
       },
       tag5: {
           title: "tag5",
           color: "#f7d38c",
+
+          groupId: "gid003",
+          deleteable: true,
+          editable: true,
+          display: true,
+
       },
       none: {
           title: "none",
           color: "#ffffff",
+
+          deleteable: false,
+          editable: false,
+          display: false,
+
       }
   }
   
@@ -99,6 +170,10 @@ $(document).ready(function () {
 
   var currentMode = 0;
   var isMakeChangeGroup = false;
+
+  var currentMMenuTab = 0 ;  // 0-today 1-cal 2-garden
+
+
   //
   //
   //
@@ -184,38 +259,57 @@ $(document).ready(function () {
   //=========================== Main Screen ========================\\
   //================================================================\\
 
+  function MainScreenTagTemplate(id, tag,mode =0) {
+    if(mode == 0){
+      return(`
+      <div id="`+id+`" class="rounded-md text-center min-w-12 font-base text-xs border-none shadow-lg cursor-pointer">`+tag.title+`</div>                
+      `);
+    }
+  }
   function MainScreenTaskTemplate(id, task, mode = 0) {
     if (mode == 0) {
       return (
         ` 
-    <div id="`+ id + `" class="task-outer bg-main  rounded-xl cursor-default">
-      <div class=" rounded-lg shadow-lg border-2 border-gray-500">
 
-        <div class=" px-2 py-1 flex justify-between items-center border-b-[1px] border-gray-500">
+        <div id="`+ id + `" class="task-outer bg-main rounded-xl cursor-default">
+        <div class=" rounded-lg shadow-lg">
 
-              <div class="font-medium lg:text-2xl truncate w-full">` + `[ `+ Dict.tags[task.tag].title +` ] ` + task.title + `</div>
+            <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
+
+                <div class="font-semibold text-lg lg:text-xl truncate w-full">`
+                    + task.title + `</div>
 
 
-              <div class="flex items-center gap-2">
-                      <div class="Task-Edit mx-1 cursor-pointer">
-                      <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                    </svg>
+                <div class="flex items-center gap-2">
+                    <div class="Task-Edit mx-1 cursor-pointer">
+                        <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                        </svg>
                     </div>
 
+
+                    <div id="Task-Cancel"
+                        class="bg-red-500 rounded-full shadow-lg h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
+                </div>
+            </div>
+
+            <div class="p-2 flex items-center h-fit">
+
+                <p class="h-full w-full text-left p-2 font-base truncate lg:text-xl">`+ task.description + `</p>
+
+                <input id="Task-Destroyer" type="checkbox"
+                    class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer"></input>
+            </div>
+            <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
               
-              <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
-              </div>
+            </div>
         </div>
 
-          <div class="p-2 flex items-center h-fit">
-
-              <p class="h-full w-full text-left p-2 font-thin truncate lg:text-xl">`+ task.description + `</p>
-
-              <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
-          </div>
-      </div>
-  </div>
+    </div>
 
   `
       );
@@ -226,13 +320,13 @@ $(document).ready(function () {
         <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
   
             <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
-                <div class="font-bold lg:text-2xl">` + `[`+ task.tag +`]` + task.title + `</div>
+                <div class="font-bold text-xl lg:text-2xl">` + task.title + `</div>
                 <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
             </div>
   
             <div class="p-2 flex justify-between items-center lg:h-24">
                 <div class="text-center lg:text-xl">`+ task.description + `</div>
-                <input id="Task-Destroyer" type="checkbox" class="bg-green-300 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
+                <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
             </div>
             
           </div>
@@ -248,9 +342,9 @@ $(document).ready(function () {
     if (mode == 0) {
       return (
         `
-    <div id="` +id +`">
+    <div id="` +id +`" class="group-outer">
       <div class="flex justify-between items-center px-3 ">
-        <div id="Task-Group-Title" class="todobox-title">` + group.title +`</div>
+        <div id="Task-Group-Title" class="todobox-title lg:text-2xl">` + group.title +`</div>
         <div class="Group-Task-Add">
                 <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -259,8 +353,11 @@ $(document).ready(function () {
                 </svg>
             </div>
         </div>
-        <div id="Task-Section" class="transition-all duration-300 ease-in-out p-3 flex flex-col gap-3 overflow-y-auto overflow-x-hidden backdrop-blur-sm shadow-xl hover:shadow-2xl w-64 h-64 rounded-xl md:w-72 md:h-72 lg:w-96 lg:h-96">
+        <div id="Task-Section-Outer" class="bg-main/35 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
+            <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
             <!--task here-->
+            </div>
+          
         </div>
     </div>
     
@@ -381,6 +478,13 @@ $(document).ready(function () {
   function randHexColor() {
     return "#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0'));
   }
+   //================================================================\\
+  //=========================== Avatar Menu ========================\\
+  //================================================================\\
+  $("#Avatar-Menu-Click").click(function () {
+    $("#Avatar-Menu").toggleClass("h-32 lg:h-44");
+    $("#Avatar-Menu-Click").toggleClass("bg-primary-200");
+  });
 
   //================================================================\\
   //=========================== Main Menu ==========================\\
@@ -388,8 +492,28 @@ $(document).ready(function () {
 
   $("#Main-Menu-Click").click(function () {
     $("#Main-Menu").toggleClass("h-[86vh]");
+    $("#Main-Menu-Click").toggleClass("-rotate-90")
   });
 
+  function updateMMenuTabIndicator(tab = null){
+    var $tab = tab ? tab : $("#Main-Menu").find("#MMenu-Today");
+    var currId = $tab.attr('id');
+    const indiModeCSS = 'border-r-4 border-primary-200 bg-gradient-to-l from-primary-200/35 to-transparent';
+
+    // clear all previous tab border 
+    $('#Main-Menu').find('.MMenu-Primary-Section').removeClass(indiModeCSS);
+    //console.log(currId);
+    const indicatTab = ['MMenu-Today', 'MMenu-Calendar', 'MMenu-Garden'];
+    if(indicatTab.indexOf(currId) !== -1){
+      $tab.toggleClass(indiModeCSS);
+    }
+  }
+  
+  $('#Main-Menu').on('click','.MMenu-Primary-Section',function(e){
+    updateMMenuTabIndicator($(this));
+  });
+
+  //Add group
   $("#MMenu-Group-Add").click(function () {
       isMakeChangeGroup = true;
       // Customize modal appearance
@@ -412,6 +536,7 @@ $(document).ready(function () {
       addGroupnTagModal.show();
   });
 
+  /// Add tag
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
     isMakeChangeGroup = false;
     /// add tag
@@ -480,6 +605,9 @@ $(document).ready(function () {
     console.log($(this).closest(".MMenu-Tag").attr("id"));
     var tid = $(this).closest(".MMenu-Tag").attr("id")
     var tagInfo = Dict.tags[tid] ;
+
+    if(tagInfo.editable == false) return;
+
     isMakeChangeGroup = false;
 
      // Customize modal appearance
@@ -494,7 +622,10 @@ $(document).ready(function () {
     $('#crud-modal #tags-sec').hide();
     $('#crud-modal #groups-sec').hide();
 
-    $('#crud-modal #delete-sec').show();
+
+    if(tagInfo.deletable == true) {
+      $('#crud-modal #delete-sec').show();
+    };
 
     $('#crud-modal button[type="submit"]').html(`
     <svg class="w-5 lg:w-7 h-5 lg:h-7 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -539,6 +670,9 @@ $(document).ready(function () {
         // console.log("Group: " + group.title);
         // Iterate over tags in the current group
         for (var j = 0; j < group.tags.length; j++) {
+
+          if(Dict.tags[group.tags[j]].display == false) continue;
+
           addNewTagMainMenu(g.find("#MMenu-Tag-Section"),group.tags[j] ,Dict.tags[group.tags[j]]);
         }
         toggleHiddenMMenuGroup(g);
@@ -741,6 +875,12 @@ $(document).ready(function () {
   
   setInterval(updateTime, 1000);
   
+  function renderTagMainScreen(tag_html, tag, id, mode = 0) {
+    //console.log(tag.display);
+    if(tag.display == false) return;
+    tag_html.append(MainScreenTagTemplate(id, tag, mode));
+    tag_html.find("#"+id).css({"background-color":tag.color});
+  }
   
 
   function renderFormatterAddons(formatter_html, mode = 0) {
@@ -749,6 +889,7 @@ $(document).ready(function () {
 
   function renderTaskMainScreen(task_html, task, id, mode = 0) {
     task_html.append(MainScreenTaskTemplate(id, task, mode));
+    renderTagMainScreen(task_html.find("#" + id).find("#Task-Tag"), Dict.tags[task.tag], task.tag);
   }
 
   //Remove task
@@ -797,10 +938,10 @@ $(document).ready(function () {
   
 
   function renderGroupMainScreen(group_html, group,unique_id, mode = 0) {
-    var unique_id = getUuid();
+   // var unique_id = getUuid();
     group_html.append(MainScreenGroupTemplate(unique_id, group, mode));
-    $("#" + unique_id).find("#Task-Section").css({"background-color": group.color});
-    return $("#" + unique_id);
+    group_html.find("#" + unique_id).find("#Task-Section-Outer").css({"border-color": group.color});
+    return group_html.find("#" + unique_id);
   }
 
   function LoadMainScreen() {
@@ -824,8 +965,7 @@ $(document).ready(function () {
     var formatter_html = $("#Main-Screen").append(
       MainScreenFormatterTemplate()
     );
-    // Assuming MainScreenGroupTemplate and MainScreenTaskTemplate functions are defined elsewhere
-    var isFirst = false; 
+  
     // Iterate over groups
     for (var groupId in Dict.groups) {
       if (Dict.groups.hasOwnProperty(groupId)) {
@@ -836,12 +976,13 @@ $(document).ready(function () {
           groupId,
           currentMode
         );
+        //console.log(groupId);
         var task_html = $(g).find("#Task-Section");
         // Iterate over tasks
         for (var taskId in Dict.tasks) {
           if (
-            Dict.tasks.hasOwnProperty(taskId) &&
-            group.tags.includes(Dict.tasks[taskId].tag)
+            Dict.tasks.hasOwnProperty(taskId) &&(
+            group.tags.includes(Dict.tasks[taskId].tag) || group.def_tag == Dict.tasks[taskId].tag)
           ) {
             // Pass task details to renderTaskMainScreen
             renderTaskMainScreen(
@@ -876,15 +1017,19 @@ $(document).ready(function () {
   // Take all tags on Dict and put them in the "Select tag" dropdown
   function LoadTags() {
     console.log("Loading tags");
-    console.log(Dict.groups);
-    var tagArray = Object.keys(Dict.tags);
+
+   // console.log(Dict.groups);
+    var tagArray = Object.keys(Dict.tags).filter(key => Dict.tags[key].display === true);
+
     $("#crud-modal select#tags").empty();
     tagArray.forEach(element => {
       let options = `<option value="${element}">${Dict.tags[element].title}</option>`
       $("#crud-modal select#tags").append(options)
     });
 
-    $("#crud-modal select#tags").append(`<option value="None">None</option>`);
+
+    //$("#crud-modal select#tags").append(`<option value="None">None</option>`);
+
   };
   LoadTags();
 
@@ -899,19 +1044,17 @@ $(document).ready(function () {
     });
   };
   LoadGroups();
+
   
   function initUser() {
+    currentMMenuTab = 0; // 0-today 2-calendar 3-garden
     currentMode = 0;
     LoadUser();
+    updateMMenuTabIndicator();
   }
   initUser();
 
-  function initweb() {
-    document
-      .querySelector("#Main-Menu")
-      .style.setProperty("--paddingMainMen", "5");
-  }
-  initweb();
+
 
   //================================================================\\
   //================================================================\\
@@ -924,8 +1067,14 @@ $(document).ready(function () {
 
     $('#Main-Screen').on("click", ".Group-Task-Add", function(e){
         e.preventDefault();
+        var gid = $(this).closest(".group-outer").attr("id")
+        //console.log(gid);
+        //console.log(Dict.groups[gid]);
+        var preset_tag = Dict.groups[gid].def_tag; 
         // Clean modal first
         // Change modal state
+        $("#crud-modal select#tags").append(`<option value="${preset_tag}">${Dict.groups[gid].title}</option>`);
+
         $('#crud-modal #colors-sec').hide();
         $('#crud-modal label[for="name"]').text("Title");
         $('#crud-modal label[for="description"]').text("Task Description");
@@ -934,6 +1083,7 @@ $(document).ready(function () {
         $('#crud-modal #name').val("");
         $('#crud-modal #description').val("");
         $('#crud-modal #tags option').removeAttr("selected");
+        $('#crud-modal #tags').val(preset_tag);
         $('#crud-modal #todo-expired').val("");
         $('#crud-modal button[type="submit"]').html(`
         <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
@@ -1059,6 +1209,7 @@ $(document).ready(function () {
                 description: desc,
                 tag: tag,
               //  group: group,
+
                 deadline: expired,
                 points: 4,
             };
@@ -1083,12 +1234,29 @@ $(document).ready(function () {
           let action = "";
           if(isMakeChangeGroup == true){ 
             if(id ==""){  /// Create a new group
+
+              ///deftag dict
+              var def_tag_id = getUuid();
+              var def_tag = Dict.tags[def_tag_id] = {
+                title: title,
+                color: randHexColor(),
+                groupId: generateId,
+                deleteable: false,
+                editable: false,
+                display: false,
+              };
+
+              /// group dict
               var g = Dict.groups[generateId] = {
                   title: title,
                   tags: [],
+                  def_tag: def_tag_id,
                   color: color,
                   current_html: "",
               };
+
+              
+
               $("#MMenu-Group-Section").append(MainMenuGroupTemplates(generateId, g));
               /// Main Screen Add 
               renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),g, currentMode);
@@ -1108,6 +1276,12 @@ $(document).ready(function () {
             var t = Dict.tags[generateId] = {
               title: title,
               color: randHexColor(),
+
+              groupId: group,
+              deleteable: true,
+              editable: true,
+              display: true,
+
             };
             Dict.groups[group].tags.push(generateId);
             addNewTagMainMenu($("#"+group).find("#MMenu-Tag-Section"),generateId,t);
@@ -1155,17 +1329,43 @@ $(document).ready(function () {
       {
           if(isMakeChangeGroup == true){ 
             if(id !=""){  /// Delete a new group
-              delete Dict.groups[id];
+
+
+              delete Dict.tags[Dict.groups[id].def_tag]; // Delete def tag
+              delete Dict.groups[id]; // Delete group
+
               var group_ = $('#'+id);
               group_.remove();
               AJAXdeleteGroup(id);
             }
           }
-        else if(isMakeChangeGroup == false){   ///  Delete a new tag
+
+        else if(isMakeChangeGroup == false){   ///  Delete a tag
           if(id !="")
           {
-            Dict.groups[group].tags = Dict.groups[group].tags.filter(e => e != id);
+            var groupWithAccordingTag;
+            Dict.groups = Object.fromEntries(
+              Object.entries(Dict.groups).map(([key, value]) => {
+                if (value.tags.includes(id)) {
+                  //delete Dict.tasks[key];
+                  value.tags = value.tags.filter(e => e !== id);
+                  groupWithAccordingTag = key;
+                }
+                return [key, value];
+              })
+            );
             delete Dict.tags[id];
+
+            Dict.tasks = Object.fromEntries(
+              Object.entries(Dict.tasks).map(([key, value]) => {
+                if (value.tag == id) {
+                  value.tag = Dict.groups[groupWithAccordingTag].def_tag;
+                }
+                return [key, value];
+              })
+            );
+
+
             var tag_ = $('#'+id);
             tag_.remove();
             AJAXdeleteTag(id);
@@ -1179,6 +1379,7 @@ $(document).ready(function () {
   })
   // When user clicked at list item, it will add tag to the task and also close dropdown
   function closeModal() { 
+    console.log(Dict);
     modal.hide();
     addGroupnTagModal.hide();
     LoadTags();

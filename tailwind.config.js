@@ -13,10 +13,6 @@ module.exports = {
       lg: "800px",
       xl: "1000px",
     },
-    fontFamily: {
-      sans: ["Oswald", "sans-serif"],
-      serif: ["Merriweather", "serif"],
-    },
     extend: {
       height: {
         "50%": "50%",

@@ -105,7 +105,7 @@
 
   /*main page */
   .todobox-title {
-    @apply text-center text-xl font-bold text-gray-700;
+    @apply text-center text-xl truncate font-bold text-gray-700;
   }
 
   .headbar-button {
@@ -118,7 +118,7 @@
 
   /*Main menu*/
   .MMenu-Primary-Image-Wrapper {
-    @apply h-4 w-5 mx-3 lg:w-8 lg:h-8;
+    @apply h-5 w-5 mx-3 lg:w-8 lg:h-8;
   }
 
   .MMenu-Primary-Text {
@@ -137,36 +137,49 @@
     @apply transition-all ease-in-out duration-200 backdrop-blur-sm hover:bg-gradient-to-r from-[#b7b9bc] to-transparent hover:-translate-x-1;
   }
 
+  /*Profile menu*/
+  .PMenu-Primary-Image-Wrapper {
+    @apply h-5 w-5 mx-2 lg:w-8 lg:h-8;
+  }
+
+  .PMenu-Primary-Text {
+    @apply text-xl font-light;
+  }
+
+  .PMenu-Primary-Section {
+    @apply  flex items-center h-8 lg:h-10 transition-all rounded-lg duration-150 ease-in-out hover:scale-105 hover:bg-gradient-to-l from-[#b7b9bc] to-transparent py-2 lg:py-3 cursor-pointer;
+  }
+
+
+
   /*Task box*/
 
   #Task-Destroyer {
-    @apply w-8 h-8 rounded-lg hover:bg-primary-200/55 checked:bg-primary-200;
+    @apply w-8 h-8 rounded-lg hover:bg-primary-200/55 checked:bg-green-300;
   }
 
   /*End task box*/
 
   /* calendar tailwind css*/
   :root {
-    --primary-clr: #b38add;
+    --primary-clr: #8cb9be; 
   }
-
   * {
     @apply box-border m-0 p-0;
-    font-family: "Poppins", sans-serif;
   }
 
   /* nice scroll bar */
   ::-webkit-scrollbar {
-    @apply w-[5px];
+    @apply w-[3px] h-[3px];
   }
 
   ::-webkit-scrollbar-track {
-    @apply rounded-[50px];
+    @apply rounded-xl;
     background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-[50px] bg-primary-200;
+    @apply rounded-[50px] bg-primary-100;
   }
 
   /* body {
