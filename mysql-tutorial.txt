@@ -1,0 +1,33 @@
+$ sudo apt install mysql-server
+# Check status
+$ sudo service mysql status
+
+# Edit this file to grant access to root without password
+$ sudo nano /etc/mysql/my.cnf 
+... (Previous thingy)
+[mysqld]
+skip-grant-tables
+
+# Then go back to terminal
+$ mysql -u root
+mysql> USE mysql;
+mysql> UPDATE user SET authentication_string='' WHERE User='root';
+mysql> FLUSH PRIVILEGES;
+mysql> EXIT;
+
+# Then delete added content in /etc/mysql/my.cnf
+$ sudo nano /etc/mysql/my.cnf 
+... (Previous thingy)
+# [mysqld]
+# skip-grant-tables
+
+# Then restart mysql service
+$ sudo service mysql restart
+
+# Finally go back to mysql server 
+$ mysql -u root -p
+Password: (dont type anything, just enter)
+mysql> (Type all things in setup.sql)
+
+# Done.
+# P/S: Bua do tui stream len discord co Phong vao, tui tuong dau ong se giup tui sua loi  khong cai Mysql tren Kali WSL2 duoc. Nhung khong, tui danh ca tieng dong ho trong vo vong, ong da khong giup tui ma con yen lang, de tui quay lai Ubuntu Dualboot cai roi tu do len gg tu search cach lam, de roi duc ket lai cho anh em file nay. Roi bua sau do ong lai  noi tui ga. Tui dau hang. Dong tam su nay se xoa sau khi ae da cai Mysql het roi
