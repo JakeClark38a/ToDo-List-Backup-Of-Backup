@@ -123,6 +123,37 @@ def login_by_google():
     return redirect(url_for('main_page'))
 
 
+
+@app.route('/facebook/')
+def facebook():
+    # Facebook Oauth Config
+    FACEBOOK_CLIENT_ID = "394161483411121"
+    FACEBOOK_CLIENT_SECRET = "5da1aea22e3f2caa75f7c6ed2b98a88f"
+    oauth.register(
+        name='facebook',
+        client_id=FACEBOOK_CLIENT_ID,
+        client_secret=FACEBOOK_CLIENT_SECRET,
+        access_token_url='https://graph.facebook.com/oauth/access_token',
+        access_token_params=None,
+        authorize_url='https://www.facebook.com/dialog/oauth',
+        authorize_params=None,
+        api_base_url='https://graph.facebook.com/',
+        client_kwargs={'scope': 'email'},
+    )
+    redirect_uri = url_for('facebook_auth', _external=True)
+    return oauth.facebook.authorize_redirect(redirect_uri)
+
+@app.route('/facebook/auth/')
+def facebook_auth():
+    token = oauth.facebook.authorize_access_token()
+    session['user'] = token
+    resp = oauth.facebook.get(
+        'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
+    profile = resp.json()
+    print("Facebook User ", profile)
+    return redirect(url_for("main_page"))
+
+
 @app.route('/todo', methods=['GET', 'POST'])
 def main_page():
     if check_session():
@@ -240,4 +271,4 @@ def delete_tag():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, ssl_context='adhoc')
