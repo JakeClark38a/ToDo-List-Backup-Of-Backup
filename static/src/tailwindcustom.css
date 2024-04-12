@@ -527,5 +527,25 @@
 
   /* End calendar */
 
+  /* Begin profile */
+
+  /* For screens wider than 1000px */
+  @media screen and (max-width: 1000px) {
+    /* Move avatar to the right */
+    #Avatar-Section {
+      left: 0;
+      order: 0;
+    }
+
+    /* Adjust profile box width */
+    .flex-display-move-avatar-to-right-if-width-1000s{
+      width: 70%; /* Adjust this value as needed */
+      flex-direction: column;
+    }
+  }
+  .disabled-select{
+    @apply opacity-50;
+  }
+  /* End profile */
 
 }

@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../static/css/main.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Reddit+Mono:wght@200..900&display=swap"
+		rel="stylesheet">
+	<!-- Kienadd 2 more line here -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.css">
+</head>
+
+<body class="overflow-hidden bg-bg2 bg-cover bg-center">
+
+
+
+	<!--########################################################### Addons ######################################################################-->
+
+	<!-- Main modal  -->
+	<div id="crud-modal" tabindex="-1" aria-hidden="true"
+		class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+		<div class="relative p-4 w-full max-w-md max-h-full">
+			<!-- Modal content -->
+			<div class="relative bg-main rounded-lg dark:bg-gray-700">
+				<!-- Modal header -->
+				<div class="flex items-center justify-between p-2 md:p-4 border-b rounded-t dark:border-gray-600">
+					<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+						Create Task
+					</h3>
+					<!-- close btn -->
+					<button id="btn-close-modal" type="button"
+						class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+						<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+							viewBox="0 0 14 14">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+						</svg>
+						<span class="sr-only">Close modal</span>
+					</button>
+				</div>
+				<!-- Modal body -->
+				<form class="p-4 md:p-5">
+					<div class="grid gap-4 mb-4 grid-cols-2">
+						<div id="name-sec" class="col-span-2">
+							<label for="name"
+								class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+							<input type="text" name="name" id="name"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+								placeholder="Type todo title" required="" maxlength="128">
+						</div>
+						<div id="desc-sec" class="col-span-2">
+							<label for="description"
+								class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task
+								Description</label>
+							<textarea id="description" rows="4"
+								class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
+								placeholder="Write task description here" maxlength="256"></textarea>
+						</div>
+						<div id="todo-expired-sec" class="col-span-2">
+							<label for="todo-expired"
+								class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expired
+								Time</label>
+							<input type="datetime-local" name="" id="todo-expired"
+								class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								required="">
+						</div>
+
+						<div id="groups-sec" class="col-span-2 sm:col-span-1">
+							<label for="groups"
+								class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Group</label>
+							<select id="groups"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+								required="">
+								<option>Select group</option>
+								<!-- Dynamic JS options here -->
+							</select>
+						</div>
+
+						<div id="tags-sec" class="col-span-2 sm:col-span-1">
+							<label for="tags"
+								class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tag</label>
+							<select id="tags"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+								required="">
+								<option>Select tag</option>
+								<!-- Dynamic JS options here -->
+							</select>
+						</div>
+
+						<div id="colors-sec" class="col-span-2 sm:col-span-1">
+							<label for="colors"
+								class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+							<input id="colors" type="color"
+								class="bg-gray-50 border border-gray-300 p-1 h-[2.65rem]  w-20 rounded-lg focus:ring-primary-500 focus:border-primary-500 block dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+						</div>
+
+					</div>
+					<!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
+					<input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
+						autocomplete="off" tabindex="-1">
+					<div class="col-span-2 flex justify-between">
+						<button id="submit-sec" type="submit"
+							class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+							<svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd"
+									d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+									clip-rule="evenodd"></path>
+							</svg>
+							Create
+						</button>
+
+						<!--Delete btn-->
+						<button id="delete-sec"
+							class="text-white inline-flex items-center bg-red-300 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+							<svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+								viewBox="0 0 24 24">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+							</svg>
+
+							Delete
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--eoModal -->
+
+	<!-- Kienadd 3 more modal here -->
+	<!-- password modal  -->
+	<div id="password-modal" tabindex="-1" aria-hidden="true"
+		class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+		<div class="relative p-4 w-full max-w-md max-h-full">
+				<!-- Modal content -->
+				<div class="relative bg-main rounded-lg dark:bg-gray-700">
+						<!-- Modal header -->
+						<div class="flex items-center justify-between p-2 md:p-4 border-b rounded-t dark:border-gray-600">
+								<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+										Change Password
+								</h3>
+								<!-- close btn -->
+								<button id="btn-close-password-modal" type="button"
+										class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+										<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+												viewBox="0 0 14 14">
+												<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+														d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+										</svg>
+										<span class="sr-only">Close modal</span>
+								</button>
+						</div>
+						<!-- Modal body -->
+						<form class="p-4 md:p-5">
+								<div class="grid gap-4 mb-4 grid-cols-1">
+										<div id="current-password-sec">
+												<label for="current-password"
+														class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current Password</label>
+												<input type="password" name="current-password" id="current-password"
+														class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+														placeholder="Enter your current password" required="">
+										</div>
+										<div id="new-password-sec">
+												<label for="new-password"
+														class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
+												<input type="password" name="new-password" id="new-password"
+														class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+														placeholder="Enter your new password" required="">
+										</div>
+										<div id="confirm-password-sec">
+												<label for="confirm-password"
+														class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm New Password</label>
+												<input type="password" name="confirm-password" id="confirm-password"
+														class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+														placeholder="Confirm your new password" required="">
+										</div>
+								</div>
+								<!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
+								<input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
+										autocomplete="off" tabindex="-1">
+								<div class="flex justify-end">
+										<button id="submit-password" type="submit"
+												class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+												<svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+														xmlns="http://www.w3.org/2000/svg">
+														<path fill-rule="evenodd"
+																d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+																clip-rule="evenodd"></path>
+												</svg>
+												Change Password
+										</button>
+								</div>
+						</form>
+				</div>
+		</div>
+	</div>
+	<!-- eo password modal  -->
+
+	<!-- begin username modal -->
+	<div id="username-modal" tabindex="-1" aria-hidden="true"
+	class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+			<div class="relative p-4 w-full max-w-md max-h-full">
+					<!-- Modal content -->
+					<div class="relative bg-main rounded-lg dark:bg-gray-700">
+							<!-- Modal header -->
+							<div class="flex items-center justify-between p-2 md:p-4 border-b rounded-t dark:border-gray-600">
+									<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+											Change Username
+									</h3>
+									<!-- close btn -->
+									<button id="btn-close-username-modal" type="button"
+											class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+											<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+													viewBox="0 0 14 14">
+													<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+															d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+											</svg>
+											<span class="sr-only">Close modal</span>
+									</button>
+							</div>
+							<!-- Modal body -->
+							<form class="p-4 md:p-5">
+									<div class="grid gap-4 mb-4 grid-cols-1">
+											<div id="new-username-sec">
+													<label for="new-username"
+															class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Username</label>
+													<input type="text" name="new-username" id="new-username"
+															class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+															placeholder="Enter your new username" required="">
+											</div>
+									</div>
+									<!-- Honeypot for Form Anti-spam, also holding task ID -->
+									<input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
+											autocomplete="off" tabindex="-1">
+									<div class="flex justify-end">
+											<button id="submit-username" type="submit"
+													class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+													<svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+															xmlns="http://www.w3.org/2000/svg">
+															<path fill-rule="evenodd"
+																	d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+																	clip-rule="evenodd"></path>
+													</svg>
+													Change Username
+											</button>
+									</div>
+							</form>
+					</div>
+			</div>
+	</div>
+	<!-- end of username modal -->
+
+	<!-- begin avt modal -->
+	<div id="avatar-modal" tabindex="-1" aria-hidden="true"
+	class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+			<div class="relative p-4 w-full max-w-md max-h-full">
+					<!-- Modal content -->
+					<div class="relative bg-main rounded-lg dark:bg-gray-700">
+							<!-- Modal header -->
+							<div class="flex items-center justify-between p-2 md:p-4 border-b rounded-t dark:border-gray-600">
+									<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+											Update Profile Picture
+									</h3>
+									<!-- close btn -->
+									<button id="btn-close-avatar-modal" type="button"
+											class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+											<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+													viewBox="0 0 14 14">
+													<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+															d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+											</svg>
+											<span class="sr-only">Close modal</span>
+									</button>
+							</div>
+							<!-- Modal body -->
+							<div class="p-4">
+								<div id="drop-area" class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+									<p class="text-gray-500">Drag and drop your image here or click to select.</p>
+									<input type="file" id="fileElem" accept="image/*" class="hidden">
+								</div>
+								<button id="change-avatar-btn" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Change Avatar</button>
+							</div>
+					</div>
+			</div>
+	</div>
+
+	<!-- eo avatar modal -->
+
+	<!--########################################################### EoAddons ######################################################################-->
+
+
+
+
+	<div class="bg-main/25"> <!--Body Container-->
+		<!--Begin header-->
+
+		<!--########################################################### NavBar ######################################################################-->
+		<div class="flex justify-between items-center shadow-xl py-0 pt-2 h-16 lg:h-18 lg:py-2 ">
+			<div class="flex justify-evenly items-center gap-2 md:gap-8">
+				<!--button-->
+				<div id="Main-Menu-Click"
+					class="transform transition-all duration-200 ease-in-out headbar-button overflow-hidden p-2 mx-2 hover:bg-main/35">
+					<svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+						<path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+							d="M5 7h14M5 12h14M5 17h10" />
+					</svg>
+				</div>
+			</div>
+
+			<div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center">sdasdasdasdadasda</div>
+
+			<div class="flex justify-end items-center p-2 gap-2 ">
+
+				<div class="headbar-button p-1 border-0 hover:bg-main/35">
+					<svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+						<path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+							d="M6 12h.01m6 0h.01m5.99 0h.01" />
+					</svg>
+				</div>
+
+				<div id="Avatar-Menu-Click"
+					class="headbar-button p-1 border-2 rounded-full cursor-pointer hover:bg-main/35">
+					<img class="w-full h-full rounded-full" src="/static/images/profile.jpg" alt="avtr">
+				</div>
+			</div>
+		</div>
+		<!--End header-->
+		<!--########################################################### EoNavBar ######################################################################-->
+
+
+
+		<!--########################################################### Profile Dropdown ######################################################################-->
+		<!-- Dropdown menu -->
+		<div id="Avatar-Menu"
+			class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
+
+
+			<div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
+				<div class="flex items-center">
+					<div class="PMenu-Primary-Image-Wrapper">
+						<svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path stroke="currentColor" stroke-width="2"
+								d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+						</svg>
+					</div>
+
+					<div class="PMenu-Primary-Text">Profile</div>
+				</div>
+			</div><!--eoblock-->
+
+			<div id="PMenu-UserSett" class="PMenu-Primary-Section"> <!--block-->
+				<div class="flex items-center">
+					<div class="PMenu-Primary-Image-Wrapper">
+						<svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+						</svg>
+					</div>
+
+					<div class="PMenu-Primary-Text">User settings</div>
+				</div>
+			</div><!--eoblock-->
+			<div id="PMenu-DarkMode" class="PMenu-Primary-Section"> <!--block-->
+				<div class="flex items-center">
+					<div class="PMenu-Primary-Image-Wrapper">
+						<svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M12 21a9 9 0 0 1-.5-17.986V3c-.354.966-.5 1.911-.5 3a9 9 0 0 0 9 9c.239 0 .254.018.488 0A9.004 9.004 0 0 1 12 21Z" />
+						</svg>
+
+					</div>
+					<div class="PMenu-Primary-Text">Dark mode</div>
+					<label class="inline-flex items-center cursor-pointer px-3">
+						<input type="checkbox" value="" class="sr-only peer">
+						<div
+							class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+						</div>
+					</label>
+				</div>
+			</div><!--eoblock-->
+
+			<div id="PMenu-Logout" class="PMenu-Primary-Section"> <!--block-->
+				<div class="flex items-center">
+					<div class="PMenu-Primary-Image-Wrapper">
+						<svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+								stroke-width="1.5"
+								d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+						</svg>
+					</div>
+					<div class="PMenu-Primary-Text">Log out</div>
+				</div>
+			</div><!--eoblock-->
+
+		</div>
+		<!--########################################################### EoProfile Dropdown ######################################################################-->
+
+
+
+		<!--########################################################### Dropdown Main Menu ######################################################################-->
+
+		<!-- Dropdown Main menu -->
+		<div id="Main-Menu"
+			class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-54 lg:w-64 bg-main shadow-xl overflow-hidden  rounded-br-xl">
+
+
+			<div id="MMenu-Search" class="MMenu-Primary-Section mt-4"> <!--block-->
+				<div class="flex items-center">
+					<div id="Begin-Search" class="MMenu-Primary-Image-Wrapper">
+						<svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+								d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+						</svg>
+					</div>
+
+					<div class="p-2 flex items-center">
+						<textarea name="SearchBox" id="SearchBox" class="MMenu-Primary-Text bg-main rounded-xl border-0 text-left resize-none" rows="1" placeholder="Search"></textarea>
+					</div>
+				</div>
+			</div><!--eoblock-->
+			<div id="MMenu-Today" class="MMenu-Primary-Section"> <!--block-->
+				<div class="flex items-center">
+					<div class="MMenu-Primary-Image-Wrapper">
+						<svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M8 7H5a2 2 0 0 0-2 2v4m5-6h8M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m0 0h3a2 2 0 0 1 2 2v4m0 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6m18 0s-4 2-9 2-9-2-9-2m9-2h.01" />
+						</svg>
+
+					</div>
+
+					<div class="MMenu-Primary-Text">Today</div>
+				</div>
+			</div><!--eoblock-->
+			<div id="MMenu-Calendar" class="MMenu-Primary-Section"> <!--block-->
+				<div class="flex items-center">
+					<div class="MMenu-Primary-Image-Wrapper">
+						<svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
+						</svg>
+
+					</div>
+
+					<div class="MMenu-Primary-Text">Calendar</div>
+				</div>
+			</div><!--eoblock-->
+			<div id="MMenu-Garden" class="MMenu-Primary-Section "> <!--block-->
+				<div class="flex items-center">
+					<div class="MMenu-Primary-Image-Wrapper">
+						<img class="w-6 lg:w-7 h-6 lg:h-7"
+							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADG0lEQVR4nO2Zu09VQRCHP/BBAgYrQ2VE8f0oTIxG/SMsFQobWx+FoqKNFtpoIVhoNFqKFKBEjYmASKItliQa0T9BA0ZA4ZpJ5iSTzTl79jy49xb3Szb3FLOz8ztndnd2LzRoUHdsBl4DX4F5bd+AMaAPOECdcweopLR3wHHqlBPAcoCIFeAu0FKrQNcA+/Q3Lo12Am3auoAeYBBYcoR8UJuqslZzWgJ4lbFvJzDqiJgA1lOjPP+Z08clR8QtqsRB4J8ZuLeArz7jR3weogq8NYPKc1MBX03AG+PvBavMDl09ojcmEzWJ7cCsNnlOYpdZtZZTbAtzLcPbsrby7GPU2MrcKJ3DwKR5+9JOp/S5YWzl2ccZZ394X9Z8WAfcj9mY/gAdJQroUJ92DBnznsaQi43AlON0ERgOLAOyCEB9DsdsdPLl28lIi35G6+ilbkKhZBUQsTVmoxvPutENODl5kezkFRDR68y5fgI55uR80qpwW/NWHDevggDhsjMnjhLAhOnkq3Pmjd2TGBFlCEBTN/Ij9ZeX/eazLWlVGZJmcSLKErAF+GvSWWJM5LoZVErftDLggSPiqRFRlgBhKHRTjEpkad2k4xORJkBs+nUeyXzy0ROaRj+M4bYAAT4RNz0CmjXlKtpkPvnoMrbffYa/jWFroIAkEZ8TBLjBV3Q++Wg1thJjInPGcEMGAUkiXAFp8yaJdmP/K9EK+GIMpXTOStzbrWg65Q0+KrmjPjN4GDeGJ8lHnIiRAsGjC0rQJL5qDJ+RHwls2viaLRC88Nz0ld05kb1O5Rm6EsVhl9EiwXcCC6a/pJOXqQybmQ+7jPpKjiybmJTWQacvWwWeJR8jJQR/wfRfCS3mhMemoxzezxUUMJ0j+PPO9c3DrAeaT84bHKzigWbIGftjnpu7TTEiFnRFOAXsTrnTDBXQpr661fdiTPASSy7kSzxy5kSeNuDcFYX0WdG0KeXO9IjeIucVIP8HxN2HVhLapC4mpbMHuKK74YxzKsv7BebU15huUpJOdUGZB5qa0BBQaxpfoNZkuV6vS0L/4GjQgBryH6712TVA4aKcAAAAAElFTkSuQmCC">
+
+					</div>
+
+					<div class="MMenu-Primary-Text">My Garden</div>
+				</div>
+			</div><!--eoblock-->
+			<div id="MMenu-Group-Add"
+				class="MMenu-Primary-Section border-t-[1px] border-b-[1px] border-yellow-700 justify-between pl-3">
+				<!--block-->
+				<div class="MMenu-Primary-Text">Add Group</div>
+				<div class="flex items-center justify-end">
+					<div class="MMenu-Primary-Image-Wrapper">
+						<svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M5 12h14m-7 7V5" />
+						</svg>
+					</div>
+				</div>
+			</div><!--eoblock-->
+
+			<div id="MMenu-Group-Section"
+				class="relative MMenu-Group-Section overflow-y-scroll py-5 h-1/2 bg-gray-300/35 ">
+				<!--group here-->
+			</div>
+			<div id="MMenu-Bottom" class="flex justify-between items-center p-2">
+				<div class="Log-out">
+					<a href="{{url_for('logout')}}">
+						<button>
+							<svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+									d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+							</svg>
+						</button>
+					</a>
+				</div>
+				<div class="Settings">
+					<svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+							d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+							d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+					</svg>
+				</div>
+			</div>
+
+
+		</div>
+		<!--End Dropdown menu-->
+		<!--########################################################### EoDropdown Main Menu ######################################################################-->
+
+
+
+		<!--########################################################### Right sidebar ######################################################################-->
+		<!--Begin Sidebar-->
+		<div class="bg-transparent Sidebar-Right z-10 absolute right-0 h-96 hidden">
+			<div
+				class="transform transition-all ease-in-out duration-300 bg-gradient-to-r from-primary-100 to-accent-100  h-full px-2 py-5">
+
+				<div class=""> <!--Sidebar btn-->
+					<div class="headbar-button hover:bg-blue-500 border-0" data-dropdown-toggle="drop-matrix-Click"
+						data-dropdown-trigger="click" data-dropdown-placement="left-end">
+						<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z" />
+						</svg>
+					</div>
+					<!-- Dropdown select-->
+					<div id="drop-matrix-Click" class="z-10 hidden p-3 py-5 bg-background-main rounded-xl">
+						<div class="flex flex-col gap-2 *:py-2 *:text-center *:px-5 *:bg-slate-200 *:rounded-lg">
+							<div class="">Eisenhauer Matrix</div>
+							<div class="">Carousel</div>
+							<div class="">List</div>
+						</div>
+					</div>
+					<!--End Dropdown select-->
+				</div><!--eoSidebar btn-->
+
+			</div>
+		</div>
+		<!--End Sidebar-->
+		<!--########################################################### EoRight sidebar ######################################################################-->
+
+
+
+		<!--########################################################### Calendar ######################################################################-->
+		<!-- Redirect to Backend Generator here -->
+		<!--########################################################### EoCalendar ######################################################################-->
+
+
+		<!--########################################################### Main Screen ######################################################################-->
+
+		<!-- Kienadd profile-screen here, also I've deleted the mainscreen div -->
+		<!--Begin profile screen-->
+		<div id="Profile-Screen" class="Container backdrop-blur-sm py-10 min-h-[90vh] overflow-y-scroll overflow-x-hidden">
+			<div id="Profile-Box" class="bg-white relative w-4/5 h-full m-auto rounded-lg">
+				<div id="Profile-Box-Content" class="py-[5vh] px-[5vh]">
+					<div id="Profile-Public-Content">
+
+						<div class="text-3xl">Public profile</div>
+	
+						<div id="sectionDivider" class="mt-2 mb-2 border-t border-gray-200"></div>
+
+						<div class="flex-display-move-avatar-to-right-if-width-1000s flex w-full justify-between">
+							<div id="Avatar-Section" class="my-5 right-0 order-2">
+								<div class="text-sm font-bold mb-2">Profile picture</div>
+								<div id="Avatar-Menu-Profile" class="w-[150px] p-1 border-2 rounded-full cursor-pointer hover:bg-main/35 relative">
+										<div id="Avatar-Edit-Button" class="absolute bg-white rounded-lg text-xs px-2 py-1 flex justify-center items-center bottom-1 border-2 border-gray-200">
+												<svg aria-hidden="true" height="12" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pencil">
+														<path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Zm.176 4.823L9.75 4.81l-6.286 6.287a.253.253 0 0 0-.064.108l-.558 1.953 1.953-.558a.253.253 0 0 0 .108-.064Zm1.238-3.763a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354Z"></path>
+												</svg>
+												Edit
+										</div>
+										<img class="w-full h-full rounded-full" src="/static/images/profile.jpg" alt="avtr">
+								</div>
+								<div id="Drop-Down-Options-Profile" class="rounded-lg w-[150px] border-2 absolute bg-white " role="menu">
+										<div class="dropdown-item text-sm hover:bg-cyan-600 cursor-pointer p-2">
+												Upload a photo…
+										</div>
+										<form class="dropdown-item text-sm hover:bg-cyan-600 p-2" action="/settings/primary_avatar" accept-charset="UTF-8" method="post">
+												<input type="hidden" name="_method" value="delete" autocomplete="off">
+												<button onclick="return confirm('Are you sure you want to remove the photo?')">
+														Remove photo
+												</button>
+										</form>
+								</div>
+							</div>
+
+							<div class="seperate-div">
+								<div id="Username-Section">
+									<div class="text-sm font-bold mb-2">Name</div>
+									<input class="form-control w-[440px] max-w-full rounded-lg shadow-lg" type="text" value="ShynBombx" name="user[profile_name]" id="user_profile_name">
+									<div class="note text-xs text-slate-400 my-1">Your name may appear around Todos where you contribute or are mentioned. You can remove it at any time.</div>
+								</div>
+			
+								<div id="Bio-Section">
+									<div class="text-sm font-bold mb-2">Bio</div>
+									<textarea class="form-control user-profile-bio-field js-length-limited-input rounded-lg shadow-lg w-[440px] max-w-full" placeholder="Tell us a little bit about yourself" data-input-max-length="160" data-warning-text="{{remaining}} remaining" name="user[profile_bio]" id="user_profile_bio" data-lt-tmp-id="lt-115975" spellcheck="false" data-gramm="false">Love playing video games, listening to music, and doing cool stuff.</textarea>
+									<div class="note text-xs text-slate-400 my-1">You can @mention other users and organizations to link to them.</div>
+								</div>
+			
+								<div id="Time-Zone-Section">
+									<div class="text-sm font-bold mb-2">Location</div>
+									<input class="form-control w-[440px] max-w-full rounded-lg shadow-lg" type="text" value="Viet Nam" name="user[location]" id="user_location_name">
+									<div class="form-group form-checkbox items-center">
+										<input type="checkbox" name="user[profile_display_local_time_zone]" id="user_profile_display_local_time_zone" value="0" class="form-checkbox-details-trigger" checked="checked">
+										<label for="user_profile_display_local_time_zone">Display current local time</label>
+										<p class="note text-xs text-slate-400 my-1">
+											Other users will see the time difference from their local time.
+										</p>
+										<div class="form-checkbox-details">
+											<dl>
+												<dt><label for="user_profile_local_time_zone_name">Time zone</label></dt>
+												<dd>
+													<select class="form-select w-[440px] max-w-full rounded-lg shadow-lg" name="user[profile_local_time_zone_name]" id="user_profile_local_time_zone_name"><option value="International Date Line West">(GMT-12:00) International Date Line West</option>
+														<option value="American Samoa">(GMT-11:00) American Samoa</option>
+														<option value="Midway Island">(GMT-11:00) Midway Island</option>
+														<option value="Hawaii">(GMT-10:00) Hawaii</option>
+														<option value="Alaska">(GMT-09:00) Alaska</option>
+														<option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
+														<option value="Tijuana">(GMT-08:00) Tijuana</option>
+														<option value="Arizona">(GMT-07:00) Arizona</option>
+														<option value="Mazatlan">(GMT-07:00) Mazatlan</option>
+														<option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
+														<option value="Central America">(GMT-06:00) Central America</option>
+														<option value="Central Time (US &amp; Canada)">(GMT-06:00) Central Time (US &amp; Canada)</option>
+														<option value="Chihuahua">(GMT-06:00) Chihuahua</option>
+														<option value="Guadalajara">(GMT-06:00) Guadalajara</option>
+														<option value="Mexico City">(GMT-06:00) Mexico City</option>
+														<option value="Monterrey">(GMT-06:00) Monterrey</option>
+														<option value="Saskatchewan">(GMT-06:00) Saskatchewan</option>
+														<option value="Bogota">(GMT-05:00) Bogota</option>
+														<option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
+														<option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
+														<option value="Lima">(GMT-05:00) Lima</option>
+														<option value="Quito">(GMT-05:00) Quito</option>
+														<option value="Atlantic Time (Canada)">(GMT-04:00) Atlantic Time (Canada)</option>
+														<option value="Caracas">(GMT-04:00) Caracas</option>
+														<option value="Georgetown">(GMT-04:00) Georgetown</option>
+														<option value="La Paz">(GMT-04:00) La Paz</option>
+														<option value="Puerto Rico">(GMT-04:00) Puerto Rico</option>
+														<option value="Santiago">(GMT-04:00) Santiago</option>
+														<option value="Newfoundland">(GMT-03:30) Newfoundland</option>
+														<option value="Brasilia">(GMT-03:00) Brasilia</option>
+														<option value="Buenos Aires">(GMT-03:00) Buenos Aires</option>
+														<option value="Montevideo">(GMT-03:00) Montevideo</option>
+														<option value="Greenland">(GMT-02:00) Greenland</option>
+														<option value="Mid-Atlantic">(GMT-02:00) Mid-Atlantic</option>
+														<option value="Azores">(GMT-01:00) Azores</option>
+														<option value="Cape Verde Is.">(GMT-01:00) Cape Verde Is.</option>
+														<option value="Edinburgh">(GMT+00:00) Edinburgh</option>
+														<option value="Lisbon">(GMT+00:00) Lisbon</option>
+														<option value="London">(GMT+00:00) London</option>
+														<option value="Monrovia">(GMT+00:00) Monrovia</option>
+														<option value="UTC">(GMT+00:00) UTC</option>
+														<option value="Amsterdam">(GMT+01:00) Amsterdam</option>
+														<option value="Belgrade">(GMT+01:00) Belgrade</option>
+														<option value="Berlin">(GMT+01:00) Berlin</option>
+														<option value="Bern">(GMT+01:00) Bern</option>
+														<option value="Bratislava">(GMT+01:00) Bratislava</option>
+														<option value="Brussels">(GMT+01:00) Brussels</option>
+														<option value="Budapest">(GMT+01:00) Budapest</option>
+														<option value="Casablanca">(GMT+01:00) Casablanca</option>
+														<option value="Copenhagen">(GMT+01:00) Copenhagen</option>
+														<option value="Dublin">(GMT+01:00) Dublin</option>
+														<option value="Ljubljana">(GMT+01:00) Ljubljana</option>
+														<option value="Madrid">(GMT+01:00) Madrid</option>
+														<option value="Paris">(GMT+01:00) Paris</option>
+														<option value="Prague">(GMT+01:00) Prague</option>
+														<option value="Rome">(GMT+01:00) Rome</option>
+														<option value="Sarajevo">(GMT+01:00) Sarajevo</option>
+														<option value="Skopje">(GMT+01:00) Skopje</option>
+														<option value="Stockholm">(GMT+01:00) Stockholm</option>
+														<option value="Vienna">(GMT+01:00) Vienna</option>
+														<option value="Warsaw">(GMT+01:00) Warsaw</option>
+														<option value="West Central Africa">(GMT+01:00) West Central Africa</option>
+														<option value="Zagreb">(GMT+01:00) Zagreb</option>
+														<option value="Zurich">(GMT+01:00) Zurich</option>
+														<option value="Athens">(GMT+02:00) Athens</option>
+														<option value="Bucharest">(GMT+02:00) Bucharest</option>
+														<option value="Cairo">(GMT+02:00) Cairo</option>
+														<option value="Harare">(GMT+02:00) Harare</option>
+														<option value="Helsinki">(GMT+02:00) Helsinki</option>
+														<option value="Jerusalem">(GMT+02:00) Jerusalem</option>
+														<option value="Kaliningrad">(GMT+02:00) Kaliningrad</option>
+														<option value="Kyiv">(GMT+02:00) Kyiv</option>
+														<option value="Pretoria">(GMT+02:00) Pretoria</option>
+														<option value="Riga">(GMT+02:00) Riga</option>
+														<option value="Sofia">(GMT+02:00) Sofia</option>
+														<option value="Tallinn">(GMT+02:00) Tallinn</option>
+														<option value="Vilnius">(GMT+02:00) Vilnius</option>
+														<option value="Baghdad">(GMT+03:00) Baghdad</option>
+														<option value="Istanbul">(GMT+03:00) Istanbul</option>
+														<option value="Kuwait">(GMT+03:00) Kuwait</option>
+														<option value="Minsk">(GMT+03:00) Minsk</option>
+														<option value="Moscow">(GMT+03:00) Moscow</option>
+														<option value="Nairobi">(GMT+03:00) Nairobi</option>
+														<option value="Riyadh">(GMT+03:00) Riyadh</option>
+														<option value="St. Petersburg">(GMT+03:00) St. Petersburg</option>
+														<option value="Volgograd">(GMT+03:00) Volgograd</option>
+														<option value="Tehran">(GMT+03:30) Tehran</option>
+														<option value="Abu Dhabi">(GMT+04:00) Abu Dhabi</option>
+														<option value="Baku">(GMT+04:00) Baku</option>
+														<option value="Muscat">(GMT+04:00) Muscat</option>
+														<option value="Samara">(GMT+04:00) Samara</option>
+														<option value="Tbilisi">(GMT+04:00) Tbilisi</option>
+														<option value="Yerevan">(GMT+04:00) Yerevan</option>
+														<option value="Kabul">(GMT+04:30) Kabul</option>
+														<option value="Almaty">(GMT+05:00) Almaty</option>
+														<option value="Astana">(GMT+05:00) Astana</option>
+														<option value="Ekaterinburg">(GMT+05:00) Ekaterinburg</option>
+														<option value="Islamabad">(GMT+05:00) Islamabad</option>
+														<option value="Karachi">(GMT+05:00) Karachi</option>
+														<option value="Tashkent">(GMT+05:00) Tashkent</option>
+														<option value="Chennai">(GMT+05:30) Chennai</option>
+														<option value="Kolkata">(GMT+05:30) Kolkata</option>
+														<option value="Mumbai">(GMT+05:30) Mumbai</option>
+														<option value="New Delhi">(GMT+05:30) New Delhi</option>
+														<option value="Sri Jayawardenepura">(GMT+05:30) Sri Jayawardenepura</option>
+														<option value="Kathmandu">(GMT+05:45) Kathmandu</option>
+														<option value="Dhaka">(GMT+06:00) Dhaka</option>
+														<option value="Urumqi">(GMT+06:00) Urumqi</option>
+														<option value="Rangoon">(GMT+06:30) Rangoon</option>
+														<option value="Bangkok">(GMT+07:00) Bangkok</option>
+														<option selected="selected" value="Hanoi">(GMT+07:00) Hanoi</option>
+														<option value="Jakarta">(GMT+07:00) Jakarta</option>
+														<option value="Krasnoyarsk">(GMT+07:00) Krasnoyarsk</option>
+														<option value="Novosibirsk">(GMT+07:00) Novosibirsk</option>
+														<option value="Beijing">(GMT+08:00) Beijing</option>
+														<option value="Chongqing">(GMT+08:00) Chongqing</option>
+														<option value="Hong Kong">(GMT+08:00) Hong Kong</option>
+														<option value="Irkutsk">(GMT+08:00) Irkutsk</option>
+														<option value="Kuala Lumpur">(GMT+08:00) Kuala Lumpur</option>
+														<option value="Perth">(GMT+08:00) Perth</option>
+														<option value="Singapore">(GMT+08:00) Singapore</option>
+														<option value="Taipei">(GMT+08:00) Taipei</option>
+														<option value="Ulaanbaatar">(GMT+08:00) Ulaanbaatar</option>
+														<option value="Osaka">(GMT+09:00) Osaka</option>
+														<option value="Sapporo">(GMT+09:00) Sapporo</option>
+														<option value="Seoul">(GMT+09:00) Seoul</option>
+														<option value="Tokyo">(GMT+09:00) Tokyo</option>
+														<option value="Yakutsk">(GMT+09:00) Yakutsk</option>
+														<option value="Adelaide">(GMT+09:30) Adelaide</option>
+														<option value="Darwin">(GMT+09:30) Darwin</option>
+														<option value="Brisbane">(GMT+10:00) Brisbane</option>
+														<option value="Canberra">(GMT+10:00) Canberra</option>
+														<option value="Guam">(GMT+10:00) Guam</option>
+														<option value="Hobart">(GMT+10:00) Hobart</option>
+														<option value="Melbourne">(GMT+10:00) Melbourne</option>
+														<option value="Port Moresby">(GMT+10:00) Port Moresby</option>
+														<option value="Sydney">(GMT+10:00) Sydney</option>
+														<option value="Vladivostok">(GMT+10:00) Vladivostok</option>
+														<option value="Magadan">(GMT+11:00) Magadan</option>
+														<option value="New Caledonia">(GMT+11:00) New Caledonia</option>
+														<option value="Solomon Is.">(GMT+11:00) Solomon Is.</option>
+														<option value="Srednekolymsk">(GMT+11:00) Srednekolymsk</option>
+														<option value="Auckland">(GMT+12:00) Auckland</option>
+														<option value="Fiji">(GMT+12:00) Fiji</option>
+														<option value="Kamchatka">(GMT+12:00) Kamchatka</option>
+														<option value="Marshall Is.">(GMT+12:00) Marshall Is.</option>
+														<option value="Wellington">(GMT+12:00) Wellington</option>
+														<option value="Chatham Is.">(GMT+12:45) Chatham Is.</option>
+														<option value="Nuku'alofa">(GMT+13:00) Nuku'alofa</option>
+														<option value="Samoa">(GMT+13:00) Samoa</option>
+														<option value="Tokelau Is.">(GMT+13:00) Tokelau Is.</option>
+													</select>
+												</dd>
+											</dl>
+										</div>
+									</div>
+								</div>
+
+								<div id="Apply-Change-Button" class="my-5">
+									<button class="bg-green-600 text-white form-control max-w-full rounded-lg shadow-lg p-2 border-2 border-gray-200 hover:bg-green-700 active:bg-green-800" type="submit">Update profile</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="Change-Password-Content">
+						<div class="text-3xl">Change password</div>
+						<div id="sectionDivider"class="mt-2 mb-2 border-t border-gray-200"></div>
+						<div class="note my-1">Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter. Learn more.</div>
+						<div id="Change-Password-Options" class="flex items-center">
+							<button id="Change-Password-Button" class="form-control max-w-full rounded-lg shadow-lg p-2 border-2 border-gray-200">Change password</button>
+							<div id="Forgot-Password-Text" class="ml-3 hover:underline text-[#0000CC] cursor-p">
+								<a href="/password_reset">I forgot my password</a>
+							</div>
+						</div>
+						
+					</div>
+
+					<div id="Change-Username-Content">
+						<div class="text-3xl">Change username</div>
+						<div id="sectionDivider"class="mt-2 mb-2 border-t border-gray-200"></div>
+						<div class="note my-1">Changing your username can have unintended side effects. </div>
+						<button id="Change-Username-Button" class="form-control max-w-full rounded-lg shadow-lg p-2 border-2 border-gray-200">Change username</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<script src="../static/js/profile.js"></script>
+		<!--End profile screen-->
+
+
+
+
+		<!--########################################################### EoMain Screen ######################################################################-->
+
+
+
+
+		<div class="Bottom-Bar w-full bottom-0 bg-accent-200 flex justify-between m-0">
+			<div class=""></div>
+		</div>
+
+
+
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		<script src="../static/js/app.js"></script>
+		<script src="../static/js/calendar.js"></script>
+		<script>
+
+			function dragMoveListener(event) {
+				var target = event.target
+				// keep the dragged position in the data-x/data-y attributes
+				var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+				var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+				// translate the element
+				target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+
+				// update the posiion attributes
+				target.setAttribute('data-x', x)
+				target.setAttribute('data-y', y)
+			}
+			// set the modal menu element
+			const $targetEl = document.getElementById('crud-modal');
+
+			// options with default values
+			const options = {
+				// placement: 'bottom-right',
+				backdrop: 'dynamic',
+				backdropClasses:
+					'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
+				closable: true,
+				onHide: () => {
+					$('#crud-modal h3').text("Create");
+					$('#crud-modal h3').show();
+
+					$('#crud-modal label[for="name"]').text("Name");
+					$('#crud-modal #name').attr("placeholder", "Name");
+					$('#crud-modal #name').val("");
+					$('#crud-modal #name-sec').show();
+
+					$('#crud-modal label[for="description"]').text("Description");
+					$('#crud-modal #description').val("");
+					$('#crud-modal #description').attr("placeholder", "Description");
+					$('#crud-modal #desc-sec').show();
+
+					$('#crud-modal label[for="todo-expired"]').text("Deadline");
+					$('#crud-modal #todo-expired').val("");
+					$('#crud-modal #todo-expired-sec').show();
+
+					$('#crud-modal label[for="tags"]').text("Tag");
+					$('#crud-modal #tags option').removeAttr("selected");
+					$('#crud-modal #tags-sec').show();
+
+					$('#crud-modal label[for="groups"]').text("Group");
+					$('#crud-modal #groups option').removeAttr("selected");
+					$('#crud-modal #groups-sec').hide();
+
+					$('#crud-modal label[for="colors"]').text("Color");
+					$('#crud-modal #colors').val("#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0')));
+					$('#crud-modal #colors-sec').show();
+
+
+					$('#crud-modal button[type="submit"]').html(`
+						<svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+						Create`);
+					$('#crud-modal #submit-sec').show();
+
+					$('#crud-modal #delete-sec button').html(`
+					<svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+								viewBox="0 0 24 24">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+							</svg>
+
+							Delete
+
+					`);
+					$('#crud-modal #delete-sec').hide();
+
+					$('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+					console.log("Reset modal complete!")
+
+					console.log('modal is hidden');
+				},
+				onShow: () => {
+					// Limit the date picker to today and future dates
+					// Get the current date and time
+					const now = new Date();
+
+					// Format the date and time as required by the min attribute
+					const year = now.getFullYear();
+					const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed, so we add 1
+					const day = String(now.getDate()).padStart(2, '0');
+					const hour = String(now.getHours()).padStart(2, '0');
+					const minute = String(now.getMinutes()).padStart(2, '0');
+
+					// Construct the string for the min attribute
+					const minDatetime = `${year}-${month}-${day}T${hour}:${minute}`;
+
+					// Set the min attribute of the input element
+					document.getElementById('todo-expired').setAttribute('min', minDatetime);
+					// Set value to current date and time
+					document.getElementById('todo-expired').value = minDatetime;
+
+					console.log('modal is shown');
+				},
+				onToggle: () => {
+					console.log('modal has been toggled');
+				},
+			};
+
+			// If screen is small, change option backdrop to static
+			if (window.innerWidth < 768) {
+				options.backdrop = 'static';
+			}
+
+			// instance options object
+			const modal = new Modal($targetEl, options);
+			const addGroupnTagModal = new Modal($targetEl, options);
+
+			$(document).ready(function () {
+				// target elements with the "draggable" class
+				interact('#add-draggable')
+					.draggable({
+						// enable inertial throwing
+						inertia: true,
+						// keep the element within the area of it's parent
+						modifiers: [
+							interact.modifiers.restrict({
+								restriction: "#Main-Screen",
+								elementRect: { top: 0, left: 0, bottom: 0.1, right: 0.1 },
+								endOnly: true
+							})
+						],
+						// disable autoScroll
+						autoScroll: false,
+
+						listeners: {
+							// call this function on every dragmove event
+							move: dragMoveListener,
+						}
+					})
+					.on('tap', function (event) {
+						event.preventDefault();
+						//resetModalState();
+						// Clean modal first
+						$('#crud-modal #colors-sec').hide();
+						$('#crud-modal label[for="name"]').text("Title");
+						$('#crud-modal label[for="description"]').text("Task Description");
+
+						$('#crud-modal h3').text("Create Task");
+						$('#crud-modal #name').val("");
+						$('#crud-modal #description').val("");
+						$('#crud-modal #tags option').removeAttr("selected");
+						$('#crud-modal #todo-expired').val("");
+						$('#crud-modal button[type="submit"]').html(`
+						<svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+						Create`);
+						$('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+
+						// Show modal
+						modal.show();
+
+					})
+			});
+
+		</script>
+</body>
+
+</html>
