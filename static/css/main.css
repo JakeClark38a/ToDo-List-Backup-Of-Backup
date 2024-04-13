@@ -2240,10 +2240,6 @@ input[type="range"]::-ms-fill-lower {
   z-index: 50;
 }
 
-.z-20 {
-  z-index: 20;
-}
-
 .order-2 {
   order: 2;
 }
@@ -2684,10 +2680,6 @@ input[type="range"]::-ms-fill-lower {
   width: 150px;
 }
 
-.w-\[200px\] {
-  width: 200px;
-}
-
 .w-\[3\.5vh\] {
   width: 3.5vh;
 }
@@ -2718,10 +2710,6 @@ input[type="range"]::-ms-fill-lower {
 
 .w-full {
   width: 100%;
-}
-
-.w-\[110px\] {
-  width: 110px;
 }
 
 .min-w-12 {
@@ -3827,6 +3815,11 @@ input[type="range"]::-ms-fill-lower {
   background-color: rgb(56 74 76 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-cyan-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(8 145 178 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-gray-200:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
@@ -3844,21 +3837,6 @@ input[type="range"]::-ms-fill-lower {
 .hover\:bg-red-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(240 82 82 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-cyan-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(34 211 238 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-cyan-500:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(6 182 212 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-cyan-600:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(8 145 178 / var(--tw-bg-opacity));
 }
 
 .hover\:text-gray-900:hover {

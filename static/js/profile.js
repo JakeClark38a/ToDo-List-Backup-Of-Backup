@@ -136,108 +136,141 @@ centerUsernameModal();
 
 
 
+
+
 /////////////////////////////////////// change avatar modal code begin
 
 // Set the avatar modal element
-const $avatarModalEl = document.getElementById('avatar-modal');
+const $avatarModalEl = document.getElementById("avatar-modal");
 
 // Options for the avatar modal
 const avatarModalOptions = {
-    backdrop: 'dynamic',
-    backdropClasses: 'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
-    closable: true,
-    onHide: () => {
-        console.log('Avatar modal is hidden');
-    },
-    onShow: () => {
-        console.log('Avatar modal is shown');
-    },
-    onToggle: () => {
-        console.log('Avatar modal has been toggled');
-    },
+  backdrop: "dynamic",
+  backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
+  closable: true,
+  onHide: () => {
+    console.log("Avatar modal is hidden");
+    // delete, clear the image if the moal is close, hidden
+    if (cropper) {
+      cropper.destroy();
+      cropper = null;
+    }
+  },
+  onShow: () => {
+    console.log("Avatar modal is shown");
+  },
+  onToggle: () => {
+    console.log("Avatar modal has been toggled");
+  },
 };
 
 // Create a new instance of the modal for the avatar modal
 const avatarModal = new Modal($avatarModalEl, avatarModalOptions);
 
 // Function to handle closing the avatar modal when the close button is clicked
-document.getElementById('btn-close-avatar-modal').addEventListener('click', () => {
-    avatarModal.hide();
+document.getElementById("btn-close-avatar-modal").addEventListener("click", () => {
+  avatarModal.hide();
 });
 
-// Function to handle dropping files onto the drop area
-function handleDrop(e) {
-    e.preventDefault();
-    const dt = e.dataTransfer;
-    const files = dt.files;
 
-    // Handle each dropped file
-    handleFiles(files);
-}
-
-// Function to handle files after dropping or selecting
-function handleFiles(files) {
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-
-        // Check if it's an image file
-        if (!file.type.startsWith('image/')) {
-            continue;
-        }
-
-        const reader = new FileReader();
-
-        // Read the image file as a data URL
-        reader.onload = function () {
-            const img = new Image();
-            img.src = reader.result;
-
-            // Display the image in the drop area
-            const dropArea = document.getElementById('drop-area');
-            dropArea.innerHTML = '';
-            dropArea.appendChild(img);
-        };
-
-        reader.readAsDataURL(file);
-    }
-}
-
-// Function to handle file selection from the file input
-function handleFileSelect(e) {
-    const files = e.target.files;
-    handleFiles(files);
-    avatarModal.show();
-}
-
-// Add event listeners for drag and drop
-const dropArea = document.getElementById('drop-area');
-dropArea.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropArea.classList.add('border-blue-500');
-});
-dropArea.addEventListener('dragleave', (e) => {
-    e.preventDefault();
-    dropArea.classList.remove('border-blue-500');
-});
-dropArea.addEventListener('drop', handleDrop);
-
-// Add event listener for file input change
-document.getElementById('fileElem').addEventListener('change', handleFileSelect);
-
-// Function to handle changing the avatar when the change avatar button is clicked
-document.getElementById('change-avatar-btn').addEventListener('click', () => {
-    if (cropper) {
-        const croppedCanvas = cropper.getCroppedCanvas();
-        const croppedDataURL = croppedCanvas.toDataURL('image/jpeg'); // Change format if needed
-        // TODO: Send croppedDataURL to server or use it as profile picture
-        avatarModal.hide();
-    }
-});
-
-// Function to unhide the avatar modal when the edit button is clicked
-document.getElementById('Avatar-Menu-Profile').addEventListener('click', () => {
+// Function to unhide the avatar options when the edit button or the avatar is clicked
+document.getElementById("Avatar-Menu-Profile").addEventListener("click", () => {
   const dropdownmenu = document.getElementById("Drop-Down-Options-Profile");
   dropdownmenu.classList.toggle("hidden");
 });
 
+
+// Function to center the avatar modal
+function centerAvatarModal() {
+  $avatarModalEl.style.top = "50%";
+  $avatarModalEl.style.left = "50%";
+  $avatarModalEl.style.transform = "translate(-50%, -50%)";
+}
+
+// Call the centerAvatarModal function when the window is resized
+window.addEventListener("resize", centerAvatarModal);
+
+// Call the centerAvatarModal function initially to center the modal
+centerAvatarModal();
+
+
+// Declare cropper variable outside the event listener
+let cropper;
+
+document
+  .getElementById("upload-photo")
+  .addEventListener("change", function (e) {
+    var file = e.target.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function () {
+        var img = new Image();
+        img.src = reader.result;
+        img.onload = function () {
+          if (img.width < 200 || img.height < 200) {
+            alert(
+              "Image is too small. Please upload an image with minimum dimensions of 200x200."
+            );
+            return;
+          }
+          if (img.width > 800 || img.height > 800) {
+            alert(
+              "Image is too large. Please upload an image with maximum dimensions of 800x800."
+            );
+            return;
+          }
+          // Display cropper modal
+          cropper = new Cropper(document.getElementById("cropperImage"), {
+            aspectRatio: 1,
+            viewMode: 2,
+            movable: false,
+            zoomable: false,
+            scalable: false,
+            rotatable: false,
+            crop: function (event) {
+              // Output cropped area data
+              // console.log(event.detail.x);
+              // console.log(event.detail.y);
+              // console.log(event.detail.width);
+              // console.log(event.detail.height);
+            },
+          });
+          cropper.replace(reader.result);
+          avatarModal.show();
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+document.getElementById("change-avatar-btn").addEventListener("click", () => {
+  if (cropper) {
+    const croppedCanvas = cropper.getCroppedCanvas();
+    const croppedDataURL = croppedCanvas.toDataURL("image/jpeg"); // Change format if needed
+
+    // Log cropped image data
+    console.log("Cropped Image Data:", croppedDataURL);
+
+    // Send cropped image data to the server
+    fetch("your-server-url", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ avatar: croppedDataURL }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Success, handle accordingly (e.g., close modal)
+          $("#avatar-modal").hide();
+        } else {
+          // Handle error
+          console.error("Error sending cropped image data to the server");
+        }
+      })
+      .catch((error) => {
+        console.error("Error sending cropped image data:", error);
+      });
+  }
+});
 /////////////////////////////////////// change avatar modal code end
