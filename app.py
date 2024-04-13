@@ -92,6 +92,44 @@ def register():
             return redirect(url_for('login'))
     else:
         return render_template('registerPage.html')
+    
+################################
+#LoginV2
+@app.route('/loginv2', methods=['GET', 'POST'])
+def loginv2():
+    if request.method == "POST":
+        user_name = request.form['username']
+        user_password = request.form['password']
+        user_password = hashlib.sha256(user_password.encode('utf-8')).hexdigest()
+        is_login = request.form.get('is_login', 'true') == 'true'  # Get the value of is_login from the form
+        if is_login:
+            find_user = tododb.show_user(user_name, user_password)
+            if find_user:
+                session['user'] = tododb.create_session(user_name, user_password)
+                return redirect(url_for('main_page'))
+            else:
+                flash("Invalid username or password")
+                return redirect(url_for('loginv2', is_login=True))
+        else:
+            user_retype_password = request.form['repeat-password']
+            strength_pass = policy.password(user_password).strength()
+            if tododb.register_validation(user_name) == False:
+                flash("Email is already used")
+                return redirect(url_for('loginv2', is_login=False))
+            elif hashlib.sha256(user_password.encode('utf-8')).hexdigest() != hashlib.sha256(user_retype_password.encode('utf-8')).hexdigest():
+                flash("Password and retype password are not the same")
+                return redirect(url_for('loginv2', is_login=False))
+            elif strength_pass < 0.67:
+                flash("Password is not strong enough")
+                return redirect(url_for('loginv2', is_login=False))
+            else:
+                tododb.insert_user(user_name, user_password)
+                session['user'] = tododb.create_session(user_name, user_password)
+                return redirect(url_for('main_page'))
+    else:
+        return render_template('signin_login_v2.html', is_login=True)
+
+################################
 
 @app.route('/google_login')
 def login_google():
