@@ -75,7 +75,7 @@
   }
 
   .section {
-    @apply bg-main mb-32 lg:mb-56;
+    @apply bg-main mb-28 lg:mb-56;
   }
 
   .footer-text {
