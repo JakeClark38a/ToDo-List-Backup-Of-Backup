@@ -73,6 +73,7 @@ $(document).ready(function () {
       },
     },
     tags: {
+
       do:{
         title: "Do",
         color: "#7aa5cf",
@@ -112,45 +113,56 @@ $(document).ready(function () {
           deleteable: true,
           editable: true,
           display: true,
+
       },
       tag2: {
           title: "tag2",
           color: "#63c074",
+
           groupId: "gid002",
           deleteable: true,
           editable: true,
           display: true,
+
       },
       tag3: {
           title: "tag3",
           color: "#ac7acf",
+
           groupId: "gid003",
           deleteable: true,
           editable: true,
           display: true,
+
       },
       tag4: {
           title: "tag4",
           color: "#c5e875",
+
           groupId: "gid004",
           deleteable: true,
           editable: true,
           display: true,
+
       },
       tag5: {
           title: "tag5",
           color: "#f7d38c",
+
           groupId: "gid003",
           deleteable: true,
           editable: true,
           display: true,
+
       },
       none: {
           title: "none",
           color: "#ffffff",
+
           deleteable: false,
           editable: false,
           display: false,
+
       }
   }
   
@@ -158,7 +170,9 @@ $(document).ready(function () {
 
   var currentMode = 0;
   var isMakeChangeGroup = false;
+
   var currentMMenuTab = 0 ;  // 0-today 1-cal 2-garden
+
 
   //
   //
@@ -256,6 +270,7 @@ $(document).ready(function () {
     if (mode == 0) {
       return (
         ` 
+
         <div id="`+ id + `" class="task-outer bg-main rounded-xl cursor-default">
         <div class=" rounded-lg shadow-lg">
 
@@ -293,6 +308,7 @@ $(document).ready(function () {
               
             </div>
         </div>
+
     </div>
 
   `
@@ -600,7 +616,9 @@ $(document).ready(function () {
     console.log($(this).closest(".MMenu-Tag").attr("id"));
     var tid = $(this).closest(".MMenu-Tag").attr("id")
     var tagInfo = Dict.tags[tid] ;
+
     if(tagInfo.editable == false) return;
+
     isMakeChangeGroup = false;
 
      // Customize modal appearance
@@ -615,9 +633,11 @@ $(document).ready(function () {
     $('#crud-modal #tags-sec').hide();
     $('#crud-modal #groups-sec').hide();
 
+
     if(tagInfo.deletable == true) {
       $('#crud-modal #delete-sec').show();
     };
+
     $('#crud-modal button[type="submit"]').html(`
     <svg class="w-5 lg:w-7 h-5 lg:h-7 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
@@ -661,7 +681,9 @@ $(document).ready(function () {
         // console.log("Group: " + group.title);
         // Iterate over tags in the current group
         for (var j = 0; j < group.tags.length; j++) {
+
           if(Dict.tags[group.tags[j]].display == false) continue;
+
           addNewTagMainMenu(g.find("#MMenu-Tag-Section"),group.tags[j] ,Dict.tags[group.tags[j]]);
         }
         toggleHiddenMMenuGroup(g);
@@ -1006,15 +1028,19 @@ $(document).ready(function () {
   // Take all tags on Dict and put them in the "Select tag" dropdown
   function LoadTags() {
     console.log("Loading tags");
+
    // console.log(Dict.groups);
     var tagArray = Object.keys(Dict.tags).filter(key => Dict.tags[key].display === true);
+
     $("#crud-modal select#tags").empty();
     tagArray.forEach(element => {
       let options = `<option value="${element}">${Dict.tags[element].title}</option>`
       $("#crud-modal select#tags").append(options)
     });
 
+
     //$("#crud-modal select#tags").append(`<option value="None">None</option>`);
+
   };
   LoadTags();
 
@@ -1194,7 +1220,7 @@ $(document).ready(function () {
                 description: desc,
                 tag: tag,
               //  group: group,
-              
+
                 deadline: expired,
                 points: 4,
             };
@@ -1219,6 +1245,7 @@ $(document).ready(function () {
           let action = "";
           if(isMakeChangeGroup == true){ 
             if(id ==""){  /// Create a new group
+
               ///deftag dict
               var def_tag_id = getUuid();
               var def_tag = Dict.tags[def_tag_id] = {
@@ -1240,6 +1267,7 @@ $(document).ready(function () {
               };
 
               
+
               $("#MMenu-Group-Section").append(MainMenuGroupTemplates(generateId, g));
               /// Main Screen Add 
               renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),g, currentMode);
@@ -1259,10 +1287,12 @@ $(document).ready(function () {
             var t = Dict.tags[generateId] = {
               title: title,
               color: randHexColor(),
+
               groupId: group,
               deleteable: true,
               editable: true,
               display: true,
+
             };
             Dict.groups[group].tags.push(generateId);
             addNewTagMainMenu($("#"+group).find("#MMenu-Tag-Section"),generateId,t);
@@ -1311,13 +1341,16 @@ $(document).ready(function () {
           if(isMakeChangeGroup == true){ 
             if(id !=""){  /// Delete a new group
 
+
               delete Dict.tags[Dict.groups[id].def_tag]; // Delete def tag
               delete Dict.groups[id]; // Delete group
+
               var group_ = $('#'+id);
               group_.remove();
               AJAXdeleteGroup(id);
             }
           }
+
         else if(isMakeChangeGroup == false){   ///  Delete a tag
           if(id !="")
           {
@@ -1342,6 +1375,7 @@ $(document).ready(function () {
                 return [key, value];
               })
             );
+
 
             var tag_ = $('#'+id);
             tag_.remove();
@@ -1370,16 +1404,6 @@ $(document).ready(function () {
   //modal.show();
 
   //addGroupnTagModal.show()
-
-
-
-
-
-
-
-
-
-
 
 
 
