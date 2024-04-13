@@ -485,12 +485,10 @@ $(document).ready(function () {
     $("#Avatar-Menu").toggleClass("h-32 lg:h-44");
     $("#Avatar-Menu-Click").toggleClass("bg-primary-200");
   });
-<<<<<<< HEAD
+
  //================================================================\\
   //=========================== Mode Menu ==========================\\
   //================================================================\\
-=======
->>>>>>> 947138677114546a6bab4482ebbee41fae72e2cc
 
   $("#Mode-Menu-Click").click(function () {
     $("#Mode-Menu").toggleClass("h-32 lg:h-44");

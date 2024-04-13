@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "flowbite": "^2.3.0"
+    "css": "^3.0.0",
+    "flowbite": "^2.3.0",
+    "tailwind": "^4.0.0"
   },
   "scripts": {
     "build": "npx tailwindcss -i ./static/src/tailwindcustom.css -o ./static/css/main.css --watch"

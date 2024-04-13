@@ -23,7 +23,11 @@ admin_mail = "vodanhlax@gmail.com"
 admin_password = hashlib.sha256("Phong@123456789".encode('utf-8')).hexdigest()
 if tododb.show_user(admin_mail,admin_password) == None:
     tododb.insert_user("vodanhlax@gmail.com","Phong@123456789","SeaWind")
-
+# Testing data 2
+tester_mail = "a@a.a"
+tester_password = hashlib.sha256("a".encode('utf-8')).hexdigest()
+if tododb.show_user(tester_mail,tester_password) == None:
+    tododb.insert_user("a@a.a","a","Null")
 
 
 app.secret_key = token_bytes(16).hex()
