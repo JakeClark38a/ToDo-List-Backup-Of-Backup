@@ -4,6 +4,7 @@
     "tailwindcss": "^3.4.1"
   },
   "scripts": {
+    "build": "npx tailwindcss -i ./static/src/tailwindcustom.css -o ./static/css/main.css --watch",
     "create-css": "npx tailwindcss -i ./static/src/tailwindcustom.css -o ./static/css/main.css --watch"
   }
 }

@@ -353,7 +353,7 @@ $(document).ready(function () {
                 </svg>
             </div>
         </div>
-        <div id="Task-Section-Outer" class="bg-main/35 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
+        <div id="Task-Section-Outer" class= "bg-main/55 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
             <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
             <!--task here-->
             </div>
@@ -486,6 +486,15 @@ $(document).ready(function () {
     $("#Avatar-Menu-Click").toggleClass("bg-primary-200");
   });
 
+ //================================================================\\
+  //=========================== Mode Menu ==========================\\
+  //================================================================\\
+
+  $("#Mode-Menu-Click").click(function () {
+    $("#Mode-Menu").toggleClass("h-32 lg:h-44");
+    $("#Mode-Menu-Click").toggleClass("bg-main/35");
+    
+  });
   //================================================================\\
   //=========================== Main Menu ==========================\\
   //================================================================\\
