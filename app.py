@@ -5,15 +5,13 @@ from secrets import token_bytes
 from database import ToDoDatabase
 import hashlib, os, datetime
 from authlib.integrations.flask_client import OAuth
+from authlib.common.security import generate_token
 # from email_validator import validate_email, EmailNotValidError
 from password_strength import PasswordPolicy
 
 #Create policy for password
 
 policy = PasswordPolicy.from_names(strength=0.67)
-
-
-
 
 
 app = Flask(__name__, template_folder='templates')
@@ -31,20 +29,6 @@ if tododb.show_user(admin_mail,admin_password) == None:
 app.secret_key = token_bytes(16).hex()
 oauth = OAuth(app)
 
-appConf = {
-    "OAUTH2_CLIENT_ID": os.getenv("OAUTH2_CLIENT_ID"),
-    "OAUTH2_CLIENT_SECRET": os.getenv("OAUTH2_CLIENT_SECRET"),
-    "OAUTH2_META_URL": "https://accounts.google.com/.well-known/openid-configuration",
-    "FLASK_SECRET": os.getenv("FLASK_SECRET"),
-    "FLASK_PORT": 1337
-}
-
-oauth.register("myweb",
-            client_id=appConf.get("OAUTH2_CLIENT_ID"),
-            client_secret=appConf.get("OAUTH2_CLIENT_SECRET"),
-            server_metadata_url=appConf.get("OAUTH2_META_URL"),
-            client_kwargs={"scope": "openid profile email https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/user.gender.read"},
-    )
 
 #Fuction 
 
@@ -107,13 +91,34 @@ def register():
 
 @app.route('/google_login')
 def login_google():
-    return oauth.myweb.authorize_redirect(url_for('authorize', _external=True))
+    GOOGLE_CLIENT_ID = os.getenv("OAUTH2_CLIENT_ID")
+    #OAUTH2_CLIENT_ID=1002415781087-d1a74175n9vk48ehrir794qghma573qi.apps.googleusercontent.com
+    GOOGLE_CLIENT_SECRET = os.getenv("OAUTH2_CLIENT_SECRET")
+    #OAUTH2_CLIENT_SECRET=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
+    CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+    oauth.register(
+        name='google',
+        client_id=GOOGLE_CLIENT_ID,
+        client_secret=GOOGLE_CLIENT_SECRET,
+        server_metadata_url=CONF_URL,
+        client_kwargs={
+            'scope': 'openid email profile'
+        }
+    )
+    redirect_uri = url_for('authorize', _external=True)
+    session['nonce'] = generate_token()
+    return oauth.google.authorize_redirect(redirect_uri,nonce=session['nonce'])
 
 @app.route('/authorize')
 def authorize():
     try:
-        token = oauth.myweb.authorize_access_token()
-        session['user'] = token
+        token = oauth.google.authorize_access_token()
+        user = oauth.google.parse_id_token(token, nonce=session['nonce'])
+        print("Google user: ", user)
+        tododb.insert_user_google(user['email'],user['name'],user['picture'],user['sub'])
+        session['user'] = tododb.create_session_google(user['sub'])
+        session['type'] = 'google'
+        session['token'] = token
         return redirect(url_for('login_by_google'))
     except Exception:
         return redirect(url_for('login'))
@@ -145,13 +150,21 @@ def facebook():
 
 @app.route('/facebook/auth/')
 def facebook_auth():
-    token = oauth.facebook.authorize_access_token()
-    session['user'] = token
-    resp = oauth.facebook.get(
-        'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
-    profile = resp.json()
-    print("Facebook User ", profile)
-    return redirect(url_for("main_page"))
+    try:
+        token = oauth.facebook.authorize_access_token()
+        resp = oauth.facebook.get(
+            'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
+        user = resp.json()
+        #tododb.insert_user_facebook(user['email'], user['name'], user['id'])
+        tododb.insert_user_facebook(user['email'], user['name'], user['picture']['data']['url'], user['id'])
+        print("Facebook User ", user)
+        print("Images: ", user['picture']['data']['url'])
+        session['user'] = tododb.create_session_facebook(user['id'])
+        session['type'] = 'facebook'
+        session['token'] = token
+        return redirect(url_for("main_page"))
+    except Exception:
+        return redirect(url_for('login'))
 
 
 @app.route('/todo', methods=['GET', 'POST'])
@@ -174,24 +187,33 @@ def logout():
 def create_todo():
     data = request.get_json()
     deadline = datetime_to_string(data['deadline'])
-    tododb.create_task(data['taskId'],data['title'],data['description'],data['tag'],get_user_id(),deadline,data['points'],data['isCompleted'])
-    print(data)
-    print(data['deadline'], type(data['deadline']))
+    try:
+        tododb.create_task(data['taskId'],data['title'],data['description'],data['tag'],get_user_id(),deadline,data['points'],data['isCompleted'])
+        print(data)
+        print(data['deadline'], type(data['deadline']))
+    except Exception as e:
+        return jsonify({"error": "Error when creating task"})
     return jsonify(data)
 
 @app.route('/todo/update', methods=['POST'])
 def update_todo():
     data = request.get_json()
     deadline = datetime_to_string(data['deadline'])
-    tododb.update_task(data['taskId'],data['title'],data['description'],data['tag'],get_user_id(),deadline,data['points'],data['isCompleted'])
-    print(data)
+    try:
+        tododb.update_task(data['taskId'],data['title'],data['description'],data['tag'],get_user_id(),deadline,data['points'],data['isCompleted'])
+        print(data)
+    except Exception as e:
+        return jsonify({"error": "Error when updating task"})
     return jsonify(data)
 
 @app.route('/todo/delete', methods=['POST'])
 def delete_todo():
     data = request.get_json()
-    tododb.delete_task(data['taskId'],get_user_id())
-    print(data)
+    try:
+        tododb.delete_task(data['taskId'],get_user_id())
+        print(data)
+    except Exception as e:
+        return jsonify({"error": "Error when deleting task"})
     return jsonify(data)
 
 @app.route('/todo/get', methods=['GET'])
@@ -218,8 +240,11 @@ def uncompleted_todo(id):
 def create_group():
     data = request.get_json()
     user_id = get_user_id()
-    tododb.create_group(data['groupId'],data['title'],user_id,data['color'])
-    print(data)
+    try:
+        tododb.create_group(data['groupId'],data['title'],user_id,data['color'])
+        print(data)
+    except Exception as e:
+        return jsonify({"error": "Error when creating group"})
     return jsonify(data)
 
 @app.route('/todo/group/update', methods=['POST'])
