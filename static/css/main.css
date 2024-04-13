@@ -1070,14 +1070,6 @@ input:checked + .toggle-bg {
   border-radius: 10px;
 }
 
-.task-container {
-  margin-left: 2vw;
-  margin-right: 2vw;
-  flex: none;
-  border-radius: 3vh;
-  border-width: 4px;
-}
-
 /*landing page */
 
 .logo-image {
@@ -3378,6 +3370,11 @@ input:checked + .toggle-bg {
   background-color: rgb(123 144 253 / var(--tw-bg-opacity));
 }
 
+.bg-\[\#d4d9e0\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(212 217 224 / var(--tw-bg-opacity));
+}
+
 .bg-\[\#faab70\] {
   --tw-bg-opacity: 1;
   background-color: rgb(250 171 112 / var(--tw-bg-opacity));
@@ -3492,6 +3489,10 @@ input:checked + .toggle-bg {
 
 .bg-white\/50 {
   background-color: rgb(255 255 255 / 0.5);
+}
+
+.bg-\[\#d4d9e0\]\/55 {
+  background-color: rgb(212 217 224 / 0.55);
 }
 
 .bg-bg1 {
