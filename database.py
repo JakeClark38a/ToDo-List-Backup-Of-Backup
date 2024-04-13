@@ -4,10 +4,11 @@ import uuid, hashlib, time
 class ToDoDatabase():
     def __init__(self):
         self.connection = mysql.connector.connect(
-            host='localhost',
+            host='todolist-db-todolist-database.a.aivencloud.com',
             user='todolist',
-            password='Todolist@123456789',
-            database='todolist'
+            password='Todolist<123456789',
+            database='todolist',
+            port=21132
         )
         self.cursor = self.connection.cursor()
     def create_table(self):
@@ -16,7 +17,10 @@ class ToDoDatabase():
                                 user_id nvarchar(40) PRIMARY KEY, 
                                 username nvarchar(100), 
                                 password nvarchar(100), 
-                                email nvarchar(100)
+                                email nvarchar(100),
+                                image nvarchar(1000),
+                                type_account nvarchar(10),
+                                external_id nvarchar(40)
                                 )
                                 """)
             self.cursor.execute("""
@@ -25,7 +29,7 @@ class ToDoDatabase():
                                 group_title nvarchar(100), 
                                 user_id nvarchar(40), 
                                 colors nvarchar(100),
-                                foreign key (user_id) references users(user_id)
+                                foreign key (user_id) references users(user_id) ON DELETE CASCADE
                                 )
                                 """)
             self.cursor.execute("""
@@ -35,8 +39,8 @@ class ToDoDatabase():
                                 tag_color nvarchar(100),
                                 user_id nvarchar(40),
                                 group_id nvarchar(40),
-                                foreign key (user_id) references users(user_id),
-                                foreign key (group_id) references groupss(group_id)
+                                foreign key (user_id) references users(user_id) ON DELETE CASCADE,
+                                foreign key (group_id) references groupss(group_id) ON DELETE CASCADE
                                 )
                                 """)
 
@@ -50,18 +54,64 @@ class ToDoDatabase():
                                 deadline datetime, 
                                 points int, 
                                 isCompleted bit(1),
-                                foreign key (user_id) references users(user_id),
-                                foreign key (tags_id) references tags(tag_id)
+                                foreign key (user_id) references users(user_id) ON DELETE CASCADE,
+                                foreign key (tags_id) references tags(tag_id) ON DELETE CASCADE
                                 )
                                 """)
+            
 
-    def insert_user(self,email, password , username=None):
-        sqlquery = "INSERT INTO users (user_id,username,password,email) VALUES (%s,%s,%s,%s)"
+    def default_setting(self, user_id):
+        self.create_group('gid001',"Do",user_id,"#7aa5cf")
+        self.create_group('gid002',"Delegate",user_id,"#63c074")
+        self.create_group('gid003',"Schedule",user_id,"#ac7acf")
+        self.create_group('gid004',"Delete",user_id,"#c5e875")
+        self.create_tag('tag1','gid001','tag1','#7aa5cf',user_id)
+        self.create_tag('tag2','gid002','tag2','#63c074',user_id)
+        self.create_tag('tag3','gid003','tag3','#ac7acf',user_id)
+        self.create_tag('tag4','gid004','tag4','#c5e875',user_id)
+        self.create_tag('tag5','gid001','tag5','#7aa5cf',user_id)
+            
+    def insert_user_facebook(self, email, username, image, external_id):
+        sqlquery = "INSERT INTO users (user_id,username,email,image,type_account,external_id) select * from (select %s,%s,%s,%s,%s,%s) as tmp where not exists (select * from users where external_id = %s)"
         id = uuid.uuid4().hex
-        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        values = (id,username,password,email)
+        type_account = "facebook"
+        values = (id,username,email,image,type_account,external_id, external_id)
         self.cursor.execute(sqlquery,values)
         self.connection.commit()
+
+    def create_session_facebook(self, external_id):
+        sqlquery = "SELECT user_id FROM users WHERE external_id=%s"
+        values = (external_id,)
+        self.cursor.execute(sqlquery,values)
+        result = self.cursor.fetchone()
+        return result
+    
+    def insert_user_google(self, email, username, image, external_id):
+        sqlquery = "INSERT INTO users (user_id,username,email,image,type_account,external_id) select * from (select %s,%s,%s,%s,%s,%s) as tmp where not exists (select * from users where external_id = %s)"
+        id = uuid.uuid4().hex
+        type_account = "google"
+        values = (id,username,email,image,type_account,external_id, external_id)
+        self.cursor.execute(sqlquery,values)
+        self.connection.commit()
+
+
+    def create_session_google(self, external_id):
+        sqlquery = "SELECT user_id FROM users WHERE external_id=%s"
+        values = (external_id,)
+        self.cursor.execute(sqlquery,values)
+        result = self.cursor.fetchone()
+        return result
+
+    def insert_user(self,email, password , username=None):
+        sqlquery = "INSERT INTO users (user_id,username,password,email) select * from (select %s,%s,%s,%s) as tmp where not exists (select * from users where email = %s and password = %s)"
+        id = uuid.uuid4().hex
+        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        values = (id,username,password,email, email, password)
+        self.cursor.execute(sqlquery,values)
+        self.connection.commit()
+
+
+    
     def update_user(self, email, password, username=None):
         if self.show_user(self,email,password):
             sqlquery = "UPDATE users SET username=%s WHERE email=%s and password=%s"
@@ -199,6 +249,18 @@ class ToDoDatabase():
         self.cursor.execute(sqlquery,values)
         result = self.cursor.fetchall()
         return result
+    
+    def complete_task(self, task_id, user_id):
+        sqlquery = "UPDATE tasks SET isCompleted=1 WHERE task_id=%s and user_id=%s"
+        values = (task_id,user_id)
+        self.cursor.execute(sqlquery,values)
+        self.connection.commit()
+
+    def uncomplete_task(self, task_id, user_id):
+        sqlquery = "UPDATE tasks SET isCompleted=0 WHERE task_id=%s and user_id=%s"
+        values = (task_id,user_id)
+        self.cursor.execute(sqlquery,values)
+        self.connection.commit()
     
     def __del__(self):
         self.connection.close()

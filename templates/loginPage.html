@@ -82,6 +82,16 @@
               >Register</a
             >
           </p>
+          <div class="flex flex-row justify-center items-center w-full">
+            <hr class="w-16 h-0.5 my-3 bg-white border-0 dark:bg-gray-700">
+            <span class=" px-3 font-medium text-white  dark:text-white dark:bg-gray-900">Sign in with </span>
+            <hr class="w-16 h-0.5 my-3 bg-white border-0 dark:bg-gray-700">
+           </div>
+           <!-- end horizon line -->
+           <div class="flex flex-row justify-evenly w-2/3 mb-6 mt-3">
+            <a href="{{url_for('facebook')}}"><button><image src="../static/images/loginfb.jpg" class="h-10"></button></a>
+            <a href="{{url_for('login_google')}}"><button><image src="../static/images/Logingg.png" class="h-10"></button></a>
+           </div>
         </div>
       </div>
     </div>
