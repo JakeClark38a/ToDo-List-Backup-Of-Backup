@@ -6,10 +6,14 @@ $(document).ready(function () {
   //================================================================\\
   //=========================== Sample var =========================\\
   //================================================================\\
-  var Dict = {
-    // sample dict
+  var Dict = {  // sample dict
     username: "JakeClark",
     userid: "User ID",
+    bio: "hmm...",
+    timeZone: "Asia/Tokyo",
+    displayLocalTimeZone: false,
+    localTimeZoneName: "UTC",
+
     groups: {
       gid001: {
         title: "Do",
@@ -164,10 +168,9 @@ $(document).ready(function () {
           display: false,
 
       }
-  }
-  
-  };
+  }};
 
+  
   var currentMode = 0;
   var isMakeChangeGroup = false;
 
@@ -493,7 +496,7 @@ $(document).ready(function () {
           $('#test').load('../static/html/profilePage.html', function() {
               // This callback function will be executed after the content is loaded
               //AJAXLoadUserProfile(); this will be in profile js
-              
+
               $('#Main-Screen').toggleClass('hidden');
           });
       } else {
@@ -1420,8 +1423,6 @@ $(document).ready(function () {
   //modal.show();
 
   //addGroupnTagModal.show()
-
-
 
 })
 // End of app.js

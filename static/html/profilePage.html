@@ -201,7 +201,7 @@
 		<!--Begin profile screen-->
 		<div id="Profile-Screen"
 			class="Container backdrop-blur-sm py-10 min-h-[90vh] overflow-y-scroll overflow-x-hidden">
-			<div id="Profile-Box" class="bg-white relative w-4/5 h-full m-auto rounded-lg">
+			<div id="Profile-Box" class="bg-main relative w-4/5 h-full m-auto rounded-lg">
 				<div id="Profile-Box-Content" class="py-[5vh] px-[5vh]">
 					<div id="Profile-Public-Content">
 
@@ -249,7 +249,7 @@
 								<div id="Username-Section">
 									<div class="text-sm font-bold mb-2">Name</div>
 									<input class="form-control w-[440px] max-w-full rounded-lg shadow-lg" type="text"
-										value="ShynBombx" name="user[profile_name]" id="user_profile_name">
+										value="__ShynBombx__" name="user[profile_name]" id="user_profile_name">
 									<div class="note text-xs text-slate-400 my-1">Your name may appear around Todos
 										where you contribute or are mentioned. You can remove it at any time.</div>
 								</div>
@@ -497,119 +497,14 @@
 				</div>
 			</div>
 		</div>
-		<script src="../static/js/profile.js"></script>
+
 		<!--End profile screen-->
 
-
-
-
 		<!--########################################################### EoMain Screen ######################################################################-->
-
+		<script src="../static/js/profile.js"></script>
 		<script src="https://code.jquery.com/jquery-3.7.1.min.js"
 			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.js"></script>
-		<script>
-			// set the modal menu element
-			const $targetEl = document.getElementById('crud-modal');
-
-			// options with default values
-			const options = {
-				// placement: 'bottom-right',
-				backdrop: 'dynamic',
-				backdropClasses:
-					'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
-				closable: true,
-				onHide: () => {
-					$('#crud-modal h3').text("Create");
-					$('#crud-modal h3').show();
-
-					$('#crud-modal label[for="name"]').text("Name");
-					$('#crud-modal #name').attr("placeholder", "Name");
-					$('#crud-modal #name').val("");
-					$('#crud-modal #name-sec').show();
-
-					$('#crud-modal label[for="description"]').text("Description");
-					$('#crud-modal #description').val("");
-					$('#crud-modal #description').attr("placeholder", "Description");
-					$('#crud-modal #desc-sec').show();
-
-					$('#crud-modal label[for="todo-expired"]').text("Deadline");
-					$('#crud-modal #todo-expired').val("");
-					$('#crud-modal #todo-expired-sec').show();
-
-					$('#crud-modal label[for="tags"]').text("Tag");
-					$('#crud-modal #tags option').removeAttr("selected");
-					$('#crud-modal #tags-sec').show();
-
-					$('#crud-modal label[for="groups"]').text("Group");
-					$('#crud-modal #groups option').removeAttr("selected");
-					$('#crud-modal #groups-sec').hide();
-
-					$('#crud-modal label[for="colors"]').text("Color");
-					$('#crud-modal #colors').val("#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0')));
-					$('#crud-modal #colors-sec').show();
-
-
-					$('#crud-modal button[type="submit"]').html(`
-						<svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-						Create`);
-					$('#crud-modal #submit-sec').show();
-
-					$('#crud-modal #delete-sec button').html(`
-					<svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-								viewBox="0 0 24 24">
-								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-									stroke-width="2"
-									d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
-							</svg>
-
-							Delete
-
-					`);
-					$('#crud-modal #delete-sec').hide();
-
-					$('#crud-modal input[type="checkbox"]').attr("id", `task_`);
-					console.log("Reset modal complete!")
-
-					console.log('modal is hidden');
-				},
-				onShow: () => {
-					// Limit the date picker to today and future dates
-					// Get the current date and time
-					const now = new Date();
-
-					// Format the date and time as required by the min attribute
-					const year = now.getFullYear();
-					const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed, so we add 1
-					const day = String(now.getDate()).padStart(2, '0');
-					const hour = String(now.getHours()).padStart(2, '0');
-					const minute = String(now.getMinutes()).padStart(2, '0');
-
-					// Construct the string for the min attribute
-					const minDatetime = `${year}-${month}-${day}T${hour}:${minute}`;
-
-					// Set the min attribute of the input element
-					document.getElementById('todo-expired').setAttribute('min', minDatetime);
-					// Set value to current date and time
-					document.getElementById('todo-expired').value = minDatetime;
-
-					console.log('modal is shown');
-				},
-				onToggle: () => {
-					console.log('modal has been toggled');
-				},
-			};
-
-			// If screen is small, change option backdrop to static
-			if (window.innerWidth < 768) {
-				options.backdrop = 'static';
-			}
-
-			// instance options object
-			const modal = new Modal($targetEl, options);
-			const addGroupnTagModal = new Modal($targetEl, options);
-		</script>
 </body>
 
 </html>

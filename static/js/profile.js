@@ -274,3 +274,40 @@ document.getElementById("change-avatar-btn").addEventListener("click", () => {
   }
 });
 /////////////////////////////////////// change avatar modal code end
+
+/////////////////////////////////////// update user info 
+var userInfo ={
+  username: "John Doe",
+  bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  timeZone: "UTC",
+  displayTimeZone: true,
+  localTimeZoneName: "UTC",
+};
+function displayUserInfo()
+{
+  $('#Username-Section').find('#user_profile_name').val(userInfo.username);
+  $('#Bio-Section').find('#user_profile_bio').text(userInfo.bio);
+  $('#Time-Zone-Section').find('#user_location_name').val(userInfo.timeZone);
+  $('#Time-Zone-Section').find('#user_profile_display_local_time_zone').prop('checked', userInfo.displayTimeZone);
+  toggleSelectBoxState();
+  $('#Time-Zone-Section').find('#user_profile_local_time_zone_name').val(userInfo.localTimeZoneName);
+}
+displayUserInfo();
+function updateUserInfo(){
+  userInfo.username = $('#Username-Section').find('#user_profile_name').val();
+  userInfo.bio = $('#Bio-Section').find('#user_profile_bio').text();
+  userInfo.timeZone = $('#Time-Zone-Section').find('#user_location_name').val();
+  userInfo.displayTimeZone = $('#Time-Zone-Section').find('#user_profile_display_local_time_zone').prop('checked');
+  userInfo.localTimeZoneName = $('#Time-Zone-Section').find('#user_profile_local_time_zone_name').val();
+  displayUserInfo();
+  console.log('bruh');
+}
+$('#Apply-Change-Button').click(updateUserInfo);
+
+function AJAXgetUserInfo(){
+
+}
+function AJAXsetUserInfo(){
+
+}
+/////////////////////////////////////// update user info end
