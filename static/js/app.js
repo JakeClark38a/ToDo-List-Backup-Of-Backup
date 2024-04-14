@@ -6,10 +6,14 @@ $(document).ready(function () {
   //================================================================\\
   //=========================== Sample var =========================\\
   //================================================================\\
-  var Dict = {
-    // sample dict
+  var Dict = {  // sample dict
     username: "JakeClark",
     userid: "User ID",
+    bio: "hmm...",
+    timeZone: "Asia/Tokyo",
+    displayLocalTimeZone: false,
+    localTimeZoneName: "UTC",
+
     groups: {
       gid001: {
         title: "Do",
@@ -164,10 +168,9 @@ $(document).ready(function () {
           display: false,
 
       }
-  }
-  
-  };
+  }};
 
+  
   var currentMode = 0;
   var isMakeChangeGroup = false;
 
@@ -486,6 +489,24 @@ $(document).ready(function () {
     $("#Avatar-Menu-Click").toggleClass("bg-primary-200");
   });
 
+  let isShowProfile = false;
+  $('#PMenu-Profile').click(function () {
+      if (!isShowProfile) {
+          isShowProfile = true;
+          $('#test').load('../static/html/profilePage.html', function() {
+              // This callback function will be executed after the content is loaded
+              //AJAXLoadUserProfile(); this will be in profile js
+
+              $('#Main-Screen').toggleClass('hidden');
+          });
+      } else {
+          isShowProfile = false;
+          $('#test').empty();
+          $('#Main-Screen').toggleClass('hidden');
+      }
+  });
+  
+
  //================================================================\\
   //=========================== Mode Menu ==========================\\
   //================================================================\\
@@ -498,7 +519,7 @@ $(document).ready(function () {
   //================================================================\\
   //=========================== Main Menu ==========================\\
   //================================================================\\
-
+  
   $("#Main-Menu-Click").click(function () {
     $("#Main-Menu").toggleClass("h-[86vh]");
     $("#Main-Menu-Click").toggleClass("-rotate-90")
@@ -1402,8 +1423,6 @@ $(document).ready(function () {
   //modal.show();
 
   //addGroupnTagModal.show()
-
-
 
 })
 // End of app.js
