@@ -33,7 +33,6 @@ if tododb.show_user(tester_mail,tester_password) == None:
 app.secret_key = token_bytes(16).hex()
 oauth = OAuth(app)
 
-
 #Fuction 
 
 def datetime_to_string(user_date):
