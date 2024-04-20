@@ -55,6 +55,10 @@ def get_user_id():
 def index():
     return render_template('landingPage.html')
 
+@app.route('/404')
+def notfound_error():
+    return render_template('notfounderror.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == "POST":

@@ -489,21 +489,22 @@ $(document).ready(function () {
     $("#Avatar-Menu-Click").toggleClass("bg-primary-200");
   });
 
+  function toggleProfilePage(Open = false) {
+    if (Open) {
+      $('#test').load('../static/html/profilePage.html', function() {
+          // This callback function will be executed after the content is loaded
+          //AJAXLoadUserProfile(); this will be in profile js
+          $('#Main-Screen').toggleClass('hidden',Open);
+      });
+    } else {
+        $('#test').empty();
+        $('#Main-Screen').toggleClass('hidden',Open);
+    }
+  }
   let isShowProfile = false;
-  $('#PMenu-Profile').click(function () {
-      if (!isShowProfile) {
-          isShowProfile = true;
-          $('#test').load('../static/html/profilePage.html', function() {
-              // This callback function will be executed after the content is loaded
-              //AJAXLoadUserProfile(); this will be in profile js
-
-              $('#Main-Screen').toggleClass('hidden');
-          });
-      } else {
-          isShowProfile = false;
-          $('#test').empty();
-          $('#Main-Screen').toggleClass('hidden');
-      }
+  $('#PMenu-Profile').click(()=>{
+    isShowProfile = !isShowProfile;
+    toggleProfilePage(isShowProfile);
   });
   
 
@@ -536,6 +537,12 @@ $(document).ready(function () {
     const indicatTab = ['MMenu-Today', 'MMenu-Calendar', 'MMenu-Garden'];
     if(indicatTab.indexOf(currId) !== -1){
       $tab.toggleClass(indiModeCSS);
+      if(indicatTab.indexOf(currId) == 0){
+        currentMMenuTab = 0;
+        console.log("Today");
+        isShowProfile = false;
+        toggleProfilePage(isShowProfile);
+      }
     }
   }
   
