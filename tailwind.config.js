@@ -28,6 +28,8 @@ module.exports = {
         bg1: "url('/static/images/wallpaper.jpg')",
         bg2: "url('/static/images/wallpaper2.jpg')",
         bg3: "url('/static/images/wallpaper3.jpg')",
+        bg4: "url('https://source.unsplash.com/random/1920x1080?nature')",
+        
       },
       colors: {
         primary: {

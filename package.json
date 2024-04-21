@@ -1,10 +1,14 @@
 {
   "dependencies": {
     "flowbite": "^2.3.0",
-    "jquery": "^3.7.1",
-    "tailwindcss": "^3.4.3"
+    "jquery": "^3.7.1"
   },
   "scripts": {
     "build": "npx tailwindcss -i ./static/src/tailwindcustom.css -o ./static/css/main.css --watch"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
   }
 }
