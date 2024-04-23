@@ -78,7 +78,7 @@ $(document).ready(function () {
     },
     tags: {
 
-      do:{
+      do: {
         title: "Do",
         color: "#7aa5cf",
         groupId: "gid001",
@@ -111,70 +111,71 @@ $(document).ready(function () {
         display: false,
       },
       tag1: {
-          title: "tag1",
-          color: "#7aa5cf",
-          groupId: "gid001",
-          deleteable: true,
-          editable: true,
-          display: true,
+        title: "tag1",
+        color: "#7aa5cf",
+        groupId: "gid001",
+        deleteable: true,
+        editable: true,
+        display: true,
 
       },
       tag2: {
-          title: "tag2",
-          color: "#63c074",
+        title: "tag2",
+        color: "#63c074",
 
-          groupId: "gid002",
-          deleteable: true,
-          editable: true,
-          display: true,
+        groupId: "gid002",
+        deleteable: true,
+        editable: true,
+        display: true,
 
       },
       tag3: {
-          title: "tag3",
-          color: "#ac7acf",
+        title: "tag3",
+        color: "#ac7acf",
 
-          groupId: "gid003",
-          deleteable: true,
-          editable: true,
-          display: true,
+        groupId: "gid003",
+        deleteable: true,
+        editable: true,
+        display: true,
 
       },
       tag4: {
-          title: "tag4",
-          color: "#c5e875",
+        title: "tag4",
+        color: "#c5e875",
 
-          groupId: "gid004",
-          deleteable: true,
-          editable: true,
-          display: true,
+        groupId: "gid004",
+        deleteable: true,
+        editable: true,
+        display: true,
 
       },
       tag5: {
-          title: "tag5",
-          color: "#f7d38c",
+        title: "tag5",
+        color: "#f7d38c",
 
-          groupId: "gid003",
-          deleteable: true,
-          editable: true,
-          display: true,
+        groupId: "gid003",
+        deleteable: true,
+        editable: true,
+        display: true,
 
       },
       none: {
-          title: "none",
-          color: "#ffffff",
+        title: "none",
+        color: "#ffffff",
 
-          deleteable: false,
-          editable: false,
-          display: false,
+        deleteable: false,
+        editable: false,
+        display: false,
 
       }
-  }};
+    }
+  };
 
-  
+
   var currentMode = 0;
   var isMakeChangeGroup = false;
 
-  var currentMMenuTab = 0 ;  // 0-today 1-cal 2-garden
+  var currentMMenuTab = 0;  // 0-today 1-cal 2-garden
 
 
   //
@@ -191,7 +192,7 @@ $(document).ready(function () {
     return (
       `
     
-    <div id="` +id +`" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
+    <div id="` + id + `" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
     <div class="h-full">
         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -200,7 +201,7 @@ $(document).ready(function () {
         </svg>
     </div>
 
-    <div id="MMenu-Tag-Title" class="text-lg px-1 my-1 center">` + tag.title +`</div>
+    <div id="MMenu-Tag-Title" class="text-lg px-1 my-1 center">` + tag.title + `</div>
     <div class="MMenu-Tag-Edit mx-1">
     <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
@@ -216,7 +217,7 @@ $(document).ready(function () {
     return (
       `
   
-  <div id="` +id +`" class="MMenu-Group"><!--block-->
+  <div id="` + id + `" class="MMenu-Group"><!--block-->
     <!-- Greeting div, status centered -->
         <div class="flex justify-between items-center pl-3 pr-1">
 
@@ -262,10 +263,10 @@ $(document).ready(function () {
   //=========================== Main Screen ========================\\
   //================================================================\\
 
-  function MainScreenTagTemplate(id, tag,mode =0) {
-    if(mode == 0){
-      return(`
-      <div id="`+id+`" class="rounded-md text-center min-w-12 font-base text-xs border-none shadow-lg cursor-pointer">`+tag.title+`</div>                
+  function MainScreenTagTemplate(id, tag, mode = 0) {
+    if (mode == 0) {
+      return (`
+      <div id="`+ id + `" class="rounded-md text-center min-w-12 font-base text-xs border-none shadow-lg cursor-pointer">` + tag.title + `</div>                
       `);
     }
   }
@@ -280,7 +281,7 @@ $(document).ready(function () {
             <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
 
                 <div class="font-semibold text-lg lg:text-xl truncate w-full">`
-                    + task.title + `</div>
+        + task.title + `</div>
 
 
                 <div class="flex items-center gap-2">
@@ -345,9 +346,9 @@ $(document).ready(function () {
     if (mode == 0) {
       return (
         `
-    <div id="` +id +`" class="group-outer">
+    <div id="` + id + `" class="group-outer">
       <div class="flex justify-between items-center px-3 ">
-        <div id="Task-Group-Title" class="todobox-title lg:text-2xl">` + group.title +`</div>
+        <div id="Task-Group-Title" class="todobox-title lg:text-2xl">` + group.title + `</div>
         <div class="Group-Task-Add">
                 <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -371,8 +372,8 @@ $(document).ready(function () {
         `
       <!-- Item  -->
 
-      <div id="` +id +`" data-carousel-item class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 z-0">
-        <div id="Task-Group-Title" class="text-center">` + group.title +`</div>
+      <div id="` + id + `" data-carousel-item class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 z-0">
+        <div id="Task-Group-Title" class="text-center">` + group.title + `</div>
           <div id="" class="Task-Section border-primary-100 w-80 h-96 border-2" >
           <!-- Contents -->
         
@@ -474,14 +475,14 @@ $(document).ready(function () {
     // );
     // use uuidv4
     return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-        (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+      (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
     );
   }
 
   function randHexColor() {
     return "#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0'));
   }
-   //================================================================\\
+  //================================================================\\
   //=========================== Avatar Menu ========================\\
   //================================================================\\
   $("#Avatar-Menu-Click").click(function () {
@@ -491,42 +492,42 @@ $(document).ready(function () {
 
   function toggleProfilePage(Open = false) {
     if (Open) {
-      $('#test').load('../static/html/profilePage.html', function() {
-          // This callback function will be executed after the content is loaded
-          //AJAXLoadUserProfile(); this will be in profile js
-          $('#Main-Screen').toggleClass('hidden',Open);
+      $('#test').load('../static/html/profilePage.html', function () {
+        // This callback function will be executed after the content is loaded
+        //AJAXLoadUserProfile(); this will be in profile js
+        $('#Main-Screen').toggleClass('hidden', Open);
       });
     } else {
-        $('#test').empty();
-        $('#Main-Screen').toggleClass('hidden',Open);
+      $('#test').empty();
+      $('#Main-Screen').toggleClass('hidden', Open);
     }
   }
   let isShowProfile = false;
-  $('#PMenu-Profile').click(()=>{
+  $('#PMenu-Profile').click(() => {
     isShowProfile = !isShowProfile;
     toggleProfilePage(isShowProfile);
   });
-  
 
- //================================================================\\
+
+  //================================================================\\
   //=========================== Mode Menu ==========================\\
   //================================================================\\
 
   $("#Mode-Menu-Click").click(function () {
     $("#Mode-Menu").toggleClass("h-32 lg:h-44");
     $("#Mode-Menu-Click").toggleClass("bg-main/35");
-    
+
   });
   //================================================================\\
   //=========================== Main Menu ==========================\\
   //================================================================\\
-  
+
   $("#Main-Menu-Click").click(function () {
     $("#Main-Menu").toggleClass("h-[86vh]");
     $("#Main-Menu-Click").toggleClass("-rotate-90")
   });
 
-  function updateMMenuTabIndicator(tab = null){
+  function updateMMenuTabIndicator(tab = null) {
     var $tab = tab ? tab : $("#Main-Menu").find("#MMenu-Today");
     var currId = $tab.attr('id');
     const indiModeCSS = 'border-r-4 border-primary-200 bg-gradient-to-l from-primary-200/35 to-transparent';
@@ -535,9 +536,9 @@ $(document).ready(function () {
     $('#Main-Menu').find('.MMenu-Primary-Section').removeClass(indiModeCSS);
     //console.log(currId);
     const indicatTab = ['MMenu-Today', 'MMenu-Calendar', 'MMenu-Garden'];
-    if(indicatTab.indexOf(currId) !== -1){
+    if (indicatTab.indexOf(currId) !== -1) {
       $tab.toggleClass(indiModeCSS);
-      if(indicatTab.indexOf(currId) == 0){
+      if (indicatTab.indexOf(currId) == 0) {
         currentMMenuTab = 0;
         console.log("Today");
         isShowProfile = false;
@@ -545,32 +546,32 @@ $(document).ready(function () {
       }
     }
   }
-  
-  $('#Main-Menu').on('click','.MMenu-Primary-Section',function(e){
+
+  $('#Main-Menu').on('click', '.MMenu-Primary-Section', function (e) {
     updateMMenuTabIndicator($(this));
   });
 
   //Add group
   $("#MMenu-Group-Add").click(function () {
-      isMakeChangeGroup = true;
-      // Customize modal appearance
-      $('#crud-modal label[for="name"]').text("Title");
+    isMakeChangeGroup = true;
+    // Customize modal appearance
+    $('#crud-modal label[for="name"]').text("Title");
 
-      $('#crud-modal h3').text("Create Group");
-      $('#crud-modal #name').attr('placeholder', 'Group name');;
-      $('#crud-modal #name').val('');
-  
-      $('#crud-modal #desc-sec').hide();
-      $('#crud-modal #tags-sec').hide();
-      $('#crud-modal #todo-expired-sec').hide();
+    $('#crud-modal h3').text("Create Group");
+    $('#crud-modal #name').attr('placeholder', 'Group name');;
+    $('#crud-modal #name').val('');
 
-  
-      $('#crud-modal button[type="submit"]').html(`
+    $('#crud-modal #desc-sec').hide();
+    $('#crud-modal #tags-sec').hide();
+    $('#crud-modal #todo-expired-sec').hide();
+
+
+    $('#crud-modal button[type="submit"]').html(`
       <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
       Create`);
-      $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
-      // Show modal
-      addGroupnTagModal.show();
+    $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+    // Show modal
+    addGroupnTagModal.show();
   });
 
   /// Add tag
@@ -602,37 +603,37 @@ $(document).ready(function () {
     addGroupnTagModal.show();
 
   });
-  
+
 
   /// Edit Group
   $("#MMenu-Group-Section").on("click", ".MMenu-Group-Edit", function () {
     console.log($(this).closest(".MMenu-Group").attr("id"));
     var gid = $(this).closest(".MMenu-Group").attr("id");
-    var gInfo = Dict.groups[gid] ;
+    var gInfo = Dict.groups[gid];
     isMakeChangeGroup = true;
     $('#crud-modal label[for="name"]').text("Title");
 
-      $('#crud-modal h3').text("Edit Group");
-      $('#crud-modal #name').attr('placeholder', 'Group name');;
-      $('#crud-modal #name').val(gInfo.title);
-  
-      $('#crud-modal #desc-sec').hide();
-      $('#crud-modal #tags-sec').hide();
-      $('#crud-modal #groups-sec').hide();
-      $('#crud-modal #todo-expired-sec').hide();
+    $('#crud-modal h3').text("Edit Group");
+    $('#crud-modal #name').attr('placeholder', 'Group name');;
+    $('#crud-modal #name').val(gInfo.title);
 
-      $('#crud-modal #colors').val(gInfo.color);
-  
-      $('#crud-modal button[type="submit"]').html(`
+    $('#crud-modal #desc-sec').hide();
+    $('#crud-modal #tags-sec').hide();
+    $('#crud-modal #groups-sec').hide();
+    $('#crud-modal #todo-expired-sec').hide();
+
+    $('#crud-modal #colors').val(gInfo.color);
+
+    $('#crud-modal button[type="submit"]').html(`
       <svg class="w-5 lg:w-7 h-5 lg:h-7 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
     </svg> Edit
       `);
 
-      $('#crud-modal #delete-sec').show();
+    $('#crud-modal #delete-sec').show();
 
-      $('#crud-modal input[type="checkbox"]').attr("id", `group_${gid}`);
-      
+    $('#crud-modal input[type="checkbox"]').attr("id", `group_${gid}`);
+
     // Show modal
     addGroupnTagModal.show();
   });
@@ -641,13 +642,13 @@ $(document).ready(function () {
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Edit", function () {
     console.log($(this).closest(".MMenu-Tag").attr("id"));
     var tid = $(this).closest(".MMenu-Tag").attr("id")
-    var tagInfo = Dict.tags[tid] ;
+    var tagInfo = Dict.tags[tid];
 
-    if(tagInfo.editable == false) return;
+    if (tagInfo.editable == false) return;
 
     isMakeChangeGroup = false;
 
-     // Customize modal appearance
+    // Customize modal appearance
     $('#crud-modal label[for="name"]').text("Name");
 
     $('#crud-modal h3').text("Edit Tag");
@@ -660,7 +661,7 @@ $(document).ready(function () {
     $('#crud-modal #groups-sec').hide();
 
 
-    if(tagInfo.deletable == true) {
+    if (tagInfo.deletable == true) {
       $('#crud-modal #delete-sec').show();
     };
 
@@ -686,20 +687,23 @@ $(document).ready(function () {
 
   function addNewTagMainMenu(group_html, id, tag) {
     //console.log(group_html);
-    group_html.append(MainMenuTagTempplate(id,tag));
-   // LoadTags();
+    group_html.append(MainMenuTagTempplate(id, tag));
+    // LoadTags();
   }
 
   function addNewGroupMainMenu(unique_id, group) {
     $("#MMenu-Group-Section").append(
       MainMenuGroupTemplates(unique_id, group)
     );
-    
+
     return $("#" + unique_id);
   }
 
   function LoadGroups_Tag() {
+    //empty all
+    $("#MMenu-Group-Section").empty();
     // Iterate over each group in Dict.groups
+
     for (var groupId in Dict.groups) {
       if (Dict.groups.hasOwnProperty(groupId)) {
         var group = Dict.groups[groupId];
@@ -708,9 +712,9 @@ $(document).ready(function () {
         // Iterate over tags in the current group
         for (var j = 0; j < group.tags.length; j++) {
 
-          if(Dict.tags[group.tags[j]].display == false) continue;
+          if (Dict.tags[group.tags[j]].display == false) continue;
 
-          addNewTagMainMenu(g.find("#MMenu-Tag-Section"),group.tags[j] ,Dict.tags[group.tags[j]]);
+          addNewTagMainMenu(g.find("#MMenu-Tag-Section"), group.tags[j], Dict.tags[group.tags[j]]);
         }
         toggleHiddenMMenuGroup(g);
       }
@@ -823,12 +827,12 @@ $(document).ready(function () {
     });
   }
 
-  function AJAXcreateTask(taskId, title, description, tag, deadline, points, isCompleted=false) {
+  function AJAXcreateTask(taskId, title, description, tag, deadline, points, isCompleted = false) {
     // Send AJAX request to backend at /todo/create to create task
     $.ajax({
       type: "POST",
       url: "/todo/create",
-      data: JSON.stringify({ 
+      data: JSON.stringify({
         taskId: taskId, title: title, description: description, tag: tag, deadline: deadline, points: points, isCompleted: isCompleted
       }),
       contentType: "application/json",
@@ -864,30 +868,87 @@ $(document).ready(function () {
     $.ajax({
       type: "POST",
       url: "/todo/completed/" + taskId,
-      data: JSON.stringify({ taskId: taskId, isCompleted: true}),
+      data: JSON.stringify({ taskId: taskId, isCompleted: true }),
       contentType: "application/json",
       dataType: "json",
-      success: function(data){
+      success: function (data) {
         console.log("Success");
       },
-      error: function(data){
+      error: function (data) {
         console.log("Error");
       }
     });
   }
 
-  function AJAXupdateTask(taskId, title, description, tag, deadline, points, isCompleted=false) {
+  function AJAXupdateTask(taskId, title, description, tag, deadline, points, isCompleted = false) {
     // Send AJAX request to backend at /todo/update to update task
     $.ajax({
       type: "POST",
       url: "/todo/update",
-      data: JSON.stringify({ 
+      data: JSON.stringify({
         taskId: taskId, title: title, description: description, tag: tag, deadline: deadline, points: points, isCompleted: isCompleted
       }),
       contentType: "application/json",
       dataType: "json",
       success: function (data) {
         console.log("Success");
+      },
+      error: function (data) {
+        console.log("Error");
+      }
+    });
+  }
+  /// load user group
+  function AJAXLoadGroup() {
+    // Send AJAX request to backend at /todo/update to update task
+    $.ajax({
+      type: "GET",
+      url: "/todo/group/get",
+      contentType: "application/json",
+      dataType: "json",
+      success: function (data) {
+        console.log("Loading userdata");
+        let tempDict = {};
+        data.forEach((dt) => {
+          let tmp = {
+            title: dt[1],
+            tags: [dt[2]],
+            def_tag: dt[0],
+            color: dt[3],
+            current_html: "",
+          };
+
+          if (!Dict.tags.hasOwnProperty(tmp.def_tag)) { // add def_tag
+            Dict.tags[tmp.def_tag] = {
+              title: "Default",
+              color: "#000000",
+              display: false,
+              editable: false,
+              deletable: false,
+            }
+          }
+
+          tmp.tags.forEach((t, i) => { // add other tags
+            if (!Dict.tags.hasOwnProperty(t)) {
+              Dict.tags[t] = {
+                title: "no_name_" + tmp.title + "_" + i, // Adding index to title
+                color: randHexColor(),
+                display: true,
+                editable: true,
+                deletable: true,
+              };
+            }
+          });
+
+
+          Dict.groups[dt[0]] = tmp;
+          //tempDict.groups[dt[0]] = tmp;
+        });
+
+        console.log(Dict);
+        console.log("Load data complete")
+        RefreshMainScreen();
+        LoadGroups_Tag();
       },
       error: function (data) {
         console.log("Error");
@@ -909,16 +970,16 @@ $(document).ready(function () {
     const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}`;
     document.getElementById('clock').textContent = formattedTime;
   }
-  
+
   setInterval(updateTime, 1000);
-  
+
   function renderTagMainScreen(tag_html, tag, id, mode = 0) {
     //console.log(tag.display);
-    if(tag.display == false) return;
+    if (tag.display == false) return;
     tag_html.append(MainScreenTagTemplate(id, tag, mode));
-    tag_html.find("#"+id).css({"background-color":tag.color});
+    tag_html.find("#" + id).css({ "background-color": tag.color });
   }
-  
+
 
   function renderFormatterAddons(formatter_html, mode = 0) {
     formatter_html.append(FormmatterAddons(mode));
@@ -942,7 +1003,7 @@ $(document).ready(function () {
     //console.log(Dict.tasks);
 
     task_.toggleClass("transform transition-all duration-350 delay-75 ease-in-out scale-0 blur-md translate-y-20");
-    
+
     setTimeout(() => {
       task_.remove();
     }, 400);
@@ -952,14 +1013,14 @@ $(document).ready(function () {
   $("#Main-Screen").on("click", "#Task-Destroyer", function () {
     var task_ = $(this).closest(".task-outer");
     var taskId = task_.attr("id");
-    
+
     // Disable the checkbox
     $(this).prop("disabled", true);
-  
+
     console.log("Completed: " + taskId);
 
     Dict.completed[taskId] = Dict.tasks[taskId];
-    delete Dict.tasks[taskId]; 
+    delete Dict.tasks[taskId];
 
     // Also send to backend at /todo/completed/<id>
     AJAXcompleteTask(taskId);
@@ -972,16 +1033,17 @@ $(document).ready(function () {
       task_.remove();
     }, 800);
   });
-  
 
-  function renderGroupMainScreen(group_html, group,unique_id, mode = 0) {
-   // var unique_id = getUuid();
+
+  function renderGroupMainScreen(group_html, group, unique_id, mode = 0) {
+    // var unique_id = getUuid();
     group_html.append(MainScreenGroupTemplate(unique_id, group, mode));
-    group_html.find("#" + unique_id).find("#Task-Section-Outer").css({"border-color": group.color});
+    group_html.find("#" + unique_id).find("#Task-Section-Outer").css({ "border-color": group.color });
     return group_html.find("#" + unique_id);
   }
 
   function LoadMainScreen() {
+    console.log("Loading Main Screen");
     // Also add Draggable button again
     $("#Main-Screen").append($(`
     <!-- add question action button here-->
@@ -1002,7 +1064,7 @@ $(document).ready(function () {
     var formatter_html = $("#Main-Screen").append(
       MainScreenFormatterTemplate()
     );
-  
+
     // Iterate over groups
     for (var groupId in Dict.groups) {
       if (Dict.groups.hasOwnProperty(groupId)) {
@@ -1018,8 +1080,8 @@ $(document).ready(function () {
         // Iterate over tasks
         for (var taskId in Dict.tasks) {
           if (
-            Dict.tasks.hasOwnProperty(taskId) &&(
-            group.tags.includes(Dict.tasks[taskId].tag) || group.def_tag == Dict.tasks[taskId].tag)
+            Dict.tasks.hasOwnProperty(taskId) && (
+              group.tags.includes(Dict.tasks[taskId].tag) || group.def_tag == Dict.tasks[taskId].tag)
           ) {
             // Pass task details to renderTaskMainScreen
             renderTaskMainScreen(
@@ -1040,13 +1102,16 @@ $(document).ready(function () {
   //================================================================\\
 
   function RefreshMainScreen() {
+    console.log("Refresh the mainscreen");
     $("#Main-Screen").empty();
-   // $("#MMenu-Group-Section").empty();
+    // $("#MMenu-Group-Section").empty();
     LoadMainScreen();
-   // LoadGroups_Tag();
+    LoadGroups();
+    LoadTags(); 
   }
 
   function LoadUser() {
+    AJAXLoadGroup(); // load data
     LoadGroups_Tag();
     RefreshMainScreen();
   }
@@ -1055,7 +1120,7 @@ $(document).ready(function () {
   function LoadTags() {
     console.log("Loading tags");
 
-   // console.log(Dict.groups);
+    // console.log(Dict.groups);
     var tagArray = Object.keys(Dict.tags).filter(key => Dict.tags[key].display === true);
 
     $("#crud-modal select#tags").empty();
@@ -1076,13 +1141,13 @@ $(document).ready(function () {
     $("#crud-modal select#groups").empty();
 
     groupArray.forEach(element => {
-        let options = `<option value="${element}">${Dict.groups[element].title}</option>`
-        $("#crud-modal select#groups").append(options)
+      let options = `<option value="${element}">${Dict.groups[element].title}</option>`
+      $("#crud-modal select#groups").append(options)
     });
   };
   LoadGroups();
 
-  
+
   function initUser() {
     currentMMenuTab = 0; // 0-today 2-calendar 3-garden
     currentMode = 0;
@@ -1100,322 +1165,319 @@ $(document).ready(function () {
   //================================================================\\
   //========================= CRUD modal ===========================\\
   //================================================================\\
-    // Create 
+  // Create 
 
-    $('#Main-Screen').on("click", ".Group-Task-Add", function(e){
-        e.preventDefault();
-        var gid = $(this).closest(".group-outer").attr("id")
-        //console.log(gid);
-        //console.log(Dict.groups[gid]);
-        var preset_tag = Dict.groups[gid].def_tag; 
-        // Clean modal first
-        // Change modal state
-        $("#crud-modal select#tags").append(`<option value="${preset_tag}">${Dict.groups[gid].title}</option>`);
+  $('#Main-Screen').on("click", ".Group-Task-Add", function (e) {
+    e.preventDefault();
+    var gid = $(this).closest(".group-outer").attr("id")
+    //console.log(gid);
+    //console.log(Dict.groups[gid]);
+    var preset_tag = Dict.groups[gid].def_tag;
+    // Clean modal first
+    // Change modal state
+    $("#crud-modal select#tags").append(`<option value="${preset_tag}">${Dict.groups[gid].title}</option>`);
 
-        $('#crud-modal #colors-sec').hide();
-        $('#crud-modal label[for="name"]').text("Title");
-        $('#crud-modal label[for="description"]').text("Task Description");
+    $('#crud-modal #colors-sec').hide();
+    $('#crud-modal label[for="name"]').text("Title");
+    $('#crud-modal label[for="description"]').text("Task Description");
 
-        $('#crud-modal h3').text("Create Task");
-        $('#crud-modal #name').val("");
-        $('#crud-modal #description').val("");
-        $('#crud-modal #tags option').removeAttr("selected");
-        $('#crud-modal #tags').val(preset_tag);
-        $('#crud-modal #todo-expired').val("");
-        $('#crud-modal button[type="submit"]').html(`
+    $('#crud-modal h3').text("Create Task");
+    $('#crud-modal #name').val("");
+    $('#crud-modal #description').val("");
+    $('#crud-modal #tags option').removeAttr("selected");
+    $('#crud-modal #tags').val(preset_tag);
+    $('#crud-modal #todo-expired').val("");
+    $('#crud-modal button[type="submit"]').html(`
         <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
         Create`);
-        $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+    $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
 
-        // Show modal
-        modal.show();
-        e.stopPropagation();
-    });
+    // Show modal
+    modal.show();
+    e.stopPropagation();
+  });
 
-    // My work at U in CRUD modal  /// NULL -change the activate condition to prevent conflict with cancel button 
-    $('#Main-Screen').on("click", ".Task-Edit", function(e){
-      
-      let id = $(this).closest(".task-outer").attr("id");
-      let title = Dict.tasks[id].title;
-      let desc = Dict.tasks[id].description;
-      let tag = Dict.tasks[id].tag;
-      let expired = Dict.tasks[id].deadline;
-      console.log(id, desc);
-      // Clean up
-      // Clean modal first
-      $('#crud-modal #colors-sec').hide();
-      $('#crud-modal #delete-sec').show();
+  // My work at U in CRUD modal  /// NULL -change the activate condition to prevent conflict with cancel button 
+  $('#Main-Screen').on("click", ".Task-Edit", function (e) {
 
-      $('#crud-modal label[for="name"]').text("Title");
-      $('#crud-modal label[for="description"]').text("Task Description");
-      // Change task header
-      $('#crud-modal h3').text("Edit Task");
-      // Change input to task details
-      $('#crud-modal #name').val(title);
-      $('#crud-modal #description').val(desc);
-      $('#crud-modal').find(`#tags option[value="${tag}"]`).attr("selected", title);
-      $('#crud-modal #todo-expired').val(expired);
-      $('#crud-modal button[type="submit"]').text("Edit");
-      // Change honeypot to id
-      $('#crud-modal input[type="checkbox"]').attr("id", `task_${id}`);
-      // Get current date
-      let current_date = new Date();
-      // Get date input
-      let date_element = $('#crud-modal #todo-expired');
-      // Get input date
-      let input_date = new Date(date_element.val());
-      // If input date is less than current date, show alert
-      if (input_date < current_date){
-          date_element.css("border", "2px solid red");
-      }
-      else {
-          date_element.css("border", "2px solid green");
-      }
-      // Show modal
-      modal.show();
-      e.stopPropagation();
+    let id = $(this).closest(".task-outer").attr("id");
+    let title = Dict.tasks[id].title;
+    let desc = Dict.tasks[id].description;
+    let tag = Dict.tasks[id].tag;
+    let expired = Dict.tasks[id].deadline;
+    console.log(id, desc);
+    // Clean up
+    // Clean modal first
+    $('#crud-modal #colors-sec').hide();
+    $('#crud-modal #delete-sec').show();
+
+    $('#crud-modal label[for="name"]').text("Title");
+    $('#crud-modal label[for="description"]').text("Task Description");
+    // Change task header
+    $('#crud-modal h3').text("Edit Task");
+    // Change input to task details
+    $('#crud-modal #name').val(title);
+    $('#crud-modal #description').val(desc);
+    $('#crud-modal').find(`#tags option[value="${tag}"]`).attr("selected", title);
+    $('#crud-modal #todo-expired').val(expired);
+    $('#crud-modal button[type="submit"]').text("Edit");
+    // Change honeypot to id
+    $('#crud-modal input[type="checkbox"]').attr("id", `task_${id}`);
+    // Get current date
+    let current_date = new Date();
+    // Get date input
+    let date_element = $('#crud-modal #todo-expired');
+    // Get input date
+    let input_date = new Date(date_element.val());
+    // If input date is less than current date, show alert
+    if (input_date < current_date) {
+      date_element.css("border", "2px solid red");
+    }
+    else {
+      date_element.css("border", "2px solid green");
+    }
+    // Show modal
+    modal.show();
+    e.stopPropagation();
   })
 
   // My work at adding limitation on typing Create - Edit modal
-  $("#crud-modal").on("input", "#name, #description", function(){
-      // Take current input length
-      let input_length = $(this).val().length;
-      // Take input limitation
-      let input_limit = $(this).attr("maxlength");
-      // If length > 0, show this length and limitation at the same place in label
-      if (input_length > 0){
-          // Update length and limit
-          $(this).prev().text(function(e, text){
-              let label_content = text.split(" ");
-              // Remove old length and limit (element that starts with "(" and ends with ")")
-              label_content = label_content.filter(e => !e.startsWith("(") && !e.endsWith(")"));
-              // Join new length and limit
-              label_content.push(`(${input_length}/${input_limit})`);
-              return label_content.join(" ");
-          })
-      }
-      else {
-          // Update length and limit
-          $(this).prev().text(function(e, text){
-              let label_content = text.split(" ");
-              // Remove old length and limit (element that starts with "(" and ends with ")")
-              label_content = label_content.filter(e => !e.startsWith("(") && !e.endsWith(")"));
-              // Join just title
-              return label_content.join(" ");
-          })
-      }
+  $("#crud-modal").on("input", "#name, #description", function () {
+    // Take current input length
+    let input_length = $(this).val().length;
+    // Take input limitation
+    let input_limit = $(this).attr("maxlength");
+    // If length > 0, show this length and limitation at the same place in label
+    if (input_length > 0) {
+      // Update length and limit
+      $(this).prev().text(function (e, text) {
+        let label_content = text.split(" ");
+        // Remove old length and limit (element that starts with "(" and ends with ")")
+        label_content = label_content.filter(e => !e.startsWith("(") && !e.endsWith(")"));
+        // Join new length and limit
+        label_content.push(`(${input_length}/${input_limit})`);
+        return label_content.join(" ");
+      })
+    }
+    else {
+      // Update length and limit
+      $(this).prev().text(function (e, text) {
+        let label_content = text.split(" ");
+        // Remove old length and limit (element that starts with "(" and ends with ")")
+        label_content = label_content.filter(e => !e.startsWith("(") && !e.endsWith(")"));
+        // Join just title
+        return label_content.join(" ");
+      })
+    }
   })
   // And also checking for expired date
-  $("#crud-modal").on("input", "#todo-expired", function(){
-      // Get current date
-      let current_date = new Date();
-      // Get input date
-      let input_date = new Date($(this).val());
-      // If input date is less than current date, show alert
-      if (input_date < current_date){
-          $(this).css("border", "2px solid red");
-      }
-      else {
-          $(this).css("border", "2px solid green");
-      }
+  $("#crud-modal").on("input", "#todo-expired", function () {
+    // Get current date
+    let current_date = new Date();
+    // Get input date
+    let input_date = new Date($(this).val());
+    // If input date is less than current date, show alert
+    if (input_date < current_date) {
+      $(this).css("border", "2px solid red");
+    }
+    else {
+      $(this).css("border", "2px solid green");
+    }
   })
 
   // Submit button
-  $('#crud-modal form').on("submit", function(e){
-      e.preventDefault();
-      console.log($('#crud-modal h3').text())
-      // Get id from honeypot, if id is empty string, it means it's a new task
-      let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
-      let generateId = getUuid();
-      // Get all input
-      let mode = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[0];
-      let title = $('#crud-modal #name').val();
-      let desc = $('#crud-modal #description').val();
-      let tag = $('#crud-modal #tags').val();
-      let group = $('#crud-modal #groups').val();
-      let expired = $('#crud-modal #todo-expired').val();
-      let color = $('#crud-modal #colors').val();
-      console.log(mode, id, title, desc, tag, expired,color);
-      // Before updatind Dict, check if tag is empty
-      if (modal.isVisible()){
-
-        if (id == ""){
-            // Adding a new task to the tasks object within Dict
-            Dict.tasks[generateId] = {
-                title: title,
-                description: desc,
-                tag: tag,
-              //  group: group,
-
-                deadline: expired,
-                points: 4,
-            };
-
-        
-            // Call AJAX at /todo/create with JSON data
-            AJAXcreateTask(generateId, title, desc, tag, expired, 4);
-          }
-          else {
-            // Update Dict
-            Dict.tasks[id].title = title;
-            Dict.tasks[id].description = desc;
-            Dict.tasks[id].tag = tag;
-            Dict.tasks[id].deadline = expired;
-            // Call AJAX at /todo/update with JSON data
-            AJAXupdateTask(id, title, desc, tag, expired, 4);
-          }
-      }
-      if (addGroupnTagModal.isVisible())
-      {
-          
-          let action = "";
-          if(isMakeChangeGroup == true){ 
-            if(id ==""){  /// Create a new group
-
-              ///deftag dict
-              var def_tag_id = getUuid();
-              var def_tag = Dict.tags[def_tag_id] = {
-                title: title,
-                color: randHexColor(),
-                groupId: generateId,
-                deleteable: false,
-                editable: false,
-                display: false,
-              };
-
-              /// group dict
-              var g = Dict.groups[generateId] = {
-                  title: title,
-                  tags: [],
-                  def_tag: def_tag_id,
-                  color: color,
-                  current_html: "",
-              };
-
-              
-
-              $("#MMenu-Group-Section").append(MainMenuGroupTemplates(generateId, g));
-              /// Main Screen Add 
-              renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"),g, currentMode);
-              AJAXaddGroup(generateId, title, color);
-            }
-            else{ // Edit groups
-              Dict.groups[id].title = title;
-              Dict.groups[id].color = color;
-              $("#MMenu-Group-Section").find("#"+id).find("#MMenu-Group-Title").text(title);
-              generateId = id; // Keep the same id
-              AJAXupdateGroup(id, title, color);
-            }
-            
-          }
-        else if(isMakeChangeGroup == false){  
-          if(id ==""){  /// Create a new tags
-            var t = Dict.tags[generateId] = {
-              title: title,
-              color: randHexColor(),
-
-              groupId: group,
-              deleteable: true,
-              editable: true,
-              display: true,
-
-            };
-            Dict.groups[group].tags.push(generateId);
-            addNewTagMainMenu($("#"+group).find("#MMenu-Tag-Section"),generateId,t);
-            AJAXaddTag(generateId, group, title, t.color);
-          }
-          else{ //Edit tags
-              Dict.tags[id].title = title;
-              Dict.tags[id].color = color;
-              $("#MMenu-Group-Section").find("#"+id).find("#MMenu-Tag-Title").text(title);
-              generateId = id; // Keep the same id
-              AJAXupdateTag(id, group, title, color);
-          }
-          
-        }
-
-      }
-      console.log(Dict);
-      alert("Submitted");
-      RefreshMainScreen();
-      closeModal();
-      //resetModalState();
-      // window.location = window.location;
-  })
-  
-  //Delete button
-  $('#crud-modal #delete-sec').on("click", function(e){
+  $('#crud-modal form').on("submit", function (e) {
     e.preventDefault();
-      
-      // Get id from honeypot, if id is empty string, it means it's a new task
-      let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
-      // Get all input
-      let group = $('#crud-modal #groups').val();
+    console.log($('#crud-modal h3').text())
+    // Get id from honeypot, if id is empty string, it means it's a new task
+    let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
+    let generateId = getUuid();
+    // Get all input
+    let mode = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[0];
+    let title = $('#crud-modal #name').val();
+    let desc = $('#crud-modal #description').val();
+    let tag = $('#crud-modal #tags').val();
+    let group = $('#crud-modal #groups').val();
+    let expired = $('#crud-modal #todo-expired').val();
+    let color = $('#crud-modal #colors').val();
+    console.log(mode, id, title, desc, tag, expired, color);
     // Before updatind Dict, check if tag is empty
-      if (modal.isVisible()){
-        if (id != ""){
-            // Deleting task
-            delete Dict.tasks[id];
-            var task_ = $('#'+id);
-            task_.remove();
-            // Call AJAX at /todo/delete with JSON data
-            AJAXdeleteTask(id);
+    if (modal.isVisible()) {
+
+      if (id == "") {
+        // Adding a new task to the tasks object within Dict
+        Dict.tasks[generateId] = {
+          title: title,
+          description: desc,
+          tag: tag,
+          //  group: group,
+
+          deadline: expired,
+          points: 4,
+        };
+
+
+        // Call AJAX at /todo/create with JSON data
+        AJAXcreateTask(generateId, title, desc, tag, expired, 4);
+      }
+      else {
+        // Update Dict
+        Dict.tasks[id].title = title;
+        Dict.tasks[id].description = desc;
+        Dict.tasks[id].tag = tag;
+        Dict.tasks[id].deadline = expired;
+        // Call AJAX at /todo/update with JSON data
+        AJAXupdateTask(id, title, desc, tag, expired, 4);
+      }
+    }
+    if (addGroupnTagModal.isVisible()) {
+
+      let action = "";
+      if (isMakeChangeGroup == true) {
+        if (id == "") {  /// Create a new group
+
+          ///deftag dict
+          var def_tag_id = getUuid();
+          var def_tag = Dict.tags[def_tag_id] = {
+            title: title,
+            color: randHexColor(),
+            groupId: generateId,
+            deleteable: false,
+            editable: false,
+            display: false,
+          };
+
+          /// group dict
+          var g = Dict.groups[generateId] = {
+            title: title,
+            tags: [],
+            def_tag: def_tag_id,
+            color: color,
+            current_html: "",
+          };
+
+
+
+          $("#MMenu-Group-Section").append(MainMenuGroupTemplates(generateId, g));
+          /// Main Screen Add 
+          renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"), g, currentMode);
+          AJAXaddGroup(generateId, title, color);
+        }
+        else { // Edit groups
+          Dict.groups[id].title = title;
+          Dict.groups[id].color = color;
+          $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Group-Title").text(title);
+          generateId = id; // Keep the same id
+          AJAXupdateGroup(id, title, color);
+        }
+
+      }
+      else if (isMakeChangeGroup == false) {
+        if (id == "") {  /// Create a new tags
+          var t = Dict.tags[generateId] = {
+            title: title,
+            color: randHexColor(),
+
+            groupId: group,
+            deleteable: true,
+            editable: true,
+            display: true,
+
+          };
+          Dict.groups[group].tags.push(generateId);
+          addNewTagMainMenu($("#" + group).find("#MMenu-Tag-Section"), generateId, t);
+          AJAXaddTag(generateId, group, title, t.color);
+        }
+        else { //Edit tags
+          Dict.tags[id].title = title;
+          Dict.tags[id].color = color;
+          $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Tag-Title").text(title);
+          generateId = id; // Keep the same id
+          AJAXupdateTag(id, group, title, color);
+        }
+
+      }
+
+    }
+    console.log(Dict);
+    alert("Submitted");
+    RefreshMainScreen();
+    closeModal();
+    //resetModalState();
+    // window.location = window.location;
+  })
+
+  //Delete button
+  $('#crud-modal #delete-sec').on("click", function (e) {
+    e.preventDefault();
+
+    // Get id from honeypot, if id is empty string, it means it's a new task
+    let id = $('#crud-modal input[type="checkbox"]').attr("id").split("_")[1];
+    // Get all input
+    let group = $('#crud-modal #groups').val();
+    // Before updatind Dict, check if tag is empty
+    if (modal.isVisible()) {
+      if (id != "") {
+        // Deleting task
+        delete Dict.tasks[id];
+        var task_ = $('#' + id);
+        task_.remove();
+        // Call AJAX at /todo/delete with JSON data
+        AJAXdeleteTask(id);
+      }
+    }
+    if (addGroupnTagModal.isVisible()) {
+      if (isMakeChangeGroup == true) {
+        if (id != "") {  /// Delete a new group
+
+
+          delete Dict.tags[Dict.groups[id].def_tag]; // Delete def tag
+          delete Dict.groups[id]; // Delete group
+
+          var group_ = $('#' + id);
+          group_.remove();
+          AJAXdeleteGroup(id);
         }
       }
-      if (addGroupnTagModal.isVisible())
-      {
-          if(isMakeChangeGroup == true){ 
-            if(id !=""){  /// Delete a new group
+
+      else if (isMakeChangeGroup == false) {   ///  Delete a tag
+        if (id != "") {
+          var groupWithAccordingTag;
+          Dict.groups = Object.fromEntries(
+            Object.entries(Dict.groups).map(([key, value]) => {
+              if (value.tags.includes(id)) {
+                //delete Dict.tasks[key];
+                value.tags = value.tags.filter(e => e !== id);
+                groupWithAccordingTag = key;
+              }
+              return [key, value];
+            })
+          );
+          delete Dict.tags[id];
+
+          Dict.tasks = Object.fromEntries(
+            Object.entries(Dict.tasks).map(([key, value]) => {
+              if (value.tag == id) {
+                value.tag = Dict.groups[groupWithAccordingTag].def_tag;
+              }
+              return [key, value];
+            })
+          );
 
 
-              delete Dict.tags[Dict.groups[id].def_tag]; // Delete def tag
-              delete Dict.groups[id]; // Delete group
-
-              var group_ = $('#'+id);
-              group_.remove();
-              AJAXdeleteGroup(id);
-            }
-          }
-
-        else if(isMakeChangeGroup == false){   ///  Delete a tag
-          if(id !="")
-          {
-            var groupWithAccordingTag;
-            Dict.groups = Object.fromEntries(
-              Object.entries(Dict.groups).map(([key, value]) => {
-                if (value.tags.includes(id)) {
-                  //delete Dict.tasks[key];
-                  value.tags = value.tags.filter(e => e !== id);
-                  groupWithAccordingTag = key;
-                }
-                return [key, value];
-              })
-            );
-            delete Dict.tags[id];
-
-            Dict.tasks = Object.fromEntries(
-              Object.entries(Dict.tasks).map(([key, value]) => {
-                if (value.tag == id) {
-                  value.tag = Dict.groups[groupWithAccordingTag].def_tag;
-                }
-                return [key, value];
-              })
-            );
-
-
-            var tag_ = $('#'+id);
-            tag_.remove();
-            AJAXdeleteTag(id);
-          }
+          var tag_ = $('#' + id);
+          tag_.remove();
+          AJAXdeleteTag(id);
         }
-
       }
-      alert("Deleted: " + id);
-      RefreshMainScreen();
-      closeModal();
+
+    }
+    alert("Deleted: " + id);
+    RefreshMainScreen();
+    closeModal();
   })
   // When user clicked at list item, it will add tag to the task and also close dropdown
-  function closeModal() { 
+  function closeModal() {
     console.log(Dict);
     modal.hide();
     addGroupnTagModal.hide();
@@ -1423,7 +1485,7 @@ $(document).ready(function () {
   };
   // Close modal manually
   $('#btn-close-modal').click(function () {
-      closeModal();
+    closeModal();
   });
 
   closeModal();
