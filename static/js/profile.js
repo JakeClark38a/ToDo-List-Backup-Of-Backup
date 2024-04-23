@@ -301,7 +301,7 @@ function updateUserInfo() {
 }
 $("#Apply-Change-Button").click(updateUserInfo);
 
-function AJAXgetUserInfo() {}
+function AJAXgetUserInfo() { }
 function AJAXsetUserInfo(
   username,
   bio,
@@ -318,6 +318,41 @@ function AJAXsetUserInfo(
       timeZone: userInfo.timeZone,
       displayTimeZone: userInfo.displayTimeZone,
       localTimeZoneName: userInfo.localTimeZoneName,
+    }),
+    contentType: "application/json",
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+    },
+    error: function (data) {
+      console.log(data);
+    },
+  });
+}
+
+
+function AJAXSendConfirmation(){
+  $.ajax({
+    url: "/profile/update/email_confirmation",
+    type: "POST",
+    contentType: "application/json",
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+    },
+    error: function (data) {
+      console.log(data);
+    },
+  });
+
+}
+
+function AJAXChangeEmail(){
+  $.ajax({
+    url: "/profile/update/email",
+    type: "POST",
+    data: JSON.stringify({
+      email: $("#Email-Section").find("#user_profile_email").val(),
     }),
     contentType: "application/json",
     dataType: "json",
