@@ -352,7 +352,8 @@ function AJAXChangeEmail(){
     url: "/profile/update/email",
     type: "POST",
     data: JSON.stringify({
-      email: $("#Email-Section").find("#user_profile_email").val(),
+      cur_email: $("#current-email-sec").find("#current-email").val(),
+      new_email: $("#new-email-sec").find("#new-email").val(),
     }),
     contentType: "application/json",
     dataType: "json",
@@ -364,4 +365,12 @@ function AJAXChangeEmail(){
     },
   });
 }
+
+
+$('#exit-button').click(function () {
+  $.ajax({
+    url: "/todo"
+  });
+});
+
 /////////////////////////////////////// update user info end

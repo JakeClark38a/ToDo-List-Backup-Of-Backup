@@ -480,6 +480,22 @@ def update_image():
     return jsonify({"status": "success"})
 
 
+@app.route('/profile/update/email_confirmation', methods=['POST'])
+def update_email_confirmation():
 
+    return 
+
+@app.route('/profile/update/email', methods=['POST'])
+def update_email():
+    if check_session():
+        data = request.get_json()
+        new_email = data['new_email']
+        curr_email = data['curr_email']
+        if tododb.register_validation(new_email) == False and new_email != curr_email: 
+            tododb.update_email(get_user_id(),new_email)
+            return jsonify({"status": "success"})
+        else:
+            return jsonify({"status": "error"})
+        
 if __name__ == '__main__':
     app.run(debug=True, ssl_context='adhoc')

@@ -2463,10 +2463,6 @@ input:checked + .toggle-bg {
   }
 }
 
-.disabled-select {
-  opacity: 0.5;
-}
-
 /* End profile */
 
 .sr-only {
@@ -2712,6 +2708,10 @@ input:checked + .toggle-bg {
   margin-left: 0.75rem;
 }
 
+.ml-4 {
+  margin-left: 1rem;
+}
+
 .ml-\[3vw\] {
   margin-left: 3vw;
 }
@@ -2750,10 +2750,6 @@ input:checked + .toggle-bg {
 
 .mt-\[5vh\] {
   margin-top: 5vh;
-}
-
-.ml-4 {
-  margin-left: 1rem;
 }
 
 .block {
@@ -2913,10 +2909,6 @@ input:checked + .toggle-bg {
   height: 100vh;
 }
 
-.h-\[200px\] {
-  height: 200px;
-}
-
 .max-h-full {
   max-height: 100%;
 }
@@ -3043,10 +3035,6 @@ input:checked + .toggle-bg {
 
 .w-full {
   width: 100%;
-}
-
-.w-\[200px\] {
-  width: 200px;
 }
 
 .min-w-12 {
@@ -3526,6 +3514,11 @@ input:checked + .toggle-bg {
   background-color: rgb(17 24 39 / 0.5);
 }
 
+.bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 159 110 / var(--tw-bg-opacity));
+}
+
 .bg-green-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(5 122 85 / var(--tw-bg-opacity));
@@ -3587,11 +3580,6 @@ input:checked + .toggle-bg {
 
 .bg-white\/50 {
   background-color: rgb(255 255 255 / 0.5);
-}
-
-.bg-green-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(14 159 110 / var(--tw-bg-opacity));
 }
 
 .bg-bg1 {
@@ -4208,6 +4196,11 @@ input:checked + .toggle-bg {
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-green-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(5 122 85 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-green-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(4 108 78 / var(--tw-bg-opacity));
@@ -4225,11 +4218,6 @@ input:checked + .toggle-bg {
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-green-600:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(5 122 85 / var(--tw-bg-opacity));
 }
 
 .hover\:text-blue-600:hover {
@@ -4496,14 +4484,14 @@ input:checked + .toggle-bg {
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 
-.dark\:hover\:bg-primary-200:hover:is(.dark *) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(140 185 190 / var(--tw-bg-opacity));
-}
-
 .dark\:hover\:bg-green-700:hover:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(4 108 78 / var(--tw-bg-opacity));
+}
+
+.dark\:hover\:bg-primary-200:hover:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(140 185 190 / var(--tw-bg-opacity));
 }
 
 .dark\:hover\:text-blue-500:hover:is(.dark *) {
