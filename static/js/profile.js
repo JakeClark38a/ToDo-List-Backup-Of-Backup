@@ -377,4 +377,8 @@ $('#change-email').click(function () {
   AJAXChangeEmail();
 });
 
+$('#send-mail').click(function () {
+  AJAXSendConfirmation();
+});
+
 /////////////////////////////////////// update user info end
