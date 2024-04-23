@@ -1,31 +1,3 @@
-// Function to toggle the disable state and apply gray out styles to the select box
-function toggleSelectBoxState() {
-  // Get the select element
-  var selectBox = document.getElementById("user_profile_local_time_zone_name");
-  // Get the checkbox element
-  var checkbox = document.getElementById(
-    "user_profile_display_local_time_zone"
-  );
-
-  // Set the disabled attribute of the select box based on the checkbox state
-  selectBox.disabled = !checkbox.checked;
-
-  // If the select box is disabled, add a CSS class to gray it out; otherwise, remove the class
-  if (selectBox.disabled) {
-    selectBox.classList.add("disabled-select");
-  } else {
-    selectBox.classList.remove("disabled-select");
-  }
-}
-
-// Add an event listener to the checkbox to call the toggleSelectBoxState function when it changes
-document
-  .getElementById("user_profile_display_local_time_zone")
-  .addEventListener("change", toggleSelectBoxState);
-
-// Call the toggleSelectBoxState function initially to set the initial state
-toggleSelectBoxState();
-
 /////////////////////////////////////// password modal code begin
 
 // Set the password modal element
