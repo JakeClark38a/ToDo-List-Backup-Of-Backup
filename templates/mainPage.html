@@ -12,7 +12,25 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Reddit+Mono:wght@200..900&display=swap"
         rel="stylesheet">
+    <style>
+        /* Default light mode colors */
+        :root {
+            --text-color: black;
+            --bg-color: white;
+        }
 
+        /* Dark mode colors */
+        :root.dark-mode {
+            --text-color: white;
+            
+        }
+
+        /* Apply text color and background color based on mode */
+        * {
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+    </style>
 </head>
 
 <body class="overflow-hidden bg-bg1 bg-cover bg-center">
@@ -230,7 +248,7 @@
                     </div>
                     <div class="PMenu-Primary-Text">Dark mode</div>
                     <label class="inline-flex items-center cursor-pointer px-3">
-                        <input type="checkbox" value="" class="sr-only peer">
+                        <input id="darkModeToggle" type="checkbox" value="" class="sr-only peer">
                         <div
                             class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                         </div>
@@ -243,7 +261,7 @@
                     <button>
                         <div class="flex items-center">
                             <div class="PMenu-Primary-Image-Wrapper">
-                                <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
+                                <svg class=".peerButton h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                     viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -384,7 +402,7 @@
             <div id="ModeMenu-Profile" class="ModeMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
                     <div class="ModeMenu-Primary-Image-Wrapper">
-                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                        <svg class="w-full h-full text-gray-800 dark:text-white bg-ancce" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z" />
@@ -501,6 +519,7 @@
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="../static/js/app.js"></script>
         <script src="../static/js/calendar.js"></script>
+        <script src="../static/js/darkmode.js"></script>
         <script>
 
             function dragMoveListener(event) {

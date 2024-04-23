@@ -1,12 +1,56 @@
-<div id="Drop-Down-Options-Profile" class="rounded-lg w-[150px] border-2 absolute bg-white " role="menu">
-    <label for="upload-photo" class="dropdown-item text-sm hover:bg-cyan-600 cursor-pointer p-2">
-        Upload a photo…
-        <input type="file" id="upload-photo" name="photo" accept="image/*" style="display: none;">
-    </label>
-    <form class="dropdown-item text-sm hover:bg-cyan-600 p-2" action="/settings/primary_avatar" accept-charset="UTF-8" method="post">
-        <input type="hidden" name="_method" value="delete" autocomplete="off">
-        <button onclick="return confirm('Are you sure you want to remove the photo?')">
-            Remove photo
-        </button>
-    </form>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Toggle</title>
+    <style>
+        /* Default light mode colors */
+        :root {
+            --text-color: black;
+            --bg-color: white;
+        }
+
+        /* Dark mode colors */
+        :root.dark-mode {
+            --text-color: white;
+            --bg-color: black;
+        }
+
+        /* Apply text color and background color based on mode */
+        * {
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+    </style>
+</head>
+<body>
+    <div id="PMenu-DarkMode" class="PMenu-Primary-Section"> <!--block-->
+        <div class="flex items-center">
+            <div class="PMenu-Primary-Image-Wrapper">
+                <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 21a9 9 0 0 1-.5-17.986V3c-.354.966-.5 1.911-.5 3a9 9 0 0 0 9 9c.239 0 .254.018.488 0A9.004 9.004 0 0 1 12 21Z" />
+                </svg>
+            </div>
+            <div class="PMenu-Primary-Text">Dark mode</div>
+            <label class="inline-flex items-center cursor-pointer px-3">
+                <input id="darkModeToggle" type="checkbox" value="" class="sr-only peer">
+                <div
+                    class="peerButton relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                </div>
+            </label>
+        </div>
+    </div><!--eoblock-->
+
+    <script>
+        // JavaScript to toggle dark mode
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+        darkModeToggle.addEventListener('change', () => {
+            document.documentElement.classList.toggle('dark-mode', darkModeToggle.checked);
+        });
+    </script>
+</body>
+</html>

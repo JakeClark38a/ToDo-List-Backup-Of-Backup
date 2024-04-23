@@ -2688,6 +2688,10 @@ input:checked + .toggle-bg {
   margin-bottom: 1.75rem;
 }
 
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
 .mb-9 {
   margin-bottom: 2.25rem;
 }
@@ -2899,6 +2903,10 @@ input:checked + .toggle-bg {
 
 .h-full {
   height: 100%;
+}
+
+.h-screen {
+  height: 100vh;
 }
 
 .max-h-full {
@@ -3569,12 +3577,13 @@ input:checked + .toggle-bg {
   background-color: rgb(255 255 255 / 0.5);
 }
 
-.bg-bg1 {
-  background-image: url('/static/images/wallpaper.jpg');
+.bg-dark {
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 72 72 / var(--tw-bg-opacity));
 }
 
-.bg-bg2 {
-  background-image: url('/static/images/wallpaper2.jpg');
+.bg-bg1 {
+  background-image: url('/static/images/wallpaper.jpg');
 }
 
 .bg-gradient-to-l {
@@ -3776,6 +3785,11 @@ input:checked + .toggle-bg {
   line-height: 2.5rem;
 }
 
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -3844,6 +3858,11 @@ input:checked + .toggle-bg {
   color: rgb(163 199 203 / var(--tw-text-opacity));
 }
 
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(140 185 190 / var(--tw-text-opacity));
+}
+
 .text-blue-600 {
   --tw-text-opacity: 1;
   color: rgb(112 148 152 / var(--tw-text-opacity));
@@ -3857,6 +3876,11 @@ input:checked + .toggle-bg {
 .text-gray-500 {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+.text-gray-700 {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
 .text-gray-800 {
@@ -3882,6 +3906,11 @@ input:checked + .toggle-bg {
 .text-red-400 {
   --tw-text-opacity: 1;
   color: rgb(249 128 128 / var(--tw-text-opacity));
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(240 82 82 / var(--tw-text-opacity));
 }
 
 .text-slate-400 {
@@ -4312,6 +4341,12 @@ input:checked + .toggle-bg {
   content: var(--tw-content);
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
+.peer:checked ~ .peer-checked\:after\:border-gray-600::after {
+  content: var(--tw-content);
+  --tw-border-opacity: 1;
+  border-color: rgb(75 85 99 / var(--tw-border-opacity));
 }
 
 .peer:focus ~ .peer-focus\:outline-none {
