@@ -4,32 +4,36 @@ import uuid, hashlib, time
 class ToDoDatabase():
     def __init__(self):
         self.connection = mysql.connector.connect(
-            host='todolist-db-todolist-database.a.aivencloud.com',
+            host='localhost',
+            #todolist-db-todolist-database.a.aivencloud.com
             user='todolist',
             password='Todolist<123456789',
             database='todolist',
-            port=21132
+            port=3306
+            #21132
         )
         self.cursor = self.connection.cursor()
     def create_table(self):
             self.cursor.execute("""
                                 CREATE TABLE IF NOT EXISTS users (
                                 user_id nvarchar(40) PRIMARY KEY, 
-                                username nvarchar(100), 
-                                password nvarchar(100), 
                                 email nvarchar(100),
-                                image nvarchar(1000),
+                                name nvarchar(256) 
+                                password nvarchar(100), 
+                                image nvarchar(20000),
                                 type_account nvarchar(10),
-                                external_id nvarchar(40)
+                                external_id nvarchar(40),
+                                isFillForm bit(1) DEFAULT 0
                                 )
                                 """)
             self.cursor.execute("""
                                 CREATE TABLE IF NOT EXISTS groupss (
-                                group_id nvarchar(40) PRIMARY KEY, 
+                                group_id nvarchar(40), 
                                 group_title nvarchar(100), 
                                 user_id nvarchar(40), 
                                 colors nvarchar(100),
-                                foreign key (user_id) references users(user_id) ON DELETE CASCADE
+                                foreign key (user_id) references users(user_id) ON DELETE CASCADE,
+                                primary key (group_id, user_id)
                                 )
                                 """)
             self.cursor.execute("""
@@ -40,13 +44,14 @@ class ToDoDatabase():
                                 user_id nvarchar(40),
                                 group_id nvarchar(40),
                                 foreign key (user_id) references users(user_id) ON DELETE CASCADE,
-                                foreign key (group_id) references groupss(group_id) ON DELETE CASCADE
+                                foreign key (group_id) references groupss(group_id) ON DELETE CASCADE,
+                                primary key (tag_id, user_id)
                                 )
                                 """)
 
             self.cursor.execute("""
                                 CREATE TABLE IF NOT EXISTS tasks (
-                                task_id nvarchar(40) PRIMARY KEY, 
+                                task_id nvarchar(40), 
                                 title nvarchar(100), 
                                 description nvarchar(500), 
                                 tags_id nvarchar(40), 
@@ -55,7 +60,8 @@ class ToDoDatabase():
                                 points int, 
                                 isCompleted bit(1),
                                 foreign key (user_id) references users(user_id) ON DELETE CASCADE,
-                                foreign key (tags_id) references tags(tag_id) ON DELETE CASCADE
+                                foreign key (tags_id) references tags(tag_id) ON DELETE CASCADE,
+                                primary key (task_id, user_id)
                                 )
                                 """)
             
@@ -70,6 +76,15 @@ class ToDoDatabase():
         self.create_tag('tag3','gid003','tag3','#ac7acf',user_id)
         self.create_tag('tag4','gid004','tag4','#c5e875',user_id)
         self.create_tag('tag5','gid001','tag5','#7aa5cf',user_id)
+
+    def check_user_form(self, user_id):
+        sqlquery = "SELECT isFillForm FROM users WHERE user_id=%s"
+        values = (user_id,)
+        self.cursor.execute(sqlquery,values)
+        result = self.cursor.fetchone()
+        if result[0] == 1:
+            return True
+        else: return False
             
     def insert_user_facebook(self, email, username, image, external_id):
         sqlquery = "INSERT INTO users (user_id,username,email,image,type_account,external_id) select * from (select %s,%s,%s,%s,%s,%s) as tmp where not exists (select * from users where external_id = %s)"
@@ -129,16 +144,28 @@ class ToDoDatabase():
         if result:
             return False
         else: return True
+
     def show_user(self, username, password):
-        sqlquery = "SELECT * FROM users WHERE email=%s and password=%s"
+        sqlquery = "SELECT * FROM users WHERE email=%s and password=%s and type_account is null"
         values = (username,password)
         self.cursor.execute(sqlquery,values)
         result = self.cursor.fetchone()
         if result:
             return result
         else: return None
+
+    def reset_password_user(self, email, password):
+        sqlquery = "UPDATE users SET password=%s WHERE email=%s and type_account is null"
+        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        values = (password,email)
+        self.cursor.execute(sqlquery,values)
+        self.connection.commit()
+
+    # def update_profile
+
+
     def create_session(self, username, password):
-        sqlquery = "SELECT user_id FROM users WHERE email=%s and password=%s"
+        sqlquery = "SELECT user_id FROM users WHERE email=%s and password=%s and type_account is null"
         values = (username,password)
         self.cursor.execute(sqlquery,values)
         result = self.cursor.fetchone()

@@ -83,60 +83,53 @@ centerPasswordModal();
 /////////////////////////////////////// username modal code begin
 
 // Set the username modal element
-const $usernameModalEl = document.getElementById("username-modal");
+const $emailModalEl = document.getElementById("email-modal");
 
-// Options for the username modal
-const usernameModalOptions = {
+// Options for the email modal
+const emailModalOptions = {
   backdrop: "dynamic",
   backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
   closable: true,
   onHide: () => {
-    console.log("Username modal is hidden");
+    console.log("email modal is hidden");
   },
   onShow: () => {
-    console.log("Username modal is shown");
+    console.log("email modal is shown");
   },
   onToggle: () => {
-    console.log("Username modal has been toggled");
+    console.log("email modal has been toggled");
   },
 };
 
-// Create a new instance of the modal for the username modal
-const usernameModal = new Modal($usernameModalEl, usernameModalOptions);
+// Create a new instance of the modal for the email modal
+const emailModal = new Modal($emailModalEl, emailModalOptions);
 
-// Function to handle closing the username modal when the close button is clicked
+// Function to handle closing the email modal when the close button is clicked
 document
-  .getElementById("btn-close-username-modal")
+  .getElementById("btn-close-email-modal")
   .addEventListener("click", () => {
-    usernameModal.hide();
+    emailModal.hide();
   });
 
-// Function to unhide the username modal when the change username button is clicked
-document
-  .getElementById("Change-Username-Button")
-  .addEventListener("click", () => {
-    usernameModal.show();
-  });
+// Function to unhide the email modal when the change email button is clicked
+document.getElementById("Change-Email-Button").addEventListener("click", () => {
+  emailModal.show();
+});
 
-// Function to center the username modal
-function centerUsernameModal() {
-  $usernameModalEl.style.top = "50%";
-  $usernameModalEl.style.left = "50%";
-  $usernameModalEl.style.transform = "translate(-50%, -50%)";
+// Function to center the email modal
+function centeremailModal() {
+  $emailModalEl.style.top = "50%";
+  $emailModalEl.style.left = "50%";
+  $emailModalEl.style.transform = "translate(-50%, -50%)";
 }
 
-// Call the centerUsernameModal function when the window is resized
-window.addEventListener("resize", centerUsernameModal);
+// Call the centeremailModal function when the window is resized
+window.addEventListener("resize", centeremailModal);
 
-// Call the centerUsernameModal function initially to center the modal
-centerUsernameModal();
+// Call the centeremailModal function initially to center the modal
+centeremailModal();
 
-/////////////////////////////////////// username modal code end
-
-
-
-
-
+/////////////////////////////////////// email modal code end
 
 /////////////////////////////////////// change avatar modal code begin
 
@@ -168,17 +161,17 @@ const avatarModalOptions = {
 const avatarModal = new Modal($avatarModalEl, avatarModalOptions);
 
 // Function to handle closing the avatar modal when the close button is clicked
-document.getElementById("btn-close-avatar-modal").addEventListener("click", () => {
-  avatarModal.hide();
-});
-
+document
+  .getElementById("btn-close-avatar-modal")
+  .addEventListener("click", () => {
+    avatarModal.hide();
+  });
 
 // Function to unhide the avatar options when the edit button or the avatar is clicked
 document.getElementById("Avatar-Menu-Profile").addEventListener("click", () => {
   const dropdownmenu = document.getElementById("Drop-Down-Options-Profile");
   dropdownmenu.classList.toggle("hidden");
 });
-
 
 // Function to center the avatar modal
 function centerAvatarModal() {
@@ -192,7 +185,6 @@ window.addEventListener("resize", centerAvatarModal);
 
 // Call the centerAvatarModal function initially to center the modal
 centerAvatarModal();
-
 
 // Declare cropper variable outside the event listener
 let cropper;
@@ -247,67 +239,122 @@ document.getElementById("change-avatar-btn").addEventListener("click", () => {
   if (cropper) {
     const croppedCanvas = cropper.getCroppedCanvas();
     const croppedDataURL = croppedCanvas.toDataURL("image/jpeg"); // Change format if needed
-
+    //$('#upload-file') = croppedCanvas.toDataURL("multipart/form-data");
+    //form_data.append("avatar", croppedCanvas.toDataURL("multipart/form-data"));
     // Log cropped image data
     console.log("Cropped Image Data:", croppedDataURL);
 
-    // Send cropped image data to the server
-    fetch("your-server-url", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    //Send cropped image data to the server
+    // fetch("/profile/update/image", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ avatar: croppedDataURL }),
+    // })
+    //   .then((response) => {
+    //     if (response.ok) {
+    //       // Success, handle accordingly (e.g., close modal)
+    //       $("#avatar-modal").hide();
+    //     } else {
+    //       // Handle error
+    //       console.error("Error sending cropped image data to the server");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error sending cropped image data:", error);
+    //   });
+    $.ajax({
+      url: "/profile/update/image",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify({ avatar: croppedDataURL }),
+      enctype: "multipart/form-data",
+      contentType: "application/json; charset=utf-8",
+      processData: false,
+      cache: false,
+      success: function (data) {
+        console.log(data);
+        $("#avatar-modal").hide();
+        location.reload();
       },
-      body: JSON.stringify({ avatar: croppedDataURL }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Success, handle accordingly (e.g., close modal)
-          $("#avatar-modal").hide();
-        } else {
-          // Handle error
-          console.error("Error sending cropped image data to the server");
-        }
-      })
-      .catch((error) => {
-        console.error("Error sending cropped image data:", error);
-      });
+      error: function (data) {
+        console.log(data);
+      },
+    });
   }
 });
 /////////////////////////////////////// change avatar modal code end
 
-/////////////////////////////////////// update user info 
-var userInfo ={
+/////////////////////////////////////// update user info
+var userInfo = {
   username: "John Doe",
   bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   timeZone: "UTC",
   displayTimeZone: true,
   localTimeZoneName: "UTC",
 };
-function displayUserInfo()
-{
-  $('#Username-Section').find('#user_profile_name').val(userInfo.username);
-  $('#Bio-Section').find('#user_profile_bio').text(userInfo.bio);
-  $('#Time-Zone-Section').find('#user_location_name').val(userInfo.timeZone);
-  $('#Time-Zone-Section').find('#user_profile_display_local_time_zone').prop('checked', userInfo.displayTimeZone);
+function displayUserInfo() {
+  $("#Username-Section").find("#user_profile_name").val(userInfo.username);
+  $("#Bio-Section").find("#user_profile_bio").text(userInfo.bio);
+  $("#Time-Zone-Section").find("#user_location_name").val(userInfo.timeZone);
+  $("#Time-Zone-Section")
+    .find("#user_profile_display_local_time_zone")
+    .prop("checked", userInfo.displayTimeZone);
   toggleSelectBoxState();
-  $('#Time-Zone-Section').find('#user_profile_local_time_zone_name').val(userInfo.localTimeZoneName);
+  $("#Time-Zone-Section")
+    .find("#user_profile_local_time_zone_name")
+    .val(userInfo.localTimeZoneName);
 }
 displayUserInfo();
-function updateUserInfo(){
-  userInfo.username = $('#Username-Section').find('#user_profile_name').val();
-  userInfo.bio = $('#Bio-Section').find('#user_profile_bio').text();
-  userInfo.timeZone = $('#Time-Zone-Section').find('#user_location_name').val();
-  userInfo.displayTimeZone = $('#Time-Zone-Section').find('#user_profile_display_local_time_zone').prop('checked');
-  userInfo.localTimeZoneName = $('#Time-Zone-Section').find('#user_profile_local_time_zone_name').val();
+function updateUserInfo() {
+  userInfo.username = $("#Username-Section").find("#user_profile_name").val();
+  userInfo.bio = $("#Bio-Section").find("#user_profile_bio").val();
+  userInfo.timeZone = $("#Time-Zone-Section").find("#user_location_name").val();
+  userInfo.displayTimeZone = $("#Time-Zone-Section")
+    .find("#user_profile_display_local_time_zone")
+    .prop("checked");
+  userInfo.localTimeZoneName = $("#Time-Zone-Section")
+    .find("#user_profile_local_time_zone_name")
+    .val();
   displayUserInfo();
-  console.log('bruh');
+  AJAXsetUserInfo(
+    userInfo.username,
+    userInfo.bio,
+    userInfo.timeZone,
+    userInfo.displayTimeZone,
+    userInfo.localTimeZoneName
+  );
+  console.log("bruh");
 }
-$('#Apply-Change-Button').click(updateUserInfo);
+$("#Apply-Change-Button").click(updateUserInfo);
 
-function AJAXgetUserInfo(){
-
-}
-function AJAXsetUserInfo(){
-
+function AJAXgetUserInfo() {}
+function AJAXsetUserInfo(
+  username,
+  bio,
+  timeZone,
+  displayTimeZone,
+  localTimeZoneName
+) {
+  $.ajax({
+    url: "/profile/update",
+    type: "POST",
+    data: JSON.stringify({
+      username: userInfo.username,
+      bio: userInfo.bio,
+      timeZone: userInfo.timeZone,
+      displayTimeZone: userInfo.displayTimeZone,
+      localTimeZoneName: userInfo.localTimeZoneName,
+    }),
+    contentType: "application/json",
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+    },
+    error: function (data) {
+      console.log(data);
+    },
+  });
 }
 /////////////////////////////////////// update user info end

@@ -3,18 +3,24 @@ import mysql.connector
 from flask_mail import Mail, Message
 from secrets import token_bytes
 from database import ToDoDatabase
-import hashlib, os, datetime
+import hashlib, os, datetime, jwt, threading, base64
 from authlib.integrations.flask_client import OAuth
 from authlib.common.security import generate_token
-# from email_validator import validate_email, EmailNotValidError
+from werkzeug.utils import secure_filename
 from password_strength import PasswordPolicy
+from time import time
+
+#App config:
+app = Flask(__name__, template_folder='templates')
+app.config['UPLOAD_FOLDER'] = 'static/upload'
+
 
 #Create policy for password
 
 policy = PasswordPolicy.from_names(strength=0.67)
 
 
-app = Flask(__name__, template_folder='templates')
+
 tododb = ToDoDatabase()
 tododb.create_table()
 
@@ -29,9 +35,21 @@ tester_password = hashlib.sha256("a".encode('utf-8')).hexdigest()
 if tododb.show_user(tester_mail,tester_password) == None:
     tododb.insert_user("a@a.a","a","Null")
 
-
-app.secret_key = token_bytes(16).hex()
+##Oauth config
+app.secret_key = SECRET_KEY = token_bytes(16).hex()
 oauth = OAuth(app)
+
+##Mail config
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'vodanhlax@gmail.com'
+app.config['MAIL_PASSWORD'] = 'nzeudxvcyfoeiqzb'
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USE_TLS'] = False
+
+mail = Mail(app)
+
+
 
 #Fuction 
 
@@ -50,14 +68,44 @@ def get_user_id():
     user_id = user_id[0]
     return user_id
 
+def isFillForm():
+    if tododb.check_user_form(get_user_id()) == True:
+        return True
+    else:
+        return False
+
+def generate_jwt(user_gusername, expires=600):
+    return jwt.encode({"user": user_gusername, 'exp': time() + expires},key=SECRET_KEY,algorithm='HS256')
+
+def decode_jwt(jwt_auth):
+    try:
+        payload = jwt.decode(jwt_auth,SECRET_KEY,algorithms=['HS256'])
+        return payload["user"]
+    except Exception as e:
+        return "Error"
+
+def send_async_email(app, msg):
+    with app.app_context():
+        mail.send(msg)
+
+def allow_extension(filename):
+    ALLOWED_EXTENSIONS = set({'png', 'jpg', 'jpeg', 'gif'})
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+#Error page
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('notfounderror.html'), 404
+
+
+
 #Endpoints 
 @app.route('/')
 def index():
     return render_template('landingPage.html')
 
-@app.route('/404')
-def notfound_error():
-    return render_template('notfounderror.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -214,14 +262,63 @@ def facebook_auth():
 
 @app.route('/todo', methods=['GET', 'POST'])
 def main_page():
-    if check_session():
+    if check_session() and isFillForm() == False:
+        tododb.default_setting(get_user_id())
+        return redirect(url_for('profile'))
+    elif check_session() and isFillForm() == True:
         return render_template('mainPage.html')
     else: return redirect(url_for('login'))
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.pop('user', None)
+    session.pop('type', None)
+    session.pop('token', None)
     return redirect(url_for('index'))
+
+
+###Forgot password endpoints
+
+
+@app.route('/forgot_password',methods=["POST","GET"])
+def forgot_password():
+    if request.method == "GET":
+        return render_template("forgotPaswdPage.html")
+    elif request.method == "POST":
+        reset_email = request.form["email"]
+        if tododb.register_validation(reset_email) == False:
+            msg = Message("Hello", sender='noreply@gmail.com',recipients=[reset_email])
+            msg.body = "Here is your reset link " + url_for("reset_password",token=generate_jwt(reset_email),_external=True)
+            thr = threading.Thread(target=send_async_email, args=[app, msg])
+            thr.start() 
+            #mail.send(msg)
+            #flash("You have send tHe reset link")
+            return redirect(url_for("login"))
+        return render_template("forgotPaswdPage.html")
+
+@app.route('/reset_password/<token>',methods=["POST","GET"])
+def reset_password(token):
+    if request.method == "GET":
+        email = decode_jwt(token)
+        if email != "Error" and tododb.register_validation(email) == False:
+            return render_template("resetPassword.html", token=token)
+        else:
+            return redirect(url_for("login"))
+    elif request.method == "POST":
+        new_password = request.form['reset-password']
+        retype_password = request.form['retype-password']
+        if new_password != retype_password:
+            flash("Password and retype password are not the same")
+            return redirect(url_for("reset_password",token=token))
+        elif policy.password(new_password).strength() < 0.67:
+            flash("Password is not strong enough")
+            return redirect(url_for("reset_password",token=token))
+        else:
+            tododb.reset_password_user(email,new_password)
+            return redirect(url_for("login"))
+
+
+
 
 
 # Because we don't have a database and real backend code, we'll build code to check AJAX requests and return some data.
@@ -338,6 +435,50 @@ def delete_tag():
     tododb.delete_tag(data['tagId'],user_id)
     print(data)
     return jsonify(data)
+####Profile endpoints
+@app.route('/profile', methods=['GET','POST'])
+def profile():
+    if check_session():
+        return render_template('profilePage.html')
+    else: return redirect(url_for('login'))
+
+
+@app.route('/profile/update', methods=['POST'])
+def update_profile():
+    data = request.get_json()
+    print(data)
+    #tododb.up
+    return redirect(url_for('main_page'))
+
+
+@app.route('/profile/update/image', methods=['POST'])
+def update_image():
+    # if 'photo' not in request.files:
+    #     print("Not found photo")
+    #     return redirect(url_for('profile'))
+    # files = request.files['photo']
+    # if files and allow_extension(files.filename):
+    #     filename = secure_filename(files.filename)
+    #     files.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    #     print("Successfilly uploaded")
+    # else:
+    #     print("Error")
+    # data = request.get_json()
+    # print(data)
+    # resp = jsonify({"status": "success"}).status_code = 201
+    # return resp
+    response_data = request.get_json()
+    file = response_data['avatar']
+    #print(file)
+    starter = file.find(',')
+    image_data = file[starter+1:]
+    image_data = bytes(image_data, encoding='utf-8')
+    print(image_data)
+    
+    with open("static/images/profile.jpg", "wb") as fh:
+        fh.write(base64.decodebytes(image_data))   
+    return jsonify({"status": "success"})
+
 
 
 if __name__ == '__main__':
