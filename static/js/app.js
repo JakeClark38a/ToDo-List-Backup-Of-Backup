@@ -6,10 +6,14 @@ $(document).ready(function () {
   //================================================================\\
   //=========================== Sample var =========================\\
   //================================================================\\
-  var Dict = {
-    // sample dict
+  var Dict = {  // sample dict
     username: "JakeClark",
     userid: "User ID",
+    bio: "hmm...",
+    timeZone: "Asia/Tokyo",
+    displayLocalTimeZone: false,
+    localTimeZoneName: "UTC",
+
     groups: {
       gid001: {
         title: "Do",
@@ -164,10 +168,9 @@ $(document).ready(function () {
           display: false,
 
       }
-  }
-  
-  };
+  }};
 
+  
   var currentMode = 0;
   var isMakeChangeGroup = false;
 
@@ -353,7 +356,7 @@ $(document).ready(function () {
                 </svg>
             </div>
         </div>
-        <div id="Task-Section-Outer" class="bg-main/35 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
+        <div id="Task-Section-Outer" class= "bg-main/55 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
             <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
             <!--task here-->
             </div>
@@ -486,10 +489,38 @@ $(document).ready(function () {
     $("#Avatar-Menu-Click").toggleClass("bg-primary-200");
   });
 
+  function toggleProfilePage(Open = false) {
+    if (Open) {
+      $('#test').load('../static/html/profilePage.html', function() {
+          // This callback function will be executed after the content is loaded
+          //AJAXLoadUserProfile(); this will be in profile js
+          $('#Main-Screen').toggleClass('hidden',Open);
+      });
+    } else {
+        $('#test').empty();
+        $('#Main-Screen').toggleClass('hidden',Open);
+    }
+  }
+  let isShowProfile = false;
+  $('#PMenu-Profile').click(()=>{
+    isShowProfile = !isShowProfile;
+    toggleProfilePage(isShowProfile);
+  });
+  
+
+ //================================================================\\
+  //=========================== Mode Menu ==========================\\
+  //================================================================\\
+
+  $("#Mode-Menu-Click").click(function () {
+    $("#Mode-Menu").toggleClass("h-32 lg:h-44");
+    $("#Mode-Menu-Click").toggleClass("bg-main/35");
+    
+  });
   //================================================================\\
   //=========================== Main Menu ==========================\\
   //================================================================\\
-
+  
   $("#Main-Menu-Click").click(function () {
     $("#Main-Menu").toggleClass("h-[86vh]");
     $("#Main-Menu-Click").toggleClass("-rotate-90")
@@ -506,6 +537,12 @@ $(document).ready(function () {
     const indicatTab = ['MMenu-Today', 'MMenu-Calendar', 'MMenu-Garden'];
     if(indicatTab.indexOf(currId) !== -1){
       $tab.toggleClass(indiModeCSS);
+      if(indicatTab.indexOf(currId) == 0){
+        currentMMenuTab = 0;
+        console.log("Today");
+        isShowProfile = false;
+        toggleProfilePage(isShowProfile);
+      }
     }
   }
   
@@ -1393,8 +1430,6 @@ $(document).ready(function () {
   //modal.show();
 
   //addGroupnTagModal.show()
-
-
 
 })
 // End of app.js

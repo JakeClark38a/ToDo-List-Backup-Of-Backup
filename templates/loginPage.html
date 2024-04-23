@@ -1,99 +1,92 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="../static/css/main.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-  </head>
 
-  <body>
-    <div
-      class="wrapper flex flex-col justify-center items-center h-[100vh] w-[100vw] bg-bg1 bg-cover"
-    >
-      <div
-        class="border-2 border-solid bg-transparent backdrop-blur rounded-2xl w-80 h-fit"
-      >
-        <div
-          class="register flex flex-col justify-center items-center text-black w-full h-full"
-        >
-          <h1
-            class="text-center py-3 font-bold text-3xl w-full h-15 text-white mb-10"
-          >
-            Login
-          </h1>
-          <form
-            class="max-w-md w-64 mx-auto"
-            method="post"
-            action="{{url_for('login')}}"
-          >
-            <div class="mb-5">
-              <label
-                for="email"
-                class="block mb-2 text-sm font-medium text-white"
-                >Your email</label
-              >
-              <input
-                type="email"
-                id="email"
-                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                placeholder="name@flowbite.com"
-                required
-                name="username"
-              />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="../static/css/main.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</head>
+
+<body>
+  <div class="wrapper flex flex-col justify-center items-center h-[100vh] w-[100vw] bg-bg1 bg-cover">
+
+    <div class="border-2 backdrop-blur-sm rounded-xl w-80 h-fit">
+
+      <div class="register flex flex-col justify-center items-center w-full h-full">
+        <div class="text-center font-bold text-3xl w-full text-main my-3">
+          Login
+        </div>
+        <form class="max-w-md w-64 mx-auto" method="post" action="{{url_for('login')}}">
+          <div class="mt-5 mb-3">
+            <label for="email" class="block ml-2 mb-2 text-sm font-medium text-main">Your email</label>
+            <input type="email" id="email"
+              class="shadow-lg bg-main/50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-main dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+              placeholder="example@email.com" required name="username" />
+          </div>
+          <div class="mb-2">
+            <label for="password" class="block ml-2 mb-2 text-sm font-medium text-main">Your password</label>
+            <div class="flex items-center">
+              <input type="password" id="password"
+                class="shadow-lg bg-main/50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-main dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                required name="password" placeholder="password" />
+              <div id="showPassword" class="shadow-lg bg-main/50 border border-gray-300 p-2 rounded-r-lg">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-width="1.5"
+                    d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                  <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+
+              </div>
             </div>
-            <div class="mb-5">
-              <label
-                for="password"
-                class="block mb-2 text-sm font-medium text-white"
-                >Your password</label
-              >
-              <input
-                type="password"
-                id="password"
-                class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                required
-                name="password"
-              />
-            </div>
-            <div class="flex items-start mb-5">
-              <p class="ms-2 text-sm font-medium text-white w-5/6">
-                <a
-                  class="text-blue-400 hover:underline dark:text-blue-500"
-                  href="login"
-                  >Forgot password ?</a
-                >
-              </p>
-            </div>
-            <div class="flex justify-center">
-              <button
-                type="submit"
-                class="w-32 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Login
-              </button>
-            </div>
-          </form>
-          <p class="flex justify-center py-5 text-white">
-            Have no account?
-            <a
-              class="text-blue-400 hover:underline dark:text-blue-500 ml-1"
-              href="{{url_for('register')}}"
-              >Register</a
-            >
-          </p>
-          <div class="flex flex-row justify-center items-center w-full">
-            <hr class="w-16 h-0.5 my-3 bg-white border-0 dark:bg-gray-700">
-            <span class=" px-3 font-medium text-white  dark:text-white dark:bg-gray-900">Sign in with </span>
-            <hr class="w-16 h-0.5 my-3 bg-white border-0 dark:bg-gray-700">
-           </div>
-           <!-- end horizon line -->
-           <div class="flex flex-row justify-evenly w-2/3 mb-6 mt-3">
-            <a href="{{url_for('facebook')}}"><button><image src="../static/images/loginfb.jpg" class="h-10"></button></a>
-            <a href="{{url_for('login_google')}}"><button><image src="../static/images/Logingg.png" class="h-10"></button></a>
-           </div>
+          </div>
+          <div class="mb-9">
+            <p class="ml-2 text-sm font-medium text-main w-full">
+              <a class="text-main hover:underline dark:text-blue-500" href="{{url_for('forgot_password')}}">Forgot password ?</a>
+            </p>
+          </div>
+          <div class="flex justify-center">
+            <button type="submit"
+              class="shadow-lg transition-all ease-out duration-500 w-40 text-primary-100 bg-main hover:bg-accent-200 hover:text-main focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              Login
+            </button>
+          </div>
+        </form>
+        <p class="flex justify-center mt-3 mb-10 text-main">
+          Have no account?
+          <a class="text-main font-bold hover:underline dark:text-blue-500 ml-1"
+            href="{{url_for('register')}}">Register</a>
+        </p>
+        <div class="flex flex-row justify-center items-center w-full">
+          <hr class="w-16 h-[1.5px] my-3 bg-main border-0 dark:bg-gray-700">
+          <span class=" px-2 font-medium text-main dark:text-main dark:bg-gray-900">Or with </span>
+          <hr class="w-16 h-[1.5px] my-3 bg-main border-0 dark:bg-gray-700">
+        </div>
+        <!-- end horizon line -->
+        <div class="flex flex-row justify-evenly w-full my-2">
+          <a href="{{url_for('facebook')}}"><button>
+              <image src="../static/images/loginfb.jpg" class="h-10 rounded-md">
+            </button></a>
+          <a href="{{url_for('login_google')}}"><button>
+              <image src="../static/images/Logingg.png" class="h-10">
+            </button></a>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+  <script>
+    //Show password
+    function showPassword() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+    document.getElementById("showPassword").addEventListener("click", showPassword);
+  </script>
+</body>
+
 </html>

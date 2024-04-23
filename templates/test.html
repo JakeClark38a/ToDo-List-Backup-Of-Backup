@@ -1,0 +1,12 @@
+<div id="Drop-Down-Options-Profile" class="rounded-lg w-[150px] border-2 absolute bg-white " role="menu">
+    <label for="upload-photo" class="dropdown-item text-sm hover:bg-cyan-600 cursor-pointer p-2">
+        Upload a photo…
+        <input type="file" id="upload-photo" name="photo" accept="image/*" style="display: none;">
+    </label>
+    <form class="dropdown-item text-sm hover:bg-cyan-600 p-2" action="/settings/primary_avatar" accept-charset="UTF-8" method="post">
+        <input type="hidden" name="_method" value="delete" autocomplete="off">
+        <button onclick="return confirm('Are you sure you want to remove the photo?')">
+            Remove photo
+        </button>
+    </form>
+</div>

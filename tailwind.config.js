@@ -3,7 +3,7 @@ module.exports = {
   mode: "jit",
   content: [
     "./templates/**/*.{html,htm}",
-    "./static/**/*.js",
+    "./static/**/*.{js,html,htm}",
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {
@@ -22,12 +22,13 @@ module.exports = {
         "placeholder-10": "10px",
       },
       backgroundImage: {
-        heroxl: "url('/static/images/heroxl.jpg')",
-        heromd: "url('/static/images/heromd.jpg')",
-        herosm: "url('/static/images/herosm.jpg')",
+        heroxl: "url('/static/images/background3.jpg')",
+        heromd: "url('/static/images/background3.jpg')",
+        herosm: "url('/static/images/background3.jpg')",
         bg1: "url('/static/images/wallpaper.jpg')",
         bg2: "url('/static/images/wallpaper2.jpg')",
         bg3: "url('/static/images/wallpaper3.jpg')",
+        bg4: "url('/static/images/wallpaper3.jpg')",
       },
       colors: {
         primary: {
