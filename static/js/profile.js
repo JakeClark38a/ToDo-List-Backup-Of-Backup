@@ -331,7 +331,7 @@ function AJAXsetUserInfo(
 }
 
 
-function AJAXSendConfirmation(){
+function AJAXSendConfirmation() {
   $.ajax({
     url: "/profile/update/email_confirmation",
     type: "POST",
@@ -347,7 +347,7 @@ function AJAXSendConfirmation(){
 
 }
 
-function AJAXChangeEmail(){
+function AJAXChangeEmail() {
   $.ajax({
     url: "/profile/update/email",
     type: "POST",
@@ -371,6 +371,10 @@ $('#exit-button').click(function () {
   $.ajax({
     url: "/todo"
   });
+});
+
+$('#change-email').click(function () {
+  AJAXChangeEmail();
 });
 
 /////////////////////////////////////// update user info end
