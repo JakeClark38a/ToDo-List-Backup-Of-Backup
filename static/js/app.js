@@ -201,7 +201,7 @@ $(document).ready(function () {
         </svg>
     </div>
 
-    <div id="MMenu-Tag-Title" class="text-lg px-1 my-1 center">` + tag.title + `</div>
+    <div id="MMenu-Tag-Title" class="text-lg px-1 my-1 center dark:text-white">` + tag.title + `</div>
     <div class="MMenu-Tag-Edit mx-1">
     <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
@@ -228,7 +228,7 @@ $(document).ready(function () {
           </svg>          
             </div>
 
-                <div id="MMenu-Group-Title" class="text-xl ml-2">` + group.title + `</div>
+                <div id="MMenu-Group-Title" class="text-xl ml-2 dark:text-white">` + group.title + `</div>
         </div>
 
         <div class="MMenu-Group-Edit mx-1">
@@ -266,7 +266,7 @@ $(document).ready(function () {
   function MainScreenTagTemplate(id, tag, mode = 0) {
     if (mode == 0) {
       return (`
-      <div id="`+ id + `" class="rounded-md text-center min-w-12 font-base text-xs border-none shadow-lg cursor-pointer">` + tag.title + `</div>                
+      <div id="`+ id + `" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer">` + tag.title + `</div>                
       `);
     }
   }
@@ -275,12 +275,12 @@ $(document).ready(function () {
       return (
         ` 
 
-        <div id="`+ id + `" class="task-outer bg-main rounded-xl cursor-default">
+        <div id="`+ id + `" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default">
         <div class=" rounded-lg shadow-lg">
 
             <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
 
-                <div class="font-semibold text-lg lg:text-xl truncate w-full">`
+                <div class="font-semibold text-lg lg:text-xl truncate w-full dark:text-white ">`
         + task.title + `</div>
 
 
@@ -303,7 +303,7 @@ $(document).ready(function () {
 
             <div class="p-2 flex items-center h-fit">
 
-                <p class="h-full w-full text-left p-2 font-base truncate lg:text-xl">`+ task.description + `</p>
+                <p class="h-full w-full text-left p-2 font-base truncate lg:text-xl dark:text-white">`+ task.description + `</p>
 
                 <input id="Task-Destroyer" type="checkbox"
                     class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer"></input>
@@ -321,7 +321,7 @@ $(document).ready(function () {
       return (
         `
       <div id="`+ id + `" class="task-outer">
-        <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700">
+        <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700 ">
   
             <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
                 <div class="font-bold text-xl lg:text-2xl">` + task.title + `</div>
@@ -348,8 +348,8 @@ $(document).ready(function () {
         `
     <div id="` + id + `" class="group-outer">
       <div class="flex justify-between items-center px-3 ">
-        <div id="Task-Group-Title" class="todobox-title lg:text-2xl">` + group.title + `</div>
-        <div class="Group-Task-Add">
+        <div id="Task-Group-Title" class="todobox-title lg:text-2xl dark:text-white">` + group.title + `</div>
+        <div class="Group-Task-Add ">
                 <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -357,7 +357,7 @@ $(document).ready(function () {
                 </svg>
             </div>
         </div>
-        <div id="Task-Section-Outer" class= "bg-main/55 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
+        <div id="Task-Section-Outer" class= "bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
             <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
             <!--task here-->
             </div>
@@ -517,6 +517,10 @@ $(document).ready(function () {
     $("#Mode-Menu").toggleClass("h-32 lg:h-44");
     $("#Mode-Menu-Click").toggleClass("bg-main/35");
 
+  });
+
+  $("#PMenu-DarkMode").find("#Toggle-DarkMode").click(function () {
+    $("html").toggleClass("dark", $("#Toggle-DarkMode").prop('checked'));
   });
   //================================================================\\
   //=========================== Main Menu ==========================\\
@@ -1050,10 +1054,10 @@ $(document).ready(function () {
     <div id="add-draggable"  class="z-40 absolute">
         <div  class="touch-none select-none">
             <div id="moveButton" 
-                class="hover:w-12 hover:h-12 border-2 border-gray-300 absolute rounded-full w-12 h-12 bg-main/55 backdrop-blur-sm shadow-xl p-2">
+                class="hover:w-12 hover:h-12 border-2 border-gray-300 absolute rounded-full w-12 h-12 bg-main/55 dark:bg-gray-700/60 backdrop-blur-sm shadow-xl p-2">
                 <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M5 12h14m-7 7V5" />
                 </svg>
             </div>
@@ -1107,7 +1111,7 @@ $(document).ready(function () {
     // $("#MMenu-Group-Section").empty();
     LoadMainScreen();
     LoadGroups();
-    LoadTags(); 
+    LoadTags();
   }
 
   function LoadUser() {

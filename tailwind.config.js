@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: "jit",
-  darkMode: 'selector',
   content: [
     "./templates/**/*.{html,htm}",
     "./static/**/*.{js,html,htm}",
@@ -76,7 +75,8 @@ module.exports = {
           900: "#302312",
         },
         main: "#fffcf7",
-        dark: "#4a4848",
+        dark: "#262626",
+        white: "#d8d8d8",
       },
     },
   },
