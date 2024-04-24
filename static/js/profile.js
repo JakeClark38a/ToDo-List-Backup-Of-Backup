@@ -211,31 +211,7 @@ document.getElementById("change-avatar-btn").addEventListener("click", () => {
   if (cropper) {
     const croppedCanvas = cropper.getCroppedCanvas();
     const croppedDataURL = croppedCanvas.toDataURL("image/jpeg"); // Change format if needed
-    //$('#upload-file') = croppedCanvas.toDataURL("multipart/form-data");
-    //form_data.append("avatar", croppedCanvas.toDataURL("multipart/form-data"));
-    // Log cropped image data
     console.log("Cropped Image Data:", croppedDataURL);
-
-    //Send cropped image data to the server
-    // fetch("/profile/update/image", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ avatar: croppedDataURL }),
-    // })
-    //   .then((response) => {
-    //     if (response.ok) {
-    //       // Success, handle accordingly (e.g., close modal)
-    //       $("#avatar-modal").hide();
-    //     } else {
-    //       // Handle error
-    //       console.error("Error sending cropped image data to the server");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error sending cropped image data:", error);
-    //   });
     $.ajax({
       url: "/profile/update/image",
       type: "POST",
@@ -262,62 +238,50 @@ document.getElementById("change-avatar-btn").addEventListener("click", () => {
 var userInfo = {
   username: "John Doe",
   bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  timeZone: "UTC",
-  displayTimeZone: true,
-  localTimeZoneName: "UTC",
+  Location: "UTC",
 };
 function displayUserInfo() {
   $("#Username-Section").find("#user_profile_name").val(userInfo.username);
   $("#Bio-Section").find("#user_profile_bio").text(userInfo.bio);
-  $("#Time-Zone-Section").find("#user_location_name").val(userInfo.timeZone);
-  $("#Time-Zone-Section")
-    .find("#user_profile_display_local_time_zone")
-    .prop("checked", userInfo.displayTimeZone);
-  toggleSelectBoxState();
-  $("#Time-Zone-Section")
-    .find("#user_profile_local_time_zone_name")
-    .val(userInfo.localTimeZoneName);
+  $("#Time-Zone-Section").find("#user_location_name").val(userInfo.Location);
 }
 displayUserInfo();
 function updateUserInfo() {
   userInfo.username = $("#Username-Section").find("#user_profile_name").val();
   userInfo.bio = $("#Bio-Section").find("#user_profile_bio").val();
-  userInfo.timeZone = $("#Time-Zone-Section").find("#user_location_name").val();
-  userInfo.displayTimeZone = $("#Time-Zone-Section")
-    .find("#user_profile_display_local_time_zone")
-    .prop("checked");
-  userInfo.localTimeZoneName = $("#Time-Zone-Section")
-    .find("#user_profile_local_time_zone_name")
-    .val();
+  userInfo.Location = $("#Time-Zone-Section").find("#user_location_name").val();
   displayUserInfo();
-  AJAXsetUserInfo(
-    userInfo.username,
-    userInfo.bio,
-    userInfo.timeZone,
-    userInfo.displayTimeZone,
-    userInfo.localTimeZoneName
-  );
+  AJAXsetUserInfo(userInfo.username, userInfo.bio, userInfo.Location);
   console.log("bruh");
 }
 $("#Apply-Change-Button").click(updateUserInfo);
 
-function AJAXgetUserInfo() { }
-function AJAXsetUserInfo(
-  username,
-  bio,
-  timeZone,
-  displayTimeZone,
-  localTimeZoneName
-) {
+function AJAXgetUserInfo() {
+  $.ajax({
+    url: "/profile/get",
+    type: "GET",
+    success: function (data) {
+      console.log(data);
+      userInfo.username = data.username;
+      userInfo.bio = data.bio;
+      userInfo.Location = data.Location;
+      console.log(userInfo);
+      displayUserInfo();
+    },
+    error: function (data) {
+      console.log(data);
+    },
+  });
+}
+AJAXgetUserInfo();
+function AJAXsetUserInfo(username, bio, Location) {
   $.ajax({
     url: "/profile/update",
     type: "POST",
     data: JSON.stringify({
       username: userInfo.username,
       bio: userInfo.bio,
-      timeZone: userInfo.timeZone,
-      displayTimeZone: userInfo.displayTimeZone,
-      localTimeZoneName: userInfo.localTimeZoneName,
+      Location: userInfo.Location,
     }),
     contentType: "application/json",
     dataType: "json",
@@ -330,11 +294,13 @@ function AJAXsetUserInfo(
   });
 }
 
-
 function AJAXSendConfirmation() {
   $.ajax({
     url: "/profile/update/email_confirmation",
     type: "POST",
+    data: JSON.stringify({
+      curr_email: $("#current-email-sec").find("#current-email").val(),
+    }),
     contentType: "application/json",
     dataType: "json",
     success: function (data) {
@@ -344,7 +310,6 @@ function AJAXSendConfirmation() {
       console.log(data);
     },
   });
-
 }
 
 function AJAXChangeEmail() {
@@ -352,8 +317,9 @@ function AJAXChangeEmail() {
     url: "/profile/update/email",
     type: "POST",
     data: JSON.stringify({
-      cur_email: $("#current-email-sec").find("#current-email").val(),
+      curr_email: $("#current-email-sec").find("#current-email").val(),
       new_email: $("#new-email-sec").find("#new-email").val(),
+      otp: $("#authenticate-code-sec").find("#authenticate-code").val(),
     }),
     contentType: "application/json",
     dataType: "json",
@@ -366,15 +332,19 @@ function AJAXChangeEmail() {
   });
 }
 
-
-$('#exit-button').click(function () {
+$("#exit-button").click(function () {
   $.ajax({
-    url: "/todo"
+    url: "/todo",
   });
 });
 
-$('#change-email').click(function () {
+$("#change-email").click(function () {
   AJAXChangeEmail();
+  location.reload();
+});
+
+$("#send-mail").click(function () {
+  AJAXSendConfirmation();
 });
 
 /////////////////////////////////////// update user info end
