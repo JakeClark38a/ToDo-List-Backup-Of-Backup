@@ -5012,6 +5012,10 @@ input:checked + .toggle-bg {
     width: 240px;
   }
 
+  .sm\:w-56 {
+    width: 14rem;
+  }
+
   .sm\:max-w-md {
     max-width: 28rem;
   }
@@ -5128,12 +5132,20 @@ input:checked + .toggle-bg {
     width: 60vw;
   }
 
+  .md\:w-80 {
+    width: 20rem;
+  }
+
   .md\:max-w-lg {
     max-width: 32rem;
   }
 
   .md\:max-w-xl {
     max-width: 36rem;
+  }
+
+  .md\:max-w-screen-xl {
+    max-width: 1000px;
   }
 
   .md\:flex-row {
