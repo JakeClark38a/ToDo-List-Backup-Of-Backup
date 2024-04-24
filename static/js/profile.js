@@ -347,4 +347,8 @@ $("#send-mail").click(function () {
   AJAXSendConfirmation();
 });
 
+$('#send-mail').click(function () {
+  AJAXSendConfirmation();
+});
+
 /////////////////////////////////////// update user info end
