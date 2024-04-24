@@ -375,6 +375,21 @@ function AJAXChangeEmail() {
   });
 }
 
+function AJAXgetUserProfileImage() {
+  $.ajax({
+    url: "/profile/get/image",
+    type: "GET",
+    success: function (data) {
+      $("#User-Current-Avatar").attr("src",data);
+    },
+    error: function (data) {
+      console.log(data);
+    },
+  });
+
+}
+AJAXgetUserProfileImage();
+
 $("#exit-button").click(function () {
   $.ajax({
     url: "/todo",

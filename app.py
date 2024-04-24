@@ -552,6 +552,11 @@ def update_password():
             return jsonify({"status": "success"}), 200
         else:
             return jsonify({"status": "error"}), 404
+
+@app.route('/profile/get/image', methods=['GET'])
+def get_user_image():
+    test_images = url_for('static', filename='images/download.jpg')
+    return test_images
         
 if __name__ == '__main__':
     app.run(debug=True, ssl_context='adhoc')

@@ -2828,6 +2828,10 @@ input:checked + .toggle-bg {
   height: 1rem;
 }
 
+.h-40 {
+  height: 10rem;
+}
+
 .h-5 {
   height: 1.25rem;
 }
@@ -2907,6 +2911,10 @@ input:checked + .toggle-bg {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-36 {
+  height: 9rem;
 }
 
 .max-h-full {
