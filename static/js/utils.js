@@ -231,6 +231,7 @@ class Task {
         return Utils.fromJSON(this, obj);
     }
 }
+
 class Group {
     constructor(title, tags, def_tag, color, current_html, groupID = null) {
         this.title = title; // title of the group
@@ -383,9 +384,9 @@ class Dict {
 }
 
 class DictCRUD extends Dict {
-    constructor (){
+    constructor(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {}) {
         // Generate Dict object and assign to this
-        super();
+        super(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {});
     }
     // Add methods to create, read, update, delete Dict
     // Create
@@ -393,16 +394,22 @@ class DictCRUD extends Dict {
         let group = new Group(title, tags, def_tag, color, current_html);
         group.generateID();
         this.groups[group.groupID] = group;
+        // return this
+        return this;
     }
     createTask(title, description, tag, deadline, points, taskID = null, isCompleted = false) {
         let task = new Task(title, description, tag, deadline, points, taskID, isCompleted);
         task.generateID();
         this.tasks[task.taskID] = task;
+        // return this
+        return this;
     }
     createTag(title, color, groupId, deleteable, editable, display, tagID = null) {
         let tag = new Tag(title, color, groupId, deleteable, editable, display, tagID);
         tag.generateID();
         this.tags[tag.tagID] = tag;
+        // return this
+        return this;
     }
     // Read
     readGroup(groupID) {
@@ -411,18 +418,21 @@ class DictCRUD extends Dict {
     readTask(taskID) {
         return this.tasks[taskID];
     }
-    readTagList(groupID){
+    readTagList(groupID) {
         return Object.values(this.tags).filter(tag => tag.groupId === groupID);
     }
     // Update   
     updateGroup(groupID, newGroup) {
         this.groups[groupID] = newGroup;
+        return this;
     }
     updateTask(taskID, newTask) {
         this.tasks[taskID] = newTask;
+        return this;
     }
     updateTag(tagID, newTag) {
         this.tags[tagID] = newTag;
+        return this
     }
     // Export to JSON object
     exportDict() {
@@ -443,57 +453,73 @@ class DictCRUD extends Dict {
         this.tasks = obj.tasks;
         this.completed = obj.completed;
         this.tags = obj.tags;
+        return this;
+    }
+    // Get list of tags in a group
+    // If no argument is passed, return all tags
+    getTags(groupID = null) {
+        if (groupID == null) {
+            return this.tags;
+        }
+        return Object.values(this.tags).filter(tag => tag.groupId === groupID);
     }
 }
 
-class DictAJAX extends Dict{
+class DictAJAX extends DictCRUD {
+    constructor(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {}) {
+        // Generate Dict object and assign to this
+        super(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {});
+    }
     // Add methods to interact with the server by AJAX
     // Add methods to get Dict from server
     getDict(fromServer = true) {
+        let dict = this;
         // Get the dict from the server
-        if (fromServer){
+        if (fromServer) {
             $.ajax({
                 type: "GET",
                 url: "/getDict",
                 contentType: "application/json",
                 dataType: "json",
-                success: function(data){
+                success: function (data) {
                     // Import the dict from the server
-                    this.importDict(data);
+                    dict.importDict(data);
                     console.log("Dict imported from server");
-                    console.log(this);
+                    // console.log(dict);
                 }
             })
         }
         // return the dict
-        return Dict;
+        return dict;
     }
     setDict(toServer = true) {
         // Set the dict to the server
-        if (toServer){
+        if (toServer) {
             $.ajax({
                 type: "POST",
                 url: "/setDict",
                 contentType: "application/json",
                 dataType: "json",
                 data: this.exportDict(),
-                success: function(data){
+                success: function (data) {
                     console.log("Dict set to server");
                 }
             })
         }
         // return the dict
-        return Dict;
+        return this;
     }
-    addGroup(groupID, title, color){
+    addGroup() {
+        let dict = this;
+        console.log(dict);
         // Add group to the server
         $.ajax({
             type: "POST",
             url: "/addGroup",
             contentType: "application/json",
             dataType: "json",
-            data: {groupID: groupID, title: title, color: color},
-            success: function(data){
+            data: { groupID: dict.groupID, title: dict.title, color: dict.color },
+            success: function (data) {
                 console.log("Group added to server");
             }
         })
@@ -525,11 +551,11 @@ class Templates {
             </div>
             `
         );
-        }
+    }
 
     static MainMenuGroup(id, group) {
-    return (
-        `
+        return (
+            `
         <div id="${id}" class="MMenu-Group"><!--block-->
         <!-- Greeting div, status centered -->
         <div class="flex justify-between items-center pl-3 pr-1">
@@ -560,7 +586,7 @@ class Templates {
         </div>
         </div><!--eoblock-->
         `
-    );
+        );
     }
 
     // For main screen
@@ -686,10 +712,30 @@ class Templates {
             `;
         }
     }
+
+    static floatingButton(isActive = true) {
+        if (!isActive) return;
+        return (`
+        <!-- add question action button here-->
+        <div id="add-draggable"  class="z-40 absolute">
+            <div  class="touch-none select-none">
+                <div id="moveButton" 
+                    class="hover:w-12 hover:h-12 border-2 border-gray-300 absolute rounded-full w-12 h-12 bg-main/55 backdrop-blur-sm shadow-xl p-2">
+                    <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M5 12h14m-7 7V5" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <!-- kết thúc phần nút -->
+        `);
+    }
 }
 
 class MainMenu {
-    static updateTabIndicator(tab = null){
+    static updateTabIndicator(tab = null) {
         var $tab = tab ? tab : $("#Main-Menu").find("#MMenu-Today");
         var currId = $tab.attr('id');
         const indiModeCSS = 'border-r-4 border-primary-200 bg-gradient-to-l from-primary-200/35 to-transparent';
@@ -698,7 +744,7 @@ class MainMenu {
         $('#Main-Menu').find('.MMenu-Primary-Section').removeClass(indiModeCSS);
         //console.log(currId);
         const indicatTab = ['MMenu-Today', 'MMenu-Calendar', 'MMenu-Garden'];
-        if(indicatTab.indexOf(currId) !== -1){
+        if (indicatTab.indexOf(currId) !== -1) {
             $tab.toggleClass(indiModeCSS);
         }
     }
@@ -708,7 +754,7 @@ class MainMenu {
     }
     static addNewTag(group_html, id, tag) {
         //console.log(group_html);
-        group_html.append(Templates.MainMenuTag(id,tag));
+        group_html.append(Templates.MainMenuTag(id, tag));
         // LoadTags();
     }
     static addNewGroup(unique_id, group) {
@@ -722,23 +768,23 @@ class MainMenu {
         // Iterate over each group in Dict.groups
         for (var groupId in Dict.groups) {
             if (Dict.groups.hasOwnProperty(groupId)) {
-            var group = Dict.groups[groupId];
-            var g = this.addNewGroup(groupId, group);
-            // console.log("Group: " + group.title);
-            // Iterate over tags in the current group
-            for (var j = 0; j < group.tags.length; j++) {
+                var group = Dict.groups[groupId];
+                var g = this.addNewGroup(groupId, group);
+                // console.log("Group: " + group.title);
+                // Iterate over tags in the current group
+                for (var j = 0; j < group.tags.length; j++) {
 
-                if(Dict.tags[group.tags[j]].display == false) continue;
+                    if (Dict.tags[group.tags[j]].display == false) continue;
 
-                this.addNewTag(g.find("#MMenu-Tag-Section"),group.tags[j] ,Dict.tags[group.tags[j]]);
-            }
-            this.toggleHiddenGroup(g);
+                    this.addNewTag(g.find("#MMenu-Tag-Section"), group.tags[j], Dict.tags[group.tags[j]]);
+                }
+                this.toggleHiddenGroup(g);
             }
         }
     }
 }
 class CRUDModalHandler {
-    static addGroup(){
+    static addGroup() {
         // Customize modal appearance
         $('#crud-modal label[for="name"]').text("Title");
 
@@ -758,7 +804,7 @@ class CRUDModalHandler {
         // Show modal
         addGroupnTagModal.show();
     }
-    static addTag(){
+    static addTag() {
         // Customize modal appearance
         $('#crud-modal label[for="name"]').text("Name");
 
@@ -778,7 +824,7 @@ class CRUDModalHandler {
         // Show modal
         addGroupnTagModal.show();
     }
-    static editGroup(){
+    static editGroup() {
         $('#crud-modal label[for="name"]').text("Title");
 
         $('#crud-modal h3').text("Edit Group");
@@ -801,11 +847,11 @@ class CRUDModalHandler {
         $('#crud-modal #delete-sec').show();
 
         $('#crud-modal input[type="checkbox"]').attr("id", `group_${gid}`);
-        
+
         // Show modal
         addGroupnTagModal.show();
     }
-    static editTag(){
+    static editTag() {
         // Customize modal appearance
         $('#crud-modal label[for="name"]').text("Name");
 
@@ -819,7 +865,7 @@ class CRUDModalHandler {
         $('#crud-modal #groups-sec').hide();
 
 
-        if(tagInfo.deletable == true) {
+        if (tagInfo.deletable == true) {
             $('#crud-modal #delete-sec').show();
         };
 
@@ -833,7 +879,7 @@ class CRUDModalHandler {
         // Show modal
         addGroupnTagModal.show();
     }
-    static createTask(preset_tag){
+    static addTask(preset_tag) {
         // Clean modal first
         // Change modal state
         $("#crud-modal select#tags").append(`<option value="${preset_tag}">${Dict.groups[gid].title}</option>`);
@@ -856,7 +902,7 @@ class CRUDModalHandler {
         // Show modal
         modal.show();
     }
-    static editTask(title, desc, tag, expired, id){
+    static editTask(title, desc, tag, expired, id) {
         // Clean up
         // Clean modal first
         $('#crud-modal #colors-sec').hide();
@@ -881,7 +927,7 @@ class CRUDModalHandler {
         // Get input date
         let input_date = new Date(date_element.val());
         // If input date is less than current date, show alert
-        if (input_date < current_date){
+        if (input_date < current_date) {
             date_element.css("border", "2px solid red");
         }
         else {
@@ -905,9 +951,9 @@ class MainScreen {
     }
     static renderTag(tag_html, tag, id, mode = 0) {
         //console.log(tag.display);
-        if(tag.display == false) return;
+        if (tag.display == false) return;
         tag_html.append(Templates.MainScreenTag(id, tag, mode));
-        tag_html.find("#"+id).css({"background-color":tag.color});
+        tag_html.find("#" + id).css({ "background-color": tag.color });
     }
     static renderFormatterAddons(formatter_html, mode = 0) {
         formatter_html.append(Templates.FormatterAddons(mode));
@@ -916,72 +962,61 @@ class MainScreen {
         task_html.append(Templates.MainScreenTask(id, task, mode));
         MainScreen.renderTag(task_html.find("#" + id).find("#Task-Tag"), Dict.tags[task.tag], task.tag);
     }
-    static renderGroup(group_html, group,unique_id, mode = 0) {
+    static renderGroup(group_html, group, unique_id, mode = 0) {
         // var unique_id = getUuid();
-        group_html.append(MainScreenGroupTemplate(unique_id, group, mode));
-        group_html.find("#" + unique_id).find("#Task-Section-Outer").css({"border-color": group.color});
+        group_html.append(Templates.MainScreenGroup(unique_id, group, mode));
+        group_html.find("#" + unique_id).find("#Task-Section-Outer").css({ "border-color": group.color });
         return group_html.find("#" + unique_id);
     }
     static Load() {
         // Also add Draggable button again
-        $("#Main-Screen").append($(`
-        <!-- add question action button here-->
-        <div id="add-draggable"  class="z-40 absolute">
-            <div  class="touch-none select-none">
-                <div id="moveButton" 
-                    class="hover:w-12 hover:h-12 border-2 border-gray-300 absolute rounded-full w-12 h-12 bg-main/55 backdrop-blur-sm shadow-xl p-2">
-                    <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M5 12h14m-7 7V5" />
-                    </svg>
-                </div>
-            </div>
-        </div>
-        <!-- kết thúc phần nút -->
-        `))
+        $("#Main-Screen").append(Templates.floatingButton(true));
         var formatter_html = $("#Main-Screen").append(
             Templates.MainScreenFormatter()
         );
         // TODO: Need to implement new Dict class
         // Iterate over groups
         for (var groupId in Dict.groups) {
-          if (Dict.groups.hasOwnProperty(groupId)) {
-            var group = Dict.groups[groupId];
-            var g = this.renderGroup(
-              $(formatter_html).find("#Main-Formatter").find("#Wrapper"),
-              group,
-              groupId,
-              currentMode
-            );
-            //console.log(groupId);
-            var task_html = $(g).find("#Task-Section");
-            // Iterate over tasks
-            for (var taskId in Dict.tasks) {
-              if (
-                Dict.tasks.hasOwnProperty(taskId) &&(
-                group.tags.includes(Dict.tasks[taskId].tag) || group.def_tag == Dict.tasks[taskId].tag)
-              ) {
-                // Pass task details to renderTaskMainScreen
-                this.renderTask(
-                  task_html,
-                  Dict.tasks[taskId],
-                  taskId,
-                  currentMode
+            if (Dict.groups.hasOwnProperty(groupId)) {
+                var group = Dict.groups[groupId];
+                var g = this.renderGroup(
+                    $(formatter_html).find("#Main-Formatter").find("#Wrapper"),
+                    group,
+                    groupId,
+                    // currentMode
+                    0
                 );
-              }
+                //console.log(groupId);
+                var task_html = $(g).find("#Task-Section");
+                // Iterate over tasks
+                for (var taskId in Dict.tasks) {
+                    if (
+                        Dict.tasks.hasOwnProperty(taskId) && (
+                            group.tags.includes(Dict.tasks[taskId].tag) || group.def_tag == Dict.tasks[taskId].tag)
+                    ) {
+                        // Pass task details to renderTaskMainScreen
+                        this.renderTask(
+                            task_html,
+                            Dict.tasks[taskId],
+                            taskId,
+                            currentMode
+                        );
+                    }
+                }
             }
-          }
         }
-        this.renderFormatterAddons(formatter_html, currentMode);
+        this.renderFormatterAddons(formatter_html, 
+            //currentMode
+        );
     }
 }
+
 
 class Initialize {
     static RefreshMainScreen() {
         $("#Main-Screen").empty();
         // $("#MMenu-Group-Section").empty();
-        LoadMainScreen();
+        MainScreen.Load();
         // LoadGroups_Tag();
     }
     static LoadUser() {
@@ -990,41 +1025,41 @@ class Initialize {
     }
     static LoadTags() {
         console.log("Loading tags");
-    
-       // console.log(Dict.groups);
+
+        // console.log(Dict.groups);
         var tagArray = Object.keys(Dict.tags).filter(key => Dict.tags[key].display === true);
-    
+
         $("#crud-modal select#tags").empty();
         tagArray.forEach(element => {
-          let options = `<option value="${element}">${Dict.tags[element].title}</option>`
-          $("#crud-modal select#tags").append(options)
+            let options = `<option value="${element}">${Dict.tags[element].title}</option>`
+            $("#crud-modal select#tags").append(options)
         });
-    
-    
+
+
         //$("#crud-modal select#tags").append(`<option value="None">None</option>`);
-    
+
     };
     static LoadGroups() {
         console.log("Loading groups");
-    
+
         var groupArray = Object.keys(Dict.groups);
-    
+
         $("#crud-modal select#groups").empty();
         groupArray.forEach(element => {
-          let options = `<option value="${element}">${Dict.groups[element].title}</option>`
-          $("#crud-modal select#groups").append(options)
+            let options = `<option value="${element}">${Dict.groups[element].title}</option>`
+            $("#crud-modal select#groups").append(options)
         });
-    
+
         //$("#crud-modal select#groups").append(`<option value="None">None</option>`);
     };
     static initUser() {
-        currentMMenuTab = 0; // 0-today 2-calendar 3-garden
-        currentMode = 0;
+        // currentMMenuTab = 0; // 0-today 2-calendar 3-garden
+        // currentMode = 0;
         this.LoadUser();
         MainMenu.updateTabIndicator();
     }
     // Main function to load everything
-    static Load(){
+    static initApp() {
         this.LoadTags();
         this.LoadGroups();
         this.initUser();
@@ -1032,6 +1067,7 @@ class Initialize {
 }
 // End caution 1
 
+// -------------Test zone (from this line to end)----------------
 // Place to test Group, Tag, Task classes
 // Create a new DictCRUD object
 Dict = new DictCRUD();
@@ -1048,8 +1084,181 @@ Dict.createTask("Task 1", "Description 1", "1", "2023-12-12", 10);
 Dict.createTask("Task 2", "Description 2", "1", "2023-12-12", 10);
 Dict.createTask("Task 3", "Description 3", "1", "2023-12-12", 10);
 // End place to test Group, Tag, Task classes
+
+Initialize.initApp();
 // Print Dict
+
+
 console.log(Dict);
+
+let DictString = {
+    // sample dict
+    username: "JakeClark",
+    userid: "User ID",
+    groups: {
+      gid001: {
+        title: "Do",
+        tags: ["tag1"],
+        def_tag: "do",
+        color: "#7aa5cf",
+        current_html: "",
+      },
+      gid002: {
+        title: "Delegate",
+        tags: ["tag2"],
+        def_tag: "delegate",
+        color: "#63c074",
+        current_html: "",
+      },
+      gid003: {
+        title: "Schedule",
+        tags: ["tag3", "tag5"],
+        def_tag: "schedule",
+        color: "#ac7acf",
+        current_html: "",
+      },
+      gid004: {
+        title: "Later",
+        tags: ["tag4"],
+        def_tag: "later",
+        color: "#c5e875",
+        current_html: "",
+      },
+    },
+    tasks: {
+      id001: {
+        title: "Meeting",
+        description: "About making a website",
+        tag: "tag1",
+        deadline: 62783,
+        points: 4,
+      },
+      id002: {
+        title: "Crying",
+        description: "About making a website",
+        tag: "tag3",
+        deadline: 62783,
+        points: 4,
+      },
+      id004: {
+        title: "Laughing",
+        description: "About making a website",
+        tag: "tag5",
+        deadline: 62783,
+        points: 4,
+      },
+    },
+    completed: {
+      id003: {
+        title: "Journaling",
+        description: "About making a website",
+        tag: "tag1",
+        deadline: 62783,
+        points: 5,
+      },
+    },
+    tags: {
+
+      do:{
+        title: "Do",
+        color: "#7aa5cf",
+        groupId: "gid001",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      delegate: {
+        title: "Delegate",
+        color: "#63c074",
+        groupId: "gid002",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      schedule: {
+        title: "Schedule",
+        color: "#ac7acf",
+        groupId: "gid003",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      later: {
+        title: "Later",
+        color: "#c5e875",
+        groupId: "gid004",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      tag1: {
+          title: "tag1",
+          color: "#7aa5cf",
+          groupId: "gid001",
+          deleteable: true,
+          editable: true,
+          display: true,
+
+      },
+      tag2: {
+          title: "tag2",
+          color: "#63c074",
+
+          groupId: "gid002",
+          deleteable: true,
+          editable: true,
+          display: true,
+
+      },
+      tag3: {
+          title: "tag3",
+          color: "#ac7acf",
+
+          groupId: "gid003",
+          deleteable: true,
+          editable: true,
+          display: true,
+
+      },
+      tag4: {
+          title: "tag4",
+          color: "#c5e875",
+
+          groupId: "gid004",
+          deleteable: true,
+          editable: true,
+          display: true,
+
+      },
+      tag5: {
+          title: "tag5",
+          color: "#f7d38c",
+
+          groupId: "gid003",
+          deleteable: true,
+          editable: true,
+          display: true,
+
+      },
+      none: {
+          title: "none",
+          color: "#ffffff",
+
+          deleteable: false,
+          editable: false,
+          display: false,
+
+      }
+  }
+  
+  };
+
+Dict2 = new DictAJAX();
+Dict2.importDict(DictString);
+console.log(Dict2);
+console.log(Dict2.exportDict()); 
+console.log(Dict2.getDict());
+console.log(Dict2.addGroup())
 
 // Caution 2: These classes inherited from above classes and have additional methods
 // to load to frontend

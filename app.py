@@ -12,10 +12,6 @@ from password_strength import PasswordPolicy
 
 policy = PasswordPolicy.from_names(strength=0.67)
 
-
-
-
-
 app = Flask(__name__, template_folder='templates')
 tododb = ToDoDatabase()
 tododb.create_table()
@@ -64,6 +60,7 @@ def get_user_id():
     return user_id
 
 #Endpoints 
+
 @app.route('/')
 def index():
     return render_template('landingPage.html')
