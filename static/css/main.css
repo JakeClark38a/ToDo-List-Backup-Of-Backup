@@ -1117,17 +1117,33 @@ input:checked + .toggle-bg {
   }
 }
 
-.content {
-  text-align: left;
+.title-2 {
+  text-align: center;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+}
+
+@media (min-width: 420px) {
+  .title-2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+.content {
+  text-align: center;
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 1.125rem;
   line-height: 1.75rem;
   font-weight: 300;
 }
 
 @media (min-width: 420px) {
   .content {
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 }
 
@@ -3265,6 +3281,10 @@ input:checked + .toggle-bg {
   gap: 2rem;
 }
 
+.gap-16 {
+  gap: 4rem;
+}
+
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
@@ -3461,6 +3481,11 @@ input:checked + .toggle-bg {
   border-color: rgb(143 106 54 / var(--tw-border-opacity));
 }
 
+.bg-\[\#dbdcdf\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 220 223 / var(--tw-bg-opacity));
+}
+
 .bg-accent-100\/35 {
   background-color: rgb(234 160 56 / 0.35);
 }
@@ -3505,6 +3530,11 @@ input:checked + .toggle-bg {
 
 .bg-gray-300\/35 {
   background-color: rgb(209 213 219 / 0.35);
+}
+
+.bg-gray-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
 
 .bg-gray-400\/35 {
@@ -3553,11 +3583,6 @@ input:checked + .toggle-bg {
 
 .bg-main\/55 {
   background-color: rgb(255 252 247 / 0.55);
-}
-
-.bg-primary-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(181 114 80 / var(--tw-bg-opacity));
 }
 
 .bg-primary-200 {
@@ -3654,6 +3679,10 @@ input:checked + .toggle-bg {
 
 .p-4 {
   padding: 1rem;
+}
+
+.p-5 {
+  padding: 1.25rem;
 }
 
 .px-1 {
@@ -4090,14 +4119,6 @@ input:checked + .toggle-bg {
     }
 } */
 
-.\*\:transition > * {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 .\*\:transition-colors > * {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -4151,6 +4172,17 @@ input:checked + .toggle-bg {
   background-color: rgb(216 216 216 / var(--tw-bg-opacity));
 }
 
+.after\:text-red-400::after {
+  content: var(--tw-content);
+  --tw-text-opacity: 1;
+  color: rgb(249 128 128 / var(--tw-text-opacity));
+}
+
+.after\:mix-blend-difference::after {
+  content: var(--tw-content);
+  mix-blend-mode: difference;
+}
+
 .after\:transition-all::after {
   content: var(--tw-content);
   transition-property: all;
@@ -4183,6 +4215,12 @@ input:checked + .toggle-bg {
 
 .hover\:-translate-y-1:hover {
   --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.hover\:scale-110:hover {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -4257,6 +4295,11 @@ input:checked + .toggle-bg {
 .hover\:text-main:hover {
   --tw-text-opacity: 1;
   color: rgb(255 252 247 / var(--tw-text-opacity));
+}
+
+.hover\:text-primary-100:hover {
+  --tw-text-opacity: 1;
+  color: rgb(181 114 80 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover {
@@ -4419,6 +4462,10 @@ input:checked + .toggle-bg {
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 
+.dark\:bg-gray-700\/60:is(.dark *) {
+  background-color: rgb(55 65 81 / 0.6);
+}
+
 .dark\:bg-gray-700\/70:is(.dark *) {
   background-color: rgb(55 65 81 / 0.7);
 }
@@ -4443,20 +4490,6 @@ input:checked + .toggle-bg {
 
 .dark\:bg-gray-900\/80:is(.dark *) {
   background-color: rgb(17 24 39 / 0.8);
-}
-
-.dark\:bg-dark:is(.dark *) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(38 38 38 / var(--tw-bg-opacity));
-}
-
-.dark\:bg-gray-700\/60:is(.dark *) {
-  background-color: rgb(55 65 81 / 0.6);
-}
-
-.dark\:bg-white:is(.dark *) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(216 216 216 / var(--tw-bg-opacity));
 }
 
 .dark\:text-blue-500:is(.dark *) {
@@ -4680,11 +4713,6 @@ input:checked + .toggle-bg {
 }
 
 @media (min-width: 800px) {
-  .lg\:mx-32 {
-    margin-left: 8rem;
-    margin-right: 8rem;
-  }
-
   .lg\:my-0 {
     margin-top: 0px;
     margin-bottom: 0px;
@@ -4696,10 +4724,6 @@ input:checked + .toggle-bg {
 
   .lg\:mt-5 {
     margin-top: 1.25rem;
-  }
-
-  .lg\:flex {
-    display: flex;
   }
 
   .lg\:h-10 {
@@ -4730,10 +4754,6 @@ input:checked + .toggle-bg {
     height: 1.75rem;
   }
 
-  .lg\:h-80 {
-    height: 20rem;
-  }
-
   .lg\:h-96 {
     height: 24rem;
   }
@@ -4758,10 +4778,6 @@ input:checked + .toggle-bg {
     width: 1.75rem;
   }
 
-  .lg\:w-72 {
-    width: 18rem;
-  }
-
   .lg\:w-96 {
     width: 24rem;
   }
@@ -4778,6 +4794,14 @@ input:checked + .toggle-bg {
     width: 55vw;
   }
 
+  .lg\:max-w-56 {
+    max-width: 14rem;
+  }
+
+  .lg\:max-w-72 {
+    max-width: 18rem;
+  }
+
   .lg\:flex-row {
     flex-direction: row;
   }
@@ -4786,16 +4810,12 @@ input:checked + .toggle-bg {
     align-items: flex-start;
   }
 
-  .lg\:items-center {
-    align-items: center;
-  }
-
-  .lg\:justify-center {
-    justify-content: center;
-  }
-
   .lg\:justify-evenly {
     justify-content: space-evenly;
+  }
+
+  .lg\:gap-16 {
+    gap: 4rem;
   }
 
   .lg\:px-16 {
@@ -4834,6 +4854,11 @@ input:checked + .toggle-bg {
 
   .lg\:text-xl {
     font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .lg\:text-lg {
+    font-size: 1.125rem;
     line-height: 1.75rem;
   }
 
