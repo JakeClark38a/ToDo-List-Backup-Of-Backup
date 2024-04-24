@@ -87,7 +87,7 @@ def isFillForm():
     else:
         return False
 
-def generate_token(user_mail):
+def create_token(user_mail):
     token = URLSafeTimedSerializer(SECRET_KEY)
     return token.dumps(user_mail, salt=secure_password_salt)
 
@@ -201,9 +201,11 @@ def loginv2():
 
 @app.route('/google_login')
 def login_google():
-    GOOGLE_CLIENT_ID = os.getenv("OAUTH2_CLIENT_ID")
+    GOOGLE_CLIENT_ID = "1002415781087-d1a74175n9vk48ehrir794qghma573qi.apps.googleusercontent.com"
+    #os.getenv("OAUTH2_CLIENT_ID")
     #OAUTH2_CLIENT_ID=1002415781087-d1a74175n9vk48ehrir794qghma573qi.apps.googleusercontent.com
-    GOOGLE_CLIENT_SECRET = os.getenv("OAUTH2_CLIENT_SECRET")
+    GOOGLE_CLIENT_SECRET = "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"
+    #os.getenv("OAUTH2_CLIENT_SECRET")
     #OAUTH2_CLIENT_SECRET=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
     CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
     oauth.register(
@@ -305,7 +307,7 @@ def forgot_password():
         reset_email = request.form["email"]
         if tododb.register_validation(reset_email) == False:
             msg = Message("Hello", sender='mailtrap@seaair.tech',recipients=[reset_email])
-            msg.body = "Here is your reset link " + url_for("reset_password",token=generate_token(reset_email),_external=True)
+            msg.body = "Here is your reset link " + url_for("reset_password",token=create_token(reset_email),_external=True)
             thr = threading.Thread(target=send_async_email, args=[app, msg])
             thr.start() 
             #mail.send(msg)
