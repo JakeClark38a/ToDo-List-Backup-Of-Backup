@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="../static/css/main.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</head>
+
+<body>
+  <div class="wrapper flex flex-col justify-center items-center h-[100vh] w-[100vw] bg-bg1 bg-cover">
+    <div class="border-2 border-solid bg-transparent backdrop-blur rounded-2xl w-80 h-fit">
+      <div class="register flex flex-col justify-center items-center text-black w-full h-full">
+        <div class="text-center font-bold text-3xl w-full text-main my-5">
+          Register
+        </div>
+        <form class="max-w-sm mx-auto" action="{{url_for('register')}}" method="post">
+          <div class="mb-3">
+            <label for="email" class="block mb-2 ml-2 text-sm font-medium text-white">Your email</label>
+            <input type="email" id="email"
+              class="shadow-lg bg-main/50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-lg-light"
+              placeholder="example@email.com" name="email" required />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="block mb-2 ml-2 text-sm font-medium text-white">Your password</label>
+            <div class="flex items-center">
+              <input type="password" id="password"
+                class="shadow-lg bg-main/50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-main dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                required name="password" placeholder="password" />
+              <div id="showPassword" class="shadow-lg bg-main/50 border border-gray-300 p-2 rounded-r-lg">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-width="1.5"
+                    d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                  <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="repeat-password" class="block mb-2 ml-2 text-sm font-medium text-white">Repeat
+                password</label>
+              <div class="flex items-center">
+                <input type="password" id="repeat-password"
+                  class="shadow-lg bg-main/50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-main dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                  required name="repeat-password" placeholder="repeat-password" />
+                <div id="showPasswordRepeat" class="shadow-lg bg-main/50 border border-gray-300 p-2 rounded-r-lg">
+                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-width="1.5"
+                      d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                    <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start mb-5">
+              <div class="flex items-center h-5">
+                <input id="terms" type="checkbox"
+                  class="w-4 h-4 border border-gray-300 rounded bg-main/50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                  name="terms-and-conditions" required />
+              </div>
+              <label for="terms" class="shadow-lg ms-2 mb-7 text-sm font-semilight text-white">I agree with the
+                <a href="https://www.termsfeed.com/live/d50450f0-15e9-4bc7-a9bd-73dfc9d2ad9c"
+                  class="text-main font-bold hover:underline dark:text-blue-500">terms and conditions</a></label>
+            </div>
+            <div class="flex justify-center">
+              <button type="submit"
+                class="shadow-lg transition-all ease-out duration-500 w-40 text-primary-100 bg-main hover:bg-accent-200 hover:text-main text-lg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Register
+              </button>
+            </div>
+        </form>
+        {% block display %}
+        {% with notion = get_flashed_messages() %}
+        {% if notion %}
+        {% for msg in notion %}
+        <div class=" px-4 text-sm font-medium text-center text-red-400 stroke-slate-600">{{msg}}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% endblock %}
+        <div class="flex items-center gap-2 my-3">
+          <p class="flex justify-center text-white">
+            Already have an account?
+          </p>
+          <a class="text-main font-bold hover:underline dark:text-blue-500" href="{{url_for('login')}}">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    //show password
+    function showPassword() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+    //show password repeat
+    function showPasswordRepeat() {
+      var x = document.getElementById("repeat-password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+    document.getElementById("showPassword").addEventListener("click", showPassword);
+    document.getElementById("showPasswordRepeat").addEventListener("click", showPasswordRepeat);
+
+  </script>
+</body>
+
+</html>

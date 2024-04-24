@@ -1,0 +1,32 @@
+$ sudo apt install mysql-server
+# Check status
+$ sudo service mysql status
+
+# Edit this file to grant access to root without password
+$ sudo nano /etc/mysql/my.cnf 
+... (Previous thingy)
+[mysqld]
+skip-grant-tables
+
+# Then go back to terminal
+$ mysql -u root
+mysql> USE mysql;
+mysql> UPDATE user SET authentication_string='' WHERE User='root';
+mysql> FLUSH PRIVILEGES;
+mysql> EXIT;
+
+# Then delete added content in /etc/mysql/my.cnf
+$ sudo nano /etc/mysql/my.cnf 
+... (Previous thingy)
+# [mysqld]
+# skip-grant-tables
+
+# Then restart mysql service
+$ sudo service mysql restart
+
+# Finally go back to mysql server 
+$ mysql -u root -p
+Password: (dont type anything, just enter)
+mysql> (Type all things in setup.sql)
+
+# Done.
