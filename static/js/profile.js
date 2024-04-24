@@ -35,7 +35,7 @@ document
   .getElementById("Change-Password-Button")
   .addEventListener("click", () => {
     passwordModal.show();
-    
+
   });
 
 // Function to center the password modal
@@ -44,13 +44,13 @@ function centerPasswordModal() {
   $passwordModalEl.style.left = "50%";
   $passwordModalEl.style.transform = "translate(-50%, -50%)";
 }
-function AJAXresetpassword(curr_password, new_password, confirm_password){
+function AJAXresetpassword(curr_password, new_password, confirm_password) {
   $.ajax({
-    url: "/profile/update/password",
+    url: "profile/update/password",
     type: "POST",
-    headers: { 
+    headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json' 
+      'Content-Type': 'application/json'
     },
     data: JSON.stringify({
       curr_password: curr_password,
@@ -69,10 +69,12 @@ function AJAXresetpassword(curr_password, new_password, confirm_password){
 }
 
 
-$("#submit-password").submit(function() {
+$("#submit-password").click(function (e) {
+  e.preventDefault();
   var current_password = $("#current-password-sec").find("#current-password").val();
   var new_password = $("#new-password-sec").find("#new-password").val();
   var confirm_password = $("#confirm-password-sec").find("#confirm-password").val();
+  console.log(current_password, new_password, confirm_password);
   AJAXresetpassword(current_password, new_password, confirm_password);
 
 });
