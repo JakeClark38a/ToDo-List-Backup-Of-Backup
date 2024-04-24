@@ -193,13 +193,31 @@ class ToDoDatabase():
         self.cursor.execute(sqlquery,values)
         self.connection.commit()    
         
-    #Function to reset user password
+    #Function to reset user password in forgot password page
     def reset_password_user(self, email, password):
         sqlquery = "UPDATE users SET password=%s WHERE email=%s and type_account is null"
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
         values = (password,email)
         self.cursor.execute(sqlquery,values)
         self.connection.commit()
+
+    #Function to reset user password in profile page:
+    def reset_password_profile(self, user_id, password):
+        sqlquery = "UPDATE users SET password=%s WHERE user_id=%s"
+        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        values = (password,user_id)
+        self.cursor.execute(sqlquery,values)
+        self.connection.commit()
+
+    def check_password_profile(self, user_id, password):
+        sqlquery = "SELECT * FROM users WHERE user_id=%s and password=%s"
+        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        values = (user_id,password)
+        self.cursor.execute(sqlquery,values)
+        result = self.cursor.fetchone()
+        if result:
+            return True
+        else: return False
 
     #Function to create session for users
     def create_session(self, name, password):

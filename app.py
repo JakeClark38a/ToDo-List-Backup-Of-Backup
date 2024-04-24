@@ -382,13 +382,13 @@ def delete_todo():
         tododb.delete_task(data['taskId'],get_user_id())
         print(data)
     except Exception as e:
-        return jsonify({"error": "Error when deleting task"})
-    return jsonify(data)
+        return jsonify({"error": "Error when deleting task"}), 404
+    return jsonify(data), 200
 
 @app.route('/todo/get', methods=['GET'])
 def get_todo():
     data = tododb.show_task(get_user_id())
-    return jsonify(data)
+    return jsonify(data), 200
 
 @app.route('/todo/completed/<id>', methods=['POST'])
 def completed_todo(id):
@@ -396,14 +396,14 @@ def completed_todo(id):
     data['id'] = id
     tododb.complete_task(id,get_user_id())
     print(data)
-    return jsonify(data)
+    return jsonify(data), 200
 
 @app.route('/todo/uncompleted/<id>', methods=['POST'])
 def uncompleted_todo(id):
     data = request.get_json()
     data['id'] = id
     tododb.uncomplete_task(id,get_user_id())    
-    return jsonify(data)
+    return jsonify(data), 200
 
 
 # Group & Tag
@@ -416,7 +416,7 @@ def create_group():
         print(data)
     except Exception as e:
         return jsonify({"error": "Error when creating group"})
-    return jsonify(data)
+    return jsonify(data), 200
 
 @app.route('/todo/group/update', methods=['POST'])
 def update_group():
@@ -424,7 +424,7 @@ def update_group():
     user_id = get_user_id()
     tododb.update_group(data['groupId'],data['title'],user_id,data['color'])
     print(data)
-    return jsonify(data)
+    return jsonify(data), 200
 
 @app.route('/todo/group/delete', methods=['POST'])
 def delete_group():
@@ -432,14 +432,14 @@ def delete_group():
     user_id = get_user_id()
     tododb.delete_group(data['groupId'],user_id)
     print(data)
-    return jsonify(data)
+    return jsonify(data), 200
 
 @app.route('/todo/group/get', methods=['GET'])
 def get_group():
     user_id = session['user']
     user_id = get_user_id()
     data = tododb.show_group(user_id)
-    return jsonify(data)
+    return jsonify(data), 200
 
 @app.route('/todo/tag/create', methods=['POST'])
 def create_tag():
@@ -447,7 +447,7 @@ def create_tag():
     user_id = get_user_id()
     tododb.create_tag(data['tagId'],data['groupId'],data['title'],data['color'],user_id)
     print(data)
-    return jsonify(data)
+    return jsonify(data), 200
 
 @app.route('/todo/tag/update', methods=['POST'])
 def update_tag():
@@ -455,7 +455,7 @@ def update_tag():
     user_id = get_user_id()
     tododb.update_tag(data['tagId'],data['groupId'],data['title'],data['color'],user_id)
     print(data)
-    return jsonify(data)
+    return jsonify(data), 200
 
 @app.route('/todo/tag/delete', methods=['POST'])
 def delete_tag():
@@ -484,7 +484,7 @@ def get_profile():
             "Location": data[2]
         }
         print(jsonify(json_data))
-        return jsonify(json_data)
+        return jsonify(json_data), 200
 
 @app.route('/profile/update', methods=['POST'])
 def update_profile():
@@ -509,7 +509,7 @@ def update_image():
         tododb.update_image(get_user_id())
         with open("static/images/profile.jpg", "wb") as fh:
             fh.write(base64.decodebytes(image_data))   
-        return jsonify({"status": "success"})
+        return jsonify({"status": "success"}), 200
 
 
 @app.route('/profile/update/email_confirmation', methods=['POST'])
@@ -522,7 +522,7 @@ def update_email_confirmation():
         msg.body = "Here is your OTP to verify your email " + generate_verify_otp("generate",None)
         thr = threading.Thread(target=send_async_email, args=[app, msg])
         thr.start() 
-        return jsonify({"status": "success"})
+        return jsonify({"status": "success"}), 200
 
 @app.route('/profile/update/email', methods=['POST'])
 def update_email():
@@ -537,6 +537,20 @@ def update_email():
             return jsonify({"status": "success"}), 200
         else:
             print("Error")
+            return jsonify({"status": "error"}), 404
+        
+@app.route('/profile/update/password', methods=['POST'])
+def update_password():
+    if check_session():
+        data = request.get_json()
+        new_password = data['new_password']
+        confirm_password = data['confirm_password']
+        curr_password = data['curr_password']
+        print(data)
+        if  policy.password(new_password).strength() >= 0.67 and new_password == confirm_password and tododb.check_password_profile(get_user_id(),curr_password) == True:
+            tododb.reset_password_profile(get_user_id(),new_password)
+            return jsonify({"status": "success"}), 200
+        else:
             return jsonify({"status": "error"}), 404
         
 if __name__ == '__main__':
