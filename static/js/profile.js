@@ -46,7 +46,7 @@ function centerPasswordModal() {
 }
 function AJAXresetpassword(curr_password, new_password, confirm_password) {
   $.ajax({
-    url: "profile/update/password",
+    url: "/profile/update/password",
     type: "POST",
     headers: {
       'Accept': 'application/json',
@@ -76,6 +76,7 @@ $("#submit-password").click(function (e) {
   var confirm_password = $("#confirm-password-sec").find("#confirm-password").val();
   console.log(current_password, new_password, confirm_password);
   AJAXresetpassword(current_password, new_password, confirm_password);
+  passwordModal.hide();
 
 });
 
