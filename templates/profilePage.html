@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../static/css/main.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Reddit+Mono:wght@200..900&display=swap"
+    rel="stylesheet" />
+  <!-- Kienadd 2 more line here -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body class="">
+  <!--########################################################### Addons ######################################################################-->
+
+  <!-- Kienadd 3 more modal here -->
+  <!-- password modal  -->
+  <div id="password-modal" tabindex="-1" aria-hidden="true"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-main rounded-lg dark:bg-gray-700">
+        <!-- Modal header -->
+        <div class="flex items-center justify-between p-2 md:p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+            Change Password
+          </h3>
+          <!-- close btn -->
+          <button id="btn-close-password-modal" type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <form class="p-4 md:p-5" method="post">
+          <div class="grid gap-4 mb-4 grid-cols-1">
+            <div id="current-password-sec">
+              <label for="current-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current
+                Password</label>
+              <input type="password" name="current-password" id="current-password"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Enter your current password" required="" />
+            </div>
+            <div id="new-password-sec">
+              <label for="new-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
+                Password</label>
+              <input type="password" name="new-password" id="new-password"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Enter your new password" required="" />
+            </div>
+            <div id="confirm-password-sec">
+              <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
+                New Password</label>
+              <input type="password" name="confirm-password" id="confirm-password"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Confirm your new password" required="" />
+            </div>
+          </div>
+          <!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
+          <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
+            autocomplete="off" tabindex="-1" />
+          <div class="flex justify-end">
+            <button id="submit-password" type="submit"
+              class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+              <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              Change Password
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- eo password modal  -->
+
+  <!-- begin email modal -->
+  <div id="email-modal" tabindex="-1" aria-hidden="true"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-main rounded-lg dark:bg-gray-700">
+        <!-- Modal header -->
+        <div class="flex items-center justify-between p-2 md:p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+            Change email
+          </h3>
+          <!-- close btn -->
+          <button id="btn-close-email-modal" type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <form class="p-4 md:p-5" method="post">
+          <div class="grid gap-4 mb-4 grid-cols-1">
+            <div id="current-email-sec">
+              <label for="current-email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current
+                Email:</label>
+              <input type="email" id="current-email" name="current-email"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Enter your current email" required />
+            </div>
+            <div id="new-email-sec">
+              <label for="new-email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
+                Email:</label>
+              <input type="email" id="new-email" name="new-email"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Enter your new email" required />
+            </div>
+            <button id="send-mail" type="button"
+              class="flex items-center text-white bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+              <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span class="inline-block align-middle">Send Mail</span>
+            </button>
+            <div id="authenticate-code-sec">
+              <label for="authenticate-code"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Authenticate Code:</label>
+              <input type="text" id="authenticate-code" name="authenticate-code"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Enter the authentication code" required />
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <button id="change-email" type="submit"
+              class="text-white inline-flex items-center bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ml-4 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+              <svg class="me-1 -ms-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+              Change Email
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- end of email modal -->
+
+  <!-- begin avt modal -->
+  <div id="avatar-modal" tabindex="-1" aria-hidden="true"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-main rounded-lg dark:bg-gray-700">
+        <!-- Modal header -->
+        <div class="flex items-center justify-between p-2 md:p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+            Update Profile Picture
+          </h3>
+          <!-- close btn -->
+          <button id="btn-close-avatar-modal" type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <div class="p-4">
+          <div id="drop-area" class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+            <div class="cropper-container flex justify-center">
+              <img src="" alt="Crop" id="cropperImage" class="mx-auto" />
+            </div>
+          </div>
+          <!-- Cropper Container -->
+          <button id="change-avatar-btn" class="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4">
+            Change Avatar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- eo avatar modal -->
+
+  <!--########################################################### EoAddons ######################################################################-->
+
+  <div class="">
+    <!--Body Container-->
+    <!--Begin header-->
+    <!--########################################################### Main Screen ######################################################################-->
+    <!--Begin profile screen-->
+    <div id="Profile-Screen" class="Container backdrop-blur-sm py-10 min-h-[90vh] overflow-y-scroll overflow-x-hidden">
+      <div id="Profile-Box" class="bg-main relative w-4/5 h-full m-auto rounded-lg">
+        <div id="Profile-Box-Content" class="py-[5vh] px-[5vh]">
+          <div id="Profile-Public-Content">
+            <div class="flex justify-between">
+              <div class="text-3xl">Public profile</div>
+              <a href="{{url_for('main_page')}}">
+                <div id="exit-button" class="flex justify-center items-center cursor-pointer">
+                  <div class="flex items-center h-8">
+                    <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                        d="m15 19-7-7 7-7" />
+                    </svg>
+                  </div>
+                  <div class="text-xl">Back to homepage</div>
+                </div>
+              </a>
+            </div>
+
+            <div id="sectionDivider" class="mt-2 mb-2 border-t border-gray-200"></div>
+
+            <div class="flex-display-move-avatar-to-right-if-width-1000s flex w-full justify-between">
+              <div id="Avatar-Section" class="my-5 right-0 order-2">
+                <div class="text-sm font-bold mb-2">Profile picture</div>
+                <div id="Avatar-Menu-Profile"
+                  class="w-[150px] p-1 border-2 rounded-full cursor-pointer hover:bg-main/35 relative">
+                  <div id="Avatar-Edit-Button"
+                    class="absolute bg-white rounded-lg text-xs px-2 py-1 flex justify-center items-center bottom-1 border-2 border-gray-200">
+                    <svg aria-hidden="true" height="12" viewBox="0 0 16 16" version="1.1" width="16"
+                      data-view-component="true" class="octicon octicon-pencil">
+                      <path
+                        d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Zm.176 4.823L9.75 4.81l-6.286 6.287a.253.253 0 0 0-.064.108l-.558 1.953 1.953-.558a.253.253 0 0 0 .108-.064Zm1.238-3.763a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354Z">
+                      </path>
+                    </svg>
+                    Edit
+                  </div>
+                  <img id="User-Current-Avatar" class="h-36 rounded-full"
+                    src="{{url_for('static', filename='images/profile.jpg') }}" alt="avtr" />
+                </div>
+                <div id="Drop-Down-Options-Profile" class="hidden rounded-lg w-[150px] border-2 absolute bg-white py-1"
+                  role="menu">
+                  <div class="dropdown-item text-sm hover:bg-cyan-600 cursor-pointer p-2" id="upload-photo-btn">
+                    <label for="upload-photo">Upload a photo…</label>
+                    <input type="file" id="upload-photo" name="photo" accept="image/*" style="display: none"
+                      accept=".jpg, .png" />
+                  </div>
+                  <form class="dropdown-item text-sm hover:bg-cyan-600 p-2" action="/settings/primary_avatar"
+                    accept-charset="UTF-8" method="post">
+                    <input type="hidden" name="_method" value="delete" autocomplete="off" />
+                    <button onclick="return confirm('Are you sure you want to remove the photo?')">
+                      Remove photo
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+              <div class="seperate-div">
+                <div id="Username-Section">
+                  <div class="text-sm font-bold mb-2">Name</div>
+                  <input class="form-control w-[440px] max-w-full rounded-lg shadow-lg" type="text"
+                    value="__ShynBombx__" name="user[profile_name]" id="user_profile_name" />
+                  <div class="note text-xs text-slate-400 my-1">
+                    Your name may appear around Todos where you contribute or
+                    are mentioned. You can remove it at any time.
+                  </div>
+                </div>
+
+                <div id="Bio-Section">
+                  <div class="text-sm font-bold mb-2">Bio</div>
+                  <textarea
+                    class="form-control user-profile-bio-field js-length-limited-input rounded-lg shadow-lg w-[440px] max-w-full"
+                    placeholder="Tell us a little bit about yourself" data-input-max-length="160"
+                    data-warning-text="{{remaining}} remaining" name="user[profile_bio]" id="user_profile_bio"
+                    data-lt-tmp-id="lt-115975" spellcheck="false" data-gramm="false">
+Love playing video games, listening to music, and doing cool stuff.</textarea>
+                  <div class="note text-xs text-slate-400 my-1">
+                    You can @mention other users and organizations to link to
+                    them.
+                  </div>
+                </div>
+
+                <div id="Time-Zone-Section">
+                  <div class="text-sm font-bold mb-2">Location</div>
+                  <input class="form-control w-[440px] max-w-full rounded-lg shadow-lg" type="text" value="Viet Nam"
+                    name="user[location]" id="user_location_name" />
+                </div>
+
+                <div id="Apply-Change-Button" class="my-5">
+                  <button
+                    class="bg-green-600 text-white form-control max-w-full rounded-lg shadow-lg p-2 border-2 border-gray-200 hover:bg-green-700 active:bg-green-800"
+                    type="submit">
+                    Update profile
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="Change-Password-Content">
+            <div class="text-3xl">Change password</div>
+            <div id="sectionDivider" class="mt-2 mb-2 border-t border-gray-200"></div>
+            <div class="note my-1">
+              Make sure it's at least 15 characters OR at least 8 characters
+              including a number and a lowercase letter. Learn more.
+            </div>
+            <div id="Change-Password-Options" class="flex items-center">
+              <button id="Change-Password-Button"
+                class="form-control max-w-full rounded-lg shadow-lg p-2 border-2 border-gray-200">
+                Change password
+              </button>
+              <div id="Forgot-Password-Text" class="ml-3 hover:underline text-[#0000CC] cursor-p">
+                <a href="{{url_for('forgot_password')}}">I forgot my password</a>
+              </div>
+            </div>
+          </div>
+
+          <div id="Change-email-Content">
+            <div class="text-3xl">Change email</div>
+            <div id="sectionDivider" class="mt-2 mb-2 border-t border-gray-200"></div>
+            <div class="note my-1">
+              Changing your email can have unintended side effects.
+            </div>
+            <button id="Change-Email-Button"
+              class="form-control max-w-full rounded-lg shadow-lg p-2 border-2 border-gray-200">
+              Change email
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--End profile screen-->
+
+  <!--########################################################### EoMain Screen ######################################################################-->
+  <script src="../static/js/profile.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.js"></script>
+</body>
+
+</html>
