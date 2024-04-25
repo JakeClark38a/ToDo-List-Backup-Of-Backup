@@ -558,5 +558,11 @@
     @apply opacity-50;
   }
   /* End profile */
-
+  /* begin tree */
+  .vt323-regular {
+    font-family: "VT323", monospace;
+    font-weight: 400;
+    font-style: normal;
+  }
+  /* end tree */
 }
