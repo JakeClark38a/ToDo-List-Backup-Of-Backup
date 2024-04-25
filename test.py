@@ -156,11 +156,11 @@ data = {
     }
 }
 
-@app.route('/getDict')
+@app.route('/todo/get')
 def getDict():
     return data
 
-@app.route("/addGroup", methods=['POST'])
+@app.route("/todo/group/create", methods=['POST'])
 def addGroup():
     data = request.get_json()
     print(data)

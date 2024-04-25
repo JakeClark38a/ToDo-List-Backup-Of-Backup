@@ -386,7 +386,7 @@ class Dict {
 class DictCRUD extends Dict {
     constructor(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {}) {
         // Generate Dict object and assign to this
-        super(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {});
+        super(username, userid, groups, tasks, completed, tags);
     }
     // Add methods to create, read, update, delete Dict
     // Create
@@ -465,64 +465,178 @@ class DictCRUD extends Dict {
     }
 }
 
+// Note: This class isn't change anything in DictCRUD instance
+// It just handle some static methods to interact with the server
+// It's like a bridge between the server and the DictCRUD instance
 class DictAJAX extends DictCRUD {
-    constructor(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {}) {
-        // Generate Dict object and assign to this
-        super(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {});
-    }
     // Add methods to interact with the server by AJAX
     // Add methods to get Dict from server
-    getDict(fromServer = true) {
-        let dict = this;
-        // Get the dict from the server
-        if (fromServer) {
+    getAJAX(){
+        return new Promise((resolve, reject) => {
             $.ajax({
                 type: "GET",
-                url: "/getDict",
+                url: "/todo/get",
                 contentType: "application/json",
                 dataType: "json",
                 success: function (data) {
-                    // Import the dict from the server
+                    console.log("Dict get from server");
+                    // Create a new DictCRUD instance
+                    let dict = new DictCRUD();
+                    // Import the data to the DictCRUD instance
                     dict.importDict(data);
-                    console.log("Dict imported from server");
-                    // console.log(dict);
+                    // Resolve the promise
+                    resolve(dict);
+                },
+                error: function (data) {
+                    console.log("Error getting dict from server");
+                    // Reject the promise
+                    reject(data);
                 }
             })
-        }
-        // return the dict
-        return dict;
+        })
     }
-    setDict(toServer = true) {
+
+    async get() {
+        // Get the dict from the server
+        try {
+            let dict = await this.getAJAX();
+            return dict;
+        }
+        catch (error) {
+            console.log("Error getting dict from server", error);
+        }
+    }
+    // Add methods to set Dict to server
+    post(toServer = true) {
+        let dict = this;
         // Set the dict to the server
         if (toServer) {
             $.ajax({
                 type: "POST",
-                url: "/setDict",
+                url: "/todo/set",
                 contentType: "application/json",
                 dataType: "json",
-                data: this.exportDict(),
+                data: dict.exportDict(),
                 success: function (data) {
                     console.log("Dict set to server");
+                },
+                error: function (data) {
+                    console.log("Error setting dict from server");
                 }
             })
         }
         // return the dict
         return this;
     }
-    addGroup() {
+    static addGroup(groupId) {
         let dict = this;
+        console.log("Adding group");
         console.log(dict);
+        let title = dict.readGroup(groupId).title;
+        let color = dict.readGroup(groupId).color;
+        console.log(groupId, title, color);
         // Add group to the server
         $.ajax({
             type: "POST",
-            url: "/addGroup",
+            url: "/todo/group/create",
             contentType: "application/json",
             dataType: "json",
-            data: { groupID: dict.groupID, title: dict.title, color: dict.color },
+            data: { groupID: groupId, title: title, color: color },
             success: function (data) {
                 console.log("Group added to server");
             }
         })
+        return this;
+    }
+    addTag() {
+        let dict = this;
+        // Add tag to the server
+        $.ajax({
+            type: "POST",
+            url: "/todo/tag/create",
+            contentType: "application/json",
+            dataType: "json",
+            data: { tagID: dict.tagID, groupId:dict.groupId, title: dict.title, color: dict.color },
+            success: function (data) {
+                console.log("Tag added to server");
+            }
+        })
+        return this;
+    }
+    updateGroup(){
+        let dict = this;
+        // Update group to the server
+        $.ajax({
+            type: "POST",
+            url: "/todo/group/update",
+            contentType: "application/json",
+            dataType: "json",
+            data: { groupID: dict.groupID, title: dict.title, color: dict.color },
+            success: function (data) {
+                console.log("Group updated to server");
+            }
+        })
+        return this;
+    }
+    updateTag(){
+        let dict = this;
+        // Update tag to the server
+        $.ajax({
+            type: "POST",
+            url: "/todo/tag/update",
+            contentType: "application/json",
+            dataType: "json",
+            data: { tagID: dict.tagID, groupId: dict.groupId, title: dict.title, color: dict.color },
+            success: function (data) {
+                console.log("Tag updated to server");
+            }
+        })
+        return this;
+    }
+    deleteGroup(){
+        let dict = this;
+        // Delete group from the server
+        $.ajax({
+            type: "POST",
+            url: "/todo/group/delete",
+            contentType: "application/json",
+            dataType: "json",
+            data: { groupID: dict.groupID },
+            success: function (data) {
+                console.log("Group deleted from server");
+            }
+        })
+        return this;
+    }
+    deleteTag(){
+        let dict = this;
+        // Delete tag from the server
+        $.ajax({
+            type: "POST",
+            url: "/todo/tag/delete",
+            contentType: "application/json",
+            dataType: "json",
+            data: { tagID: dict.tagID },
+            success: function (data) {
+                console.log("Tag deleted from server");
+            }
+        })
+        return this;
+    }
+    createTask(){
+        let dict = this;
+        // Create task to the server
+        $.ajax({
+            type: "POST",
+            url: "/todo/task/create",
+            contentType: "application/json",
+            dataType: "json",
+            data: { taskID: dict.taskID, title: dict.title, description: dict.description, tag: dict.tag, deadline: dict.deadline, points: dict.points, isCompleted: isCompleted },
+            success: function (data) {
+                console.log("Task created to server");
+            }
+        })
+        return this;
     }
 }
 
@@ -1093,7 +1207,7 @@ console.log(Dict);
 
 let DictString = {
     // sample dict
-    username: "JakeClark",
+    username: "JakeClarkFromStateFarm",
     userid: "User ID",
     groups: {
       gid001: {
@@ -1253,11 +1367,12 @@ let DictString = {
   
   };
 
-Dict2 = new DictAJAX();
+let Dict2 = new DictAJAX();
 Dict2.importDict(DictString);
 console.log(Dict2);
 console.log(Dict2.exportDict()); 
-console.log(Dict2.getDict());
+Dict2 = Dict2.get();
+console.log("Dict2: ", Dict2);
 console.log(Dict2.addGroup())
 
 // Caution 2: These classes inherited from above classes and have additional methods
