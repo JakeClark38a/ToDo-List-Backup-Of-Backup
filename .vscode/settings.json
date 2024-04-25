@@ -1,3 +1,4 @@
 {
-    "livePreview.defaultPreviewPath": "/templates/registerpage.html"
+  "liveServer.settings.port": 5501,
+  "livePreview.defaultPreviewPath": "/templates/registerpage.html"
 }
