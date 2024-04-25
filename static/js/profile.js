@@ -390,12 +390,6 @@ function AJAXgetUserProfileImage() {
 }
 AJAXgetUserProfileImage();
 
-$("#exit-button").click(function () {
-  $.ajax({
-    url: "/todo",
-  });
-});
-
 $("#change-email").click(function () {
   AJAXChangeEmail();
   location.reload();

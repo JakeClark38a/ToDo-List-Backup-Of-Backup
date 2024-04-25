@@ -1432,4 +1432,18 @@ $(document).ready(function () {
   //addGroupnTagModal.show()
 
 })
+//Function to render image of user profile
+function AJAXgetUserProfileImage() {
+  $.ajax({
+    type: "GET",
+    url: "/profile/get/image",
+    success: function (data) {
+      $("#Avatar-Image").attr("src", data);
+    },
+    error: function (data) {
+      console.log("Error");
+    }
+  });
+}
+AJAXgetUserProfileImage();
 // End of app.js
