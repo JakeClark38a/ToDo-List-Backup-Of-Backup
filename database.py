@@ -190,7 +190,19 @@ class ToDoDatabase():
         sqlquery = "UPDATE users SET image=%s WHERE user_id=%s"
         values = (image,user_id)
         self.cursor.execute(sqlquery,values)
-        self.connection.commit()    
+        self.connection.commit()
+
+    #Function to get user image:
+    def get_image(self, user_id):
+        sqlquery = "SELECT image FROM users WHERE user_id=%s"
+        values = (user_id,)
+        try:
+            self.cursor.execute(sqlquery,values)
+            result = self.cursor.fetchone()
+            return result[0]
+        except Exception:
+            return None
+            
         
     #Function to reset user password in forgot password page
     def reset_password_user(self, email, password):

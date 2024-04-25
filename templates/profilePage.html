@@ -214,16 +214,18 @@
           <div id="Profile-Public-Content">
             <div class="flex justify-between">
               <div class="text-3xl">Public profile</div>
-              <div id="exit-button" class="flex justify-center items-center cursor-pointer">
-                <div class="flex items-center h-8">
-                  <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                      d="m15 19-7-7 7-7" />
-                  </svg>
+              <a href="{{url_for('main_page')}}">
+                <div id="exit-button" class="flex justify-center items-center cursor-pointer">
+                  <div class="flex items-center h-8">
+                    <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                        d="m15 19-7-7 7-7" />
+                    </svg>
+                  </div>
+                  <div class="text-xl">Back to homepage</div>
                 </div>
-                <div class="text-xl">Back</div>
-              </div>
+              </a>
             </div>
 
             <div id="sectionDivider" class="mt-2 mb-2 border-t border-gray-200"></div>

@@ -133,6 +133,7 @@ def login():
         find_user = tododb.show_user(user_name, user_password)
         if (find_user):
             session['user'] = tododb.create_session(user_name, user_password)
+            session['type'] = 'normal'
             return redirect(url_for('main_page'))
         else: return redirect(url_for('login'))
     else:
@@ -283,7 +284,7 @@ def facebook_auth():
 def main_page():
     if check_session() and isFillForm() == False:
         tododb.default_setting(get_user_id())
-        return redirect(url_for('profile'))
+        return redirect(url_for('profile', type=session['type']))
     elif check_session() and isFillForm() == True:
         return render_template('mainPage.html')
     else: return redirect(url_for('login'))
@@ -466,11 +467,13 @@ def delete_tag():
     return jsonify(data)
 
 ####Profile endpoints
-@app.route('/profile', methods=['GET','POST'])
-def profile():
-    if check_session():
-        return render_template('profilePage.html')
-    else: return redirect(url_for('login'))
+@app.route('/profile/<type>', methods=['GET','POST'])
+def profile(type):
+    if request.method == "GET":
+        if check_session():
+            return render_template('profilePage.html',type=session['type'])
+        else: return redirect(url_for('login'))
+    return render_template('profilePage.html')
 
 
 @app.route('/profile/get', methods=['GET'])
@@ -506,8 +509,9 @@ def update_image():
         image_data = file[starter+1:]
         image_data = bytes(image_data, encoding='utf-8')
         print(image_data)
-        tododb.update_image(get_user_id())
-        with open("static/images/profile.jpg", "wb") as fh:
+        file_path = url_for('static', filename=f'upload/{get_user_id()}.jpg')
+        tododb.update_image(get_user_id(),file_path)
+        with open(f"static/upload/{get_user_id()}.jpg", "wb") as fh:
             fh.write(base64.decodebytes(image_data))   
         return jsonify({"status": "success"}), 200
 
@@ -555,8 +559,11 @@ def update_password():
 
 @app.route('/profile/get/image', methods=['GET'])
 def get_user_image():
-    test_images = url_for('static', filename='images/download.jpg')
-    return test_images
+    if check_session():
+        user_image = tododb.get_image(get_user_id())
+        if user_image == None:
+            return url_for('static', filename='images/profile.jpg')
+        else: return user_image
         
 if __name__ == '__main__':
     app.run(debug=True, ssl_context='adhoc')

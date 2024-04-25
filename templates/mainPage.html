@@ -160,8 +160,7 @@
                 </div>
             </div>
 
-            <div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center dark:text-white font-mono">
-                sdasdasdasdadasda</div>
+            <div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center"></div>
 
             <div class="flex justify-end items-center p-2 gap-2 ">
 
@@ -175,7 +174,7 @@
 
                 <div id="Avatar-Menu-Click"
                     class="headbar-button p-1 border-2 rounded-full cursor-pointer hover:bg-main/35">
-                    <img class="w-full h-full rounded-full" src="/static/images/profile.jpg" alt="avtr">
+                    <img id="Avatar-Image" class="w-full h-full rounded-full" src="/static/images/profile.jpg" alt="avtr">
                 </div>
             </div>
         </div>
@@ -190,19 +189,20 @@
             class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
 
 
-            <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
-                <div class="flex items-center">
-                    <div class="PMenu-Primary-Image-Wrapper">
-                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-width="2"
-                                d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        </svg>
+            <a href="{{url_for('profile', type=session['type'])}}">
+                <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
+                    <div class="flex items-center">
+                        <div class="PMenu-Primary-Image-Wrapper">
+                            <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-width="2"
+                                    d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </div>
+                        <div class="PMenu-Primary-Text">Profile</div>
                     </div>
-
-                    <div class="PMenu-Primary-Text">Profile</div>
                 </div>
-            </div><!--eoblock-->
+            </a><!--eoblock-->
 
             <div id="PMenu-UserSett" class="PMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
