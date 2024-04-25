@@ -21,12 +21,6 @@ Collaborators:
 - KienSD (Hồ Trung Kiên)
 - lightunderwolft (Hồ Vĩnh Nhật)
 
-## Features Map
+[UI Map](https://app.eraser.io/workspace/XPjbEJ3ls8SA8Dw6XD2m?origin=share)
 
-![](./feature-map.png)
-
-## UI Map
-Coming soon...
-
-## Timeline
 [Timeline (Vietnamese - No implementation date)](https://docs.google.com/spreadsheets/d/1MAMZZLN4X1kk-8I4zG77Cs-AGEdnr1_v/edit?usp=sharing&ouid=117486916258965576138&rtpof=true&sd=true)

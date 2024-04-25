@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
 
 </head>
 
-<body class="overflow-hidden bg-bg2 bg-cover bg-center">
+<body class="overflow-hidden bg-bg1 bg-cover bg-center *:transition-colors">
 
 
 
@@ -143,7 +143,7 @@
 
 
 
-    <div class="bg-main/25"> <!--Body Container-->
+    <div class="bg-main/25 dark:bg-gray-700/70"> <!--Body Container-->
         <!--Begin header-->
 
         <!--########################################################### NavBar ######################################################################-->
@@ -160,7 +160,8 @@
                 </div>
             </div>
 
-            <div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center">sdasdasdasdadasda</div>
+            <div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center dark:text-white font-mono">
+                sdasdasdasdadasda</div>
 
             <div class="flex justify-end items-center p-2 gap-2 ">
 
@@ -230,7 +231,7 @@
                     </div>
                     <div class="PMenu-Primary-Text">Dark mode</div>
                     <label class="inline-flex items-center cursor-pointer px-3">
-                        <input type="checkbox" value="" class="sr-only peer">
+                        <input id="Toggle-DarkMode" type="checkbox" value="" class="sr-only peer">
                         <div
                             class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                         </div>
@@ -239,17 +240,22 @@
             </div><!--eoblock-->
 
             <div id="PMenu-Logout" class="PMenu-Primary-Section"> <!--block-->
-                <div class="flex items-center">
-                    <div class="PMenu-Primary-Image-Wrapper">
-                        <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="1.5"
-                                d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
-                        </svg>
-                    </div>
-                    <div class="PMenu-Primary-Text">Log out</div>
-                </div>
+                <a href="{{url_for('logout')}}">
+                    <button>
+                        <div class="flex items-center">
+                            <div class="PMenu-Primary-Image-Wrapper">
+                                <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.5"
+                                        d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+                                </svg>
+                            </div>
+                            <div class="PMenu-Primary-Text">Log out</div>
+                        </div>
+                    </button>
+                </a>
             </div><!--eoblock-->
 
         </div>
@@ -261,7 +267,7 @@
 
         <!-- Dropdown Main menu -->
         <div id="Main-Menu"
-            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-54 lg:w-64 bg-main shadow-xl overflow-hidden  rounded-br-xl">
+            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-54 lg:w-64 bg-main dark:bg-gray-700 shadow-xl overflow-hidden  rounded-br-xl">
 
 
             <div id="MMenu-Search" class="MMenu-Primary-Section mt-4"> <!--block-->
@@ -275,7 +281,9 @@
                     </div>
 
                     <div class="p-2 flex items-center">
-                        <textarea name="SearchBox" id="SearchBox" class="MMenu-Primary-Text bg-main rounded-xl border-0 text-left resize-none" rows="1" placeholder="Search"></textarea>
+                        <textarea name="SearchBox" id="SearchBox"
+                            class="MMenu-Primary-Text bg-main rounded-xl border-0 text-left resize-none" rows="1"
+                            placeholder="Search"></textarea>
                     </div>
                 </div>
             </div><!--eoblock-->
@@ -310,8 +318,22 @@
             <div id="MMenu-Garden" class="MMenu-Primary-Section "> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
-                        <img class="w-6 lg:w-7 h-6 lg:h-7"
-                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADG0lEQVR4nO2Zu09VQRCHP/BBAgYrQ2VE8f0oTIxG/SMsFQobWx+FoqKNFtpoIVhoNFqKFKBEjYmASKItliQa0T9BA0ZA4ZpJ5iSTzTl79jy49xb3Szb3FLOz8ztndnd2LzRoUHdsBl4DX4F5bd+AMaAPOECdcweopLR3wHHqlBPAcoCIFeAu0FKrQNcA+/Q3Lo12Am3auoAeYBBYcoR8UJuqslZzWgJ4lbFvJzDqiJgA1lOjPP+Z08clR8QtqsRB4J8ZuLeArz7jR3weogq8NYPKc1MBX03AG+PvBavMDl09ojcmEzWJ7cCsNnlOYpdZtZZTbAtzLcPbsrby7GPU2MrcKJ3DwKR5+9JOp/S5YWzl2ccZZ394X9Z8WAfcj9mY/gAdJQroUJ92DBnznsaQi43AlON0ERgOLAOyCEB9DsdsdPLl28lIi35G6+ilbkKhZBUQsTVmoxvPutENODl5kezkFRDR68y5fgI55uR80qpwW/NWHDevggDhsjMnjhLAhOnkq3Pmjd2TGBFlCEBTN/Ij9ZeX/eazLWlVGZJmcSLKErAF+GvSWWJM5LoZVErftDLggSPiqRFRlgBhKHRTjEpkad2k4xORJkBs+nUeyXzy0ROaRj+M4bYAAT4RNz0CmjXlKtpkPvnoMrbffYa/jWFroIAkEZ8TBLjBV3Q++Wg1thJjInPGcEMGAUkiXAFp8yaJdmP/K9EK+GIMpXTOStzbrWg65Q0+KrmjPjN4GDeGJ8lHnIiRAsGjC0rQJL5qDJ+RHwls2viaLRC88Nz0ld05kb1O5Rm6EsVhl9EiwXcCC6a/pJOXqQybmQ+7jPpKjiybmJTWQacvWwWeJR8jJQR/wfRfCS3mhMemoxzezxUUMJ0j+PPO9c3DrAeaT84bHKzigWbIGftjnpu7TTEiFnRFOAXsTrnTDBXQpr661fdiTPASSy7kSzxy5kSeNuDcFYX0WdG0KeXO9IjeIucVIP8HxN2HVhLapC4mpbMHuKK74YxzKsv7BebU15huUpJOdUGZB5qa0BBQaxpfoNZkuV6vS0L/4GjQgBryH6712TVA4aKcAAAAAElFTkSuQmCC">
+                        <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M10.9 11.77C10.7943 11.7701 10.6898 11.7479 10.5933 11.7049C10.4968 11.6618 10.4105 11.5988 10.34 11.52C10.2704 11.4397 10.2185 11.3457 10.1875 11.2441C10.1564 11.1425 10.1471 11.0355 10.16 10.93C10.16 10.84 11.39 1.79001 19.38 1.79001C19.5625 1.79112 19.7384 1.85877 19.8746 1.98027C20.0109 2.10177 20.0981 2.26879 20.12 2.45001C20.3565 4.80481 19.6559 7.15798 18.17 9.00001C16.57 10.85 14.12 11.77 10.9 11.77ZM18.66 3.32001C13.85 3.74001 12.27 8.32001 11.81 10.24C12.7769 10.2358 13.7333 10.0401 14.6241 9.66424C15.5149 9.28836 16.3224 8.73972 17 8.05001C18.0966 6.72 18.6849 5.04362 18.66 3.32001Z">
+                            </path>
+                            <path
+                                d="M10.9 11.76H10.81C8.4 11.46 3.81 9.59001 3.81 4.70001C3.81082 4.51636 3.87812 4.33921 3.99945 4.20133C4.12078 4.06346 4.28793 3.97418 4.47 3.95002C6.29444 3.76532 8.11851 4.30392 9.55 5.45001C10.2852 6.16484 10.8543 7.03244 11.2172 7.99148C11.5801 8.95052 11.7278 9.97758 11.65 11C11.6501 11.1057 11.6279 11.2102 11.5849 11.3067C11.5418 11.4032 11.4788 11.4896 11.4 11.56C11.2624 11.6839 11.0851 11.7548 10.9 11.76ZM5.38 5.42002C5.77 8.54002 8.63 9.69002 10.11 10.08C10.0678 8.75333 9.51211 7.49486 8.56 6.57002C7.66004 5.83899 6.53936 5.43372 5.38 5.42002Z">
+                            </path>
+                            <path
+                                d="M10.9 15.9C10.7011 15.9 10.5103 15.821 10.3697 15.6803C10.229 15.5397 10.15 15.3489 10.15 15.15V11C10.15 10.8011 10.229 10.6103 10.3697 10.4697C10.5103 10.329 10.7011 10.25 10.9 10.25C11.0989 10.25 11.2897 10.329 11.4303 10.4697C11.571 10.6103 11.65 10.8011 11.65 11V15.13C11.6541 15.2305 11.6376 15.3308 11.6016 15.4248C11.5657 15.5187 11.5109 15.6043 11.4407 15.6764C11.3705 15.7485 11.2864 15.8055 11.1934 15.8439C11.1004 15.8824 11.0006 15.9014 10.9 15.9Z">
+                            </path>
+                            <path
+                                d="M13.5 22.21H8.7C7.71495 22.1943 6.77542 21.7926 6.08348 21.0913C5.39155 20.39 5.00249 19.4452 5 18.46V15.15C5 14.9511 5.07902 14.7603 5.21967 14.6197C5.36032 14.479 5.55109 14.4 5.75 14.4H16.5C16.6989 14.4 16.8897 14.479 17.0303 14.6197C17.171 14.7603 17.25 14.9511 17.25 15.15V18.46C17.2474 19.4537 16.8514 20.406 16.1487 21.1087C15.446 21.8114 14.4938 22.2074 13.5 22.21ZM6.5 15.9V18.46C6.49985 19.0482 6.73003 19.613 7.14123 20.0336C7.55244 20.4541 8.11197 20.6969 8.7 20.71H13.5C14.0967 20.71 14.669 20.4729 15.091 20.051C15.5129 19.629 15.75 19.0567 15.75 18.46V15.9H6.5Z">
+                            </path>
+                        </svg>
 
                     </div>
 
@@ -337,6 +359,31 @@
                 class="relative MMenu-Group-Section overflow-y-scroll py-5 h-1/2 bg-gray-300/35 ">
                 <!--group here-->
             </div>
+            <div id="MMenu-Bottom" class="flex justify-between items-center p-2">
+                <div class="Log-out">
+                    <a href="{{url_for('logout')}}">
+                        <button>
+                            <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.5"
+                                    d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+                            </svg>
+                        </button>
+                    </a>
+                </div>
+                <div class="Settings">
+                    <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                    </svg>
+                </div>
+            </div>
+
 
         </div>
         <!--End Dropdown menu-->
@@ -344,41 +391,103 @@
 
 
 
-        <!--########################################################### Right sidebar ######################################################################-->
-        <!--Begin Sidebar-->
-        <div class="bg-transparent Sidebar-Right z-10 absolute right-0 h-96 hidden">
-            <div
-                class="transform transition-all ease-in-out duration-300 bg-gradient-to-r from-primary-100 to-accent-100  h-full px-2 py-5">
+        <!--########################################################### Dropdown Mode ######################################################################-->
+        <!-- Dropdown menu -->
+        <div id="Mode-Menu"
+            class="dropdown-anim duration-300 z-10 absolute right-10 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
 
-                <div class=""> <!--Sidebar btn-->
-                    <div class="headbar-button hover:bg-blue-500 border-0" data-dropdown-toggle="drop-matrix-Click"
-                        data-dropdown-trigger="click" data-dropdown-placement="left-end">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+            <div id="ModeMenu-Profile" class="ModeMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="ModeMenu-Primary-Image-Wrapper">
+                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z" />
                         </svg>
-                    </div>
-                    <!-- Dropdown select-->
-                    <div id="drop-matrix-Click" class="z-10 hidden p-3 py-5 bg-background-main rounded-xl">
-                        <div class="flex flex-col gap-2 *:py-2 *:text-center *:px-5 *:bg-slate-200 *:rounded-lg">
-                            <div class="">Eisenhauer Matrix</div>
-                            <div class="">Carousel</div>
-                            <div class="">List</div>
-                        </div>
-                    </div>
-                    <!--End Dropdown select-->
-                </div><!--eoSidebar btn-->
 
-            </div>
+                    </div>
+
+                    <div class="ModeMenu-Primary-Text">Grid</div>
+                </div>
+            </div><!--eoblock-->
+
+
         </div>
-        <!--End Sidebar-->
-        <!--########################################################### EoRight sidebar ######################################################################-->
+
+        <!--########################################################### EoDropdown Mode ######################################################################-->
 
 
 
         <!--########################################################### Calendar ######################################################################-->
         <!-- Redirect to Backend Generator here -->
+        <!-- Begin Calendar -->
+        <div id="test" class=""></div>
+        <div id="Calendar-Container" class=" hidden container">
+            <div class="left">
+                <div class="calendar">
+                    <div class="month">
+                        <i class="prev">&lt;</i>
+                        <div class="date">April 2024</div>
+                        <i class="next">&gt;</i>
+                    </div>
+                    <div class="weekdays bg-red-300">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="days"></div>
+                    <div class="goto-today">
+
+                        <button class="today-btn">Today</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="tasks-display">
+                    <div class="today-date">
+                        <div class="day-and-date">
+                            <div class="event-day">Wed</div>
+                            <div class="event-date">7th April 2024</div>
+                        </div>
+
+                        <div class="events"></div>
+                    </div>
+                </div>
+                <div class="add-event-wrapper">
+                    <div class="add-event-header">
+                        <div class="title">Add Event</div>
+                        <i class="fas fa-times close"></i>
+                    </div>
+                    <div class="add-event-body">
+                        <div class="add-event-input">
+                            <input type="text" placeholder="Event Name" class="event-name" />
+                        </div>
+                        <div class="add-event-input">
+                            <input type="text" placeholder="Event Time From" class="event-time-from" />
+                        </div>
+                        <div class="add-event-input">
+                            <input type="text" placeholder="Event Time To" class="event-time-to" />
+                        </div>
+                        <div class="add-event-input">
+                            <input type="text" placeholder="Description" class="event-description" />
+                        </div>
+                    </div>
+                    <div class="add-event-footer">
+                        <button class="add-event-btn">Add Event</button>
+                    </div>
+                </div>
+            </div>
+            <button class="add-event">
+                <i class="">+</i>
+            </button>
+        </div>
+        <!-- End Calendar -->
+
         <!--########################################################### EoCalendar ######################################################################-->
 
 
