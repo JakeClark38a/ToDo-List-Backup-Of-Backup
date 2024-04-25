@@ -4012,10 +4012,6 @@ input:checked + .toggle-bg {
   background-image: url('https://source.unsplash.com/random/1920x1080?nature');
 }
 
-.bg-bg6 {
-  background-image: url('/static/images/bg7.jpg');
-}
-
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
