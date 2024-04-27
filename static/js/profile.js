@@ -392,6 +392,7 @@ function AJAXgetUserProfileImage() {
 AJAXgetUserProfileImage();
 
 $("#change-email").click(function () {
+  e.preventDefault()
   AJAXChangeEmail();
   location.reload();
 });
