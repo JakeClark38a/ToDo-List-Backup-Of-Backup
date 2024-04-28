@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./dist/output.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <!-- màn hình nền -->
+    <Div class="bg-gradient-to-b from-blue-200 to-blue-400 h-[100vh]"> 
+        <!--  điều chình chiều cao thanh xo với ô địa chỉ trang/ khoảng trống  -->
+        <div class="h-[15px]"></div>
+
+
+
+
+
+       
+
+
+
+        <!-- add question action button here-->
+        <div class=" wrapper flex  flex-col justify-center items-center  h-[15vh] w-[90%] mx-auto ">
+            <div id="a0002" class="relative content flex h-[70%]">
+                <button id="moveButton" class=" absolute border-2 rounded-full w-full h-full bg-white text-[25px] ">+</button>
+            </div>
+        </div>
+        <!-- kết thúc phần nút -->
+    </Div>
+
+
+      
+
+
+     <!-- modal-->
+     
+      <div id="modal-container" class=" fixed  top-0 left-0 h-[100vh] w-[100%] opacity-0 pointer-events-none  " >
+            <div id="modal" class=" absolute border-2 rounded-2xl shadow-xl left-[50%] translate-x-[-50%] top-[5vh] h-[90vh] w-[90%] md:w-[40%] bg-white ">
+                <div class="flex justify-between border-b-2 px-[13px] py-[13px]  ">
+                    <div><h2>Create Task</h2></div>
+                    <div><button id="close-bt">X</button></div>
+                </div>
+                <div class="h-[15px]"></div>
+                <div class="wrapper flex flex-col  items-center h-[40%] w-full ">
+                    <div class="content w-[90%] h-[20%]"><input type="text" class="text-center border-2 border-black rounded-lg  w-full h-full text-[1rem]" placeholder="Task Input Here"></div>
+                    <div class="h-[15px]"></div>
+                    <div class="content w-[90%] h-[60%]"><input type="text" class="text-center border-2 border-black rounded-lg  w-full h-full text-[1rem]" placeholder="Description Input here"></div>
+                </div>
+                <div class="wrapper flex flex-col h-[15%] w-full">
+                    <div class="content w-full pl-[5%]"> Tags </div>
+                    <div class="h-[5px]"></div>
+                    <div class="content flex flex-col items-center w-full h-[70%]"><input type="text" class="text-center border-2 border-black rounded-lg  w-[90%] h-[90%] text-[1rem]" placeholder="Add Name Tags"></div>
+                </div>
+
+                <div class="wrapper flex justify-around items-center h-[10%] w-full">
+                    <div class="content h-[70%] w-[20%] "><button class=" border-[1px] border-black rounded-2xl h-full w-full">Submit</button></div>
+                    <div class="content h-[70%] w-[20%] "><button id="cancle-bt" class="border-[1px] border-black rounded-2xl h-full w-full ">Cancel</button></div>
+                </div>
+                
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <!--kết thúc phần modal-->
+
+
+    <!-- phần java thêm cho đỡ mệt -->
+    <script src="action.js"></script>
+</body>
+</html>
