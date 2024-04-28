@@ -1064,73 +1064,7 @@ $(document).ready(function () {
           </div>
       </div>
       <!-- kết thúc phần nút -->
-      <!-- Begin Calendar -->
-        <div id="test" class=""></div>
-        <div id="Calendar-Container" class=" hidden container">
-            <div class="left">
-                <div class="calendar">
-                    <div class="month">
-                        <i class="prev">&lt;</i>
-                        <div class="date">April 2024</div>
-                        <i class="next">&gt;</i>
-                    </div>
-                    <div class="weekdays bg-red-300">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
-                    </div>
-                    <div class="days"></div>
-                    <div class="goto-today">
-
-                        <button class="today-btn">Today</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="right">
-                <div class="tasks-display">
-                    <div class="today-date">
-                        <div class="day-and-date">
-                            <div class="event-day">Wed</div>
-                            <div class="event-date">7th April 2024</div>
-                        </div>
-
-                        <div class="events"></div>
-                    </div>
-                </div>
-                <div class="add-event-wrapper">
-                    <div class="add-event-header">
-                        <div class="title">Add Event</div>
-                        <i class="fas fa-times close"></i>
-                    </div>
-                    <div class="add-event-body">
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Event Name" class="event-name" />
-                        </div>
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Event Time From" class="event-time-from" />
-                        </div>
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Event Time To" class="event-time-to" />
-                        </div>
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Description" class="event-description" />
-                        </div>
-                    </div>
-                    <div class="add-event-footer">
-                        <button class="add-event-btn">Add Event</button>
-                    </div>
-                </div>
-            </div>
-            <button class="add-event">
-                <i class="">+</i>
-            </button>
-        </div>
-        <!-- End Calendar -->
+    
       `))
       var formatter_html = $("#Main-Screen").append(
         MainScreenFormatterTemplate()
@@ -1171,8 +1105,8 @@ $(document).ready(function () {
     //================================================================\\
     //========================== Calendar   ==========================\\
     //================================================================\\
-
-    const calendar = document.querySelector(".calendar"),
+    function loadCalendar() {
+        const calendar = document.querySelector("calendar"),
         date = document.querySelector(".date"),
         daysContainer = document.querySelector(".days"),
         prev = document.querySelector(".prev"),
@@ -1510,6 +1444,7 @@ tasksContainer.addEventListener("click", (e) => {
         timeHour = timeHour % 12 || 12;
         time = timeHour + ":" + timeMin + " " + timeFormat;
         return time;
+    }
     }
   
     //================================================================\\

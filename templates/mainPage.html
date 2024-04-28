@@ -420,185 +420,6 @@
 
 
 
-        <!--########################################################### Calendar ######################################################################-->
-        <!-- Redirect to Backend Generator here -->
-        <!-- Begin Calendar -->
-        <div id="test" class=""></div>
-        <div id="Calendar-Container" class=" hidden container">
-            <div class="left">
-                <div class="calendar">
-                    <div class="month">
-                        <i class="prev">&lt;</i>
-                        <div class="date">April 2024</div>
-                        <i class="next">&gt;</i>
-                    </div>
-                    <div class="weekdays bg-red-300">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
-                    </div>
-                    <div class="days"></div>
-                    <div class="goto-today">
-
-                        <button class="today-btn">Today</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="right">
-                <div class="tasks-display">
-                    <div class="today-date">
-                        <div class="day-and-date">
-                            <div class="event-day">Wed</div>
-                            <div class="event-date">7th April 2024</div>
-                        </div>
-
-                        <div class="events"></div>
-                    </div>
-                </div>
-                <div class="add-event-wrapper">
-                    <div class="add-event-header">
-                        <div class="title">Add Event</div>
-                        <i class="fas fa-times close"></i>
-                    </div>
-                    <div class="add-event-body">
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Event Name" class="event-name" />
-                        </div>
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Event Time From" class="event-time-from" />
-                        </div>
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Event Time To" class="event-time-to" />
-                        </div>
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Description" class="event-description" />
-                        </div>
-                    </div>
-                    <div class="add-event-footer">
-                        <button class="add-event-btn">Add Event</button>
-                    </div>
-                </div>
-            </div>
-            <button class="add-event">
-                <i class="">+</i>
-            </button>
-        </div>
-        <!-- End Calendar -->
-
-        <!--########################################################### EoCalendar ######################################################################-->
-
-        <!--########################################################### Calendar ######################################################################-->
-        <!--Begin Calendar-->
-        <div id="Calendar" class="Container backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
-            <!-- Begin Calendar -->
-    <div id="Calendar-Container" class="container">
-        <div class="left">
-            <div class="calendar">
-                <div class="month">
-                    <i class="prev">
-                        &lt;</i>
-                    <div class="date">december 2015</div>
-                    <i class="next">&gt;</i>
-                </div>
-                <div class="weekdays">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
-                </div>
-                <div class="days"></div>
-                <div class="goto-today">
-                    <div class="goto">
-                        <input type="text" placeholder="mm/yyyy" class="date-input" />
-                        <button class="goto-btn">Go</button>
-                    </div>
-                    <button class="today-btn">Today</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="right">
-            <div class="tasks-display">
-                <div class="today-date">
-                    <div class="day-and-date">
-                        <div class="event-day">wed</div>
-                        <div class="event-date">12th december 2022</div>
-                    </div>
-
-                    <!-- today-date equivilent to events -->
-                    <!-- task-container is equivilent to event -->
-                    <!-- this events div call a lot of function, be ware deleted it -->
-                    <div class="events"></div>
-
-                    <!-- `<div class="event">
-                            //       <div class="title">
-                            //         <i class="fas fa-circle"></i>
-                            //         <h3 class="event-title">${event.title}</h3>
-                            //       </div>
-                            //       <div class="event-time">
-                            //         <span class="event-time">${event.time}</span>
-                            //       </div>
-                            //   </div>` -->
-
-                    <!-- if we click in the event class div it will have delete function available -->
-
-                    <!-- <div class="task-container">
-                            <div class="time-display">8:30</div>
-                            <div class="task-information">
-                                <div class="task-title">đi nhà nghỉ</div>
-                                <div class="task-description">Không nên nghỉ</div> 
-                                <div class="tags-display">
-                                    <div class="tag-important">important</div>
-                                    <div class="tag-urgent">urgent</div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                </div>
-            </div>
-            <div class="add-event-wrapper">
-                <div class="add-event-header">
-                    <div class="title">Add Event</div>
-                    <i class="fas fa-times close"></i>
-                </div>
-                <div class="add-event-body">
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Event Name" class="event-name" />
-                    </div>
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Event Time From" class="event-time-from" />
-                    </div>
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Event Time To" class="event-time-to" />
-                    </div>
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Description" class="event-description" />
-                    </div>
-                </div>
-                <div class="add-event-footer">
-                    <button class="add-event-btn">Add Event</button>
-                </div>
-            </div>
-        </div>
-        <button class="add-event">
-            <i class="">+</i>
-        </button>
-    </div>
-    <!-- End Calendar -->
-
-        </div>
-        <!--End Calendar-->
-        <!--########################################################### EoCalendar ######################################################################-->
-
-
 
         <!--########################################################### Main Screen ######################################################################-->
         <!--Begin Main screen-->
@@ -622,8 +443,8 @@
         
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="../static/js/app2.js"></script>
-        <script src="../static/js/calendar.js"></script>
+        <script src="../static/js/app.js"></script>
+   
         <script>
 
             function dragMoveListener(event) {
@@ -785,7 +606,7 @@
 
                     })
 
-                // $("#Calendar").load("calendar.html");
+                $("#Calendar").load("calendar.html");
             });
 
         </script>
