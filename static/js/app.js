@@ -49,21 +49,21 @@ $(document).ready(function () {
         title: "Meeting",
         description: "About making a website",
         tag: "tag1",
-        deadline: 62783,
+        deadline: "2024-04-22T12:00",
         points: 4,
       },
       id002: {
         title: "Crying",
         description: "About making a website",
         tag: "tag3",
-        deadline: 62783,
+        deadline: "2024-04-22T12:00",
         points: 4,
       },
       id004: {
         title: "Laughing",
         description: "About making a website",
         tag: "tag5",
-        deadline: 62783,
+        deadline: "2024-04-22T12:00",
         points: 4,
       },
     },
@@ -72,7 +72,7 @@ $(document).ready(function () {
         title: "Journaling",
         description: "About making a website",
         tag: "tag1",
-        deadline: 62783,
+        deadline: "2024-04-22T12:00",
         points: 5,
       },
     },
@@ -685,7 +685,7 @@ $(document).ready(function () {
     group.find(".MMenu-Dropdown-Arrow").toggleClass("-rotate-90");
   }
 
-  
+
 
   function addNewTagMainMenu(group_html, id, tag) {
     //console.log(group_html);

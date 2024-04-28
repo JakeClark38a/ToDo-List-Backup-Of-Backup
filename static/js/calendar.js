@@ -1,4 +1,168 @@
 $(document).ready(function () {
+    var Dict = {  // sample dict
+        username: "JakeClark",
+        userid: "User ID",
+        bio: "hmm...",
+        timeZone: "Asia/Tokyo",
+        displayLocalTimeZone: false,
+        localTimeZoneName: "UTC",
+
+        groups: {
+            gid001: {
+                title: "Do",
+                tags: ["tag1"],
+                def_tag: "do",
+                color: "#7aa5cf",
+                current_html: "",
+            },
+            gid002: {
+                title: "Delegate",
+                tags: ["tag2"],
+                def_tag: "delegate",
+                color: "#63c074",
+                current_html: "",
+            },
+            gid003: {
+                title: "Schedule",
+                tags: ["tag3", "tag5"],
+                def_tag: "schedule",
+                color: "#ac7acf",
+                current_html: "",
+            },
+            gid004: {
+                title: "Later",
+                tags: ["tag4"],
+                def_tag: "later",
+                color: "#c5e875",
+                current_html: "",
+            },
+        },
+        tasks: {
+            id001: {
+                title: "Meeting",
+                description: "About making a website",
+                tag: "tag1",
+                deadline: "2024-04-22T12:00",
+                points: 4,
+            },
+            id002: {
+                title: "Crying",
+                description: "About making a website",
+                tag: "tag3",
+                deadline: "2024-04-22T12:00",
+                points: 4,
+            },
+            id004: {
+                title: "Laughing",
+                description: "About making a website",
+                tag: "tag5",
+                deadline: "2024-04-22T12:00",
+                points: 4,
+            },
+        },
+        completed: {
+            id003: {
+                title: "Journaling",
+                description: "About making a website",
+                tag: "tag1",
+                deadline: "2024-04-22T12:00",
+                points: 5,
+            },
+        },
+        tags: {
+
+            do: {
+                title: "Do",
+                color: "#7aa5cf",
+                groupId: "gid001",
+                deleteable: false,
+                editable: false,
+                display: false,
+            },
+            delegate: {
+                title: "Delegate",
+                color: "#63c074",
+                groupId: "gid002",
+                deleteable: false,
+                editable: false,
+                display: false,
+            },
+            schedule: {
+                title: "Schedule",
+                color: "#ac7acf",
+                groupId: "gid003",
+                deleteable: false,
+                editable: false,
+                display: false,
+            },
+            later: {
+                title: "Later",
+                color: "#c5e875",
+                groupId: "gid004",
+                deleteable: false,
+                editable: false,
+                display: false,
+            },
+            tag1: {
+                title: "tag1",
+                color: "#7aa5cf",
+                groupId: "gid001",
+                deleteable: true,
+                editable: true,
+                display: true,
+
+            },
+            tag2: {
+                title: "tag2",
+                color: "#63c074",
+
+                groupId: "gid002",
+                deleteable: true,
+                editable: true,
+                display: true,
+
+            },
+            tag3: {
+                title: "tag3",
+                color: "#ac7acf",
+
+                groupId: "gid003",
+                deleteable: true,
+                editable: true,
+                display: true,
+
+            },
+            tag4: {
+                title: "tag4",
+                color: "#c5e875",
+
+                groupId: "gid004",
+                deleteable: true,
+                editable: true,
+                display: true,
+
+            },
+            tag5: {
+                title: "tag5",
+                color: "#f7d38c",
+
+                groupId: "gid003",
+                deleteable: true,
+                editable: true,
+                display: true,
+
+            },
+            none: {
+                title: "none",
+                color: "#ffffff",
+
+                deleteable: false,
+                editable: false,
+                display: false,
+
+            }
+        }
+    };
     const calendar = $(".calendar"),
         date = $(".date"),
         daysContainer = $(".days"),
@@ -253,13 +417,114 @@ $(document).ready(function () {
         localStorage.setItem("events", JSON.stringify(eventsArr));
     }
 
+    function convertObjectToArr(tasks) {
+        // Convert tasks to eventsArr
+        const eventsArr = [];
+
+        // Iterate through each task
+        for (const taskId in tasks) {
+            if (tasks.hasOwnProperty(taskId)) {
+                const task = tasks[taskId];
+
+                // Extract deadline information
+                const deadline = new Date(task.deadline);
+                const day = deadline.getDate();
+                const month = deadline.getMonth();
+                const year = deadline.getFullYear();
+
+                // Check if an event object already exists for this day, month, and year
+                let eventObj = eventsArr.find(
+                    (event) => event.day === day && event.month === month + 1 && event.year === year
+                );
+
+                // If no event object exists, create a new one
+                if (!eventObj) {
+                    eventObj = {
+                        day: day,
+                        month: month + 1, // Adjust month to start from 1
+                        year: year,
+                        events: [],
+                    };
+                    eventsArr.push(eventObj);
+                }
+
+                // Add the task as an event to the event object
+                eventObj.events.push({
+                    title: task.title,
+                    time: deadline.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    description: task.description,
+                    tag: task.tag, // Assuming the tag is relevant for the event
+                });
+            }
+        }
+        return eventsArr;
+    }
+
+    function AJAXLoadGroup() {
+        // Send AJAX request to backend at /todo/update to update task
+        $.ajax({
+            type: "GET",
+            url: "/todo/group/get",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log("Loading userdata");
+                let tempDict = {};
+                data.forEach((dt) => {
+                    let tmp = {
+                        title: dt[1],
+                        tags: [dt[2]],
+                        def_tag: dt[0],
+                        color: dt[3],
+                        current_html: "",
+                    };
+
+                    if (!Dict.tags.hasOwnProperty(tmp.def_tag)) { // add def_tag
+                        Dict.tags[tmp.def_tag] = {
+                            title: "Default",
+                            color: "#000000",
+                            display: false,
+                            editable: false,
+                            deletable: false,
+                        }
+                    }
+
+                    tmp.tags.forEach((t, i) => { // add other tags
+                        if (!Dict.tags.hasOwnProperty(t)) {
+                            Dict.tags[t] = {
+                                title: "no_name_" + tmp.title + "_" + i, // Adding index to title
+                                color: "#ffffff",
+                                display: true,
+                                editable: true,
+                                deletable: true,
+                            };
+                        }
+                    });
+
+
+                    Dict.groups[dt[0]] = tmp;
+                    //tempDict.groups[dt[0]] = tmp;
+                });
+
+                console.log("AJAX Load Group", Dict);
+                console.log("Load data complete")
+
+            },
+            error: function (data) {
+                console.log("Error");
+            }
+        });
+    }
+
     function getEvents() {
         if (localStorage.getItem("events") === null) {
             return;
         }
-        eventsArr.push(...JSON.parse(localStorage.getItem("events")));
-    }
+        AJAXLoadGroup();
+        eventsArr.push(...convertObjectToArr(Dict.tasks));
 
+        // eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+    }
     function convertTime(time) {
         let timeArr = time.split(":");
         let timeHour = timeArr[0];

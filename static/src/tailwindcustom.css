@@ -8,6 +8,27 @@
     }
 } */
 @layer components {
+  * {
+    @apply box-border m-0 p-0;
+  }
+
+  /* nice scroll bar */
+  ::-webkit-scrollbar {
+    @apply w-[3px] h-[3px];
+    @apply w-[3px] h-[3px];
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply rounded-xl;
+    @apply rounded-xl;
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-[50px] bg-primary-100;
+    @apply rounded-[50px] bg-primary-100;
+  }
+
   .main {
     @apply border-4 rounded-[3vh] mx-[2vw] flex-none
   }
@@ -167,35 +188,6 @@
 
   /*End task box*/
 
-  /* calendar tailwind css*/
-  :root {
-    --primary-clr: #8cb9be;
-  }
-
-  * {
-    @apply box-border m-0 p-0;
-  }
-
-  /* nice scroll bar */
-  ::-webkit-scrollbar {
-    @apply w-[3px] h-[3px];
-    @apply w-[3px] h-[3px];
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply rounded-xl;
-    @apply rounded-xl;
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply rounded-[50px] bg-primary-100;
-    @apply rounded-[50px] bg-primary-100;
-  }
-
-  /* body {
-	@apply relative min-h-screen max-h-screen flex items-center justify-center bg-[#e2e1dc] pb-[30px];
-  } */
   .container {
     @apply relative text-white flex my-0 p-[5px] rounded-[10px] mx-auto max-h-[800px];
   }
@@ -377,33 +369,6 @@
     background: linear-gradient(90deg, #02c6d4, transparent);
   }
 
-
-  /* even event */
-  /* .events .event:nth-child(even) {
-		background: transparent;
-	  }
-	  .events .event:hover {
-		background: linear-gradient(90deg, var(--primary-clr), transparent);
-	  }
-	  .events .event .title {
-		@apply flex items-center pointer-events-none;
-	  }
-	  .events .event .title .event-title {
-		@apply text-base font-normal ml-5;
-	  }
-	  .events .event i {
-		@apply text-[color:var(--primary-clr)] text-[0.5rem];
-	  }
-	  .events .event:hover i {
-		@apply text-white;
-	  }
-	  .events .event .event-time {
-		@apply text-[0.8rem] font-normal text-[#878895] pointer-events-none ml-[15px];
-	  }
-	  .events .event:hover .event-time {
-		@apply text-white;
-	  } */
-  /* add tick in event after */
   .events .task-container-calendar:hover {
     background: linear-gradient(90deg, var(--primary-clr), transparent);
   }
