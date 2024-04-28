@@ -685,9 +685,7 @@ $(document).ready(function () {
     group.find(".MMenu-Dropdown-Arrow").toggleClass("-rotate-90");
   }
 
-  $("#MMenu-Group-Section").on("click", ".MMenu-Toggle-Hidden", function () {
-    toggleHiddenMMenuGroup($(this).parent().parent());
-  });
+  
 
   function addNewTagMainMenu(group_html, id, tag) {
     //console.log(group_html);
