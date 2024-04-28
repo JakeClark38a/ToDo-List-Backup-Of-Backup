@@ -111,7 +111,7 @@
           </button>
         </div>
         <!-- Modal body -->
-        <form class="p-4 md:p-5" method="post">
+        <form class="p-4 md:p-5" >
           <div class="grid gap-4 mb-4 grid-cols-1">
             <div id="current-email-sec">
               <label for="current-email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current
@@ -214,7 +214,7 @@
           <div id="Profile-Public-Content">
             <div class="flex justify-between">
               <div class="text-3xl">Public profile</div>
-              <a href="{{url_for('main_page')}}">
+              <a href="{{url_for('todo.main_page')}}">
                 <div id="exit-button" class="flex justify-center items-center cursor-pointer">
                   <div class="flex items-center h-8">
                     <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
@@ -246,7 +246,7 @@
                     Edit
                   </div>
                   <img id="User-Current-Avatar" class="h-36 rounded-full"
-                    src="{{url_for('static', filename='images/profile.jpg') }}" alt="avtr" />
+                    src="{{url_for('profiles.static', filename='images/profile.jpg') }}" alt="avtr" />
                 </div>
                 <div id="Drop-Down-Options-Profile" class="hidden rounded-lg w-[150px] border-2 absolute bg-white py-1"
                   role="menu">
@@ -320,7 +320,7 @@ Love playing video games, listening to music, and doing cool stuff.</textarea>
                 Change password
               </button>
               <div id="Forgot-Password-Text" class="ml-3 hover:underline text-[#0000CC] cursor-p">
-                <a href="{{url_for('forgot_password')}}">I forgot my password</a>
+                <a href="{{url_for('auth.forgot_password')}}">I forgot my password</a>
               </div>
             </div>
           </div>

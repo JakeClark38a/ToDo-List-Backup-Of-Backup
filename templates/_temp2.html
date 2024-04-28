@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<!-- Link to TailwindCSS main css file, in the future href will change to {{url_for('static', filename='css/main.css')}} -->
+	<link rel="stylesheet" href="../static/css/main.css">
+	<script src="../static/js/app.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</head>
+<style>
+</style>
+<body class="*:m-0 *:p-0 *:box-border">
+	<div class="relative w-full h-[100vh] bg-gradient-to-t from-cyan-200 from-0% via-cyan-50 via-70% to-white to-100%">
+		<!-- Header div -->
+		<div class="top pt-5">
+			<!-- test div -->
+			<div class="main">
+				<!-- Greeting div, status centered -->
+				<div class="greeting object-center flex justify-between items-center px-[2vh] py-[3vh]">
+					<div class="papertask flex justify between">
+						<img src="../static/images/papertask.png" alt="papertask" class="w-[6vh] inline"> 
+					</div>
+					<div class="title *:md:inline">
+						<div class="text-xl">Welcom, JakeClark!</div>
+						<div class="text-xl">Overall Progress: 90%</div>
+					</div>
+					<div class="up-arrow flex items-end justify between">
+						<img src="../static/images/down-arrow.png" alt="down-arrow" class="w-[4.5vh] inline mr-1" id="dropdownButton">
+					</div>
+				</div>
+				<!-- Drop down list -->
+				<div class="dropdown grey-border-rounded ml-auto mr-auto hidden shadow-md rounded-md py-1 w-11/12 z-10 px-[3vh]" id="dropdownList">
+					<div class="text-xl">Team: J4ckP0t</div>
+					<div class="text-xl">AI recommender: Off</div>
+					<div class="text-xl">Task Completed: 5/5</div>
+					<div class="text-xl">Online: 32m ago (Synced)</div>
+					<div class="more-choice">
+						<div class="Setting button flex items-center my-3">
+							<img src="../static/images/cogwheel_icon.png" alt="cogwheel-icon" class="w-[4vh] inline">
+							<div class="text-xl px-[2vh]">Settings</div> 
+						</div>
+
+						<div class="Team-activity button flex items-center my-3">
+							<img src="../static/images/add-group.png" alt="group-icon" class="w-[4vh] inline">
+							<div class="text-xl px-[2vh]">Add / Join a Team</div> 
+						</div>
+
+						<div class="Log button flex items-center my-3">
+							<img src="../static/images/log.png" alt="log-icon" class="w-[4vh] inline">
+							<div class="text-xl px-[2vh]">Activity Log</div> 
+						</div>
+						<div class="Logout button flex items-center my-3">
+							<img src="../static/images/logout.png" alt="logout-icon" class="w-[4vh] inline">
+							<div class="text-xl px-[2vh]">Log out</div> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Main List -->
+		<div class="middle mb-20">
+			<div class="main-choice px-[3vh] my-5">
+				<div class="search button">
+					<img src="../static/images/search-icon.png" alt="search-icon" class="w-[4vh] inline">
+					<div class="text-2xl px-[2vh]">Search</div>
+				</div>
+				<div class="todo button">
+					<img src="../static/images/check-box.png" alt="checkbox-icon" class="w-[4vh] inline">
+					<div class="text-2xl px-[2vh] justify-center">Todo Today</div>
+				</div>
+				<div class="tree button">
+					<img src="../static/images/leaf_icon.png" alt="leaf-icon" class="w-[4vh] inline">
+					<div class="text-2xl px-[2vh]">Tree</div>
+				</div>
+				<div class="notification button">
+					<img src="../static/images/bell-icon.png" alt="bell-icon" class="w-[4vh] inline">
+					<div class="text-2xl px-[2vh] center">Notifications</div>
+				</div>
+			</div>
+			<div class="grey-border-rounded">
+				<!-- Greeting div, status centered -->
+				<div class="greeting object-center flex justify-between items-center px-[2vh] my-2" data-offsetDistance="10">
+					<div class="title *:md:inline">
+						<div class="text-xl">JakeClark's Project</div>
+					</div>
+					<div class="up-arrow flex items-end justify between">
+						<img src="../static/images/down-arrow.png" alt="down-arrow" class="w-[4.5vh] inline mr-1" id="dropdownButtonPersonal">
+					</div>
+				</div>
+					<!-- Dropdown list -->
+				<div class="dropdown hidden shadow-md rounded-md py-1 w-full z-10 px-[3vh] bg-slate-400" id="dropdownListPersonal">
+					<div class="Completed button">
+						<img src="../static/images/check.png" alt="check-icon" class="w-[3vh] inline">
+						<label class="text-xl px-[2vh] center">Completed</label>
+					</div>
+					<div class="Uncompleted button">
+						<img src="../static/images/close.png" alt="uncheck-icon" class="w-[3vh] inline">
+						<label class="text-xl px-[2vh] center">Uncompleted</label>
+					</div>
+					<div class="List button">
+						<img src="../static/images/list.png" alt="list-icon" class="w-[3vh] inline">
+						<label class="text-xl px-[2vh] center">List1</label>
+					</div>
+				</div>
+			</div>
+
+			
+			<div class="grey-border-rounded">
+				<!-- Greeting div, status centered -->
+				<div class="greeting object-center flex justify-between items-center px-[2vh] my-2">
+					<div class="title *:md:inline">
+						<div class="text-xl">Team's Project</div>
+					</div>
+					<div class="up-arrow flex items-end justify between">
+						<img src="../static/images/down-arrow.png" alt="down-arrow" class="w-[4.5vh] inline mr-1" id="dropdownButtonTeam">
+					</div>
+				</div>
+				<!-- Dropdown list -->
+				<div class="dropdown hidden shadow-md rounded-md py-1 w-full z-10 px-[3vh]" id="dropdownListTeam">
+					<div class="Completed button">
+						<img src="../static/images/check.png" alt="check-icon" class="w-[3vh] inline">
+						<label class="text-xl px-[2vh] center">Completed</label>
+					</div>
+					<div class="Uncompleted button">
+						<img src="../static/images/close.png" alt="uncheck-icon" class="w-[3vh] inline">
+						<label class="text-xl px-[2vh] center">Uncompleted</label>
+					</div>
+					<div class="List button">
+						<img src="../static/images/list.png" alt="list-icon" class="w-[3vh] inline">
+						<label class="text-xl px-[2vh] center">List1</label>
+					</div>
+				</div>
+			</div>	
+		</div>
+
+		<div class="bottom">
+			<div class="toggler flex justify-between pt-3">
+				<div class="adjust flex items-center">
+					<img src="../static/images/light-mode.png" alt="sun-icon" class="w-[3vh] mx-3"> 
+					<div class="toggle flex items-center">
+						<div class="toggle-button" onclick=""></div>
+					</div>
+					<img src="../static/images/night-mode.png" alt="moon-icon" class="w-[3vh] mx-3">
+				</div>
+				<div class="adjust flex items-center">
+					<img src="../static/images/vietnam.png" alt="vietnam-icon" class="w-[3vh] mx-3"> 
+					<div class="toggle flex items-center">
+						<div class="toggle-button" onclick=""></div>
+					</div>
+					<img src="../static/images/united-kingdom.png" alt="moon-icon" class="w-[3vh] mx-3">
+				</div>			
+			</div>
+			<div class="Team-activity button">
+				<img src="../static/images/add-group.png" alt="group-icon" class="w-[3vh] mx-3">
+				<!-- <p>Add / Join a Team</p> -->
+				<div class="text-xl">Add / Join a Team</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

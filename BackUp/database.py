@@ -4,11 +4,11 @@ import uuid, hashlib, time
 class ToDoDatabase():
     def __init__(self):
         self.connection = mysql.connector.connect(
-            host='localhost',#todolist-db-todolist-database.a.aivencloud.com',
+            host='todolist-database-do-user-16128636-0.c.db.ondigitalocean.com',#todolist-db-todolist-database.a.aivencloud.com',
             user='todolist',
             password='Todolist<123456789',
             database='todolist',
-            port=3306
+            port='25060'
             #21132
         )
         self.cursor = self.connection.cursor()
@@ -21,7 +21,7 @@ class ToDoDatabase():
                                 name nvarchar(256),
                                 bio nvarchar(2000),
                                 location nvarchar(100), 
-                                image text,
+                                image nvarchar(200),
                                 type_account nvarchar(10),
                                 external_id nvarchar(40),
                                 isFillForm bit(1) DEFAULT 0
@@ -65,6 +65,10 @@ class ToDoDatabase():
                                 primary key (task_id, user_id)
                                 )
                                 """)
+            
+    def drop_database(self):
+        self.cursor.execute("drop database if exists todolist")
+        self.cursor.execute("create database todolist")
             
     #Create deafault groups and tags when first login
     def default_setting(self, user_id):

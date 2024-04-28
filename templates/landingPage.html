@@ -24,7 +24,7 @@
         <div class="group-hover/sg:w-48 base-anim h-full w-0 bg-primary-200/75 absolute">
         </div>
         <div class="absolute">
-          <button class="w-20 text-main"> <a href="{{url_for('register')}}">Sign up</a></button>
+          <button class="w-20 text-main"> <a href="{{url_for('auth.register')}}">Sign up</a></button>
         </div>
       </div>
 
@@ -33,7 +33,7 @@
         <div class="group-hover/sg:w-48 base-anim h-full w-0 bg-primary-200/75 absolute">
         </div>
         <div class="absolute">
-          <button class="w-20 text-main"> <a href="{{url_for('login')}}">Login</a></button>
+          <button class="w-20 text-main"> <a href="{{url_for('auth.login')}}">Login</a></button>
         </div>
       </div>
     </div>
@@ -56,11 +56,11 @@
         </div>
         <div class="absolute">
           <button class=" text-main base-anim scale-100 h-12 w-[9rem] md:h-14 md:w-48 text-center font-medium text-xl">
-            <a href="{{url_for('register')}}">Get started</a> </button>
+            <a href="{{url_for('auth.register')}}">Get started</a> </button>
         </div>
       </div>
       <button class="base-anim px-2 w-16 text-center font-medium text-xl">
-        <a href="{{url_for('login')}}">Login</a> </button>
+        <a href="{{url_for('auth.login')}}">Login</a> </button>
     </div>
   </div>
   <!--Hero End-->
@@ -208,7 +208,7 @@
       </div>
       <div class="absolute">
         <button class="base-anim scale-100 w-48 h-14 text-center text-main font-medium text-xl">
-          <a href="{{url_for('register')}}">
+          <a href="{{url_for('auth.register')}}">
             Make me
             better!</a></button>
       </div>
@@ -224,7 +224,7 @@
         on a
         journey to productivity like never before. With collaborative features, shared goals, and mutual encouragement,
         we're here to help you achieve more, together.
-        <a href="{{url_for('register')}}" class="font-bold hover:underline">Sign up now</a> to start organizing,
+        <a href="{{url_for('auth.register')}}" class="font-bold hover:underline">Sign up now</a> to start organizing,
         collaborating, and conquering your to-do's with a supportive community by your side!
       </div>
     </div>
