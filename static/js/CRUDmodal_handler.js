@@ -3,28 +3,460 @@
 NOTICE:
 This file handles all the actions that are related to the main content of the page
 This file handle:
-  - Main content include : group, task, tags
+  - Main content display include : group, task
   - CRUD content
-  - Render out mainPage content for Today tab
-
+  
 */
 //=====================================================================\\
 
-// Templates 
-import { MainScreen, MainMenu } from "./hmtlComponent.js";
-import {LoadData, Utils , newGroup, newTask, newTag} from "./userData.js";
 
-$(document).ready(function () { 
+
+
+$(document).ready(function () {
   //================================================================\\
   //=========================== Sample var =========================\\
   //================================================================\\
-  let isDebugMode = true;
-  let Dict = Utils.getSampleData();
-  if (!isDebugMode) Dict = Utils.LoadData();
-  let currentMode = 0;
-  let isMakeChangeGroup = false;
-  let currentMMenuTab = 0;  // 0-today 1-cal 2-garden
+  var Dict = {  // sample dict
+    username: "JakeClark",
+    userid: "User ID",
+    bio: "hmm...",
+    timeZone: "Asia/Tokyo",
+    displayLocalTimeZone: false,
+    localTimeZoneName: "UTC",
 
+    groups: {
+      gid001: {
+        title: "Do",
+        tags: ["tag1"],
+        def_tag: "do",
+        color: "#7aa5cf",
+        current_html: "",
+      },
+      gid002: {
+        title: "Delegate",
+        tags: ["tag2"],
+        def_tag: "delegate",
+        color: "#63c074",
+        current_html: "",
+      },
+      gid003: {
+        title: "Schedule",
+        tags: ["tag3", "tag5"],
+        def_tag: "schedule",
+        color: "#ac7acf",
+        current_html: "",
+      },
+      gid004: {
+        title: "Later",
+        tags: ["tag4"],
+        def_tag: "later",
+        color: "#c5e875",
+        current_html: "",
+      },
+    },
+    tasks: {
+      id001: {
+        title: "Meeting",
+        description: "About making a website",
+        tag: "tag1",
+        deadline: "2024-04-22T12:00",
+        points: 4,
+      },
+      id002: {
+        title: "Crying",
+        description: "About making a website",
+        tag: "tag3",
+        deadline: "2024-04-22T12:00",
+        points: 4,
+      },
+      id004: {
+        title: "Laughing",
+        description: "About making a website",
+        tag: "tag5",
+        deadline: "2024-04-22T12:00",
+        points: 4,
+      },
+    },
+    completed: {
+      id003: {
+        title: "Journaling",
+        description: "About making a website",
+        tag: "tag1",
+        deadline: "2024-04-22T12:00",
+        points: 5,
+      },
+    },
+    tags: {
+
+      do: {
+        title: "Do",
+        color: "#7aa5cf",
+        groupId: "gid001",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      delegate: {
+        title: "Delegate",
+        color: "#63c074",
+        groupId: "gid002",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      schedule: {
+        title: "Schedule",
+        color: "#ac7acf",
+        groupId: "gid003",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      later: {
+        title: "Later",
+        color: "#c5e875",
+        groupId: "gid004",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      tag1: {
+        title: "tag1",
+        color: "#7aa5cf",
+        groupId: "gid001",
+        deleteable: true,
+        editable: true,
+        display: true,
+
+      },
+      tag2: {
+        title: "tag2",
+        color: "#63c074",
+
+        groupId: "gid002",
+        deleteable: true,
+        editable: true,
+        display: true,
+
+      },
+      tag3: {
+        title: "tag3",
+        color: "#ac7acf",
+
+        groupId: "gid003",
+        deleteable: true,
+        editable: true,
+        display: true,
+
+      },
+      tag4: {
+        title: "tag4",
+        color: "#c5e875",
+
+        groupId: "gid004",
+        deleteable: true,
+        editable: true,
+        display: true,
+
+      },
+      tag5: {
+        title: "tag5",
+        color: "#f7d38c",
+
+        groupId: "gid003",
+        deleteable: true,
+        editable: true,
+        display: true,
+
+      },
+      none: {
+        title: "none",
+        color: "#ffffff",
+
+        deleteable: false,
+        editable: false,
+        display: false,
+
+      }
+    }
+  };
+
+
+  var currentMode = 0;
+  var isMakeChangeGroup = false;
+
+  var currentMMenuTab = 0;  // 0-today 1-cal 2-garden
+
+
+  //
+  //
+  //
+
+  //################################################### Templates #########################################################
+
+  //================================================================\\
+  //=========================== Main Menu ==========================\\
+  //================================================================\\
+
+  function MainMenuTagTempplate(id, tag) {
+    return (
+      `
+    
+    <div id="` + id + `" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
+    <div class="h-full">
+        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
+        </svg>
+    </div>
+
+    <div id="MMenu-Tag-Title" class="text-lg px-1 my-1 center dark:text-white">` + tag.title + `</div>
+    <div class="MMenu-Tag-Edit mx-1">
+    <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+</svg>
+</div>
+</div>
+
+`
+    );
+  }
+
+  function MainMenuGroupTemplates(id, group) {
+    return (
+      `
+  
+  <div id="` + id + `" class="MMenu-Group"><!--block-->
+    <!-- Greeting div, status centered -->
+        <div class="flex justify-between items-center pl-3 pr-1">
+
+          <div class="MMenu-Toggle-Hidden flex items-center w-full">
+            <div class="MMenu-Dropdown-Arrow">
+            <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19 9-7 7-7-7"/>
+          </svg>          
+            </div>
+
+                <div id="MMenu-Group-Title" class="text-xl ml-2 dark:text-white">` + group.title + `</div>
+        </div>
+
+        <div class="MMenu-Group-Edit mx-1">
+        <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+      </svg>
+      
+      
+        </div>
+        <div class="MMenu-Tag-Add">
+            <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M5 12h14m-7 7V5" />
+            </svg>
+        </div>
+
+
+    </div>
+    <div id="MMenu-Tag-Section" class="">
+        <!--tag-->
+
+    </div>
+</div><!--eoblock-->
+
+  
+  `
+    );
+  }
+
+  //================================================================\\
+  //=========================== Main Screen ========================\\
+  //================================================================\\
+
+  function MainScreenTagTemplate(id, tag, mode = 0) {
+    if (mode == 0) {
+      return (`
+      <div id="`+ id + `" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer">` + tag.title + `</div>                
+      `);
+    }
+  }
+  function MainScreenTaskTemplate(id, task, mode = 0) {
+    if (mode == 0) {
+      return (
+        ` 
+
+        <div id="`+ id + `" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default">
+        <div class=" rounded-lg shadow-lg">
+
+            <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
+
+                <div class="font-semibold text-lg lg:text-xl truncate w-full dark:text-white ">`
+        + task.title + `</div>
+
+
+                <div class="flex items-center gap-2">
+                    <div class="Task-Edit mx-1 cursor-pointer">
+                        <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                        </svg>
+                    </div>
+
+
+                    <div id="Task-Cancel"
+                        class="bg-red-500 rounded-full shadow-lg h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
+                </div>
+            </div>
+
+            <div class="p-2 flex items-center h-fit">
+
+                <p class="h-full w-full text-left p-2 font-base truncate lg:text-xl dark:text-white">`+ task.description + `</p>
+
+                <input id="Task-Destroyer" type="checkbox"
+                    class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer"></input>
+            </div>
+            <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
+              
+            </div>
+        </div>
+
+    </div>
+
+  `
+      );
+    } else if (mode == 1) {
+      return (
+        `
+      <div id="`+ id + `" class="task-outer">
+        <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700 ">
+  
+            <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
+                <div class="font-bold text-xl lg:text-2xl">` + task.title + `</div>
+                <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
+            </div>
+  
+            <div class="p-2 flex justify-between items-center lg:h-24">
+                <div class="text-center lg:text-xl">`+ task.description + `</div>
+                <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
+            </div>
+            
+          </div>
+
+      </div>
+  
+      `
+      );
+    }
+  }
+
+  function MainScreenGroupTemplate(id, group, mode = 0) {
+    if (mode == 0) {
+      return (
+        `
+    <div id="` + id + `" class="group-outer">
+      <div class="flex justify-between items-center px-3 ">
+        <div id="Task-Group-Title" class="todobox-title lg:text-2xl dark:text-white">` + group.title + `</div>
+        <div class="Group-Task-Add ">
+                <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 12h14m-7 7V5" />
+                </svg>
+            </div>
+        </div>
+        <div id="Task-Section-Outer" class= "bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
+            <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
+            <!--task here-->
+            </div>
+          
+        </div>
+    </div>
+    
+    `
+      );
+    } else if (mode == 1) {
+      return (
+        `
+      <!-- Item  -->
+
+      <div id="` + id + `" data-carousel-item class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 z-0">
+        <div id="Task-Group-Title" class="text-center">` + group.title + `</div>
+          <div id="" class="Task-Section border-primary-100 w-80 h-96 border-2" >
+          <!-- Contents -->
+        
+          </div>
+      </div>
+      `
+      );
+    }
+  }
+
+  function MainScreenFormatterTemplate(mode = 0) {
+    if (mode == 0) {
+      return `
+    <div id="Main-Formatter" class="relative w-full">
+      
+        <div id="Wrapper" class="relative flex flex-wrap justify-center items-center gap-8 py-10 lg:px-36">
+        <!--Group-->
+        </div>
+    </div>
+    `;
+    } else if (mode == 1) {
+      return `
+      <!-- Main List -->
+      <div id="Main-Formatter" class="relative w-full bg-red-300" data-carousel="static">
+          <!-- Carousel wrapper -->
+          <div id="Wrapper" class="relative h-96 mt-[3vh] overflow-hidden">
+
+
+          </div>
+      </div>
+
+      `;
+    }
+  }
+
+  function FormmatterAddons(mode = 0) {
+    if (mode == 0) {
+    } else if (mode == 1) {
+      return `
+      
+      <!-- Slider controls -->
+      <div class="slider z-10">
+          <button type="button"
+              class="absolute top-1/2 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
+              data-carousel-prev>
+              <span
+                  class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
+                  <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="1.5" d="M5 1 1 5l4 4" />
+                  </svg>
+                  <span class="sr-only">Previous</span>
+              </span>
+          </button>
+          <button type="button"
+              class="absolute top-1/2 right-0 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
+              data-carousel-next>
+              <span
+                  class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
+                  <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="1.5" d="m1 9 4-4-4-4" />
+                  </svg>
+                  <span class="sr-only">Next</span>
+              </span>
+          </button>
+      </div>
+
+      `;
+    }
+  }
 
   /* Main Display rule
 
@@ -44,7 +476,22 @@ $(document).ready(function () {
   //================================================================\\
   //=========================== General ============================\\
   //================================================================\\
+  function getUuid() {
+    // old uuid
+    // return (
+    //   "generateId" +
+    //   Math.random().toString(36).substring(2, 6) +
+    //   Math.random().toString(36).substring(2, 6)
+    // );
+    // use uuidv4
+    return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+      (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+    );
+  }
 
+  function randHexColor() {
+    return "#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0'));
+  }
   //================================================================\\
   //=========================== Avatar Menu ========================\\
   //================================================================\\
@@ -252,13 +699,13 @@ $(document).ready(function () {
 
   function addNewTagMainMenu(group_html, id, tag) {
     //console.log(group_html);
-    group_html.append(MainMenu.TagTempplate(id, tag));
+    group_html.append(MainMenuTagTempplate(id, tag));
     // LoadTags();
   }
 
   function addNewGroupMainMenu(unique_id, group) {
     $("#MMenu-Group-Section").append(
-      MainMenu.GroupTemplates(unique_id, group)
+      MainMenuGroupTemplates(unique_id, group)
     );
 
     return $("#" + unique_id);
@@ -541,7 +988,7 @@ $(document).ready(function () {
   function renderTagMainScreen(tag_html, tag, id, mode = 0) {
     //console.log(tag.display);
     if (tag.display == false) return;
-    tag_html.append(MainScreen.TagTemplate(id, tag, mode));
+    tag_html.append(MainScreenTagTemplate(id, tag, mode));
     tag_html.find("#" + id).css({ "background-color": tag.color });
   }
 
@@ -551,7 +998,7 @@ $(document).ready(function () {
   }
 
   function renderTaskMainScreen(task_html, task, id, mode = 0) {
-    task_html.append(MainScreen.TaskTemplate(id, task, mode));
+    task_html.append(MainScreenTaskTemplate(id, task, mode));
     renderTagMainScreen(task_html.find("#" + id).find("#Task-Tag"), Dict.tags[task.tag], task.tag);
   }
 
@@ -602,7 +1049,7 @@ $(document).ready(function () {
 
   function renderGroupMainScreen(group_html, group, unique_id, mode = 0) {
     // var unique_id = getUuid();
-    group_html.append(MainScreen.GroupTemplate(unique_id, group, mode));
+    group_html.append(MainScreenGroupTemplate(unique_id, group, mode));
     group_html.find("#" + unique_id).find("#Task-Section-Outer").css({ "border-color": group.color });
     return group_html.find("#" + unique_id);
   }
@@ -627,7 +1074,7 @@ $(document).ready(function () {
     <!-- kết thúc phần nút -->
     `))
     var formatter_html = $("#Main-Screen").append(
-      MainScreen.FormatterTemplate()
+      MainScreenFormatterTemplate()
     );
 
     // Iterate over groups
@@ -721,6 +1168,11 @@ $(document).ready(function () {
   }
   initUser();
 
+
+
+  //================================================================\\
+  //================================================================\\
+  //================================================================\\
 
   //================================================================\\
   //========================= CRUD modal ===========================\\
@@ -918,7 +1370,7 @@ $(document).ready(function () {
 
 
 
-          $("#MMenu-Group-Section").append(MainMenu.GroupTemplates(generateId, g));
+          $("#MMenu-Group-Section").append(MainMenuGroupTemplates(generateId, g));
           /// Main Screen Add 
           renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"), g, currentMode);
           AJAXaddGroup(generateId, title, color);

@@ -1,8 +1,19 @@
+
+//=====================================================================\\
+/* 
+NOTICE:
+This file handles all the actions that are not related to the main content of the page
+This file handles navigation bar / menu  / single-purpose /toggles buttons 
+
+*/
+//=====================================================================\\
+
+
 $(document).ready(function () {
     //================================================================\\
     //=========================== Avatar Menu ========================\\
     //================================================================\\
-    $("#Avatar-Menu-Click").click(function () {
+    $("#Avatar-Menu-Click").click(function () {  //Toggle avatar menu
         $("#Avatar-Menu").toggleClass("h-32 lg:h-44");
         $("#Avatar-Menu-Click").toggleClass("bg-primary-200");
     });
@@ -12,13 +23,13 @@ $(document).ready(function () {
     //=========================== Mode Menu ==========================\\
     //================================================================\\
 
-    $("#Mode-Menu-Click").click(function () {
+    $("#Mode-Menu-Click").click(function () { // Toggle mode menu
         $("#Mode-Menu").toggleClass("h-32 lg:h-44");
         $("#Mode-Menu-Click").toggleClass("bg-main/35");
 
     });
 
-    $("#PMenu-DarkMode").find("#Toggle-DarkMode").click(function () {
+    $("#PMenu-DarkMode").find("#Toggle-DarkMode").click(function () { // Toggle dark mode
         $("html").toggleClass("dark", $("#Toggle-DarkMode").prop('checked'));
     });
     //================================================================\\
@@ -26,61 +37,8 @@ $(document).ready(function () {
     //================================================================\\
 
 
-
-    $("#Main-Menu-Click").click(function () {
+    $("#Main-Menu-Click").click(function () { // Toggle main menu
         $("#Main-Menu").toggleClass("h-[86vh]");
-        $("#Main-Menu-Click").toggleClass("-rotate-90")
-    });
-
-    $("#MMenu-Group-Section").on("click", ".MMenu-Toggle-Hidden", function () {
-        MainMenu.toggleHiddenGroup($(this).parent().parent());
-    });
-
-    $('#Main-Menu').on('click', '.MMenu-Primary-Section', function (e) {
-        MainMenu.updateTabIndicator($(this));
-    });
-
-    $("#MMenu-Group-Add").click(function () {
-        isMakeChangeGroup = true;
-        CRUDModalHandler.addGroup();
-    });
-
-    /// Add tag
-    $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
-        isMakeChangeGroup = false;
-        /// add tag
-        var gid = $(this).closest(".MMenu-Group").attr("id")
-        //console.log(groupDict);
-        //addTag(groupDict)
-        Initialize.LoadGroups();
-
-        CRUDModalHandler.addTag();
-    });
-
-    /// Edit Group
-    $("#MMenu-Group-Section").on("click", ".MMenu-Group-Edit", function () {
-        console.log($(this).closest(".MMenu-Group").attr("id"));
-        var gid = $(this).closest(".MMenu-Group").attr("id");
-        console.log("Edit Group", Dict);
-        var gInfo = Dict.readGroup(gid);
-        console.log(gInfo);
-        isMakeChangeGroup = true;
-        CRUDModalHandler.editGroup(gInfo, gid);
-    });
-
-    /// Edit Tag
-    $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Edit", function () {
-        console.log($(this).closest(".MMenu-Tag").attr("id"));
-        var tid = $(this).closest(".MMenu-Tag").attr("id")
-        var tagInfo = Dict.tags[tid];
-
-        if (tagInfo.editable == false) return;
-
-        isMakeChangeGroup = false;
-        CRUDModalHandler.editTag(tagInfo);
-    });
-
-    $('#btn-close-modal').click(function () {
-        CRUDModalHandler.closeAllModal()
+        $("#Main-Menu-Click").toggleClass("-rotate-90");
     });
 });

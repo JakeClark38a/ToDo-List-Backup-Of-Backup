@@ -45,20 +45,6 @@ $(document).ready(function () {
                 deadline: "2024-04-22T12:00",
                 points: 4,
             },
-            id002: {
-                title: "Crying",
-                description: "About making a website",
-                tag: "tag3",
-                deadline: "2024-04-22T12:00",
-                points: 4,
-            },
-            id004: {
-                title: "Laughing",
-                description: "About making a website",
-                tag: "tag5",
-                deadline: "2024-04-22T12:00",
-                points: 4,
-            },
         },
         completed: {
             id003: {
@@ -459,7 +445,7 @@ $(document).ready(function () {
         }
         return eventsArr;
     }
-
+    // Use AJAX to load dict from server to client
     function AJAXLoadGroup() {
         // Send AJAX request to backend at /todo/update to update task
         $.ajax({
@@ -515,7 +501,7 @@ $(document).ready(function () {
             }
         });
     }
-
+    // Change getEvents function to get dict from server, convert dict object to eventsArr
     function getEvents() {
         if (localStorage.getItem("events") === null) {
             return;
