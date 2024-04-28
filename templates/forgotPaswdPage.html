@@ -14,7 +14,7 @@
     <div class="  border-2 border-solid bg-transparent backdrop-blur rounded-2xl w-80 h-fit">
       <div class=" register flex flex-col justify-center items-center text-black w-full h-full ">
         <h1 class=" flex justify-center py-3 font-bold text-3xl w-full h-15 text-white mb-10 ">Reset password</h1>
-        <form class="max-w-sm mx-auto w-2/3" method="post" action="{{url_for('forgot_password')}}">
+        <form class="max-w-sm mx-auto w-2/3" method="post" action="{{url_for('auth.forgot_password')}}">
           <div class="mb-5">
             <label for="email" class="block mb-2 text-sm font-medium  text-white">Your email</label>
             <input type="email" id="email"
@@ -29,7 +29,7 @@
           </div>
         </form>
         <p class="flex justify-center py-5 text-white">Have no account? <a
-            class="text-blue-400 hover:underline dark:text-blue-500" href="{{url_for('register')}}">Register</a></p>
+            class="text-blue-400 hover:underline dark:text-blue-500" href="{{url_for('auth.register')}}">Register</a></p>
       </div>
     </div>
   </div>
