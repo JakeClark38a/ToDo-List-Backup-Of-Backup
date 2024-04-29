@@ -1,4 +1,4 @@
-import { Utils } from "./userData.js";
+import { Utils,  } from "./userData.js";
 
 // set the modal menu element
 const $targetEl = document.getElementById('crud-modal');
@@ -109,11 +109,15 @@ modalMainScreen.AddEditTask = function (task) {
   let desc = task ? task.description : '';
   let tag = task ? task.tag : '';
   let expired = task ? task.deadline : '';
-
-  // Customize modal appearance
+  // Customize modal appearance 
   $('#crud-modal #colors-sec').hide();
-  $('#crud-modal #delete-sec').show();
 
+  if (!task) {
+    $('#crud-modal #delete-sec').hide();
+  } else {
+    $('#crud-modal #delete-sec').show();
+  }
+  $('#crud-modal #groups-sec').show();
   $('#crud-modal label[for="name"]').text("Title");
   $('#crud-modal label[for="description"]').text("Task Description");
   // Change task header
@@ -143,6 +147,7 @@ modalMainScreen.AddEditTask = function (task) {
 }
 
 modalMainScreen.AddEditTag = function (tag) {
+
   let h3 = tag ? "Edit Tag" : "Add Tag";
   let title = tag ? tag.title : '';
   let id = tag ? tag.tagID : "none";
@@ -216,12 +221,46 @@ modalMainScreen.getSubmitValues = function () {
   let title = $('#crud-modal #name').val();
   let desc = $('#crud-modal #description').val();
   let tag = $('#crud-modal #tags').val();
-  let group = $('#crud-modal #groups').val();
+  let groupId = $('#crud-modal #groups').val();
   let expired = $('#crud-modal #todo-expired').val();
   let color = $('#crud-modal #colors').val();
-  console.log(mode, id, title, desc, tag, expired, color);
-  return { mode, id, title, desc, tag, group, expired, color };
+
+  console.log(mode, id, title, desc, tag, expired, color, groupId);
+  return { mode, id, title, desc, tag, expired, color, groupId };
 }
+
+
+  // Take all tags on Dict and put them in the "Select tag" dropdown
+  modalMainScreen.LoadTags = function(Dict, GroupID) {
+    console.log("Load tags");
+    $("#crud-modal select#tags").empty(); // clean html before
+
+    if (!GroupID) {
+      var tagArray = Object.keys(Dict.tags).filter(key => Dict.tags[key].display === true);
+
+      tagArray.forEach(element => {
+        let options = `<option value="${element}">${Dict.tags[element].title}</option>`
+        $("#crud-modal select#tags").append(options)
+      });
+    } else {
+      var tagArray = Dict.readTagList(GroupID);
+      console.log(tagArray);
+      tagArray.forEach(element => {
+        let options = `<option value="${element.tagID}">${Dict.tags[element.tagID].title}</option>`
+        $("#crud-modal select#tags").append(options)
+      });
+    }
+  };
+  modalMainScreen.LoadGroups =  function(Dict) {
+    console.log("Load groups");
+    $("#crud-modal select#groups").empty(); // clean html before
+    var groupArray = Object.keys(Dict.groups);
+
+    groupArray.forEach(element => {
+      let options = `<option value="${element}">${Dict.groups[element].title}</option>`
+      $("#crud-modal select#groups").append(options)
+    });
+  };
 
 // Close modal manually
 $('#btn-close-modal').click(function () {

@@ -368,7 +368,7 @@ class DictCRUD extends Dict {
         // return this
         return this.groups[group.groupID];
     }
-    createTask(title, description, tag, deadline, points, taskID = null, isCompleted = false) {
+    createTask(title, description, tag, deadline, points,  taskID = null, isCompleted = false) {
         let task = new Task(title, description, tag, deadline, points, taskID, isCompleted);
         if (!taskID) { task.generateID(); }
         this.tasks[task.taskID] = task;
@@ -395,6 +395,15 @@ class DictCRUD extends Dict {
     readAllGroups() {
         // Return all groups ID
         return Object.values(this.groups);
+    }
+    // find
+    findTasksByGroup(groupID) {
+        return Object.values(this.tasks).filter(task => task.tag == this.groups[groupID].def_tag
+            || this.groups[groupID].tags.includes(task.tag));
+    }
+    findGroupByTag(tagID) {
+        return Object.values(this.groups).filter(group => group.def_tag == tagID
+            || group.tags.includes(tagID));
     }
     // Update   
     updateGroup(groupID, newGroup) {
@@ -552,28 +561,5 @@ class DictWithAJAX extends DictCRUD {
     }
 }
 
-function newUser(username, userid, bio, timeZone, displayLocalTimeZone, localTimeZoneName, email, groups = {}, tasks = {}, completed = {}, tags = {}) {
-    let UserData = {
-        username: username,
-        userid: userid,
-        bio: bio,
-        timeZone: timeZone,
-        displayLocalTimeZone: displayLocalTimeZone,
-        localTimeZoneName: localTimeZoneName,
-        email: email,
-        groups: groups,
-        tasks: tasks,
-        completed: completed,
-        tags: tags,
-    };
-    return UserData;
-}
-
-function LoadData() {
-    let loaded_data = {};
-    ///ajax here
-    let userData = Dict2UserData(loaded_data);
-    return userData;
-}
 
 export { DictWithAJAX, Utils };

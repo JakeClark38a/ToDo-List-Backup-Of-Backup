@@ -191,71 +191,71 @@ $(document).ready(function () {
   function MainMenuTagTempplate(id, tag) {
     return (
       `
-      
-      <div id="` + id + `" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
-      <div class="h-full">
-          <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
-          </svg>
-      </div>
-  
-      <div id="MMenu-Tag-Title" class="text-lg px-1 my-1 center dark:text-white">` + tag.title + `</div>
-      <div class="MMenu-Tag-Edit mx-1">
-      <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-  </svg>
-  </div>
-  </div>
-  
-  `
+    
+    <div id="` + id + `" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
+    <div class="h-full">
+        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
+        </svg>
+    </div>
+
+    <div id="MMenu-Tag-Title" class="text-lg px-1 my-1 center dark:text-white">` + tag.title + `</div>
+    <div class="MMenu-Tag-Edit mx-1">
+    <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+</svg>
+</div>
+</div>
+
+`
     );
   }
 
   function MainMenuGroupTemplates(id, group) {
     return (
       `
-    
-    <div id="` + id + `" class="MMenu-Group"><!--block-->
-      <!-- Greeting div, status centered -->
-          <div class="flex justify-between items-center pl-3 pr-1">
   
-            <div class="MMenu-Toggle-Hidden flex items-center w-full">
-              <div class="MMenu-Dropdown-Arrow">
-              <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19 9-7 7-7-7"/>
-            </svg>          
-              </div>
+  <div id="` + id + `" class="MMenu-Group"><!--block-->
+    <!-- Greeting div, status centered -->
+        <div class="flex justify-between items-center pl-3 pr-1">
+
+          <div class="MMenu-Toggle-Hidden flex items-center w-full">
+            <div class="MMenu-Dropdown-Arrow">
+            <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19 9-7 7-7-7"/>
+          </svg>          
+            </div>
+
+                <div id="MMenu-Group-Title" class="text-xl ml-2 dark:text-white">` + group.title + `</div>
+        </div>
+
+        <div class="MMenu-Group-Edit mx-1">
+        <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+      </svg>
+      
+      
+        </div>
+        <div class="MMenu-Tag-Add">
+            <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M5 12h14m-7 7V5" />
+            </svg>
+        </div>
+
+
+    </div>
+    <div id="MMenu-Tag-Section" class="">
+        <!--tag-->
+
+    </div>
+</div><!--eoblock-->
+
   
-                  <div id="MMenu-Group-Title" class="text-xl ml-2 dark:text-white">` + group.title + `</div>
-          </div>
-  
-          <div class="MMenu-Group-Edit mx-1">
-          <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-        </svg>
-        
-        
-          </div>
-          <div class="MMenu-Tag-Add">
-              <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                  width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                      d="M5 12h14m-7 7V5" />
-              </svg>
-          </div>
-  
-  
-      </div>
-      <div id="MMenu-Tag-Section" class="">
-          <!--tag-->
-  
-      </div>
-  </div><!--eoblock-->
-  
-    
-    `
+  `
     );
   }
 
@@ -266,78 +266,78 @@ $(document).ready(function () {
   function MainScreenTagTemplate(id, tag, mode = 0) {
     if (mode == 0) {
       return (`
-        <div id="`+ id + `" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer">` + tag.title + `</div>                
-        `);
+      <div id="`+ id + `" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer">` + tag.title + `</div>                
+      `);
     }
   }
   function MainScreenTaskTemplate(id, task, mode = 0) {
     if (mode == 0) {
       return (
         ` 
-  
-          <div id="`+ id + `" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default">
-          <div class=" rounded-lg shadow-lg">
-  
-              <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
-  
-                  <div class="font-semibold text-lg lg:text-xl truncate w-full dark:text-white ">`
+
+        <div id="`+ id + `" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default">
+        <div class=" rounded-lg shadow-lg">
+
+            <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
+
+                <div class="font-semibold text-lg lg:text-xl truncate w-full dark:text-white ">`
         + task.title + `</div>
-  
-  
-                  <div class="flex items-center gap-2">
-                      <div class="Task-Edit mx-1 cursor-pointer">
-                          <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
-                              xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                              viewBox="0 0 24 24">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                  stroke-width="1.5"
-                                  d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
-                          </svg>
-                      </div>
-  
-  
-                      <div id="Task-Cancel"
-                          class="bg-red-500 rounded-full shadow-lg h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
-                  </div>
-              </div>
-  
-              <div class="p-2 flex items-center h-fit">
-  
-                  <p class="h-full w-full text-left p-2 font-base truncate lg:text-xl dark:text-white">`+ task.description + `</p>
-  
-                  <input id="Task-Destroyer" type="checkbox"
-                      class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer"></input>
-              </div>
-              <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
-                
-              </div>
-          </div>
-  
-      </div>
-  
-    `
+
+
+                <div class="flex items-center gap-2">
+                    <div class="Task-Edit mx-1 cursor-pointer">
+                        <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                        </svg>
+                    </div>
+
+
+                    <div id="Task-Cancel"
+                        class="bg-red-500 rounded-full shadow-lg h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
+                </div>
+            </div>
+
+            <div class="p-2 flex items-center h-fit">
+
+                <p class="h-full w-full text-left p-2 font-base truncate lg:text-xl dark:text-white">`+ task.description + `</p>
+
+                <input id="Task-Destroyer" type="checkbox"
+                    class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer"></input>
+            </div>
+            <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
+              
+            </div>
+        </div>
+
+    </div>
+
+  `
       );
     } else if (mode == 1) {
       return (
         `
-        <div id="`+ id + `" class="task-outer">
-          <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700 ">
-    
-              <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
-                  <div class="font-bold text-xl lg:text-2xl">` + task.title + `</div>
-                  <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
-              </div>
-    
-              <div class="p-2 flex justify-between items-center lg:h-24">
-                  <div class="text-center lg:text-xl">`+ task.description + `</div>
-                  <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
-              </div>
-              
+      <div id="`+ id + `" class="task-outer">
+        <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700 ">
+  
+            <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
+                <div class="font-bold text-xl lg:text-2xl">` + task.title + `</div>
+                <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
             </div>
   
-        </div>
-    
-        `
+            <div class="p-2 flex justify-between items-center lg:h-24">
+                <div class="text-center lg:text-xl">`+ task.description + `</div>
+                <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
+            </div>
+            
+          </div>
+
+      </div>
+  
+      `
       );
     }
   }
@@ -346,40 +346,40 @@ $(document).ready(function () {
     if (mode == 0) {
       return (
         `
-      <div id="` + id + `" class="group-outer">
-        <div class="flex justify-between items-center px-3 ">
-          <div id="Task-Group-Title" class="todobox-title lg:text-2xl dark:text-white">` + group.title + `</div>
-          <div class="Group-Task-Add ">
-                  <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                      width="24" height="24" fill="none" viewBox="0 0 24 24">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M5 12h14m-7 7V5" />
-                  </svg>
-              </div>
-          </div>
-          <div id="Task-Section-Outer" class= "bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
-              <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
-              <!--task here-->
-              </div>
-            
-          </div>
-      </div>
-      
-      `
+    <div id="` + id + `" class="group-outer">
+      <div class="flex justify-between items-center px-3 ">
+        <div id="Task-Group-Title" class="todobox-title lg:text-2xl dark:text-white">` + group.title + `</div>
+        <div class="Group-Task-Add ">
+                <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 12h14m-7 7V5" />
+                </svg>
+            </div>
+        </div>
+        <div id="Task-Section-Outer" class= "bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
+            <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
+            <!--task here-->
+            </div>
+          
+        </div>
+    </div>
+    
+    `
       );
     } else if (mode == 1) {
       return (
         `
-        <!-- Item  -->
-  
-        <div id="` + id + `" data-carousel-item class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 z-0">
-          <div id="Task-Group-Title" class="text-center">` + group.title + `</div>
-            <div id="" class="Task-Section border-primary-100 w-80 h-96 border-2" >
-            <!-- Contents -->
-          
-            </div>
-        </div>
-        `
+      <!-- Item  -->
+
+      <div id="` + id + `" data-carousel-item class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 z-0">
+        <div id="Task-Group-Title" class="text-center">` + group.title + `</div>
+          <div id="" class="Task-Section border-primary-100 w-80 h-96 border-2" >
+          <!-- Contents -->
+        
+          </div>
+      </div>
+      `
       );
     }
   }
@@ -387,25 +387,25 @@ $(document).ready(function () {
   function MainScreenFormatterTemplate(mode = 0) {
     if (mode == 0) {
       return `
-      <div id="Main-Formatter" class="relative w-full">
-        
-          <div id="Wrapper" class="relative flex flex-wrap justify-center items-center gap-8 py-10 lg:px-36">
-          <!--Group-->
-          </div>
-      </div>
-      `;
+    <div id="Main-Formatter" class="relative w-full">
+      
+        <div id="Wrapper" class="relative flex flex-wrap justify-center items-center gap-8 py-10 lg:px-36">
+        <!--Group-->
+        </div>
+    </div>
+    `;
     } else if (mode == 1) {
       return `
-        <!-- Main List -->
-        <div id="Main-Formatter" class="relative w-full bg-red-300" data-carousel="static">
-            <!-- Carousel wrapper -->
-            <div id="Wrapper" class="relative h-96 mt-[3vh] overflow-hidden">
-  
-  
-            </div>
-        </div>
-  
-        `;
+      <!-- Main List -->
+      <div id="Main-Formatter" class="relative w-full bg-red-300" data-carousel="static">
+          <!-- Carousel wrapper -->
+          <div id="Wrapper" class="relative h-96 mt-[3vh] overflow-hidden">
+
+
+          </div>
+      </div>
+
+      `;
     }
   }
 
@@ -413,43 +413,43 @@ $(document).ready(function () {
     if (mode == 0) {
     } else if (mode == 1) {
       return `
-        
-        <!-- Slider controls -->
-        <div class="slider z-10">
-            <button type="button"
-                class="absolute top-1/2 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
-                data-carousel-prev>
-                <span
-                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="1.5" d="M5 1 1 5l4 4" />
-                    </svg>
-                    <span class="sr-only">Previous</span>
-                </span>
-            </button>
-            <button type="button"
-                class="absolute top-1/2 right-0 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
-                data-carousel-next>
-                <span
-                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="1.5" d="m1 9 4-4-4-4" />
-                    </svg>
-                    <span class="sr-only">Next</span>
-                </span>
-            </button>
-        </div>
-  
-        `;
+      
+      <!-- Slider controls -->
+      <div class="slider z-10">
+          <button type="button"
+              class="absolute top-1/2 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
+              data-carousel-prev>
+              <span
+                  class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
+                  <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="1.5" d="M5 1 1 5l4 4" />
+                  </svg>
+                  <span class="sr-only">Previous</span>
+              </span>
+          </button>
+          <button type="button"
+              class="absolute top-1/2 right-0 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
+              data-carousel-next>
+              <span
+                  class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
+                  <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="1.5" d="m1 9 4-4-4-4" />
+                  </svg>
+                  <span class="sr-only">Next</span>
+              </span>
+          </button>
+      </div>
+
+      `;
     }
   }
 
   /* Main Display rule
- 
+
         |_MainScreen
         |____Formatter
         |     | id 
@@ -459,7 +459,7 @@ $(document).ready(function () {
         |     |
         |     |_____tag(Tag-Section)
         |______Addons
- 
+
   */
   //################################################### Fuctions #########################################################
 
@@ -571,8 +571,8 @@ $(document).ready(function () {
 
 
     $('#crud-modal button[type="submit"]').html(`
-        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-        Create`);
+      <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+      Create`);
     $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
     // Show modal
     addGroupnTagModal.show();
@@ -600,8 +600,8 @@ $(document).ready(function () {
     $('#crud-modal #groups-sec').show();
 
     $('#crud-modal button[type="submit"]').html(`
-      <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-      Create`);
+    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+    Create`);
     $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
     // Show modal
     addGroupnTagModal.show();
@@ -629,10 +629,10 @@ $(document).ready(function () {
     $('#crud-modal #colors').val(gInfo.color);
 
     $('#crud-modal button[type="submit"]').html(`
-        <svg class="w-5 lg:w-7 h-5 lg:h-7 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-      </svg> Edit
-        `);
+      <svg class="w-5 lg:w-7 h-5 lg:h-7 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+    </svg> Edit
+      `);
 
     $('#crud-modal #delete-sec').show();
 
@@ -670,10 +670,10 @@ $(document).ready(function () {
     };
 
     $('#crud-modal button[type="submit"]').html(`
-      <svg class="w-5 lg:w-7 h-5 lg:h-7 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-    </svg> Edit
-      `);
+    <svg class="w-5 lg:w-7 h-5 lg:h-7 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+  </svg> Edit
+    `);
 
     $('#crud-modal input[type="checkbox"]').attr("id", `tag_${tid}`);
     // Show modal
@@ -1050,401 +1050,55 @@ $(document).ready(function () {
     console.log("Loading Main Screen");
     // Also add Draggable button again
     $("#Main-Screen").append($(`
-      <!-- add question action button here-->
-      <div id="add-draggable"  class="z-40 absolute">
-          <div  class="touch-none select-none">
-              <div id="moveButton" 
-                  class="hover:w-12 hover:h-12 border-2 border-gray-300 absolute rounded-full w-12 h-12 bg-main/55 dark:bg-gray-700/60 backdrop-blur-sm shadow-xl p-2">
-                  <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M5 12h14m-7 7V5" />
-                  </svg>
-              </div>
-          </div>
-      </div>
-      <!-- kết thúc phần nút -->
-    
-      `))
+    <!-- add question action button here-->
+    <div id="add-draggable"  class="z-40 absolute">
+        <div  class="touch-none select-none">
+            <div id="moveButton" 
+                class="hover:w-12 hover:h-12 border-2 border-gray-300 absolute rounded-full w-12 h-12 bg-main/55 dark:bg-gray-700/60 backdrop-blur-sm shadow-xl p-2">
+                <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 12h14m-7 7V5" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <!-- kết thúc phần nút -->
+    `))
     var formatter_html = $("#Main-Screen").append(
       MainScreenFormatterTemplate()
     );
 
-    //   // Iterate over groups
-    //   for (var groupId in Dict.groups) {
-    //     if (Dict.groups.hasOwnProperty(groupId)) {
-    //       var group = Dict.groups[groupId];
-    //       var g = renderGroupMainScreen(
-    //         $(formatter_html).find("#Main-Formatter").find("#Wrapper"),
-    //         group,
-    //         groupId,
-    //         currentMode
-    //       );
-    //       //console.log(groupId);
-    //       var task_html = $(g).find("#Task-Section");
-    //       // Iterate over tasks
-    //       for (var taskId in Dict.tasks) {
-    //         if (
-    //           Dict.tasks.hasOwnProperty(taskId) && (
-    //             group.tags.includes(Dict.tasks[taskId].tag) || group.def_tag == Dict.tasks[taskId].tag)
-    //         ) {
-    //           // Pass task details to renderTaskMainScreen
-    //           renderTaskMainScreen(
-    //             task_html,
-    //             Dict.tasks[taskId],
-    //             taskId,
-    //             currentMode
-    //           );
-    //         }
-    //       }
-    //     }
-    //   }
-    renderFormatterAddons(formatter_html, currentMode);
-  }
-
-  //================================================================\\
-  //========================== Calendar   ==========================\\
-  //================================================================\\
-  function loadCalendar() {
-    const calendar = document.querySelector("calendar"),
-      date = document.querySelector(".date"),
-      daysContainer = document.querySelector(".days"),
-      prev = document.querySelector(".prev"),
-      next = document.querySelector(".next"),
-      todayBtn = document.querySelector(".today-btn"),
-      gotoBtn = document.querySelector(".goto-btn"),
-      dateInput = document.querySelector(".date-input"),
-      eventDay = document.querySelector(".event-day"),
-      eventDate = document.querySelector(".event-date"),
-      tasksContainer = document.querySelector(".events"),
-      addEventBtn = document.querySelector(".add-event"),
-      addEventWrapper = document.querySelector(".add-event-wrapper "),
-      addEventCloseBtn = document.querySelector(".close "),
-      addEventTitle = document.querySelector(".event-name "),
-      addEventFrom = document.querySelector(".event-time-from "),
-      addEventTo = document.querySelector(".event-time-to "),
-      addEventDescription = document.querySelector(".event-description ")
-    addEventSubmit = document.querySelector(".add-event-btn ");
-
-    let today = new Date();
-    let activeDay;
-    let month = today.getMonth();
-    let year = today.getFullYear();
-
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    const eventsArr = [];
-    getEvents();
-    console.log(eventsArr);
-
-    //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
-    function initCalendar() {
-      const firstDay = new Date(year, month, 1);
-      const lastDay = new Date(year, month + 1, 0);
-      const prevLastDay = new Date(year, month, 0);
-      const prevDays = prevLastDay.getDate();
-      const lastDate = lastDay.getDate();
-      const day = firstDay.getDay();
-      const nextDays = 7 - lastDay.getDay() - 1;
-
-      date.innerHTML = months[month] + " " + year;
-
-      let days = "";
-
-      for (let x = day; x > 0; x--) {
-        days += `<div class="day prev-date">${prevDays - x + 1}</div>`;
-      }
-
-      for (let i = 1; i <= lastDate; i++) {
-        //check if event is present on that day
-        let event = false;
-        eventsArr.forEach((eventObj) => {
+    // Iterate over groups
+    for (var groupId in Dict.groups) {
+      if (Dict.groups.hasOwnProperty(groupId)) {
+        var group = Dict.groups[groupId];
+        var g = renderGroupMainScreen(
+          $(formatter_html).find("#Main-Formatter").find("#Wrapper"),
+          group,
+          groupId,
+          currentMode
+        );
+        //console.log(groupId);
+        var task_html = $(g).find("#Task-Section");
+        // Iterate over tasks
+        for (var taskId in Dict.tasks) {
           if (
-            eventObj.day === i &&
-            eventObj.month === month + 1 &&
-            eventObj.year === year
+            Dict.tasks.hasOwnProperty(taskId) && (
+              group.tags.includes(Dict.tasks[taskId].tag) || group.def_tag == Dict.tasks[taskId].tag)
           ) {
-            event = true;
-          }
-        });
-        if (
-          i === new Date().getDate() &&
-          year === new Date().getFullYear() &&
-          month === new Date().getMonth()
-        ) {
-          activeDay = i;
-          getActiveDay(i);
-          updateEvents(i);
-          if (event) {
-            days += `<div class="day today active event">${i}</div>`;
-          } else {
-            days += `<div class="day today active">${i}</div>`;
-          }
-        } else {
-          if (event) {
-            days += `<div class="day event">${i}</div>`;
-          } else {
-            days += `<div class="day ">${i}</div>`;
+            // Pass task details to renderTaskMainScreen
+            renderTaskMainScreen(
+              task_html,
+              Dict.tasks[taskId],
+              taskId,
+              currentMode
+            );
           }
         }
       }
-
-      for (let j = 1; j <= nextDays; j++) {
-        days += `<div class="day next-date">${j}</div>`;
-      }
-      daysContainer.innerHTML = days;
-      addListner();
     }
-
-    //function to add month and year on prev and next button
-    function prevMonth() {
-      month--;
-      if (month < 0) {
-        month = 11;
-        year--;
-      }
-      initCalendar();
-    }
-
-    function nextMonth() {
-      month++;
-      if (month > 11) {
-        month = 0;
-        year++;
-      }
-      initCalendar();
-    }
-
-    prev.addEventListener("click", prevMonth);
-    next.addEventListener("click", nextMonth);
-
-    initCalendar();
-
-    //function to add active on day
-    function addListner() {
-      const days = document.querySelectorAll(".day");
-      days.forEach((day) => {
-        day.addEventListener("click", (e) => {
-          getActiveDay(e.target.innerHTML);
-          updateEvents(Number(e.target.innerHTML));
-          activeDay = Number(e.target.innerHTML);
-          //remove active
-          days.forEach((day) => {
-            day.classList.remove("active");
-          });
-          //if clicked prev-date or next-date switch to that month
-          if (e.target.classList.contains("prev-date")) {
-            prevMonth();
-            //add active to clicked day afte month is change
-            setTimeout(() => {
-              //add active where no prev-date or next-date
-              const days = document.querySelectorAll(".day");
-              days.forEach((day) => {
-                if (
-                  !day.classList.contains("prev-date") &&
-                  day.innerHTML === e.target.innerHTML
-                ) {
-                  day.classList.add("active");
-                }
-              });
-            }, 100);
-          } else if (e.target.classList.contains("next-date")) {
-            nextMonth();
-            //add active to clicked day afte month is changed
-            setTimeout(() => {
-              const days = document.querySelectorAll(".day");
-              days.forEach((day) => {
-                if (
-                  !day.classList.contains("next-date") &&
-                  day.innerHTML === e.target.innerHTML
-                ) {
-                  day.classList.add("active");
-                }
-              });
-            }, 100);
-          } else {
-            e.target.classList.add("active");
-          }
-        });
-      });
-    }
-
-    todayBtn.addEventListener("click", () => {
-      today = new Date();
-      month = today.getMonth();
-      year = today.getFullYear();
-      initCalendar();
-    });
-
-    dateInput.addEventListener("input", (e) => {
-      dateInput.value = dateInput.value.replace(/[^0-9/]/g, "");
-      if (dateInput.value.length === 2) {
-        dateInput.value += "/";
-      }
-      if (dateInput.value.length > 7) {
-        dateInput.value = dateInput.value.slice(0, 7);
-      }
-      if (e.inputType === "deleteContentBackward") {
-        if (dateInput.value.length === 3) {
-          dateInput.value = dateInput.value.slice(0, 2);
-        }
-      }
-    });
-
-    gotoBtn.addEventListener("click", gotoDate);
-
-    function gotoDate() {
-      console.log("here");
-      const dateArr = dateInput.value.split("/");
-      if (dateArr.length === 2) {
-        if (dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length === 4) {
-          month = dateArr[0] - 1;
-          year = dateArr[1];
-          initCalendar();
-          return;
-        }
-      }
-      alert("Invalid Date");
-    }
-
-    //function get active day day name and date and update eventday eventdate
-    function getActiveDay(date) {
-      const day = new Date(year, month, date);
-      const dayName = day.toString().split(" ")[0];
-      eventDay.innerHTML = dayName;
-      eventDate.innerHTML = date + " " + months[month] + " " + year;
-    }
-
-    //function update events when a day is active
-    function updateEvents(date) {
-      let events = "";
-      eventsArr.forEach((event) => {
-        if (
-          date === event.day &&
-          month + 1 === event.month &&
-          year === event.year
-        ) {
-          // event.events.forEach((event) => {
-          //   events += `<div class="event">
-          //       <div class="title">
-          //         <i class="fas fa-circle"></i>
-          //         <h3 class="event-title">${event.title}</h3>
-          //       </div>
-          //       <div class="event-time">
-          //         <span class="event-time">${event.time}</span>
-          //       </div>
-          //   </div>`;
-          // });
-
-          // event class is like task-container-calendar
-          event.events.forEach((event) => {
-            events +=
-              `
-            <div class="event task-container-calendar">
-            <div class="time-display">${event.time}</div>
-            <div class="task-information">
-                <div class="task-title">${event.title}</div>
-                <div class="task-description">${event.description}</div> 
-                <div class="tags-display">
-                <div class="tag-important">important</div>
-                <div class="tag-urgent">urgent</div>
-                </div>
-            </div>
-            </div>`;
-          });
-          // <div class="task-container-calendar">
-          //   <div class="time-display">8:30</div>
-          //   <div class="task-information">
-          //     <!-- toi da 128 ki tu -->
-          //     <div class="task-title">đi nhà nghỉ</div>
-          //     <!-- toi da 128 ki tu description -->
-          //     <div class="text-description">Không nên nghỉ</div> 
-          //     <div class="tags-display">
-          //       <div class="tag-important">important</div>
-          //       <div class="tag-urgent">urgent</div>
-          //     </div>
-          //   </div>
-          // </div>
-        }
-      });
-      if (events === "") {
-        events = `<div class="no-event">
-                <h3>No Events</h3>
-            </div>`;
-      }
-      tasksContainer.innerHTML = events;
-      saveEvents();
-    }
-
-    //function to delete event when clicked on event
-    tasksContainer.addEventListener("click", (e) => {
-      if (e.target.classList.contains("event")) {
-        if (confirm("Are you sure you want to delete this event?")) {
-          const eventTitle = e.target.children[1].children[0].innerHTML;
-          eventsArr.forEach((event) => {
-            if (
-              event.day === activeDay &&
-              event.month === month + 1 &&
-              event.year === year
-            ) {
-              event.events.forEach((item, index) => {
-                if (item.title === eventTitle) {
-                  event.events.splice(index, 1);
-                }
-              });
-              //if no events left in a day then remove that day from eventsArr
-              if (event.events.length === 0) {
-                eventsArr.splice(eventsArr.indexOf(event), 1);
-                //remove event class from day
-                const activeDayEl = document.querySelector(".day.active");
-                if (activeDayEl.classList.contains("event")) {
-                  activeDayEl.classList.remove("event");
-                }
-              }
-            }
-          });
-          updateEvents(activeDay);
-        }
-      }
-    });
-
-    //function to save events in local storage
-    function saveEvents() {
-      localStorage.setItem("events", JSON.stringify(eventsArr));
-    }
-
-    //function to get events from local storage
-    function getEvents() {
-      //check if events are already saved in local storage then return event else nothing
-      if (localStorage.getItem("events") === null) {
-        return;
-      }
-      eventsArr.push(...JSON.parse(localStorage.getItem("events")));
-    }
-
-    function convertTime(time) {
-      //convert time to 24 hour format
-      let timeArr = time.split(":");
-      let timeHour = timeArr[0];
-      let timeMin = timeArr[1];
-      let timeFormat = timeHour >= 12 ? "PM" : "AM";
-      timeHour = timeHour % 12 || 12;
-      time = timeHour + ":" + timeMin + " " + timeFormat;
-      return time;
-    }
+    renderFormatterAddons(formatter_html, currentMode);
   }
 
   //================================================================\\
@@ -1538,8 +1192,8 @@ $(document).ready(function () {
     $('#crud-modal #tags').val(preset_tag);
     $('#crud-modal #todo-expired').val("");
     $('#crud-modal button[type="submit"]').html(`
-          <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-          Create`);
+        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+        Create`);
     $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
 
     // Show modal

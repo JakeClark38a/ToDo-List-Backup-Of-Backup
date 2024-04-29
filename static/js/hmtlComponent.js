@@ -210,11 +210,29 @@ MainScreen.FormmatterAddons = function (mode = 0) {
                 </span>
             </button>
         </div>
-  
         `;
     }
 }
 
+
+MainScreen.AddFloatButton = function (isActive = true) {
+    return isActive ? (`
+    <!-- add question action button here-->
+    <div id="add-draggable"  class="z-40 absolute">
+        <div  class="touch-none select-none">
+            <div id="moveButton" 
+                class="hover:w-12 hover:h-12 border-2 border-gray-300 absolute rounded-full w-12 h-12 bg-main/55 dark:bg-gray-700/60 backdrop-blur-sm shadow-xl p-2">
+                <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 12h14m-7 7V5" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <!-- kết thúc phần nút -->
+    `) : null;
+}
 
 //================================================================\\
 //=========================== Main Menu ==========================\\
@@ -291,6 +309,7 @@ MainMenu.GroupTemplates = function (id, group) {
 </div><!--eoblock-->`
     );
 };
+
 
 
 //================================================================\\
