@@ -1,3 +1,13 @@
+//=====================================================================\\
+/* 
+NOTICE:
+This file handles all the actions that are related to the main content of the page
+This file handle:
+    -  AJAX requests to the backend
+
+*/
+//=====================================================================\\
+
 let ajaxHandler = {}
 
 ajaxHandler.addGroup = function (groupId, title, color) {
