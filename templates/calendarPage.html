@@ -191,7 +191,7 @@
             class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
 
 
-            <a href="{{url_for('profiles.profile',type=session['type'])}}">
+            <a href="{{url_for('profile', type=session['type'])}}">
                 <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
                     <div class="flex items-center">
                         <div class="PMenu-Primary-Image-Wrapper">
@@ -243,7 +243,7 @@
             </div><!--eoblock-->
 
             <div id="PMenu-Logout" class="PMenu-Primary-Section"> <!--block-->
-                <a href="{{url_for('auth.logout')}}">
+                <a href="{{url_for('logout')}}">
                     <button>
                         <div class="flex items-center">
                             <div class="PMenu-Primary-Image-Wrapper">
@@ -363,7 +363,7 @@
             </div>
             <div id="MMenu-Bottom" class="flex justify-between items-center p-2">
                 <div class="Log-out">
-                    <a href="{{url_for('auth.logout')}}">
+                    <a href="{{url_for('logout')}}">
                         <button>
                             <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -420,17 +420,15 @@
 
 
 
-
-        <!--########################################################### Main Screen ######################################################################-->
-        <!--Begin Main screen-->
-        <div id="Main-Screen" class="Container backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
-            <!-- Dynamic draggable button here -->
-
-            <!--Formatter-->
-
+        <!--########################################################### Calendar ######################################################################-->
+        <!-- Redirect to Backend Generator here -->
+        <!-- Begin Calendar -->
+        <div id="Calendar" class="Container backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden"></div>
+        
         </div>
-        <!--End Main screen-->
-        <!--########################################################### EoMain Screen ######################################################################-->
+        <!--End Calendar-->
+        <!--########################################################### EoCalendar ######################################################################-->
+
 
 
 
@@ -440,9 +438,175 @@
         </div>
 
 
-
+        
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="../static/js/app.js" type="module"></script>
+        <script src="../static/js/app2.js"></script>
+        <script>
+
+            function dragMoveListener(event) {
+                var target = event.target
+                // keep the dragged position in the data-x/data-y attributes
+                var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+                var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+                // translate the element
+                target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+
+                // update the posiion attributes
+                target.setAttribute('data-x', x)
+                target.setAttribute('data-y', y)
+            }
+            // set the modal menu element
+            const $targetEl = document.getElementById('crud-modal');
+
+            // options with default values
+            const options = {
+                // placement: 'bottom-right',
+                backdrop: 'dynamic',
+                backdropClasses:
+                    'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
+                closable: true,
+                onHide: () => {
+                    $('#crud-modal h3').text("Create");
+                    $('#crud-modal h3').show();
+
+                    $('#crud-modal label[for="name"]').text("Name");
+                    $('#crud-modal #name').attr("placeholder", "Name");
+                    $('#crud-modal #name').val("");
+                    $('#crud-modal #name-sec').show();
+
+                    $('#crud-modal label[for="description"]').text("Description");
+                    $('#crud-modal #description').val("");
+                    $('#crud-modal #description').attr("placeholder", "Description");
+                    $('#crud-modal #desc-sec').show();
+
+                    $('#crud-modal label[for="todo-expired"]').text("Deadline");
+                    $('#crud-modal #todo-expired').val("");
+                    $('#crud-modal #todo-expired-sec').show();
+
+                    $('#crud-modal label[for="tags"]').text("Tag");
+                    $('#crud-modal #tags option').removeAttr("selected");
+                    $('#crud-modal #tags-sec').show();
+
+                    $('#crud-modal label[for="groups"]').text("Group");
+                    $('#crud-modal #groups option').removeAttr("selected");
+                    $('#crud-modal #groups-sec').hide();
+
+                    $('#crud-modal label[for="colors"]').text("Color");
+                    $('#crud-modal #colors').val("#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0')));
+                    $('#crud-modal #colors-sec').show();
+
+
+                    $('#crud-modal button[type="submit"]').html(`
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                        Create`);
+                    $('#crud-modal #submit-sec').show();
+
+                    $('#crud-modal #delete-sec button').html(`
+                    <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                            </svg>
+
+                            Delete
+
+                    `);
+                    $('#crud-modal #delete-sec').hide();
+
+                    $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+                    console.log("Reset modal complete!")
+
+                    console.log('modal is hidden');
+                },
+                onShow: () => {
+                    // Limit the date picker to today and future dates
+                    // Get the current date and time
+                    const now = new Date();
+
+                    // Format the date and time as required by the min attribute
+                    const year = now.getFullYear();
+                    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed, so we add 1
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const hour = String(now.getHours()).padStart(2, '0');
+                    const minute = String(now.getMinutes()).padStart(2, '0');
+
+                    // Construct the string for the min attribute
+                    const minDatetime = `${year}-${month}-${day}T${hour}:${minute}`;
+
+                    // Set the min attribute of the input element
+                    document.getElementById('todo-expired').setAttribute('min', minDatetime);
+                    // Set value to current date and time
+                    document.getElementById('todo-expired').value = minDatetime;
+
+                    console.log('modal is shown');
+                },
+                onToggle: () => {
+                    console.log('modal has been toggled');
+                },
+            };
+
+            // If screen is small, change option backdrop to static
+            if (window.innerWidth < 768) {
+                options.backdrop = 'static';
+            }
+
+            // instance options object
+            const modal = new Modal($targetEl, options);
+            const addGroupnTagModal = new Modal($targetEl, options);
+
+            $(document).ready(function () {
+                // target elements with the "draggable" class
+                interact('#add-draggable')
+                    .draggable({
+                        // enable inertial throwing
+                        inertia: true,
+                        // keep the element within the area of it's parent
+                        modifiers: [
+                            interact.modifiers.restrict({
+                                restriction: "#Main-Screen",
+                                elementRect: { top: 0, left: 0, bottom: 0.1, right: 0.1 },
+                                endOnly: true
+                            })
+                        ],
+                        // disable autoScroll
+                        autoScroll: false,
+
+                        listeners: {
+                            // call this function on every dragmove event
+                            move: dragMoveListener,
+                        }
+                    })
+                    .on('tap', function (event) {
+                        event.preventDefault();
+                        //resetModalState();
+                        // Clean modal first
+                        $('#crud-modal #colors-sec').hide();
+                        $('#crud-modal label[for="name"]').text("Title");
+                        $('#crud-modal label[for="description"]').text("Task Description");
+
+                        $('#crud-modal h3').text("Create Task");
+                        $('#crud-modal #name').val("");
+                        $('#crud-modal #description').val("");
+                        $('#crud-modal #tags option').removeAttr("selected");
+                        $('#crud-modal #todo-expired').val("");
+                        $('#crud-modal button[type="submit"]').html(`
+                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                        Create`);
+                        $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
+
+                        // Show modal
+                        modal.show();
+
+                    })
+
+                $("#Calendar").load("calendar.html");
+            });
+
+        </script>
 </body>
+
 </html>
