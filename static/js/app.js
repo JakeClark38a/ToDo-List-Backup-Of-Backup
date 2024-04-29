@@ -183,18 +183,25 @@ $(document).ready(function () {
   //========================== Main Screen =========================\\
   //================================================================\\
 
-  function updateTime() {
+  function clockTick() {
     const now = new Date();
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const monthsOfYear = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    
+    const dayOfWeek = daysOfWeek[now.getDay()];
+    const day = now.getDate().toString().padStart(2, '0');
+    const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-indexed, so we add 1
+    const year = now.getFullYear();
     const seconds = now.getSeconds().toString().padStart(2, '0');
     const minutes = now.getMinutes().toString().padStart(2, '0');
-    let hours = now.getHours().toString().padStart(2, '0');
+    let hours = now.getHours();
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12 || 12; // Convert to 12-hour format
-    const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}`;
+    const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}, ${dayOfWeek}, ${monthsOfYear[month-1]} ${day}, ${year}`;
     document.getElementById('clock').textContent = formattedTime;
-  }
+}
 
-  setInterval(updateTime, 1000);
+  setInterval(clockTick, 1000);
 
 
   //Remove task

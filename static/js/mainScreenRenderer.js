@@ -1,5 +1,14 @@
+//=====================================================================\\
+/* 
+NOTICE:
+This file handles all the actions that are related to the main content of the page
+This file handle:
+    - Rendering of the main screen
 
-import {MainScreen} from "./hmtlComponent.js";
+*/
+//=====================================================================\\
+
+import { MainScreen } from "./hmtlComponent.js";
 
 function renderTagMainScreen(tag_html, tag, mode = 0) {
     console.log(tag.title);
@@ -25,7 +34,7 @@ function renderGroupMainScreen(group_html, group, unique_id, mode = 0) {
     return group_html.find("#" + unique_id);
 }
 
-function LoadMainScreen(Dict , currentMode = 0) {
+function LoadMainScreen(Dict, currentMode = 0) {
     console.log("Loading Main Screen");
     // Also add Draggable button again
     $("#Main-Screen").append(MainScreen.AddFloatButton(true));
@@ -62,7 +71,7 @@ function LoadMainScreen(Dict , currentMode = 0) {
             }
         }
     }
-    renderFormatterAddons(formatter_html, currentMode );
+    renderFormatterAddons(formatter_html, currentMode);
 }
 
-export {LoadMainScreen , renderFormatterAddons , renderGroupMainScreen , renderTagMainScreen , renderTaskMainScreen};
+export { LoadMainScreen, renderFormatterAddons, renderGroupMainScreen, renderTagMainScreen, renderTaskMainScreen };

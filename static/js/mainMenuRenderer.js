@@ -1,3 +1,13 @@
+//=====================================================================\\
+/* 
+NOTICE:
+This file handles all the actions that are related to the main content of the page
+This file handle:
+    - Rendering of the main menu
+
+*/
+//=====================================================================\\
+
 import { MainMenu } from "./hmtlComponent.js";
 
 function toggleHiddenMMenuGroup(group) {
@@ -38,4 +48,4 @@ function LoadMainMenu(Dict) {
     }
 }
 
-export { LoadMainMenu, toggleHiddenMMenuGroup , addNewGroupMainMenu, addNewTagMainMenu};
+export { LoadMainMenu, toggleHiddenMMenuGroup, addNewGroupMainMenu, addNewTagMainMenu };

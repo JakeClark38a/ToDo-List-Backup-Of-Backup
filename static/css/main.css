@@ -1049,6 +1049,7 @@ input:checked + .toggle-bg {
   margin: 0px;
   box-sizing: border-box;
   padding: 0px;
+  --primary-clr: #02c6d4;
 }
 
 /* nice scroll bar */
@@ -1828,28 +1829,7 @@ input:checked + .toggle-bg {
   color: var(--primary-clr);
 }
 
-.calendar .days .\!day {
-  display: flex;
-  height: 90px;
-  width: 14.28%;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  border-width: 1px;
-  border-style: solid;
-  --tw-border-opacity: 1;
-  border-color: rgb(245 245 245 / var(--tw-border-opacity));
-  color: var(--primary-clr);
-}
-
 .calendar .days .day:nth-child(7n + 1) {
-  border-left-width: 2px;
-  border-style: solid;
-  --tw-border-opacity: 1;
-  border-left-color: rgb(245 245 245 / var(--tw-border-opacity));
-}
-
-.calendar .days .\!day:nth-child(7n + 1) {
   border-left-width: 2px;
   border-style: solid;
   --tw-border-opacity: 1;
@@ -1863,21 +1843,7 @@ input:checked + .toggle-bg {
   border-right-color: rgb(245 245 245 / var(--tw-border-opacity));
 }
 
-.calendar .days .\!day:nth-child(7n) {
-  border-right-width: 2px;
-  border-style: solid;
-  --tw-border-opacity: 1;
-  border-right-color: rgb(245 245 245 / var(--tw-border-opacity));
-}
-
 .calendar .days .day:nth-child(-n + 7) {
-  border-top-width: 2px;
-  border-style: solid;
-  --tw-border-opacity: 1;
-  border-top-color: rgb(245 245 245 / var(--tw-border-opacity));
-}
-
-.calendar .days .\!day:nth-child(-n + 7) {
   border-top-width: 2px;
   border-style: solid;
   --tw-border-opacity: 1;
@@ -1891,20 +1857,7 @@ input:checked + .toggle-bg {
   border-bottom-color: rgb(245 245 245 / var(--tw-border-opacity));
 }
 
-.calendar .days .\!day:nth-child(n + 29) {
-  border-bottom-width: 2px;
-  border-style: solid;
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(245 245 245 / var(--tw-border-opacity));
-}
-
 .calendar .days .day:not(.prev-date, .next-date):hover {
-  background-color: var(--primary-clr);
-  --tw-text-opacity: 1;
-  color: rgb(216 216 216 / var(--tw-text-opacity));
-}
-
-.calendar .days .\!day:not(.prev-date, .next-date):hover {
   background-color: var(--primary-clr);
   --tw-text-opacity: 1;
   color: rgb(216 216 216 / var(--tw-text-opacity));
@@ -1960,11 +1913,6 @@ input:checked + .toggle-bg {
 }
 
 .calendar .days .day:hover.event::after {
-  --tw-bg-opacity: 1;
-  background-color: rgb(216 216 216 / var(--tw-bg-opacity));
-}
-
-.calendar .days .\!day:hover.event::after {
   --tw-bg-opacity: 1;
   background-color: rgb(216 216 216 / var(--tw-bg-opacity));
 }
@@ -2399,69 +2347,10 @@ input:checked + .toggle-bg {
   }
 
    {
-    height: 2.5rem;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    padding: 1.25rem;
     height: 50px;
-  }
-
-  .calendar .days .\!day {
     height: 2.5rem;
-    font-size: 0.8rem;
-  }
-
-  .calendar .days .\!day.active {
     font-size: 1rem;
     line-height: 1.5rem;
-  }
-
-  .calendar .days .\!day.today {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-   {
-    padding: 1.25rem;
-    height: 50px;
-  }
-
-  .calendar .days .\!day {
-    height: 2.5rem;
-    font-size: 0.8rem;
-  }
-
-  .calendar .days .\!day.active {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .calendar .days .\!day.today {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-   {
-    padding: 1.25rem;
-    height: 50px;
-  }
-
-  .calendar .days .\!day {
-    height: 2.5rem;
-    font-size: 0.8rem;
-  }
-
-  .calendar .days .\!day.active {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .calendar .days .\!day.today {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-   {
     padding: 1.25rem;
   }
 }
@@ -4361,6 +4250,18 @@ input:checked + .toggle-bg {
 
 .font-serif {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.font-\[\] {
+  font-family: ;
+}
+
+.font-\[bit\] {
+  font-family: bit;
+}
+
+.font-\[Lato\] {
+  font-family: Lato;
 }
 
 .text-2xl {
