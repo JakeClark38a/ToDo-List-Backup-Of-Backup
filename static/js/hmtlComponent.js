@@ -13,34 +13,34 @@ This file handle:
 //================================================================\\
 const MainScreen = {};
 MainScreen.TagTemplate = function (id, tag, mode = 0) {
-	if (mode == 0) {
-		return (
-			`
+    if (mode == 0) {
+        return (
+            `
         <div id="` +
-			id +
-			`" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer">` +
-			tag.title +
-			`</div>                
+            id +
+            `" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer">` +
+            tag.title +
+            `</div>                
         `
-		);
-	}
+        );
+    }
 };
 
 MainScreen.TaskTemplate = function (id, task, mode = 0) {
-	if (mode == 0) {
-		return (
-			` 
+    if (mode == 0) {
+        return (
+            ` 
 
         <div id="` +
-			id +
-			`" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default">
+            id +
+            `" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default">
         <div class=" rounded-lg shadow-lg">
 
             <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
 
                 <div class="font-semibold text-lg lg:text-xl truncate w-full dark:text-white ">` +
-			task.title +
-			`</div>
+            task.title +
+            `</div>
 
 
                 <div class="flex items-center gap-2">
@@ -63,8 +63,8 @@ MainScreen.TaskTemplate = function (id, task, mode = 0) {
             <div class="p-2 flex items-center h-fit">
 
                 <p class="h-full w-full text-left p-2 font-base truncate lg:text-xl dark:text-white">` +
-			task.description +
-			`</p>
+            task.description +
+            `</p>
 
                 <input id="Task-Destroyer" type="checkbox"
                     class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer"></input>
@@ -76,24 +76,24 @@ MainScreen.TaskTemplate = function (id, task, mode = 0) {
 
     </div>
 `
-		);
-	} else if (mode == 1) {
-		return (
-			`
+        );
+    } else if (mode == 1) {
+        return (
+            `
             <div id="` +
-			id +
-			`" class="task-outer">
+            id +
+            `" class="task-outer">
                 <div class=" rounded-lg h-20 lg:h-32 border-2 border-slate-700 ">
                     <div class=" px-2 flex justify-between items-center border-b-2 border-slate-700">
                         <div class="font-bold text-xl lg:text-2xl">` +
-			task.title +
-			`</div>
+            task.title +
+            `</div>
                         <div id="Task-Cancel" class="bg-red-500 rounded-full h-4 w-4 font-bold cursor-pointer"></div>
                     </div>
                     <div class="p-2 flex justify-between items-center lg:h-24">
                         <div class="text-center lg:text-xl">` +
-			task.description +
-			`</div>
+            task.description +
+            `</div>
                         <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl h-4 w-4 font-bold border-none cursor-pointer"></input>
                     </div>
 
@@ -101,21 +101,21 @@ MainScreen.TaskTemplate = function (id, task, mode = 0) {
 
             </div>
             `
-		);
-	}
+        );
+    }
 };
 
 MainScreen.GroupTemplate = function (id, group, mode = 0) {
-	if (mode == 0) {
-		return (
-			`
+    if (mode == 0) {
+        return (
+            `
     <div id="` +
-			id +
-			`" class="group-outer">
+            id +
+            `" class="group-outer">
         <div class="flex justify-between items-center px-3 ">
         <div id="Task-Group-Title" class="todobox-title lg:text-2xl dark:text-white">` +
-			group.title +
-			`</div>
+            group.title +
+            `</div>
         <div class="Group-Task-Add ">
                 <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -132,39 +132,39 @@ MainScreen.GroupTemplate = function (id, group, mode = 0) {
     </div>
     
     `
-		);
-	} else if (mode == 1) {
-		return (
-			`
+        );
+    } else if (mode == 1) {
+        return (
+            `
     <!-- Item  -->
 
     <div id="` +
-			id +
-			`" data-carousel-item class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 z-0">
+            id +
+            `" data-carousel-item class="flex flex-col items-center overflow-x-hidden ease-in-out duration-700 z-0">
         <div id="Task-Group-Title" class="text-center">` +
-			group.title +
-			`</div>
+            group.title +
+            `</div>
         <div id="" class="Task-Section border-primary-100 w-80 h-96 border-2" >
         <!-- Contents -->
         
         </div>
     </div>
     `
-		);
-	}
+        );
+    }
 };
 
 MainScreen.FormatterTemplate = function (mode = 0) {
-	if (mode == 0) {
-		return `
+    if (mode == 0) {
+        return `
     <div id="Main-Formatter" class="relative w-full">
         <div id="Wrapper" class="relative flex flex-wrap justify-center items-center gap-8 py-10 lg:px-36">
         <!--Group-->
         </div>
     </div>
     `;
-	} else if (mode == 1) {
-		return `
+    } else if (mode == 1) {
+        return `
         <!-- Main List -->
         <div id="Main-Formatter" class="relative w-full bg-red-300" data-carousel="static">
         <!-- Carousel wrapper -->
@@ -173,9 +173,47 @@ MainScreen.FormatterTemplate = function (mode = 0) {
 
         </div>
     </div>`;
-	}
+    }
 };
 
+MainScreen.FormmatterAddons = function (mode = 0) {
+    if (mode == 0) {
+    } else if (mode == 1) {
+        return `
+        
+        <!-- Slider controls -->
+        <div class="slider z-10">
+            <button type="button"
+                class="absolute top-1/2 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
+                data-carousel-prev>
+                <span
+                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5" d="M5 1 1 5l4 4" />
+                    </svg>
+                    <span class="sr-only">Previous</span>
+                </span>
+            </button>
+            <button type="button"
+                class="absolute top-1/2 right-0 z-30 flex items-start justify-center h-auto px-4 cursor-pointer group focus:outline-none"
+                data-carousel-next>
+                <span
+                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5" d="m1 9 4-4-4-4" />
+                    </svg>
+                    <span class="sr-only">Next</span>
+                </span>
+            </button>
+        </div>
+  
+        `;
+    }
+}
 
 
 //================================================================\\
@@ -184,12 +222,12 @@ MainScreen.FormatterTemplate = function (mode = 0) {
 
 const MainMenu = {};
 MainMenu.TagTempplate = function (id, tag) {
-	return (
-		`
+    return (
+        `
     
     <div id="` +
-		id +
-		`" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
+        id +
+        `" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
     <div class="h-full">
         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -199,8 +237,8 @@ MainMenu.TagTempplate = function (id, tag) {
     </div>
 
     <div id="MMenu-Tag-Title" class="text-lg px-1 my-1 center dark:text-white">` +
-		tag.title +
-		`</div>
+        tag.title +
+        `</div>
     <div class="MMenu-Tag-Edit mx-1">
     <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
@@ -209,15 +247,15 @@ MainMenu.TagTempplate = function (id, tag) {
 </div>
 
 `
-	);
+    );
 };
 
 MainMenu.GroupTemplates = function (id, group) {
-	return (
-		`
+    return (
+        `
     <div id="` +
-		id +
-		`" class="MMenu-Group"><!--block-->
+        id +
+        `" class="MMenu-Group"><!--block-->
     <!-- Greeting div, status centered -->
         <div class="flex justify-between items-center pl-3 pr-1">
 
@@ -229,8 +267,8 @@ MainMenu.GroupTemplates = function (id, group) {
             </div>
 
                 <div id="MMenu-Group-Title" class="text-xl ml-2 dark:text-white">` +
-		group.title +
-		`</div>
+        group.title +
+        `</div>
         </div>
 
         <div class="MMenu-Group-Edit mx-1">
@@ -251,7 +289,7 @@ MainMenu.GroupTemplates = function (id, group) {
         <!--tag-->
     </div>
 </div><!--eoblock-->`
-	);
+    );
 };
 
 

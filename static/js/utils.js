@@ -1129,8 +1129,8 @@ let currSession = Initialize.initApp();
 // Print Dict
 
 
-console.log(Dict);
-
+console.log(Dict)
+;
 let DictString = {
     // sample dict
     username: "JakeClark",
