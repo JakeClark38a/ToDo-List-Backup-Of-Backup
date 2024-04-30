@@ -30,3 +30,81 @@ Password: (dont type anything, just enter)
 mysql> (Type all things in setup.sql)
 
 # Done.
+#########################################################################################
+# Or: Use Docker
+
+# Create Dockerfile with:
+```Dockerfile
+# Use the official MySQL image from Docker Hub
+FROM mysql:latest
+
+# Set the root password for MySQL
+ENV MYSQL_ROOT_PASSWORD=password
+
+# Expose port 8080 for external communication
+EXPOSE 8080
+
+# Start MySQL service
+CMD ["mysqld", "--bind-address=0.0.0.0"]
+```
+
+# Active using: 
+$ docker build -t mysql_server .
+
+# Run container: 
+$ docker run -d -p <PORT>:3306 --name mysql_container mysql_server
+# (Depends on backend's port, replace <PORT> pls)
+
+# Identify container ID using
+$ docker ps -a
+
+# Go to MySQL inside container:
+$ docker exec -it CONTAINER_ID_OR_NAME mysql -uroot -p
+Password: password
+mysql> (Copy all thingy in setup.sql)
+
+NOTE1: Replace 'localhost' with '%' (because MySQL Docker will run in different IP than 127.0.0.1)
+NOTE2: If you accidentally execute all setup.sql with 'localhost', undo with:
+mysql> UPDATE mysql.user SET Host='%' WHERE User='todolist';
+mysql> REVOKE ALL PRIVILEGES ON todolist.* FROM 'todolist'@'localhost';
+mysql> GRANT ALL PRIVILEGES ON todolist.* TO 'todolist'@'%' WITH GRANT OPTION;
+mysql> FLUSH PRIVILEGES;
+mysql> -- Verify
+mysql> SELECT Host, User FROM mysql.db WHERE Db='todolist';
+
+# Done
+NOTE3: To test connector using Python:
+import mysql.connector
+
+# Define the connection parameters
+host = 'localhost'
+port = 3306  # This is the port mapped to MySQL in the Docker container
+user = 'todolist'
+password = 'Todolist<123456789'  # Change this to your MySQL root password
+
+try:
+    # Connect to the MySQL server
+    connection = mysql.connector.connect(
+        host=host,
+        port=port,
+        user=user,
+        password=password,
+        database='todolist'
+    )
+
+    if connection.is_connected():
+        print("Successfully connected to MySQL server")
+
+        # Get the MySQL server version
+        cursor = connection.cursor()
+        cursor.execute("SELECT VERSION()")
+        version = cursor.fetchone()[0]
+        print("MySQL server version:", version)
+
+        # Close cursor and connection
+        cursor.close()
+        connection.close()
+        print("Connection closed")
+
+except mysql.connector.Error as error:
+    print("Failed to connect to MySQL server:", error)
