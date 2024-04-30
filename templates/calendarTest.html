@@ -18,17 +18,15 @@
 </head>
 
 <body class="">
-    <!-- Begin Calendar -->
-    <div id="Calendar-Container" class="bg-main">
-        <div class="left">
-            <div class="calendar">
-                <div class="month">
-                    <i class="prev">
-                        &lt;</i>
-                    <div class="date">december 2015</div>
-                    <i class="next">&gt;</i>
+    <div id="Calendar-Container" class="container flex justify-center items-start mt-8 mx-auto max-w-screen-lg">
+        <div class="left w-2/3">
+            <div class="calendar relative w-full bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="month bg-gray-200 text-gray-700 text-lg font-medium py-3 px-6 flex items-center justify-between">
+                    <i class="prev cursor-pointer">&lt;</i>
+                    <div class="date">December 2015</div>
+                    <i class="next cursor-pointer">&gt;</i>
                 </div>
-                <div class="weekdays">
+                <div class="weekdays bg-gray-200 text-gray-700 text-sm font-medium py-2 px-6 flex items-center justify-between">
                     <div>Sun</div>
                     <div>Mon</div>
                     <div>Tue</div>
@@ -37,86 +35,49 @@
                     <div>Fri</div>
                     <div>Sat</div>
                 </div>
-                <div class="days"></div>
-                <div class="goto-today">
-                    <div class="goto">
-                        <input type="text" placeholder="mm/yyyy" class="date-input" />
-                        <button class="goto-btn">Go</button>
+                <div class="days grid grid-cols-7 gap-1 p-4">
+                    <!-- Days will be populated dynamically -->
+                </div>
+                <div class="goto-today bg-gray-200 text-gray-700 text-sm font-medium py-2 px-6 flex items-center justify-between">
+                    <div class="goto flex items-center">
+                        <input type="text" placeholder="mm/yyyy" class="date-input w-24 h-8 text-sm text-gray-700 px-2 border border-gray-300 rounded focus:outline-none focus:border-blue-400">
+                        <button class="goto-btn ml-2 text-gray-700 bg-gray-300 hover:bg-gray-400 px-3 py-1 rounded">Go</button>
                     </div>
-                    <button class="today-btn">Today</button>
+                    <button class="today-btn text-sm text-gray-700 bg-gray-300 hover:bg-gray-400 px-3 py-1 rounded">Today</button>
                 </div>
             </div>
         </div>
-
-        <div class="right">
+        <div class="right w-1/3 ml-8">
             <div class="tasks-display">
-                <div class="today-date">
-                    <div class="day-and-date">
-                        <div class="event-day">wed</div>
-                        <div class="event-date">12th december 2022</div>
+                <div class="today-date bg-gray-200 text-gray-700 text-lg font-medium py-3 px-6 mb-4 rounded-lg">
+                    <div class="day-and-date flex items-center justify-between">
+                        <div class="event-day">Wed</div>
+                        <div class="event-date">12th December 2022</div>
                     </div>
-        
-                    <!-- today-date equivilent to events -->
-                    <!-- task-container is equivilent to event -->
-                    <!-- this events div call a lot of function, be ware deleted it -->
-                    <div class="events"></div>
-        
-                    <!-- `<div class="event">
-                                    //       <div class="title">
-                                    //         <i class="fas fa-circle"></i>
-                                    //         <h3 class="event-title">${event.title}</h3>
-                                    //       </div>
-                                    //       <div class="event-time">
-                                    //         <span class="event-time">${event.time}</span>
-                                    //       </div>
-                                    //   </div>` -->
-        
-                    <!-- if we click in the event class div it will have delete function available -->
-        
-                    <!-- <div class="task-container">
-                                    <div class="time-display">8:30</div>
-                                    <div class="task-information">
-                                        <div class="task-title">đi nhà nghỉ</div>
-                                        <div class="task-description">Không nên nghỉ</div> 
-                                        <div class="tags-display">
-                                            <div class="tag-important">important</div>
-                                            <div class="tag-urgent">urgent</div>
-                                        </div>
-                                    </div>
-                                </div> -->
-        
-                </div>
-            </div>
-            <div class="add-event-wrapper">
-                <div class="add-event-header">
-                    <div class="title">Add Event</div>
-                    <i class="fas fa-times close"></i>
-                </div>
-                <div class="add-event-body">
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Event Name" class="event-name" />
-                    </div>
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Event Time From" class="event-time-from" />
-                    </div>
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Event Time To" class="event-time-to" />
-                    </div>
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Description" class="event-description" />
+                    <!-- Events will be populated dynamically -->
+                    <div class="events mt-4">
+                        <!-- Event items will be added dynamically -->
                     </div>
                 </div>
-                <div class="add-event-footer">
-                    <button class="add-event-btn">Add Event</button>
+                <div class="add-event-wrapper bg-white rounded-lg shadow-lg p-6">
+                    <div class="add-event-header flex items-center justify-between mb-4">
+                        <div class="title text-gray-700 text-lg font-medium">Add Event</div>
+                        <i class="fas fa-times close text-gray-700 cursor-pointer hover:text-blue-500"></i>
+                    </div>
+                    <div class="add-event-body">
+                        <!-- Add Event Form -->
+                    </div>
+                    <div class="add-event-footer mt-4">
+                        <button class="add-event-btn text-sm text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Add Event</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <button class="add-event">
-            <i class="">+</i>
+        <button class="add-event absolute w-12 h-12 flex items-center justify-center text-lg text-gray-700 bg-gray-300 hover:bg-gray-400 rounded-full shadow-lg top-8 right-8">
+            <i class="fas fa-plus"></i>
         </button>
-
     </div>
-    <!-- End Calendar -->
+    
 
     <!-- <script defer src="{{url_for('static', filename='js/calendar.js')}}"></script> -->
     <script defer src="../static/js/calendar.js"></script>

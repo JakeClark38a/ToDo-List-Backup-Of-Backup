@@ -30,3 +30,9 @@ Password: (dont type anything, just enter)
 mysql> (Type all things in setup.sql)
 
 # Done.
+
+How to change mysql database
+1. flask db init (use 1 time only) 
+--make change to modal.py---
+2. flask db migrate (update table)
+3. flask db upgrade (to really update table in mysql)

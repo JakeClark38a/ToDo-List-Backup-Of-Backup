@@ -183,62 +183,48 @@ $(document).ready(function () {
     console.log(eventsArr);
 
     function initCalendar() {
-        console.log("initCalendar");
-        const firstDay = new Date(year, month, 1);
-        const lastDay = new Date(year, month + 1, 0);
-        const prevLastDay = new Date(year, month, 0);
-        const prevDays = prevLastDay.getDate();
-        const lastDate = lastDay.getDate();
-        const day = firstDay.getDay();
-        const nextDays = 7 - lastDay.getDay() - 1;
-
         date.html(months[month] + " " + year);
+        daysContainer.html("");
+        let days = new Date(year, month + 1, 0).getDate();
+        let firstDayIndex = new Date(year, month).getDay();
+        let prevLastDay = new Date(year, month, 0).getDate();
+        let lastDayIndex = new Date(year, month, days).getDay();
+        let nextDays = 7 - lastDayIndex - 1;
 
-        let days = "";
-
-        for (let x = day; x > 0; x--) {
-            days += `<div class="day prev-date">${prevDays - x + 1}</div>`;
+        let prevDays = "";
+        for (let x = firstDayIndex+2; x > 0; x--) {
+            prevDays += `<div class="day prev-date">${prevLastDay - x + 1}</div>`;
         }
 
-        for (let i = 1; i <= lastDate; i++) {
-            let event = false;
-            eventsArr.forEach((eventObj) => {
-                if (
-                    eventObj.day === i &&
-                    eventObj.month === month + 1 &&
-                    eventObj.year === year
-                ) {
-                    event = true;
-                }
-            });
-            if (
-                i === new Date().getDate() &&
-                year === new Date().getFullYear() &&
-                month === new Date().getMonth()
-            ) {
-                activeDay = i;
-                getActiveDay(i);
-                updateEvents(i);
-                if (event) {
-                    days += `<div class="day today active event">${i}</div>`;
-                } else {
-                    days += `<div class="day today active">${i}</div>`;
-                }
+        let currentDays = "";
+        for (let i = 1; i <= days; i++) {
+            if (i === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                currentDays += `<div class="day active">${i}</div>`;
             } else {
-                if (event) {
-                    days += `<div class="day event">${i}</div>`;
-                } else {
-                    days += `<div class="day ">${i}</div>`;
-                }
+                currentDays += `<div class="day">${i}</div>`;
             }
         }
 
+        let nextDaysStr = "";
         for (let j = 1; j <= nextDays; j++) {
-            days += `<div class="day next-date">${j}</div>`;
+            nextDaysStr += `<div class="day next-date">${j}</div>`;
         }
-        daysContainer.html(days);
+
+        // Add empty placeholders for previous month's days if necessary
+        if (firstDayIndex === 0) {
+            prevDays += `<div class="day prev-date">${prevLastDay}</div>`;
+        }
+
+        // Add empty placeholders for next month's days if necessary
+        if (lastDayIndex === 6) {
+            nextDaysStr += `<div class="day next-date">${nextDays + 1}</div>`;
+        }
+
+        daysContainer.html(prevDays + currentDays + nextDaysStr);
         addListner();
+        updateEvents(today.getDate());
     }
+
 
     function prevMonth() {
         month--;
@@ -248,6 +234,8 @@ $(document).ready(function () {
         }
         initCalendar();
     }
+
+    initCalendar();
 
     function nextMonth() {
         month++;
@@ -262,6 +250,10 @@ $(document).ready(function () {
     next.on("click", nextMonth);
 
     initCalendar();
+
+
+
+
 
     function addListner() {
         $(".day").on("click", function (e) {

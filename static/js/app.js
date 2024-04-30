@@ -17,13 +17,13 @@ import { modalMainScreen } from "./CRUDmodal_handler.js";
 import { ajaxHandler } from "./ajaxHandler.js";
 import { LoadMainMenu, toggleHiddenMMenuGroup , addNewTagMainMenu} from "./mainMenuRenderer.js";
 import { LoadMainScreen, renderGroupMainScreen } from "./mainScreenRenderer.js";
+let Dict = Utils.getSampleData();
 
 $(document).ready(function () {
   //================================================================\\
   //=========================== Sample var =========================\\
   //================================================================\\
   let isDebugMode = true;
-  let Dict = Utils.getSampleData();
   if (isDebugMode) {
 
     let g1 = Dict.createGroup("Group 1", [], null, "red", "");
@@ -50,7 +50,7 @@ $(document).ready(function () {
 
     console.log(Dict);
   };
-
+  
   //================================================================\\
   //=========================== Variables ==========================\\
   //================================================================\\
@@ -59,14 +59,7 @@ $(document).ready(function () {
   let currentMode = 0;
   let currentMMenuTab = 0;  // 0-today 1-cal 2-garden
 
-  // Export updated user data
-  let updatedUserData = Dict.exportDict();
-
-  // Send updated user data to server
-  let dictWithAJAX = new DictWithAJAX();
-  dictWithAJAX.importDict(updatedUserData);
-  dictWithAJAX.setDict();
-
+ 
   function initUser() {
     currentMMenuTab = 0; // 0-today 2-calendar 3-garden
     currentMode = 0;
@@ -94,12 +87,12 @@ $(document).ready(function () {
   //================================================================\\
   //=========================== Avatar Menu ========================\\
   //================================================================\\
-  $("#Avatar-Menu-Click").click(function () {
+  $("#Avatar-Menu-Click").click(function () { /// Avatar Menu
     $("#Avatar-Menu").toggleClass("h-32 lg:h-44");
     $("#Avatar-Menu-Click").toggleClass("bg-primary-200");
   });
 
-  $("#PMenu-DarkMode").find("#Toggle-DarkMode").click(function () {
+  $("#PMenu-DarkMode").find("#Toggle-DarkMode").click(function () { // Darkmode Button
     $("html").toggleClass("dark", $("#Toggle-DarkMode").prop('checked'));
   });
 
@@ -107,7 +100,7 @@ $(document).ready(function () {
   //=========================== Mode Menu ==========================\\
   //================================================================\\
 
-  $("#Mode-Menu-Click").click(function () {
+  $("#Mode-Menu-Click").click(function () { // open mode menu the "..."
     $("#Mode-Menu").toggleClass("h-32 lg:h-44");
     $("#Mode-Menu-Click").toggleClass("bg-main/35");
   });
@@ -116,12 +109,12 @@ $(document).ready(function () {
   //=========================== Main Menu ==========================\\
   //================================================================\\
 
-  $("#Main-Menu-Click").click(function () {
+  $("#Main-Menu-Click").click(function () { // open main menu
     $("#Main-Menu").toggleClass("h-[86vh]");
     $("#Main-Menu-Click").toggleClass("-rotate-90")
   });
 
-  function updateMMenuTabIndicator(tab = null) {
+  function updateMMenuTabIndicator(tab = null) { // Update current selected tab indicator
     var $tab = tab ? tab : $("#Main-Menu").find("#MMenu-Today");
     var currId = $tab.attr('id');
     const indiModeCSS = 'border-r-4 border-primary-200 bg-gradient-to-l from-primary-200/35 to-transparent';
@@ -140,7 +133,7 @@ $(document).ready(function () {
   }
 
   $('#Main-Menu').on('click', '.MMenu-Primary-Section', function (e) {
-    updateMMenuTabIndicator($(this));
+    updateMMenuTabIndicator($(this)); // update when change tab
   });
 
   //Add group
@@ -173,7 +166,7 @@ $(document).ready(function () {
 
 
 
-  $("#MMenu-Group-Section").on("click", ".MMenu-Toggle-Hidden", function () {
+  $("#MMenu-Group-Section").on("click", ".MMenu-Toggle-Hidden", function () { /// hidden group tags menu
     toggleHiddenMMenuGroup($(this).parent().parent());
   });
 
@@ -182,7 +175,7 @@ $(document).ready(function () {
   //================================================================\\
   //========================== Main Screen =========================\\
   //================================================================\\
-
+  // Clock
   function clockTick() {
     const now = new Date();
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -234,6 +227,7 @@ $(document).ready(function () {
     console.log("Completed: " + taskId);
 
     Dict.completed[taskId] = Dict.tasks[taskId];
+    Dict.completed[taskId].isCompleted = true;
     delete Dict.tasks[taskId];
 
     // Also send to backend at /todo/completed/<id>
@@ -262,15 +256,13 @@ $(document).ready(function () {
   }
 
   function LoadUser() {
-    ajaxHandler.LoadGroup(); /// load userdata
+    let d = ajaxHandler.LoadUserData(); /// load userdata
+    console.log(d);
     RefreshMainScreen();
   }
 
-
-
-
-  modalMainScreen.LoadTags(Dict);
   modalMainScreen.LoadGroups(Dict);
+  modalMainScreen.LoadTags(Dict);
 
   $("#crud-modal").on('change', '#groups', function () {
     modalMainScreen.LoadTags(Dict, $(this).val());
@@ -449,14 +441,14 @@ $(document).ready(function () {
     modalMainScreen.hide();
   });
 
-
-
-
   // Add event click for redirect calendar
   $("#MMenu-Calendar").click(function () {
     window.location.href = "/calendar";
   })
 
+  //================================================================\\
+  //======================= Floating Button ========================\\
+  //================================================================\\
   function dragMoveListener(event) {
     var target = event.target
     // keep the dragged position in the data-x/data-y attributes
@@ -498,7 +490,12 @@ $(document).ready(function () {
       modalMainScreen.AddEditTask();
     })
 
+  //================================================================\\
+  //========================= getUserImage =========================\\
+  //================================================================\\
   //$("#Calendar").load("calendar.html");
   ajaxHandler.getUserProfileImage();
   // End of app.js
 })
+
+export { Dict };
