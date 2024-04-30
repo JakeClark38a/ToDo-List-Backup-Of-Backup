@@ -1,5 +1,5 @@
 /////////////////////////////////////// password modal code begin
-import { ajaxHandler } from "./ajaxHandler";
+import { ajaxHandler } from "./ajaxHandler.js";
 // Set the password modal element
 const $passwordModalEl = document.getElementById("password-modal");
 const changePasswordButton = document.getElementById("Change-Password-Button");
@@ -365,7 +365,7 @@ function AJAXgetUserProfileImage() {
     url: "/profile/get/image",
     type: "GET",
     success: function (data) {
-      $("#User-Current-Avatar").attr("src",data);
+      $("#User-Current-Avatar").attr("src", data);
     },
     error: function (data) {
       console.log(data);

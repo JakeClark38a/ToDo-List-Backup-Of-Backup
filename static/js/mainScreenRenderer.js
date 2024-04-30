@@ -41,9 +41,10 @@ function LoadMainScreen(Dict, currentMode = 0) {
     var formatter_html = $("#Main-Screen").append(
         MainScreen.FormatterTemplate()
     );
-
+    console.log(Dict.groups);
     // Iterate over groups
     for (var groupId in Dict.groups) {
+        console.log(groupId);
         if (Dict.groups.hasOwnProperty(groupId)) {
             var group = Dict.groups[groupId];
             var g = renderGroupMainScreen(
@@ -52,6 +53,7 @@ function LoadMainScreen(Dict, currentMode = 0) {
                 groupId,
                 currentMode
             );
+
             //console.log(groupId);
             var task_html = $(g).find("#Task-Section");
             // Iterate over tasks

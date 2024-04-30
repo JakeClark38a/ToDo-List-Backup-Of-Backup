@@ -12,19 +12,38 @@ This file handle:
 
 // Templates 
 import { MainMenu } from "./hmtlComponent.js";
-import { DictWithAJAX, Utils } from "./userData.js";
+import { Utils } from "./userData.js";
 import { modalMainScreen } from "./CRUDmodal_handler.js";
-import { ajaxHandler, userData } from "./ajaxHandler.js";
+import { ajaxHandler } from "./ajaxHandler.js";
 import { LoadMainMenu, toggleHiddenMMenuGroup, addNewTagMainMenu } from "./mainMenuRenderer.js";
 import { LoadMainScreen, renderGroupMainScreen } from "./mainScreenRenderer.js";
 
-$(document).ready(function () {
-  //================================================================\\
-  //=========================== Sample var =========================\\
-  //================================================================\\
-  let isDebugMode = false;
-  let Dict = ajaxHandler.LoadUserData();
 
+//================================================================\\
+//=========================== Sample var =========================\\
+//================================================================\\
+
+var Dict = {}//Utils.getSampleData();
+
+async function getData() {
+  try {
+    const loadedData = await ajaxHandler.LoadUserData();
+    console.log('Data loaded successfully:', loadedData);
+    Dict = loadedData;
+
+  } catch (error) {
+    console.log("Error loading data:", error);
+  }
+}
+
+// Call getData
+getData();
+
+
+
+$(document).ready(function () {
+  if (Dict == {}) console.log("Loading data from backend failed");
+  let isDebugMode = false;
   if (isDebugMode) {
     let g1 = Dict.createGroup("Group 1", [], null, "red", "");
     let g2 = Dict.createGroup("Group 2", [], null, "blue", "");
@@ -50,21 +69,38 @@ $(document).ready(function () {
 
     console.log(Dict);
   };
-  //================================================================\\
-  //=========================== Variables ==========================\\
-  //================================================================\\
-  if (isDebugMode) { console.log(Dict); };
-  let currentMode = 0;
-  let currentMMenuTab = 0;  // 0-today 1-cal 2-garden
 
+  //================================================================\\
+  //========================== Initialize ==========================\\
+  //================================================================\\
+
+  function RefreshMainScreen() {
+    console.log("Refresh the mainscreen");
+    $("#Main-Screen").empty();
+    $("#MMenu-Group-Section").empty();
+    console.log(Dict);
+    LoadMainMenu(Dict);
+    LoadMainScreen(Dict, currentMode);
+
+  }
 
   function init() {
     currentMMenuTab = 0; // 0-today 2-calendar 3-garden
     currentMode = 0;
-    LoadUser();
+    RefreshMainScreen();
     updateMMenuTabIndicator();
   }
-  init();
+  setTimeout(init, 300);
+
+  //================================================================\\
+  //=========================== Variables ==========================\\
+  //================================================================\\
+  if (isDebugMode) { console.log(Dict); };
+  var currentMode = 0;
+  var currentMMenuTab = 0;  // 0-today 1-cal 2-garden
+
+
+
 
 
   /* Main Display rule
@@ -239,33 +275,10 @@ $(document).ready(function () {
     }, 800);
   });
 
-  //================================================================\\
-  //========================== Initialize ==========================\\
-  //================================================================\\
-
-  function RefreshMainScreen() {
-    Dict = userData;
-    console.log(userData);
-    console.log(Dict);
-    console.log("Refresh the mainscreen");
-    $("#Main-Screen").empty();
-    $("#MMenu-Group-Section").empty();
-    console.log(Dict);
-    LoadMainMenu(Dict);
-    LoadMainScreen(Dict, currentMode);
-
-  }
-
-  function LoadUser() {
-    console.log(Dict);
-    RefreshMainScreen();
-  }
 
 
-
-
-  modalMainScreen.LoadTags(Dict);
-  modalMainScreen.LoadGroups(Dict);
+  //modalMainScreen.LoadTags(Dict);
+  //modalMainScreen.LoadGroups(Dict);
 
   $("#crud-modal").on('change', '#groups', function () {
     modalMainScreen.LoadTags(Dict, $(this).val());
@@ -372,14 +385,14 @@ $(document).ready(function () {
 
     if (mode == "group") {
       if (id == "none") {  /// Create a new group
-        let g = Dict.createGroup(title, desc, null, color, "");
+        let g = Dict.createGroup(title, [], null, color, "");
         $("#MMenu-Group-Section").append(MainMenu.GroupTemplates(g.groupID, g));
         /// Main Screen Add 
         renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"), g, currentMode);
         ajaxHandler.addGroup(g.groupID, g.title, g.color);
       }
       else { // Edit groups
-        let g = Dict.createGroup(title, desc, null, color, "", id);
+        let g = Dict.createGroup(title, [], null, color, "", id);
         Dict.updateGroup(g.groupID, g);
         $("#MMenu-Group-Section").find("#" + g.groupID).find("#MMenu-Group-Title").text(g.title);
         ajaxHandler.updateGroup(g.groupID, g.title, g.color);
@@ -494,6 +507,6 @@ $(document).ready(function () {
     })
 
   //$("#Calendar").load("calendar.html");
-  ajaxHandler.getUserProfileImage();
+
   // End of app.js
 })

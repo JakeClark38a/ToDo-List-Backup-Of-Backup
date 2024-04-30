@@ -185,80 +185,92 @@ ajaxHandler.updateTask = function (taskId, title, description, tag, deadline, po
         }
     });
 }
-/// load user group
 ajaxHandler.LoadGroup = function () {
-    // Send AJAX request to backend at /todo/update to update task
-    $.ajax({
-        type: "GET",
-        url: "/todo/group/get",
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            data.forEach((dt) => {
-                console.log(dt);
-                userData.createGroup(dt["title"], [], null, dt["color"],"", dt["groupId"]);
-            });
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "GET",
+            url: "/todo/group/get",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                data.forEach(function (dt) {
+                    userData.createGroup(dt.title, [], null, dt.color, "", dt.groupId);
+                });
+                console.log("Group loaded successfully");
+                resolve(); // Resolve the promise when AJAX call succeeds
+            },
+            error: function (error) {
+                console.log("Error loading group:", error);
+                reject(error); // Reject the promise if there is an error
+            }
+        });
     });
-}
+};
 
-/// load user group
 ajaxHandler.LoadTag = function () {
-    // Send AJAX request to backend at /todo/update to update task
-    $.ajax({
-        type: "GET",
-        url: "/todo/tag/get",
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            data.forEach((dt) => {
-                console.log(dt);
-                userData.createTag(dt["title"], dt["color"], dt["groupId"],true ,true,true , dt["tagId"]); 
-            });
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "GET",
+            url: "/todo/tag/get",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                data.forEach(function (dt) {
+                    userData.createTag(dt.title, dt.color, dt.groupId, true, true, true, dt.tagId);
+                });
+                console.log("Tag loaded successfully");
+                resolve(); // Resolve the promise when AJAX call succeeds
+            },
+            error: function (error) {
+                console.log("Error loading tag:", error);
+                reject(error); // Reject the promise if there is an error
+            }
+        });
     });
-}
+};
+
 ajaxHandler.LoadTask = function () {
-    // Send AJAX request to backend at /todo/update to update task
-    $.ajax({
-        type: "GET",
-        url: "/todo/get",
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            data.forEach((dt) => {
-                userData.createTask(dt["title"], dt["description"], dt["tag"], dt["deadline"], dt["points"], dt["taskId"] , dt["isCompleted"]);
-                console.log(dt);
-            });
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "GET",
+            url: "/todo/get",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                data.forEach(function (dt) {
+                    userData.createTask(dt.title, dt.description, dt.tag, dt.deadline, dt.points, dt.taskId, dt.isCompleted);
+                });
+                console.log("Task loaded successfully");
+                resolve(); // Resolve the promise when AJAX call succeeds
+            },
+            error: function (error) {
+                console.log("Error loading task:", error);
+                reject(error); // Reject the promise if there is an error
+            }
+        });
     });
-}
+};
 
 ajaxHandler.LoadUser = function () {
-    $.ajax({
-        url: "/profile/get",
-        type: "GET",
-        success: function (data) {
-            let userInfo = {};
-            userInfo.username = data.username;
-            userInfo.bio = data.bio;
-            userInfo.Location = data.Location;
-            return userInfo;
-        },
-        error: function (data) {
-            console.log(data);
-        },
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/profile/get",
+            type: "GET",
+            success: function (data) {
+                let userInfo = {
+                    username: data.username,
+                    bio: data.bio,
+                    Location: data.Location
+                };
+                resolve(userInfo); // Resolve the promise with user info when AJAX call succeeds
+            },
+            error: function (error) {
+                console.log("Error loading user:", error);
+                reject(error); // Reject the promise if there is an error
+            }
+        });
     });
-}
+};
 
 //Function to render image of user profile
 ajaxHandler.getUserProfileImage = function () {
@@ -274,14 +286,48 @@ ajaxHandler.getUserProfileImage = function () {
     });
 }
 
+ajaxHandler.LoadUserData = function () {
+    function loadAllData() {
+        return Promise.all([
+            ajaxHandler.LoadGroup(),
+            ajaxHandler.LoadTag(),
+            ajaxHandler.LoadTask(),
+            ajaxHandler.LoadUser()
+        ]);
+    }
 
-ajaxHandler.LoadUserData = function() {
-    ajaxHandler.LoadGroup();
-    ajaxHandler.LoadTag();
-    ajaxHandler.LoadTask();
-    ajaxHandler.LoadUser();
-    console.log(userData);
+    loadAllData().then(function () {
+        // All AJAX calls are completed
+        console.log("All userData loaded successfully.");
+
+        // filter all un-grouped tag
+        for (let tagId in userData.tags) {
+            let t = userData.tags[tagId];
+            // if group have tag does not exist
+            if (!userData.groups[t.groupId]) {
+                userData.removeTag(t.tagID);
+                continue;
+            }
+            // if tag === def_tag 
+            if (userData.groups[t.groupId].def_tag === t.tagID) {
+                continue;
+            }
+            userData.groups[t.groupId].tags.push(t.tagID);
+        }
+
+        // filter all task that have group and tags no longer exist
+
+        console.log(userData);
+
+
+        ajaxHandler.getUserProfileImage();
+    }).catch(function (error) {
+        // Handle errors if any AJAX call fails
+        console.error("Error loading data:", error);
+    });
+
     return userData;
-}
+};
 
-export { ajaxHandler , userData };
+
+export { ajaxHandler };
