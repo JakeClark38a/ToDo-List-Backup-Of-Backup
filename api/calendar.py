@@ -6,6 +6,7 @@ calendar = Blueprint('calendar', __name__, static_folder='../static/', template_
 def init():
     return render_template('calendarPage.html')
 
-@calendar.route('/calendar.html', methods=['GET'])
-def calendarPage():
-    return render_template('calendar.html')
+
+@calendar.route('/calendarTest.html', methods=['GET'])
+def calendar_test():
+    return render_template('calendarTest.html')
