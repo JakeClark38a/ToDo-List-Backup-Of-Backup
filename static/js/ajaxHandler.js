@@ -203,8 +203,8 @@ ajaxHandler.LoadGroup = function () {
                     current_html: "",
                 };
 
-                if (!tempDict.tags.hasOwnProperty(tmp.def_tag)) { // add def_tag
-                    tempDict.tags[tmp.def_tag] = {
+                if (!Dict.tags.hasOwnProperty(tmp.def_tag)) { // add def_tag
+                    Dict.tags[tmp.def_tag] = {
                         title: "Default",
                         color: "#000000",
                         display: false,
@@ -214,8 +214,8 @@ ajaxHandler.LoadGroup = function () {
                 }
 
                 tmp.tags.forEach((t, i) => { // add other tags
-                    if (!tempDict.tags.hasOwnProperty(t)) {
-                        tempDict.tags[t] = {
+                    if (!Dict.tags.hasOwnProperty(t)) {
+                        Dict.tags[t] = {
                             title: "no_name_" + tmp.title + "_" + i, // Adding index to title
                             color: randHexColor(),
                             display: true,
@@ -226,22 +226,19 @@ ajaxHandler.LoadGroup = function () {
                 });
 
 
-                tempDict.groups[dt[0]] = tmp;
+                Dict.groups[dt[0]] = tmp;
                 //tempDict.groups[dt[0]] = tmp;
             });
 
-            console.log(tempDict);
+            console.log(Dict);
             console.log("Load data complete")
+            RefreshMainScreen();
+            LoadGroups_Tag();
         },
         error: function (data) {
             console.log("Error");
         }
     });
-}
-
-ajaxHandler.LoadUserData = function (){
-    ajaxHandler.LoadGroup();
-
 }
 //Function to render image of user profile
 ajaxHandler.getUserProfileImage = function () {

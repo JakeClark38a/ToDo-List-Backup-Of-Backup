@@ -190,18 +190,22 @@
         <div id="Avatar-Menu"
             class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
 
-            <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
-                <div class="flex items-center">
-                    <div class="PMenu-Primary-Image-Wrapper">
-                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-width="2"
-                                d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        </svg>
+
+            <a href="{{url_for('profile', type=session['type'])}}">
+                <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
+                    <div class="flex items-center">
+                        <div class="PMenu-Primary-Image-Wrapper">
+                            <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-width="2"
+                                    d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </div>
+                        <div class="PMenu-Primary-Text">Profile</div>
                     </div>
-                    <div class="PMenu-Primary-Text">Profile</div>
                 </div>
-            </div>
+            </a><!--eoblock-->
 
             <div id="PMenu-UserSett" class="PMenu-Primary-Section hidden"> <!--block-->
                 <div class="flex items-center">
@@ -239,21 +243,21 @@
             </div><!--eoblock-->
 
             <div id="PMenu-Logout" class="PMenu-Primary-Section"> <!--block-->
-
-                <button>
-                    <div class="flex items-center">
-                        <div class="PMenu-Primary-Image-Wrapper">
-                            <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
-                            </svg>
+                <a href="{{url_for('logout')}}">
+                    <button>
+                        <div class="flex items-center">
+                            <div class="PMenu-Primary-Image-Wrapper">
+                                <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.5"
+                                        d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+                                </svg>
+                            </div>
+                            <div class="PMenu-Primary-Text">Log out</div>
                         </div>
-                        <div class="PMenu-Primary-Text">Log out</div>
-                    </div>
-                </button>
+                    </button>
                 </a>
             </div><!--eoblock-->
 
@@ -359,15 +363,16 @@
             </div>
             <div id="MMenu-Bottom" class="flex justify-between items-center p-2">
                 <div class="Log-out">
-
-                    <button>
-                        <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="1.5"
-                                d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
-                        </svg>
-                    </button>
+                    <a href="{{url_for('logout')}}">
+                        <button>
+                            <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.5"
+                                    d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+                            </svg>
+                        </button>
                     </a>
                 </div>
                 <div class="Settings">
@@ -419,18 +424,18 @@
         <!-- Redirect to Backend Generator here -->
         <!-- Begin Calendar -->
         <div id="Calendar" class="Container backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden"></div>
-
-    </div>
-    <!--End Calendar-->
-    <!--########################################################### EoCalendar ######################################################################-->
-
-
+        
+        </div>
+        <!--End Calendar-->
+        <!--########################################################### EoCalendar ######################################################################-->
 
 
 
-    <div class="Bottom-Bar w-full bottom-0 bg-accent-200 flex justify-between m-0">
-        <div class=""></div>
-    </div>
+
+
+        <div class="Bottom-Bar w-full bottom-0 bg-accent-200 flex justify-between m-0">
+            <div class=""></div>
+        </div>
 
 
 

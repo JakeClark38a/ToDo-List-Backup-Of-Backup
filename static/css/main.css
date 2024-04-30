@@ -1600,6 +1600,115 @@ input:checked + .toggle-bg {
 
 /*End task box*/
 
+.container {
+  position: relative;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  max-height: 800px;
+  border-radius: 10px;
+  padding: 5px;
+  --tw-text-opacity: 1;
+  color: rgb(216 216 216 / var(--tw-text-opacity));
+}
+
+.container .left {
+  height: 100vh;
+  width: 60%;
+  padding: 1.25rem;
+}
+
+.task-container-calendar {
+  display: flex;
+  width: 100%;
+}
+
+.task-container-calendar .time-display {
+  pointer-events: none;
+  min-width: 8rem;
+  max-width: 8rem;
+  overflow: auto;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+.task-container-calendar .task-information {
+  pointer-events: none;
+  display: flex;
+  max-width: 24rem;
+  flex-direction: column;
+  overflow: auto;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
+  padding: 0.75rem;
+}
+
+.task-container-calendar .task-information .task-title {
+  width: -moz-fit-content;
+  width: fit-content;
+  overflow: scroll;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.task-container-calendar .task-information .task-description {
+  overflow: hidden;
+}
+
+.task-container-calendar .task-information .tags-display {
+  display: flex;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.task-container-calendar .task-information .tags-display .tag-important {
+  border-radius: 0.75rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 82 82 / var(--tw-bg-opacity));
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.task-container-calendar .task-information .tags-display .tag-urgent {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 0.75rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 159 110 / var(--tw-bg-opacity));
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.calendar {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-radius: 5px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(216 216 216 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(135 136 149 / var(--tw-text-opacity));
+}
+
+.calendar::before {
+  left: calc(100% + 12px);
+  height: 94%;
+  content: var(--tw-content);
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+}
+
 /* set after behind the main element */
 
 .calendar::before,
@@ -1691,9 +1800,25 @@ input:checked + .toggle-bg {
   justify-content: center;
 }
 
-.calendar .days .day {
-  grid-column: span 1 / span 1;
+.calendar .days {
+  margin-bottom: 1.25rem;
   display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+}
+
+.calendar .days .day {
+  display: flex;
+  height: 90px;
+  width: 14.28%;
   cursor: pointer;
   align-items: center;
   justify-content: center;
@@ -1704,13 +1829,11 @@ input:checked + .toggle-bg {
   color: var(--primary-clr);
 }
 
-.calendar .days .day:nth-child(6n+1) {
+.calendar .days .day:nth-child(7n + 1) {
   border-left-width: 2px;
   border-style: solid;
   --tw-border-opacity: 1;
   border-left-color: rgb(245 245 245 / var(--tw-border-opacity));
-  --tw-bg-opacity: 1;
-  background-color: rgb(251 213 213 / var(--tw-bg-opacity));
 }
 
 .calendar .days .day:nth-child(7n) {
@@ -2376,10 +2499,6 @@ input:checked + .toggle-bg {
   right: 0.75rem;
 }
 
-.right-8 {
-  right: 2rem;
-}
-
 .start-0 {
   inset-inline-start: 0px;
 }
@@ -2390,10 +2509,6 @@ input:checked + .toggle-bg {
 
 .top-1\/2 {
   top: 50%;
-}
-
-.top-8 {
-  top: 2rem;
 }
 
 .top-\[5vh\] {
@@ -2602,10 +2717,6 @@ input:checked + .toggle-bg {
   margin-left: 1.25rem;
 }
 
-.ml-8 {
-  margin-left: 2rem;
-}
-
 .ml-\[3vw\] {
   margin-left: 3vw;
 }
@@ -2668,10 +2779,6 @@ input:checked + .toggle-bg {
 
 .mt-5 {
   margin-top: 1.25rem;
-}
-
-.mt-8 {
-  margin-top: 2rem;
 }
 
 .mt-\[3vh\] {
@@ -3116,10 +3223,6 @@ input:checked + .toggle-bg {
   max-width: 28rem;
 }
 
-.max-w-screen-lg {
-  max-width: 800px;
-}
-
 .max-w-sm {
   max-width: 24rem;
 }
@@ -3277,10 +3380,6 @@ input:checked + .toggle-bg {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.grid-cols-6 {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-}
-
 .grid-cols-7 {
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
@@ -3291,10 +3390,6 @@ input:checked + .toggle-bg {
 
 .grid-rows-5 {
   grid-template-rows: repeat(5, minmax(0, 1fr));
-}
-
-.grid-rows-6 {
-  grid-template-rows: repeat(6, minmax(0, 1fr));
 }
 
 .flex-row {
@@ -3347,10 +3442,6 @@ input:checked + .toggle-bg {
 
 .justify-evenly {
   justify-content: space-evenly;
-}
-
-.gap-1 {
-  gap: 0.25rem;
 }
 
 .gap-2 {
@@ -3693,11 +3784,6 @@ input:checked + .toggle-bg {
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-}
-
-.bg-gray-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .bg-gray-300\/35 {
@@ -4154,10 +4240,6 @@ input:checked + .toggle-bg {
   vertical-align: middle;
 }
 
-.font-Reddit_Mono {
-  font-family: "Reddit Mono", monospace;
-}
-
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
@@ -4168,6 +4250,18 @@ input:checked + .toggle-bg {
 
 .font-serif {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.font-\[\] {
+  font-family: ;
+}
+
+.font-\[bit\] {
+  font-family: bit;
+}
+
+.font-\[Lato\] {
+  font-family: Lato;
 }
 
 .text-2xl {
@@ -4571,10 +4665,6 @@ input:checked + .toggle-bg {
   padding: 0px;
 }
 
-.\*\:font-Itim > * {
-  font-family: "Itim", cursive;
-}
-
 .\*\:transition-all > * {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -4683,11 +4773,6 @@ input:checked + .toggle-bg {
   background-color: rgb(140 185 190 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-blue-600:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(112 148 152 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-blue-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(84 111 114 / var(--tw-bg-opacity));
@@ -4711,11 +4796,6 @@ input:checked + .toggle-bg {
 .hover\:bg-gray-200:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-gray-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-green-600:hover {
@@ -4750,11 +4830,6 @@ input:checked + .toggle-bg {
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(216 216 216 / var(--tw-bg-opacity));
-}
-
-.hover\:text-blue-500:hover {
-  --tw-text-opacity: 1;
-  color: rgb(140 185 190 / var(--tw-text-opacity));
 }
 
 .hover\:text-blue-600:hover {
@@ -4802,11 +4877,6 @@ input:checked + .toggle-bg {
   --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.focus\:border-blue-400:focus {
-  --tw-border-opacity: 1;
-  border-color: rgb(163 199 203 / var(--tw-border-opacity));
 }
 
 .focus\:border-blue-500:focus {

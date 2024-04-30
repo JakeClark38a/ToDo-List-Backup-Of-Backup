@@ -189,7 +189,49 @@
 
   /*End task box*/
 
+  .container {
+    @apply relative text-white flex my-0 p-[5px] rounded-[10px] mx-auto max-h-[800px];
+  }
 
+  .container .left {
+    @apply w-3/5 h-screen p-5;
+  }
+
+  .task-container-calendar {
+    @apply w-full flex;
+  }
+
+  .task-container-calendar .time-display {
+    @apply text-2xl text-gray-500 overflow-auto max-w-32 min-w-32 pointer-events-none;
+  }
+
+  .task-container-calendar .task-information {
+    @apply border bg-slate-400 rounded p-3 flex flex-col overflow-auto max-w-96 pointer-events-none;
+  }
+
+  .task-container-calendar .task-information .task-title {
+    @apply text-xl overflow-scroll w-fit;
+  }
+
+  .task-container-calendar .task-information .task-description {
+    @apply overflow-hidden;
+  }
+
+  .task-container-calendar .task-information .tags-display {
+    @apply flex text-lg py-2;
+  }
+
+  .task-container-calendar .task-information .tags-display .tag-important {
+    @apply bg-red-500 px-2 rounded-xl;
+  }
+
+  .task-container-calendar .task-information .tags-display .tag-urgent {
+    @apply bg-green-500 mx-2 px-2 rounded-xl;
+  }
+
+  .calendar {
+    @apply relative w-full flex flex-col flex-wrap justify-between text-[#878895] bg-white rounded-[5px] before:h-[94%] before:bg-gray-400 before:left-[calc(100%_+_12px)];
+  }
 
   /* set after behind the main element */
   .calendar::before,
@@ -218,12 +260,17 @@
   .weekdays div {
     @apply w-[14.28%] h-full flex items-center justify-center;
   }
-  .calendar .days .day {
-    @apply col-span-1 flex items-center justify-center cursor-pointer text-[color:var(--primary-clr)] border border-neutral-100 border-solid;
+
+  .calendar .days {
+    @apply w-full flex flex-wrap justify-between text-base font-medium mb-5 px-5 py-0;
   }
 
-  .calendar .days .day:nth-child(6n+1){
-    @apply border-l-neutral-100 border-l-2 border-solid bg-red-200;
+  .calendar .days .day {
+    @apply w-[14.28%] h-[90px] flex items-center justify-center cursor-pointer text-[color:var(--primary-clr)] border border-neutral-100 border-solid;
+  }
+
+  .calendar .days .day:nth-child(7n + 1) {
+    @apply border-l-neutral-100 border-l-2 border-solid;
   }
 
   .calendar .days .day:nth-child(7n) {
@@ -231,7 +278,7 @@
   }
 
   .calendar .days .day:nth-child(-n + 7) {
-    @apply border-t-neutral-100 border-t-2 border-solid ;
+    @apply border-t-neutral-100 border-t-2 border-solid;
   }
 
   .calendar .days .day:nth-child(n + 29) {
@@ -445,6 +492,14 @@
     .right .today-date {
       @apply p-5;
     }
+  }
+
+  .credits {
+    @apply absolute text-center text-xs text-white bg-[#b38add] p-2.5 bottom-0 inset-x-0;
+  }
+
+  .credits a {
+    @apply text-white no-underline font-semibold hover:underline;
   }
 
   /* End calendar */

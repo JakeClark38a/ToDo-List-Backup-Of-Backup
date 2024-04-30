@@ -368,7 +368,7 @@ class DictCRUD extends Dict {
         // return this
         return this.groups[group.groupID];
     }
-    createTask(title, description, tag, deadline, points, taskID = null, isCompleted = false) {
+    createTask(title, description, tag, deadline, points,  taskID = null, isCompleted = false) {
         let task = new Task(title, description, tag, deadline, points, taskID, isCompleted);
         if (!taskID) { task.generateID(); }
         this.tasks[task.taskID] = task;
@@ -560,5 +560,6 @@ class DictWithAJAX extends DictCRUD {
         })
     }
 }
+
 
 export { DictWithAJAX, Utils };
