@@ -74,6 +74,7 @@ mysql> SELECT Host, User FROM mysql.db WHERE Db='todolist';
 
 # Done
 NOTE3: To test connector using Python:
+``` python
 import mysql.connector
 
 # Define the connection parameters
@@ -108,3 +109,4 @@ try:
 
 except mysql.connector.Error as error:
     print("Failed to connect to MySQL server:", error)
+```
