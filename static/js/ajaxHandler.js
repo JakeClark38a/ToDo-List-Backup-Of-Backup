@@ -256,13 +256,11 @@ ajaxHandler.LoadUser = function () {
         $.ajax({
             url: "/profile/get",
             type: "GET",
-            success: function (data) {
-                let userInfo = {
-                    username: data.username,
-                    bio: data.bio,
-                    Location: data.Location
-                };
-                resolve(userInfo); // Resolve the promise with user info when AJAX call succeeds
+            success: function (data) {          
+                    userData.username= data.username,
+                    userData.bio= data.bio,
+                    userData.country= data.country
+                resolve(); // Resolve the promise with user info when AJAX call succeeds
             },
             error: function (error) {
                 console.log("Error loading user:", error);

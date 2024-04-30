@@ -26,7 +26,7 @@ function addNewGroupMainMenu(unique_id, group) {
     return $("#" + unique_id);
 }
 
-async function LoadMainMenu(Dict) {
+function LoadMainMenu(Dict) {
     //empty all
     $("#MMenu-Group-Section").empty();
     // Iterate over each group in Dict.groups
@@ -38,11 +38,13 @@ async function LoadMainMenu(Dict) {
             // Iterate over tags in the current group
             for (var j = 0; j < group.tags.length; j++) {
                 let tag_ = Dict.tags[group.tags[j]]
-                if (tag_.display == false) continue;
+                // console.log(tag_);
+                if (tag_ && tag_.display == false) continue;
                 addNewTagMainMenu(g.find("#MMenu-Tag-Section"), tag_.tagID, tag_);
             }
             toggleHiddenMMenuGroup(g);
         }
     }
 }
+
 export { LoadMainMenu, toggleHiddenMMenuGroup, addNewGroupMainMenu, addNewTagMainMenu };

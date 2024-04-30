@@ -159,11 +159,11 @@ modalMainScreen.AddEditTask = function (task) {
 }
 
 modalMainScreen.AddEditTag = function (tag) {
-
+  
   let h3 = tag ? "Edit Tag" : "Add Tag";
   let title = tag ? tag.title : '';
   let id = tag ? tag.tagID : "none";
-
+  //console.log(tag , h3 , title , id);
   // Customize modal appearance
   $('#crud-modal label[for="name"]').text("Name");
 
@@ -174,7 +174,8 @@ modalMainScreen.AddEditTag = function (tag) {
   $('#crud-modal #desc-sec').hide();
   $('#crud-modal #todo-expired-sec').hide();
   $('#crud-modal #tags-sec').hide();
-  $('#crud-modal #groups-sec').hide();
+
+  $('#crud-modal #groups-sec').show();
 
 
   if (tag && tag.deletable == true) {
@@ -266,6 +267,8 @@ modalMainScreen.LoadTags = function (Dict, GroupID) {
 modalMainScreen.LoadGroups = function (Dict) {
   console.log("Load groups");
   $("#crud-modal select#groups").empty(); // clean html before
+  console.log(Dict.groups);
+
   var groupArray = Object.keys(Dict.groups);
 
   groupArray.forEach(element => {

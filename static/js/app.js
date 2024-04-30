@@ -89,6 +89,8 @@ $(document).ready(function () {
     currentMode = 0;
     RefreshMainScreen();
     updateMMenuTabIndicator();
+    modalMainScreen.LoadTags(Dict);
+    modalMainScreen.LoadGroups(Dict);
   }
   setTimeout(init, 300);
 
@@ -177,7 +179,7 @@ $(document).ready(function () {
 
   /// Add tag
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
-    LoadGroups();
+    modalMainScreen.LoadGroups(Dict);
     modalMainScreen.AddEditTag();
   });
 
@@ -277,8 +279,7 @@ $(document).ready(function () {
 
 
 
-  //modalMainScreen.LoadTags(Dict);
-  //modalMainScreen.LoadGroups(Dict);
+
 
   $("#crud-modal").on('change', '#groups', function () {
     modalMainScreen.LoadTags(Dict, $(this).val());
@@ -351,7 +352,7 @@ $(document).ready(function () {
   })
 
   // Submit button
-  $('#crud-modal form').on("submit", function (e) {
+  $('#crud-modal #submit-sec').on("click", function (e) {
     e.preventDefault();
     // Get id from honeypot, if id is empty string, it means it's a new task
     let submitValues = modalMainScreen.getSubmitValues();
@@ -412,11 +413,14 @@ $(document).ready(function () {
         Dict.updateTag(t.tagID, t);
         $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Tag-Title").text(t.title);
         ajaxHandler.updateTag(t.tagID, t.groupId, t.title, t.color);
+        
       }
     }
 
     console.log(Dict);
+    setTimeout( getData, 300);
     RefreshMainScreen();
+    setTimeout(LoadMainMenu(Dict), 300);
     modalMainScreen.hide();
   })
 
