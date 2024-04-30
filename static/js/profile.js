@@ -1,5 +1,5 @@
 /////////////////////////////////////// password modal code begin
-
+import { ajaxHandler } from "./ajaxHandler";
 // Set the password modal element
 const $passwordModalEl = document.getElementById("password-modal");
 const changePasswordButton = document.getElementById("Change-Password-Button");
@@ -300,24 +300,8 @@ function updateUserInfo() {
 }
 $("#Apply-Change-Button").click(updateUserInfo);
 
-function AJAXgetUserInfo() {
-  $.ajax({
-    url: "/profile/get",
-    type: "GET",
-    success: function (data) {
-      console.log(data);
-      userInfo.username = data.username;
-      userInfo.bio = data.bio;
-      userInfo.Location = data.Location;
-      console.log(userInfo);
-      displayUserInfo();
-    },
-    error: function (data) {
-      console.log(data);
-    },
-  });
-}
-AJAXgetUserInfo();
+ajaxHandler.LoadUser();
+
 function AJAXsetUserInfo(username, bio, Location) {
   $.ajax({
     url: "/profile/update",

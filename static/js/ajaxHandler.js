@@ -7,6 +7,8 @@ This file handle:
 
 */
 //=====================================================================\\
+import { DictWithAJAX, Utils } from "./userData.js";
+let userData = new DictWithAJAX();
 
 let ajaxHandler = {}
 
@@ -192,54 +194,72 @@ ajaxHandler.LoadGroup = function () {
         contentType: "application/json",
         dataType: "json",
         success: function (data) {
-            console.log("Loading userdata");
-            let tempDict = {};
             data.forEach((dt) => {
-                let tmp = {
-                    title: dt[1],
-                    tags: [dt[2]],
-                    def_tag: dt[0],
-                    color: dt[3],
-                    current_html: "",
-                };
-
-                if (!Dict.tags.hasOwnProperty(tmp.def_tag)) { // add def_tag
-                    Dict.tags[tmp.def_tag] = {
-                        title: "Default",
-                        color: "#000000",
-                        display: false,
-                        editable: false,
-                        deletable: false,
-                    }
-                }
-
-                tmp.tags.forEach((t, i) => { // add other tags
-                    if (!Dict.tags.hasOwnProperty(t)) {
-                        Dict.tags[t] = {
-                            title: "no_name_" + tmp.title + "_" + i, // Adding index to title
-                            color: randHexColor(),
-                            display: true,
-                            editable: true,
-                            deletable: true,
-                        };
-                    }
-                });
-
-
-                Dict.groups[dt[0]] = tmp;
-                //tempDict.groups[dt[0]] = tmp;
+                console.log(dt);
+                userData.createGroup(dt["title"], [], null, dt["color"],"", dt["groupId"]);
             });
-
-            console.log(Dict);
-            console.log("Load data complete")
-            RefreshMainScreen();
-            LoadGroups_Tag();
         },
         error: function (data) {
             console.log("Error");
         }
     });
 }
+
+/// load user group
+ajaxHandler.LoadTag = function () {
+    // Send AJAX request to backend at /todo/update to update task
+    $.ajax({
+        type: "GET",
+        url: "/todo/tag/get",
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+            data.forEach((dt) => {
+                console.log(dt);
+                userData.createTag(dt["title"], dt["color"], dt["groupId"],true ,true,true , dt["tagId"]); 
+            });
+        },
+        error: function (data) {
+            console.log("Error");
+        }
+    });
+}
+ajaxHandler.LoadTask = function () {
+    // Send AJAX request to backend at /todo/update to update task
+    $.ajax({
+        type: "GET",
+        url: "/todo/get",
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+            data.forEach((dt) => {
+                userData.createTask(dt["title"], dt["description"], dt["tag"], dt["deadline"], dt["points"], dt["taskId"] , dt["isCompleted"]);
+                console.log(dt);
+            });
+        },
+        error: function (data) {
+            console.log("Error");
+        }
+    });
+}
+
+ajaxHandler.LoadUser = function () {
+    $.ajax({
+        url: "/profile/get",
+        type: "GET",
+        success: function (data) {
+            let userInfo = {};
+            userInfo.username = data.username;
+            userInfo.bio = data.bio;
+            userInfo.Location = data.Location;
+            return userInfo;
+        },
+        error: function (data) {
+            console.log(data);
+        },
+    });
+}
+
 //Function to render image of user profile
 ajaxHandler.getUserProfileImage = function () {
     $.ajax({
@@ -253,4 +273,15 @@ ajaxHandler.getUserProfileImage = function () {
         }
     });
 }
-export { ajaxHandler };
+
+
+ajaxHandler.LoadUserData = function() {
+    ajaxHandler.LoadGroup();
+    ajaxHandler.LoadTag();
+    ajaxHandler.LoadTask();
+    ajaxHandler.LoadUser();
+    console.log(userData);
+    return userData;
+}
+
+export { ajaxHandler , userData };

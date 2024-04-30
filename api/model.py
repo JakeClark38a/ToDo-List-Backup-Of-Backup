@@ -10,14 +10,14 @@ class Users(tododb.Model, UserMixin):
     password = tododb.Column(tododb.NVARCHAR(100))
     name = tododb.Column(tododb.NVARCHAR(256))
     bio = tododb.Column(tododb.NVARCHAR(2000))
-    location = tododb.Column(tododb.NVARCHAR(200))
+    country = tododb.Column(tododb.NVARCHAR(200))
     image = tododb.Column(tododb.NVARCHAR(200))
     type_account = tododb.Column(tododb.NVARCHAR(10))
     external_id = tododb.Column(tododb.NVARCHAR(40))
     isFillForm = tododb.Column(tododb.BOOLEAN, default=False)
 
     def __repr__(self) -> str:
-        return f'{self.user_id, self.email, self.name, self.bio, self.location, self.image, self.type_account, self.external_id, self.isFillForm}'
+        return f'{self.user_id, self.email, self.name, self.bio, self.country, self.image, self.type_account, self.external_id, self.isFillForm}'
     
     def get_id(self):
         return self.user_id

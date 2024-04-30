@@ -505,60 +505,6 @@ class DictWithAJAX extends DictCRUD {
         // Generate Dict object and assign to this
         super(username, userid, groups, tasks, completed, tags);
     }
-    // Add methods to interact with the server by AJAX
-    // Add methods to get Dict from server
-    getDict(fromServer = true) {
-        let dict = this;
-        // Get the dict from the server
-        if (fromServer) {
-            $.ajax({
-                type: "GET",
-                url: "/getDict",
-                contentType: "application/json",
-                dataType: "json",
-                success: function (data) {
-                    // Import the dict from the server
-                    dict.importDict(data);
-                    console.log("Dict imported from server");
-                    // console.log(dict);
-                }
-            })
-        }
-        // return the dict
-        return dict;
-    }
-    setDict(toServer = true) {
-        // Set the dict to the server
-        if (toServer) {
-            $.ajax({
-                type: "POST",
-                url: "/setDict",
-                contentType: "application/json",
-                dataType: "json",
-                data: this.exportDict(),
-                success: function (data) {
-                    console.log("Dict set to server");
-                }
-            })
-        }
-        // return the dict
-        return this;
-    }
-    addGroup() {
-        let dict = this;
-        console.log(dict);
-        // Add group to the server
-        $.ajax({
-            type: "POST",
-            url: "/addGroup",
-            contentType: "application/json",
-            dataType: "json",
-            data: { groupID: dict.groupID, title: dict.title, color: dict.color },
-            success: function (data) {
-                console.log("Group added to server");
-            }
-        })
-    }
 }
 
 

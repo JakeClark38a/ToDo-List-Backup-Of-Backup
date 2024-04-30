@@ -14,18 +14,18 @@ This file handle:
 import { MainMenu } from "./hmtlComponent.js";
 import { DictWithAJAX, Utils } from "./userData.js";
 import { modalMainScreen } from "./CRUDmodal_handler.js";
-import { ajaxHandler } from "./ajaxHandler.js";
-import { LoadMainMenu, toggleHiddenMMenuGroup , addNewTagMainMenu} from "./mainMenuRenderer.js";
+import { ajaxHandler, userData } from "./ajaxHandler.js";
+import { LoadMainMenu, toggleHiddenMMenuGroup, addNewTagMainMenu } from "./mainMenuRenderer.js";
 import { LoadMainScreen, renderGroupMainScreen } from "./mainScreenRenderer.js";
 
 $(document).ready(function () {
   //================================================================\\
   //=========================== Sample var =========================\\
   //================================================================\\
-  let isDebugMode = true;
-  let Dict = Utils.getSampleData();
-  if (isDebugMode) {
+  let isDebugMode = false;
+  let Dict = ajaxHandler.LoadUserData();
 
+  if (isDebugMode) {
     let g1 = Dict.createGroup("Group 1", [], null, "red", "");
     let g2 = Dict.createGroup("Group 2", [], null, "blue", "");
     let g3 = Dict.createGroup("Group 3", [], null, "green", "");
@@ -50,30 +50,21 @@ $(document).ready(function () {
 
     console.log(Dict);
   };
-
   //================================================================\\
   //=========================== Variables ==========================\\
   //================================================================\\
-  if (!isDebugMode) Dict = DictWithAJAX.LoadData();
   if (isDebugMode) { console.log(Dict); };
   let currentMode = 0;
   let currentMMenuTab = 0;  // 0-today 1-cal 2-garden
 
-  // Export updated user data
-  let updatedUserData = Dict.exportDict();
 
-  // Send updated user data to server
-  let dictWithAJAX = new DictWithAJAX();
-  dictWithAJAX.importDict(updatedUserData);
-  dictWithAJAX.setDict();
-
-  function initUser() {
+  function init() {
     currentMMenuTab = 0; // 0-today 2-calendar 3-garden
     currentMode = 0;
     LoadUser();
     updateMMenuTabIndicator();
   }
-  initUser();
+  init();
 
 
   /* Main Display rule
@@ -187,7 +178,7 @@ $(document).ready(function () {
     const now = new Date();
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const monthsOfYear = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    
+
     const dayOfWeek = daysOfWeek[now.getDay()];
     const day = now.getDate().toString().padStart(2, '0');
     const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-indexed, so we add 1
@@ -197,9 +188,9 @@ $(document).ready(function () {
     let hours = now.getHours();
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12 || 12; // Convert to 12-hour format
-    const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}, ${dayOfWeek}, ${monthsOfYear[month-1]} ${day}, ${year}`;
+    const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}, ${dayOfWeek}, ${monthsOfYear[month - 1]} ${day}, ${year}`;
     document.getElementById('clock').textContent = formattedTime;
-}
+  }
 
   setInterval(clockTick, 1000);
 
@@ -253,16 +244,20 @@ $(document).ready(function () {
   //================================================================\\
 
   function RefreshMainScreen() {
+    Dict = userData;
+    console.log(userData);
+    console.log(Dict);
     console.log("Refresh the mainscreen");
     $("#Main-Screen").empty();
     $("#MMenu-Group-Section").empty();
+    console.log(Dict);
     LoadMainMenu(Dict);
     LoadMainScreen(Dict, currentMode);
 
   }
 
   function LoadUser() {
-    ajaxHandler.LoadGroup(); /// load userdata
+    console.log(Dict);
     RefreshMainScreen();
   }
 

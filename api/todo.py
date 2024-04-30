@@ -38,6 +38,14 @@ def default_tag(tag_id,group_id,tag_title,tag_color,user_id):
     else:
         return
 
+def default_task(task_id,task_title,task_description,tag_id,user_id,deadline,points,isCompleted):
+    if not Tasks.query.filter_by(task_id=task_id, user_id=user_id).first():
+        new_task = Tasks(task_id=task_id, task_title=task_title, task_description=task_description, tag_id=tag_id, user_id=user_id, deadline=deadline, points=points, isCompleted=isCompleted)
+        tododb.session.add(new_task)
+        tododb.session.commit()
+    else:
+        return
+
 #Endpoints
 
 @todo.route('/todo', methods=['GET'])
@@ -54,8 +62,19 @@ def main_page():
         default_tag('tag3','gid003','tag3','#ac7acf',curr_user.user_id)
         default_tag('tag4','gid004','tag4','#c5e875',curr_user.user_id)
         default_tag('tag5','gid001','tag5','#7aa5cf',curr_user.user_id)
+        default_task('a021c966-3116-4671-9e65-c7f8f92af4c6','Task 3','Description 3','tag1',curr_user.user_id,datetime.datetime.now(),10,False)
         return redirect(url_for('profiles.profile', type=session['type']))
     else:
+        default_group('gid001',"Do",curr_user.user_id,"#7aa5cf")
+        default_group('gid002',"Delegate",curr_user.user_id,"#63c074")
+        default_group('gid003',"Schedule",curr_user.user_id,"#ac7acf")
+        default_group('gid004',"Delete",curr_user.user_id,"#c5e875")
+        default_tag('tag1','gid001','tag1','#7aa5cf',curr_user.user_id)
+        default_tag('tag2','gid002','tag2','#63c074',curr_user.user_id)
+        default_tag('tag3','gid003','tag3','#ac7acf',curr_user.user_id)
+        default_tag('tag4','gid004','tag4','#c5e875',curr_user.user_id)
+        default_tag('tag5','gid001','tag5','#7aa5cf',curr_user.user_id)
+        default_task('a021c966-3116-4671-9e65-c7f8f92af4c6','Task 3','Description 3','tag1',curr_user.user_id,datetime.datetime.now(),10,False)
         return render_template('mainPage.html')
     
 @todo.route('/todo/create', methods=['POST'])
