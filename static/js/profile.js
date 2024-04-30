@@ -1,31 +1,3 @@
-// Function to toggle the disable state and apply gray out styles to the select box
-function toggleSelectBoxState() {
-  // Get the select element
-  var selectBox = document.getElementById("user_profile_local_time_zone_name");
-  // Get the checkbox element
-  var checkbox = document.getElementById(
-    "user_profile_display_local_time_zone"
-  );
-
-  // Set the disabled attribute of the select box based on the checkbox state
-  selectBox.disabled = !checkbox.checked;
-
-  // If the select box is disabled, add a CSS class to gray it out; otherwise, remove the class
-  if (selectBox.disabled) {
-    selectBox.classList.add("disabled-select");
-  } else {
-    selectBox.classList.remove("disabled-select");
-  }
-}
-
-// Add an event listener to the checkbox to call the toggleSelectBoxState function when it changes
-document
-  .getElementById("user_profile_display_local_time_zone")
-  .addEventListener("change", toggleSelectBoxState);
-
-// Call the toggleSelectBoxState function initially to set the initial state
-toggleSelectBoxState();
-
 /////////////////////////////////////// password modal code begin
 
 // Set the password modal element
@@ -63,6 +35,7 @@ document
   .getElementById("Change-Password-Button")
   .addEventListener("click", () => {
     passwordModal.show();
+
   });
 
 // Function to center the password modal
@@ -71,6 +44,49 @@ function centerPasswordModal() {
   $passwordModalEl.style.left = "50%";
   $passwordModalEl.style.transform = "translate(-50%, -50%)";
 }
+function AJAXresetpassword(curr_password, new_password, confirm_password) {
+  $.ajax({
+    url: "/profile/update/password",
+    type: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify({
+      curr_password: curr_password,
+      new_password: new_password,
+      confirm_password: confirm_password,
+    }),
+    contentType: "application/json",
+    dataType: "json",
+    success: function (data) {
+      alert(data);
+    },
+    error: function (data) {
+      alert(data);
+    },
+  });
+}
+
+
+$("#submit-password").click(function (e) {
+  e.preventDefault();
+  var current_password = $("#current-password-sec").find("#current-password").val();
+  var new_password = $("#new-password-sec").find("#new-password").val();
+  var confirm_password = $("#confirm-password-sec").find("#confirm-password").val();
+  console.log(current_password, new_password, confirm_password);
+  AJAXresetpassword(current_password, new_password, confirm_password);
+  passwordModal.hide();
+
+});
+
+// document.getElementById("#submit-password").addEventListener("click", function(){
+//   //e.preventDefault();
+//   var current_password = $("#current-password-sec").find("#current-password").val();
+//   var new_password = $("#new-password-sec").find("#new-password").val();
+//   var confirm_password = $("#confirm-password-sec").find("#confirm-password").val();
+//   AJAXresetpassword(current_password, new_password, confirm_password);
+// });
 
 // Call the centerPasswordModal function when the window is resized
 window.addEventListener("resize", centerPasswordModal);
@@ -83,60 +99,53 @@ centerPasswordModal();
 /////////////////////////////////////// username modal code begin
 
 // Set the username modal element
-const $usernameModalEl = document.getElementById("username-modal");
+const $emailModalEl = document.getElementById("email-modal");
 
-// Options for the username modal
-const usernameModalOptions = {
+// Options for the email modal
+const emailModalOptions = {
   backdrop: "dynamic",
   backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
   closable: true,
   onHide: () => {
-    console.log("Username modal is hidden");
+    console.log("email modal is hidden");
   },
   onShow: () => {
-    console.log("Username modal is shown");
+    console.log("email modal is shown");
   },
   onToggle: () => {
-    console.log("Username modal has been toggled");
+    console.log("email modal has been toggled");
   },
 };
 
-// Create a new instance of the modal for the username modal
-const usernameModal = new Modal($usernameModalEl, usernameModalOptions);
+// Create a new instance of the modal for the email modal
+const emailModal = new Modal($emailModalEl, emailModalOptions);
 
-// Function to handle closing the username modal when the close button is clicked
+// Function to handle closing the email modal when the close button is clicked
 document
-  .getElementById("btn-close-username-modal")
+  .getElementById("btn-close-email-modal")
   .addEventListener("click", () => {
-    usernameModal.hide();
+    emailModal.hide();
   });
 
-// Function to unhide the username modal when the change username button is clicked
-document
-  .getElementById("Change-Username-Button")
-  .addEventListener("click", () => {
-    usernameModal.show();
-  });
+// Function to unhide the email modal when the change email button is clicked
+document.getElementById("Change-Email-Button").addEventListener("click", () => {
+  emailModal.show();
+});
 
-// Function to center the username modal
-function centerUsernameModal() {
-  $usernameModalEl.style.top = "50%";
-  $usernameModalEl.style.left = "50%";
-  $usernameModalEl.style.transform = "translate(-50%, -50%)";
+// Function to center the email modal
+function centeremailModal() {
+  $emailModalEl.style.top = "50%";
+  $emailModalEl.style.left = "50%";
+  $emailModalEl.style.transform = "translate(-50%, -50%)";
 }
 
-// Call the centerUsernameModal function when the window is resized
-window.addEventListener("resize", centerUsernameModal);
+// Call the centeremailModal function when the window is resized
+window.addEventListener("resize", centeremailModal);
 
-// Call the centerUsernameModal function initially to center the modal
-centerUsernameModal();
+// Call the centeremailModal function initially to center the modal
+centeremailModal();
 
-/////////////////////////////////////// username modal code end
-
-
-
-
-
+/////////////////////////////////////// email modal code end
 
 /////////////////////////////////////// change avatar modal code begin
 
@@ -168,17 +177,17 @@ const avatarModalOptions = {
 const avatarModal = new Modal($avatarModalEl, avatarModalOptions);
 
 // Function to handle closing the avatar modal when the close button is clicked
-document.getElementById("btn-close-avatar-modal").addEventListener("click", () => {
-  avatarModal.hide();
-});
-
+document
+  .getElementById("btn-close-avatar-modal")
+  .addEventListener("click", () => {
+    avatarModal.hide();
+  });
 
 // Function to unhide the avatar options when the edit button or the avatar is clicked
 document.getElementById("Avatar-Menu-Profile").addEventListener("click", () => {
   const dropdownmenu = document.getElementById("Drop-Down-Options-Profile");
   dropdownmenu.classList.toggle("hidden");
 });
-
 
 // Function to center the avatar modal
 function centerAvatarModal() {
@@ -192,7 +201,6 @@ window.addEventListener("resize", centerAvatarModal);
 
 // Call the centerAvatarModal function initially to center the modal
 centerAvatarModal();
-
 
 // Declare cropper variable outside the event listener
 let cropper;
@@ -247,67 +255,151 @@ document.getElementById("change-avatar-btn").addEventListener("click", () => {
   if (cropper) {
     const croppedCanvas = cropper.getCroppedCanvas();
     const croppedDataURL = croppedCanvas.toDataURL("image/jpeg"); // Change format if needed
-
-    // Log cropped image data
     console.log("Cropped Image Data:", croppedDataURL);
-
-    // Send cropped image data to the server
-    fetch("your-server-url", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    $.ajax({
+      url: "/profile/update/image",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify({ avatar: croppedDataURL }),
+      enctype: "multipart/form-data",
+      contentType: "application/json; charset=utf-8",
+      processData: false,
+      cache: false,
+      success: function (data) {
+        console.log(data);
+        $("#avatar-modal").hide();
+        location.reload();
       },
-      body: JSON.stringify({ avatar: croppedDataURL }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Success, handle accordingly (e.g., close modal)
-          $("#avatar-modal").hide();
-        } else {
-          // Handle error
-          console.error("Error sending cropped image data to the server");
-        }
-      })
-      .catch((error) => {
-        console.error("Error sending cropped image data:", error);
-      });
+      error: function (data) {
+        console.log(data);
+      },
+    });
   }
 });
 /////////////////////////////////////// change avatar modal code end
 
-/////////////////////////////////////// update user info 
-var userInfo ={
+/////////////////////////////////////// update user info
+var userInfo = {
   username: "John Doe",
   bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  timeZone: "UTC",
-  displayTimeZone: true,
-  localTimeZoneName: "UTC",
+  Location: "UTC",
 };
-function displayUserInfo()
-{
-  $('#Username-Section').find('#user_profile_name').val(userInfo.username);
-  $('#Bio-Section').find('#user_profile_bio').text(userInfo.bio);
-  $('#Time-Zone-Section').find('#user_location_name').val(userInfo.timeZone);
-  $('#Time-Zone-Section').find('#user_profile_display_local_time_zone').prop('checked', userInfo.displayTimeZone);
-  toggleSelectBoxState();
-  $('#Time-Zone-Section').find('#user_profile_local_time_zone_name').val(userInfo.localTimeZoneName);
+function displayUserInfo() {
+  $("#Username-Section").find("#user_profile_name").val(userInfo.username);
+  $("#Bio-Section").find("#user_profile_bio").text(userInfo.bio);
+  $("#Time-Zone-Section").find("#user_location_name").val(userInfo.Location);
 }
 displayUserInfo();
-function updateUserInfo(){
-  userInfo.username = $('#Username-Section').find('#user_profile_name').val();
-  userInfo.bio = $('#Bio-Section').find('#user_profile_bio').text();
-  userInfo.timeZone = $('#Time-Zone-Section').find('#user_location_name').val();
-  userInfo.displayTimeZone = $('#Time-Zone-Section').find('#user_profile_display_local_time_zone').prop('checked');
-  userInfo.localTimeZoneName = $('#Time-Zone-Section').find('#user_profile_local_time_zone_name').val();
+function updateUserInfo() {
+  userInfo.username = $("#Username-Section").find("#user_profile_name").val();
+  userInfo.bio = $("#Bio-Section").find("#user_profile_bio").val();
+  userInfo.Location = $("#Time-Zone-Section").find("#user_location_name").val();
   displayUserInfo();
-  console.log('bruh');
+  AJAXsetUserInfo(userInfo.username, userInfo.bio, userInfo.Location);
+  console.log("bruh");
 }
-$('#Apply-Change-Button').click(updateUserInfo);
+$("#Apply-Change-Button").click(updateUserInfo);
 
-function AJAXgetUserInfo(){
+function AJAXgetUserInfo() {
+  $.ajax({
+    url: "/profile/get",
+    type: "GET",
+    success: function (data) {
+      console.log(data);
+      userInfo.username = data.username;
+      userInfo.bio = data.bio;
+      userInfo.Location = data.Location;
+      console.log(userInfo);
+      displayUserInfo();
+    },
+    error: function (data) {
+      console.log(data);
+    },
+  });
+}
+AJAXgetUserInfo();
+function AJAXsetUserInfo(username, bio, Location) {
+  $.ajax({
+    url: "/profile/update",
+    type: "POST",
+    data: JSON.stringify({
+      username: userInfo.username,
+      bio: userInfo.bio,
+      Location: userInfo.Location,
+    }),
+    contentType: "application/json",
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+    },
+    error: function (data) {
+      console.log(data);
+    },
+  });
+}
+
+function AJAXSendConfirmation() {
+  $.ajax({
+    url: "/profile/update/email_confirmation",
+    type: "POST",
+    data: JSON.stringify({
+      curr_email: $("#current-email-sec").find("#current-email").val(),
+    }),
+    contentType: "application/json",
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+    },
+    error: function (data) {
+      console.log(data);
+    },
+  });
+}
+
+function AJAXChangeEmail() {
+  $.ajax({
+    url: "/profile/update/email",
+    type: "POST",
+    data: JSON.stringify({
+      curr_email: $("#current-email-sec").find("#current-email").val(),
+      new_email: $("#new-email-sec").find("#new-email").val(),
+      otp: $("#authenticate-code-sec").find("#authenticate-code").val(),
+    }),
+    contentType: "application/json",
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+    },
+    error: function (data) {
+      console.log(data);
+    },
+  });
+}
+
+function AJAXgetUserProfileImage() {
+  $.ajax({
+    url: "/profile/get/image",
+    type: "GET",
+    success: function (data) {
+      $("#User-Current-Avatar").attr("src",data);
+    },
+    error: function (data) {
+      console.log(data);
+    },
+  });
 
 }
-function AJAXsetUserInfo(){
+AJAXgetUserProfileImage();
 
-}
+$("#change-email").click(function () {
+  e.preventDefault()
+  AJAXChangeEmail();
+  location.reload();
+});
+
+$("#send-mail").click(function () {
+  AJAXSendConfirmation();
+});
+
+
 /////////////////////////////////////// update user info end
