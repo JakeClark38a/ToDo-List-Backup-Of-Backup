@@ -7,182 +7,220 @@ This file handle:
 
 */
 //=====================================================================\\
-import { DictWithAJAX, Utils } from "./userData.js";
-let userData = new DictWithAJAX();
+import { DictCRUD, Utils } from "./userData.js";
 
 let ajaxHandler = {}
 
 ajaxHandler.addGroup = function (groupId, title, color) {
     // Send AJAX request to backend at /todo/group/create to add group
-    $.ajax({
-        type: "POST",
-        url: "/todo/group/create",
-        data: JSON.stringify({ groupId: groupId, title: title, color: color }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log("Success");
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "POST",
+            url: "/todo/group/create",
+            data: JSON.stringify({ groupId: groupId, title: title, color: color }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log("Success");
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
     });
 }
 
 ajaxHandler.addTag = function (tagId, groupId, title, color) {
     // Send AJAX request to backend at /todo/tag/create to add tag
-    $.ajax({
-        type: "POST",
-        url: "/todo/tag/create",
-        data: JSON.stringify({ tagId: tagId, groupId: groupId, title: title, color: color }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log("Success");
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "POST",
+            url: "/todo/tag/create",
+            data: JSON.stringify({ tagId: tagId, groupId: groupId, title: title, color: color }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log("Success");
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
     });
 }
 
 ajaxHandler.updateGroup = function (groupId, title, color) {
     // Send AJAX request to backend at /todo/group/update to edit group
-    $.ajax({
-        type: "POST",
-        url: "/todo/group/update",
-        data: JSON.stringify({ groupId: groupId, title: title, color: color }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log("Success");
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "POST",
+            url: "/todo/group/update",
+            data: JSON.stringify({ groupId: groupId, title: title, color: color }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log("Success");
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
     });
 }
 
 ajaxHandler.updateTag = function (tagId, groupId, title, color) {
     // Send AJAX request to backend at /todo/tag/update to edit tag
-    $.ajax({
-        type: "POST",
-        url: "/todo/tag/update",
-        data: JSON.stringify({ tagId: tagId, groupId: groupId, title: title, color: color }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log("Success");
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "POST",
+            url: "/todo/tag/update",
+            data: JSON.stringify({ tagId: tagId, groupId: groupId, title: title, color: color }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log("Success");
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
     });
 }
 
 ajaxHandler.deleteGroup = function (groupId) {
     // Send AJAX request to backend at /todo/group/delete to delete group
-    $.ajax({
-        type: "POST",
-        url: "/todo/group/delete",
-        data: JSON.stringify({ groupId: groupId }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log("Success");
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "POST",
+            url: "/todo/group/delete",
+            data: JSON.stringify({ groupId: groupId }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log("Success");
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
     });
 }
 
 ajaxHandler.deleteTag = function (tagId) {
     // Send AJAX request to backend at /todo/tag/delete to delete tag
-    $.ajax({
-        type: "POST",
-        url: "/todo/tag/delete",
-        data: JSON.stringify({ tagId: tagId }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log("Success");
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "POST",
+            url: "/todo/tag/delete",
+            data: JSON.stringify({ tagId: tagId }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log("Success");
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
     });
 }
 
 ajaxHandler.createTask = function (taskId, title, description, tag, deadline, points, isCompleted = false) {
     // Send AJAX request to backend at /todo/create to create task
-    $.ajax({
-        type: "POST",
-        url: "/todo/create",
-        data: JSON.stringify({
-            taskId: taskId, title: title, description: description, tag: tag, deadline: deadline, points: points, isCompleted: isCompleted
-        }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log("Success");
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "POST",
+            url: "/todo/create",
+            data: JSON.stringify({
+                taskId: taskId, title: title, description: description, tag: tag, deadline: deadline, points: points, isCompleted: isCompleted
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log("Success");
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
     });
 }
 
 ajaxHandler.deleteTask = function (taskId) {
     // Send AJAX request to backend at /todo/delete to delete task  
-    $.ajax({
-        type: "POST",
-        url: "/todo/delete",
-        data: JSON.stringify({ taskId: taskId }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log("Success");
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "POST",
+            url: "/todo/delete",
+            data: JSON.stringify({ taskId: taskId }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log("Success");
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
     });
 }
 
 ajaxHandler.completeTask = function (taskId) {
     // Send AJAX request to backend at /todo/completed/<id> to mark task as completed
-    $.ajax({
-        type: "POST",
-        url: "/todo/completed/" + taskId,
-        data: JSON.stringify({ taskId: taskId, isCompleted: true }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log("Success");
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "POST",
+            url: "/todo/completed/" + taskId,
+            data: JSON.stringify({ taskId: taskId, isCompleted: true }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log("Success");
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
     });
 }
 
 ajaxHandler.updateTask = function (taskId, title, description, tag, deadline, points, isCompleted = false) {
     // Send AJAX request to backend at /todo/update to update task
-    $.ajax({
-        type: "POST",
-        url: "/todo/update",
-        data: JSON.stringify({
-            taskId: taskId, title: title, description: description, tag: tag, deadline: deadline, points: points, isCompleted: isCompleted
-        }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log("Success");
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "POST",
+            url: "/todo/update",
+            data: JSON.stringify({
+                taskId: taskId, title: title, description: description, tag: tag, deadline: deadline, points: points, isCompleted: isCompleted
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
     });
 }
 ajaxHandler.LoadGroup = function () {
@@ -193,11 +231,7 @@ ajaxHandler.LoadGroup = function () {
             contentType: "application/json",
             dataType: "json",
             success: function (data) {
-                data.forEach(function (dt) {
-                    userData.createGroup(dt.title, [], null, dt.color, "", dt.groupId);
-                });
-                console.log("Group loaded successfully");
-                resolve(); // Resolve the promise when AJAX call succeeds
+                resolve(data); // Resolve the promise when AJAX call succeeds
             },
             error: function (error) {
                 console.log("Error loading group:", error);
@@ -215,11 +249,7 @@ ajaxHandler.LoadTag = function () {
             contentType: "application/json",
             dataType: "json",
             success: function (data) {
-                data.forEach(function (dt) {
-                    userData.createTag(dt.title, dt.color, dt.groupId, true, true, true, dt.tagId);
-                });
-                console.log("Tag loaded successfully");
-                resolve(); // Resolve the promise when AJAX call succeeds
+                resolve(data); // Resolve the promise when AJAX call succeeds
             },
             error: function (error) {
                 console.log("Error loading tag:", error);
@@ -237,11 +267,7 @@ ajaxHandler.LoadTask = function () {
             contentType: "application/json",
             dataType: "json",
             success: function (data) {
-                data.forEach(function (dt) {
-                    userData.createTask(dt.title, dt.description, dt.tag, dt.deadline, dt.points, dt.taskId, dt.isCompleted);
-                });
-                console.log("Task loaded successfully");
-                resolve(); // Resolve the promise when AJAX call succeeds
+                resolve(data); // Resolve the promise when AJAX call succeeds
             },
             error: function (error) {
                 console.log("Error loading task:", error);
@@ -256,11 +282,8 @@ ajaxHandler.LoadUser = function () {
         $.ajax({
             url: "/profile/get",
             type: "GET",
-            success: function (data) {          
-                    userData.username= data.username,
-                    userData.bio= data.bio,
-                    userData.country= data.country
-                resolve(); // Resolve the promise with user info when AJAX call succeeds
+            success: function (data) {
+                resolve(data); // Resolve the promise with user info when AJAX call succeeds
             },
             error: function (error) {
                 console.log("Error loading user:", error);
@@ -285,46 +308,63 @@ ajaxHandler.getUserProfileImage = function () {
 }
 
 ajaxHandler.LoadUserData = function () {
-    function loadAllData() {
-        return Promise.all([
+    return new Promise(function (resolve) {
+        let Dict = new DictCRUD();
+
+        $.when(
             ajaxHandler.LoadGroup(),
             ajaxHandler.LoadTag(),
             ajaxHandler.LoadTask(),
             ajaxHandler.LoadUser()
-        ]);
-    }
+        ).done(function (groupData, tagData, taskData, userData) {
+            // All AJAX calls are completed
+            console.log("[1] All data loaded successfully.");
+            console.log(groupData);
+            console.log(tagData);
+            // console.log(taskData);
+            // console.log(userData);
 
-    loadAllData().then(function () {
-        // All AJAX calls are completed
-        console.log("All userData loaded successfully.");
+            Dict.username = userData.username;
+            Dict.bio = userData.bio;
+            Dict.country = userData.country;
 
-        // filter all un-grouped tag
-        for (let tagId in userData.tags) {
-            let t = userData.tags[tagId];
-            // if group have tag does not exist
-            if (!userData.groups[t.groupId]) {
-                userData.removeTag(t.tagID);
-                continue;
+            groupData.forEach(function (dt) {
+                Dict.createGroup(dt.title, [], null, dt.color, "", dt.groupId);
+            });
+            console.log("[2] Group loaded successfully");
+            tagData.forEach(function (dt) {
+                Dict.createTag(dt.title, dt.color, dt.groupId, true, true, true, dt.tagId);
+            });
+            console.log("[3] Tag loaded successfully");
+            taskData.forEach(function (dt) {
+                Dict.createTask(dt.title, dt.description, dt.tag, dt.deadline, dt.points, dt.taskId, dt.isCompleted);
+            });
+            console.log("[4] Task loaded successfully");
+
+            // filter all un-grouped tag
+            for (let tagId in Dict.tags) {
+                let t = Dict.tags[tagId];
+                // if group have tag does not exist
+                if (!Dict.groups[t.groupId]) {
+                    Dict.removeTag(t.tagID);
+                    console.log(t.tagID + " Tag error: No group assigned!");
+                    continue;
+                }
+                // if tag === def_tag 
+                if (Dict.groups[t.groupId].def_tag === t.tagID) {
+                    continue;
+                }
+                Dict.groups[t.groupId].tags.push(t.tagID);
             }
-            // if tag === def_tag 
-            if (userData.groups[t.groupId].def_tag === t.tagID) {
-                continue;
-            }
-            userData.groups[t.groupId].tags.push(t.tagID);
-        }
 
-        // filter all task that have group and tags no longer exist
+            // filter all task that have group and tags no longer exist
+            // implement later
 
-        console.log(userData);
-
-
-        ajaxHandler.getUserProfileImage();
-    }).catch(function (error) {
-        // Handle errors if any AJAX call fails
-        console.error("Error loading data:", error);
+            console.log(Dict);
+            ajaxHandler.getUserProfileImage();
+            resolve(Dict);
+        })
     });
-
-    return userData;
 };
 
 

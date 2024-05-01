@@ -45,6 +45,7 @@ function LoadMainMenu(Dict) {
             toggleHiddenMMenuGroup(g);
         }
     }
+    console.log("[8] Loaded Main Menu");
 }
 
 export { LoadMainMenu, toggleHiddenMMenuGroup, addNewGroupMainMenu, addNewTagMainMenu };

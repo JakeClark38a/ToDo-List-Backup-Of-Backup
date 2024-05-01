@@ -368,7 +368,7 @@ class DictCRUD extends Dict {
         // return this
         return this.groups[group.groupID];
     }
-    createTask(title, description, tag, deadline, points,  taskID = null, isCompleted = false) {
+    createTask(title, description, tag, deadline, points, taskID = null, isCompleted = false) {
         let task = new Task(title, description, tag, deadline, points, taskID, isCompleted);
         if (!taskID) { task.generateID(); }
         this.tasks[task.taskID] = task;
@@ -500,12 +500,5 @@ class DictCRUD extends Dict {
     }
 }
 
-class DictWithAJAX extends DictCRUD {
-    constructor(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {}) {
-        // Generate Dict object and assign to this
-        super(username, userid, groups, tasks, completed, tags);
-    }
-}
 
-
-export { DictWithAJAX, Utils };
+export { DictCRUD, Utils };

@@ -20,89 +20,77 @@ import { LoadMainScreen, renderGroupMainScreen } from "./mainScreenRenderer.js";
 
 
 //================================================================\\
-//=========================== Sample var =========================\\
+//=========================== Variables ==========================\\
 //================================================================\\
-
 var Dict = {}//Utils.getSampleData();
+let isDebugMode = false;
+var currentMode = 0; // 0-grid 1-any
+var currentMMenuTab = 0;  // 0-today 1-cal 2-garden
 
-async function getData() {
-  try {
-    const loadedData = await ajaxHandler.LoadUserData();
-    console.log('Data loaded successfully:', loadedData);
-    Dict = loadedData;
+function getData() {
+  return new Promise(function (resolve) {
+    $.when(ajaxHandler.LoadUserData()).done(function (data) {
+      Dict = data;
+      console.log("[5] Data is loaded to app.js: ");
+      console.log(Dict);
 
-  } catch (error) {
-    console.log("Error loading data:", error);
-  }
+      if (isDebugMode) {
+        let g1 = Dict.createGroup("Group 1", [], null, "red", "");
+        let g2 = Dict.createGroup("Group 2", [], null, "blue", "");
+        let g3 = Dict.createGroup("Group 3", [], null, "green", "");
+        console.log(g3);
+        // Create a new Tag
+        let tag1 = Dict.createTag("Tag 1", "red", g1.groupID, false, true, true);
+        let tag2 = Dict.createTag("Tag 2", "blue", g2.groupID, false, true, true);
+        let tag3 = Dict.createTag("Tag 3", "green", g3.groupID, false, true, true);
+        let tag4 = Dict.createTag("Tag 4", "yellow", g1.groupID, false, true, true);
+        console.log(tag4);
+
+        g1.tags.push(tag1.tagID);
+        g1.tags.push(tag4.tagID);
+        g2.tags.push(tag2.tagID);
+        g3.tags.push(tag3.tagID);
+
+        // Create a new Task
+        let t1 = Dict.createTask("Task 1", "Description 1", tag1.tagID, "2023-12-12", 10);
+        let t2 = Dict.createTask("Task 2", "Description 2", tag2.tagID, "2024-12-12", 10);
+        let t3 = Dict.createTask("Task 3", "Description 3", tag3.tagID, "2025-12-12", 10);
+        console.log(t3);
+
+        console.log("[6-s] Debug mode enabled: ");
+
+      };
+      resolve(Dict);
+    });
+  });
 }
 
-// Call getData
-getData();
-
-
-
 $(document).ready(function () {
-  if (Dict == {}) console.log("Loading data from backend failed");
-  let isDebugMode = false;
-  if (isDebugMode) {
-    let g1 = Dict.createGroup("Group 1", [], null, "red", "");
-    let g2 = Dict.createGroup("Group 2", [], null, "blue", "");
-    let g3 = Dict.createGroup("Group 3", [], null, "green", "");
-    console.log(g3);
-    // Create a new Tag
-    let tag1 = Dict.createTag("Tag 1", "red", g1.groupID, false, true, true);
-    let tag2 = Dict.createTag("Tag 2", "blue", g2.groupID, false, true, true);
-    let tag3 = Dict.createTag("Tag 3", "green", g3.groupID, false, true, true);
-    let tag4 = Dict.createTag("Tag 4", "yellow", g1.groupID, false, true, true);
-    console.log(tag4);
-
-    g1.tags.push(tag1.tagID);
-    g1.tags.push(tag4.tagID);
-    g2.tags.push(tag2.tagID);
-    g3.tags.push(tag3.tagID);
-
-    // Create a new Task
-    let t1 = Dict.createTask("Task 1", "Description 1", tag1.tagID, "2023-12-12", 10);
-    let t2 = Dict.createTask("Task 2", "Description 2", tag2.tagID, "2024-12-12", 10);
-    let t3 = Dict.createTask("Task 3", "Description 3", tag3.tagID, "2025-12-12", 10);
-    console.log(t3);
-
-    console.log(Dict);
-  };
-
   //================================================================\\
   //========================== Initialize ==========================\\
   //================================================================\\
 
-  function RefreshMainScreen() {
-    console.log("Refresh the mainscreen");
-    $("#Main-Screen").empty();
-    $("#MMenu-Group-Section").empty();
-    console.log(Dict);
-    LoadMainMenu(Dict);
-    LoadMainScreen(Dict, currentMode);
-
+  function RefreshAll() {
+    $.when(getData()).done(function (data) {
+      Dict = data;
+      console.log("[7] Refresh the mainscreen");
+      console.log(Dict);
+      $("#Main-Screen").empty();
+      $("#MMenu-Group-Section").empty();
+      LoadMainMenu(Dict);
+      LoadMainScreen(Dict, currentMode);
+      updateMMenuTabIndicator();
+      modalMainScreen.LoadTags(Dict);
+      modalMainScreen.LoadGroups(Dict);
+    });
   }
 
   function init() {
     currentMMenuTab = 0; // 0-today 2-calendar 3-garden
     currentMode = 0;
-    RefreshMainScreen();
-    updateMMenuTabIndicator();
-    modalMainScreen.LoadTags(Dict);
-    modalMainScreen.LoadGroups(Dict);
+    RefreshAll();
   }
-  setTimeout(init, 300);
-
-  //================================================================\\
-  //=========================== Variables ==========================\\
-  //================================================================\\
-  if (isDebugMode) { console.log(Dict); };
-  var currentMode = 0;
-  var currentMMenuTab = 0;  // 0-today 1-cal 2-garden
-
-
-
+  init();
 
 
   /* Main Display rule
@@ -180,7 +168,8 @@ $(document).ready(function () {
   /// Add tag
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
     modalMainScreen.LoadGroups(Dict);
-    modalMainScreen.AddEditTag();
+    let gid = $(this).parent().parent().closest('.MMenu-Group').attr('id');
+    modalMainScreen.AddEditTag(null,Dict.groups[gid]);
   });
 
   /// Edit Group
@@ -280,7 +269,6 @@ $(document).ready(function () {
 
 
 
-
   $("#crud-modal").on('change', '#groups', function () {
     modalMainScreen.LoadTags(Dict, $(this).val());
   });
@@ -296,7 +284,7 @@ $(document).ready(function () {
     var gid = $(this).closest(".group-outer").attr("id");
     modalMainScreen.LoadTags(Dict, gid);
     modalMainScreen.LoadGroups(Dict);
-    modalMainScreen.AddEditTask();
+    modalMainScreen.AddEditTask(null,Dict.groups[gid]);
     e.stopPropagation();
   });
 
@@ -372,14 +360,14 @@ $(document).ready(function () {
         // Adding a new task to the tasks object within Dict
         let t = Dict.createTask(title, desc, tag, expired, 4);
         // Call ajaxHandler. at /todo/create with JSON data
-        ajaxHandler.createTask(t.taskID, t.title, t.desc, t.tag, t.expired, t.points);
+        $.when(ajaxHandler.createTask(t.taskID, t.title, t.desc, t.tag, t.expired, t.points)).done(() => { RefreshAll(); });
       }
       else {
         // Update Dict
         let t = Dict.createTask(title, desc, tag, expired, 4, id);
         Dict.updateTask(t.taskID, t);
         // Call ajaxHandler. at /todo/create with JSON data
-        ajaxHandler.updateTask(t.taskID, t.title, t.desc, t.tag, t.expired, t.points);
+        $.when(ajaxHandler.updateTask(t.taskID, t.title, t.desc, t.tag, t.expired, t.points)).done(() => { RefreshAll(); });
       }
     }
 
@@ -390,13 +378,13 @@ $(document).ready(function () {
         $("#MMenu-Group-Section").append(MainMenu.GroupTemplates(g.groupID, g));
         /// Main Screen Add 
         renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"), g, currentMode);
-        ajaxHandler.addGroup(g.groupID, g.title, g.color);
+        $.when(ajaxHandler.addGroup(g.groupID, g.title, g.color)).done(() => { RefreshAll(); });
       }
       else { // Edit groups
         let g = Dict.createGroup(title, [], null, color, "", id);
         Dict.updateGroup(g.groupID, g);
         $("#MMenu-Group-Section").find("#" + g.groupID).find("#MMenu-Group-Title").text(g.title);
-        ajaxHandler.updateGroup(g.groupID, g.title, g.color);
+        $.when(ajaxHandler.updateGroup(g.groupID, g.title, g.color)).done(() => { RefreshAll(); });
       }
     }
 
@@ -406,21 +394,27 @@ $(document).ready(function () {
         let t = Dict.createTag(title, color, groupId, true, true, true);
         Dict.groups[groupId].tags.push(t.tagID);
         addNewTagMainMenu($("#" + groupId).find("#MMenu-Tag-Section"), t.tagID, t);
-        ajaxHandler.addTag(t.tagID, t.groupId, t.title, t.color);
+        $.when(ajaxHandler.addTag(t.tagID, t.groupId, t.title, t.color)).done(() => { RefreshAll(); });
       }
-      else { //Edit tags
-        let t = Dict.createTag(title, color, groupId, null, null, null, id);
+      else { //Edit tags     
+        /*  if (groupId != Dict.tags[id].groupId) {
+            //change group
+            console.log("Change group");
+            $("#MMenu-Group-Section").find("#" + Dict.tags[id].groupId).find("#MMenu-Tag-Section").find("#" + id).remove();
+            addNewTagMainMenu($("#" + Dict.tags[id].groupId).find("#MMenu-Tag-Section"), id, Dict.tags[id]);
+          }*/
+        let t = Dict.createTag(title, color, groupId, true, true, true, id);
         Dict.updateTag(t.tagID, t);
         $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Tag-Title").text(t.title);
-        ajaxHandler.updateTag(t.tagID, t.groupId, t.title, t.color);
-        
+
+
+        $.when(ajaxHandler.updateTag(t.tagID, t.groupId, t.title, t.color)).done(() => { RefreshAll(); });
+
       }
     }
 
     console.log(Dict);
-    setTimeout( getData, 300);
-    RefreshMainScreen();
-    setTimeout(LoadMainMenu(Dict), 300);
+    //  RefreshAll();
     modalMainScreen.hide();
   })
 
@@ -437,27 +431,25 @@ $(document).ready(function () {
         // Deleting task
         Dict.removeTask(id);
         // Call ajaxHandler. at /todo/delete with JSON data
-        ajaxHandler.deleteTask(id);
+        $.when(ajaxHandler.deleteTask(id)).done(() => { RefreshAll(); });
       }
     }
 
     if (mode == "group") {
       if (id != "none") {  /// Delete a new group
         Dict.removeGroup(id);
-        ajaxHandler.deleteGroup(id);
+        $.when(ajaxHandler.deleteGroup(id)).done(() => { RefreshAll(); });
       }
     }
 
     if (mode == "tag") {   ///  Delete a tag
       if (id != "none") {
         Dict.removeTag(id);
-        ajaxHandler.deleteTag(id);
+        $.when(ajaxHandler.deleteTag(id)).done(() => { RefreshAll(); });
       }
     }
 
-    alert("Deleted: " + id);
-    RefreshMainScreen();
-    console.log(Dict);
+    console.log("Deleted: " + id);
     modalMainScreen.hide();
   });
 

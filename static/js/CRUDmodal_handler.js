@@ -114,13 +114,15 @@ modalMainScreen.resetState = function () {
   $('#crud-modal input[type="checkbox"]').attr("id", `none_none`);
 }
 
-modalMainScreen.AddEditTask = function (task) {
+modalMainScreen.AddEditTask = function (task, group) {
   let h3 = task ? "Edit Task" : "Add Task";
   let id = task ? task.taskID : "none";
   let title = task ? task.title : '';
   let desc = task ? task.description : '';
   let tag = task ? task.tag : '';
   let expired = task ? task.deadline : '';
+  let groupId = group ? group.groupID : '';
+  let groupName = group ? group.title : '';
   // Customize modal appearance 
   $('#crud-modal #colors-sec').hide();
 
@@ -137,7 +139,10 @@ modalMainScreen.AddEditTask = function (task) {
   // Change input to task details
   $('#crud-modal #name').val(title);
   $('#crud-modal #description').val(desc);
+  
   $('#crud-modal').find(`#tags option[value="${tag}"]`).attr("selected", title);
+  $('#crud-modal').find(`#groups option[value="${groupId}"]`).attr("selected", groupName);
+
   $('#crud-modal #todo-expired').val(expired);
   $('#crud-modal button[type="submit"]').text(h3);
   // Change honeypot to id
@@ -158,11 +163,13 @@ modalMainScreen.AddEditTask = function (task) {
   modalMainScreen.show();
 }
 
-modalMainScreen.AddEditTag = function (tag) {
+modalMainScreen.AddEditTag = function (tag , group) {
   
   let h3 = tag ? "Edit Tag" : "Add Tag";
   let title = tag ? tag.title : '';
   let id = tag ? tag.tagID : "none";
+  let groupId = group ? group.groupID : '';
+  let groupName = group ? group.title : '';
   //console.log(tag , h3 , title , id);
   // Customize modal appearance
   $('#crud-modal label[for="name"]').text("Name");
@@ -176,6 +183,7 @@ modalMainScreen.AddEditTag = function (tag) {
   $('#crud-modal #tags-sec').hide();
 
   $('#crud-modal #groups-sec').show();
+  $('#crud-modal').find(`#groups option[value="${groupId}"]`).attr("selected", groupName);
 
 
   if (tag && tag.deletable == true) {
