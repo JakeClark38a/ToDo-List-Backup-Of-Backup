@@ -15,7 +15,7 @@
 
 </head>
 
-<body class="overflow-hidden bg-bg1 bg-cover bg-center *:transition-colors">
+<body class="overflow-hidden bg-bg4 bg-cover bg-center *:transition-colors">
 
 
 
@@ -104,7 +104,7 @@
                     <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
                         autocomplete="off" tabindex="-1">
                     <div class="col-span-2 flex justify-between">
-                        <button id="submit-sec" type="submit"
+                        <button id="submit-sec" type="button"
                             class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
                             <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -116,7 +116,7 @@
                         </button>
 
                         <!--Delete btn-->
-                        <button id="delete-sec"
+                        <button id="delete-sec" type="button"
                             class="text-white inline-flex items-center bg-red-300 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
                             <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -147,7 +147,8 @@
         <!--Begin header-->
 
         <!--########################################################### NavBar ######################################################################-->
-        <div class="flex justify-between items-center shadow-xl py-0 pt-2 h-16 lg:h-18 lg:py-2 ">
+        <div
+            class="flex justify-between items-center shadow-xl bg-white dark:bg-gray-700 py-0 pt-2 h-16 lg:h-18 lg:py-2 ">
             <div class="flex justify-evenly items-center gap-2 md:gap-8">
                 <!--button-->
                 <div id="Main-Menu-Click"
@@ -160,7 +161,7 @@
                 </div>
             </div>
 
-            <div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center"></div>
+            <div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center font-[Lato] dark:text-main"></div>
 
             <div class="flex justify-end items-center p-2 gap-2 ">
 
@@ -174,7 +175,8 @@
 
                 <div id="Avatar-Menu-Click"
                     class="headbar-button p-1 border-2 rounded-full cursor-pointer hover:bg-main/35">
-                    <img id="Avatar-Image" class="w-full h-full rounded-full" src="/static/images/profile.jpg" alt="avtr">
+                    <img id="Avatar-Image" class="w-full h-full rounded-full" src="/static/images/profile.jpg"
+                        alt="avtr">
                 </div>
             </div>
         </div>
@@ -189,12 +191,13 @@
             class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
 
 
-            <a href="{{url_for('profile', type=session['type'])}}">
+            <a href="{{url_for('profiles.profile',type=session['type'])}}">
                 <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
                     <div class="flex items-center">
                         <div class="PMenu-Primary-Image-Wrapper">
                             <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-width="2"
                                     d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                             </svg>
@@ -204,7 +207,7 @@
                 </div>
             </a><!--eoblock-->
 
-            <div id="PMenu-UserSett" class="PMenu-Primary-Section"> <!--block-->
+            <div id="PMenu-UserSett" class="PMenu-Primary-Section hidden"> <!--block-->
                 <div class="flex items-center">
                     <div class="PMenu-Primary-Image-Wrapper">
                         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
@@ -240,7 +243,7 @@
             </div><!--eoblock-->
 
             <div id="PMenu-Logout" class="PMenu-Primary-Section"> <!--block-->
-                <a href="{{url_for('logout')}}">
+                <a href="{{url_for('auth.logout')}}">
                     <button>
                         <div class="flex items-center">
                             <div class="PMenu-Primary-Image-Wrapper">
@@ -282,7 +285,7 @@
 
                     <div class="p-2 flex items-center">
                         <textarea name="SearchBox" id="SearchBox"
-                            class="MMenu-Primary-Text bg-main rounded-xl border-0 text-left resize-none" rows="1"
+                            class="MMenu-Primary-Text bg-main rounded-xl border-0 text-left resize-none w-full" rows="1"
                             placeholder="Search"></textarea>
                     </div>
                 </div>
@@ -319,8 +322,7 @@
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                            viewBox="0 0 24 24">
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path
                                 d="M10.9 11.77C10.7943 11.7701 10.6898 11.7479 10.5933 11.7049C10.4968 11.6618 10.4105 11.5988 10.34 11.52C10.2704 11.4397 10.2185 11.3457 10.1875 11.2441C10.1564 11.1425 10.1471 11.0355 10.16 10.93C10.16 10.84 11.39 1.79001 19.38 1.79001C19.5625 1.79112 19.7384 1.85877 19.8746 1.98027C20.0109 2.10177 20.0981 2.26879 20.12 2.45001C20.3565 4.80481 19.6559 7.15798 18.17 9.00001C16.57 10.85 14.12 11.77 10.9 11.77ZM18.66 3.32001C13.85 3.74001 12.27 8.32001 11.81 10.24C12.7769 10.2358 13.7333 10.0401 14.6241 9.66424C15.5149 9.28836 16.3224 8.73972 17 8.05001C18.0966 6.72 18.6849 5.04362 18.66 3.32001Z">
                             </path>
@@ -359,32 +361,6 @@
                 class="relative MMenu-Group-Section overflow-y-scroll py-5 h-1/2 bg-gray-300/35 ">
                 <!--group here-->
             </div>
-            <div id="MMenu-Bottom" class="flex justify-between items-center p-2">
-                <div class="Log-out">
-                    <a href="{{url_for('logout')}}">
-                        <button>
-                            <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
-                            </svg>
-                        </button>
-                    </a>
-                </div>
-                <div class="Settings">
-                    <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                    </svg>
-                </div>
-            </div>
-
-
         </div>
         <!--End Dropdown menu-->
         <!--########################################################### EoDropdown Main Menu ######################################################################-->
@@ -418,79 +394,6 @@
 
 
 
-        <!--########################################################### Calendar ######################################################################-->
-        <!-- Redirect to Backend Generator here -->
-        <!-- Begin Calendar -->
-        <div id="test" class=""></div>
-        <div id="Calendar-Container" class=" hidden container">
-            <div class="left">
-                <div class="calendar">
-                    <div class="month">
-                        <i class="prev">&lt;</i>
-                        <div class="date">April 2024</div>
-                        <i class="next">&gt;</i>
-                    </div>
-                    <div class="weekdays bg-red-300">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
-                    </div>
-                    <div class="days"></div>
-                    <div class="goto-today">
-
-                        <button class="today-btn">Today</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="right">
-                <div class="tasks-display">
-                    <div class="today-date">
-                        <div class="day-and-date">
-                            <div class="event-day">Wed</div>
-                            <div class="event-date">7th April 2024</div>
-                        </div>
-
-                        <div class="events"></div>
-                    </div>
-                </div>
-                <div class="add-event-wrapper">
-                    <div class="add-event-header">
-                        <div class="title">Add Event</div>
-                        <i class="fas fa-times close"></i>
-                    </div>
-                    <div class="add-event-body">
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Event Name" class="event-name" />
-                        </div>
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Event Time From" class="event-time-from" />
-                        </div>
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Event Time To" class="event-time-to" />
-                        </div>
-                        <div class="add-event-input">
-                            <input type="text" placeholder="Description" class="event-description" />
-                        </div>
-                    </div>
-                    <div class="add-event-footer">
-                        <button class="add-event-btn">Add Event</button>
-                    </div>
-                </div>
-            </div>
-            <button class="add-event">
-                <i class="">+</i>
-            </button>
-        </div>
-        <!-- End Calendar -->
-
-        <!--########################################################### EoCalendar ######################################################################-->
-
-
 
         <!--########################################################### Main Screen ######################################################################-->
         <!--Begin Main screen-->
@@ -514,171 +417,7 @@
 
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="../static/js/app.js"></script>
-        <script src="../static/js/calendar.js"></script>
-        <script>
-
-            function dragMoveListener(event) {
-                var target = event.target
-                // keep the dragged position in the data-x/data-y attributes
-                var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-                var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-
-                // translate the element
-                target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
-
-                // update the posiion attributes
-                target.setAttribute('data-x', x)
-                target.setAttribute('data-y', y)
-            }
-            // set the modal menu element
-            const $targetEl = document.getElementById('crud-modal');
-
-            // options with default values
-            const options = {
-                // placement: 'bottom-right',
-                backdrop: 'dynamic',
-                backdropClasses:
-                    'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
-                closable: true,
-                onHide: () => {
-                    $('#crud-modal h3').text("Create");
-                    $('#crud-modal h3').show();
-
-                    $('#crud-modal label[for="name"]').text("Name");
-                    $('#crud-modal #name').attr("placeholder", "Name");
-                    $('#crud-modal #name').val("");
-                    $('#crud-modal #name-sec').show();
-
-                    $('#crud-modal label[for="description"]').text("Description");
-                    $('#crud-modal #description').val("");
-                    $('#crud-modal #description').attr("placeholder", "Description");
-                    $('#crud-modal #desc-sec').show();
-
-                    $('#crud-modal label[for="todo-expired"]').text("Deadline");
-                    $('#crud-modal #todo-expired').val("");
-                    $('#crud-modal #todo-expired-sec').show();
-
-                    $('#crud-modal label[for="tags"]').text("Tag");
-                    $('#crud-modal #tags option').removeAttr("selected");
-                    $('#crud-modal #tags-sec').show();
-
-                    $('#crud-modal label[for="groups"]').text("Group");
-                    $('#crud-modal #groups option').removeAttr("selected");
-                    $('#crud-modal #groups-sec').hide();
-
-                    $('#crud-modal label[for="colors"]').text("Color");
-                    $('#crud-modal #colors').val("#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0')));
-                    $('#crud-modal #colors-sec').show();
-
-
-                    $('#crud-modal button[type="submit"]').html(`
-                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                        Create`);
-                    $('#crud-modal #submit-sec').show();
-
-                    $('#crud-modal #delete-sec button').html(`
-                    <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
-                            </svg>
-
-                            Delete
-
-                    `);
-                    $('#crud-modal #delete-sec').hide();
-
-                    $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
-                    console.log("Reset modal complete!")
-
-                    console.log('modal is hidden');
-                },
-                onShow: () => {
-                    // Limit the date picker to today and future dates
-                    // Get the current date and time
-                    const now = new Date();
-
-                    // Format the date and time as required by the min attribute
-                    const year = now.getFullYear();
-                    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed, so we add 1
-                    const day = String(now.getDate()).padStart(2, '0');
-                    const hour = String(now.getHours()).padStart(2, '0');
-                    const minute = String(now.getMinutes()).padStart(2, '0');
-
-                    // Construct the string for the min attribute
-                    const minDatetime = `${year}-${month}-${day}T${hour}:${minute}`;
-
-                    // Set the min attribute of the input element
-                    document.getElementById('todo-expired').setAttribute('min', minDatetime);
-                    // Set value to current date and time
-                    document.getElementById('todo-expired').value = minDatetime;
-
-                    console.log('modal is shown');
-                },
-                onToggle: () => {
-                    console.log('modal has been toggled');
-                },
-            };
-
-            // If screen is small, change option backdrop to static
-            if (window.innerWidth < 768) {
-                options.backdrop = 'static';
-            }
-
-            // instance options object
-            const modal = new Modal($targetEl, options);
-            const addGroupnTagModal = new Modal($targetEl, options);
-
-            $(document).ready(function () {
-                // target elements with the "draggable" class
-                interact('#add-draggable')
-                    .draggable({
-                        // enable inertial throwing
-                        inertia: true,
-                        // keep the element within the area of it's parent
-                        modifiers: [
-                            interact.modifiers.restrict({
-                                restriction: "#Main-Screen",
-                                elementRect: { top: 0, left: 0, bottom: 0.1, right: 0.1 },
-                                endOnly: true
-                            })
-                        ],
-                        // disable autoScroll
-                        autoScroll: false,
-
-                        listeners: {
-                            // call this function on every dragmove event
-                            move: dragMoveListener,
-                        }
-                    })
-                    .on('tap', function (event) {
-                        event.preventDefault();
-                        //resetModalState();
-                        // Clean modal first
-                        $('#crud-modal #colors-sec').hide();
-                        $('#crud-modal label[for="name"]').text("Title");
-                        $('#crud-modal label[for="description"]').text("Task Description");
-
-                        $('#crud-modal h3').text("Create Task");
-                        $('#crud-modal #name').val("");
-                        $('#crud-modal #description').val("");
-                        $('#crud-modal #tags option').removeAttr("selected");
-                        $('#crud-modal #todo-expired').val("");
-                        $('#crud-modal button[type="submit"]').html(`
-                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                        Create`);
-                        $('#crud-modal input[type="checkbox"]').attr("id", `task_`);
-
-                        // Show modal
-                        modal.show();
-
-                    })
-            });
-
-        </script>
+        <script src="../static/js/app.js" type="module"></script>
 </body>
 
 </html>

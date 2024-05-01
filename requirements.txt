@@ -4,3 +4,10 @@ Flask==3.0.2
 Flask_Mail==0.9.1
 mysql-connector-python
 password_strength==0.0.3.post2
+gunicorn
+pyotp
+requests
+Flask-Migrate
+PyMySQL
+flask-Login
+flask-bcrypt
