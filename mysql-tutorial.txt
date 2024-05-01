@@ -41,8 +41,8 @@ FROM mysql:latest
 # Set the root password for MySQL
 ENV MYSQL_ROOT_PASSWORD=password
 
-# Expose port 8080 for external communication
-EXPOSE 8080
+# Expose port 3306 for external communication
+EXPOSE 3306
 
 # Start MySQL service
 CMD ["mysqld", "--bind-address=0.0.0.0"]
