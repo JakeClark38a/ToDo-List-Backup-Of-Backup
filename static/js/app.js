@@ -35,9 +35,9 @@ function getData() {
       console.log(Dict);
 
       if (isDebugMode) {
-        let g1 = Dict.createGroup("Group 1", [], null, "red", "");
-        let g2 = Dict.createGroup("Group 2", [], null, "blue", "");
-        let g3 = Dict.createGroup("Group 3", [], null, "green", "");
+        let g1 = Dict.createGroup("Group 1", [], "red", "");
+        let g2 = Dict.createGroup("Group 2", [], "blue", "");
+        let g3 = Dict.createGroup("Group 3", [], "green", "");
         console.log(g3);
         // Create a new Tag
         let tag1 = Dict.createTag("Tag 1", "red", g1.groupID, false, true, true);
@@ -169,7 +169,7 @@ $(document).ready(function () {
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
     modalMainScreen.LoadGroups(Dict);
     let gid = $(this).parent().parent().closest('.MMenu-Group').attr('id');
-    modalMainScreen.AddEditTag(null,Dict.groups[gid]);
+    modalMainScreen.AddEditTag(null, Dict.groups[gid]);
   });
 
   /// Edit Group
@@ -284,7 +284,7 @@ $(document).ready(function () {
     var gid = $(this).closest(".group-outer").attr("id");
     modalMainScreen.LoadTags(Dict, gid);
     modalMainScreen.LoadGroups(Dict);
-    modalMainScreen.AddEditTask(null,Dict.groups[gid]);
+    modalMainScreen.AddEditTask(null, Dict.groups[gid]);
     e.stopPropagation();
   });
 
@@ -360,7 +360,7 @@ $(document).ready(function () {
         // Adding a new task to the tasks object within Dict
         let t = Dict.createTask(title, desc, tag, expired, 4);
         // Call ajaxHandler. at /todo/create with JSON data
-        $.when(ajaxHandler.createTask(t.taskID, t.title, t.desc, t.tag, t.expired, t.points)).done(() => { RefreshAll(); });
+        $.when(ajaxHandler.createTask(t.taskID, t.title, t.description, t.tag, t.deadline, t.points, t.isCompleted)).done(() => { RefreshAll(); });
       }
       else {
         // Update Dict
@@ -374,14 +374,14 @@ $(document).ready(function () {
 
     if (mode == "group") {
       if (id == "none") {  /// Create a new group
-        let g = Dict.createGroup(title, [], null, color, "");
+        let g = Dict.createGroup( title, [], null, color, "", null , true);
         $("#MMenu-Group-Section").append(MainMenu.GroupTemplates(g.groupID, g));
         /// Main Screen Add 
         renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"), g, currentMode);
-        $.when(ajaxHandler.addGroup(g.groupID, g.title, g.color)).done(() => { RefreshAll(); });
+       // $.when().done(() => { RefreshAll(); });
       }
       else { // Edit groups
-        let g = Dict.createGroup(title, [], null, color, "", id);
+        let g = Dict.createGroup(title, [], null, color, "", id,false);
         Dict.updateGroup(g.groupID, g);
         $("#MMenu-Group-Section").find("#" + g.groupID).find("#MMenu-Group-Title").text(g.title);
         $.when(ajaxHandler.updateGroup(g.groupID, g.title, g.color)).done(() => { RefreshAll(); });

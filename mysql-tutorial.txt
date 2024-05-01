@@ -30,3 +30,8 @@ Password: (dont type anything, just enter)
 mysql> (Type all things in setup.sql)
 
 # Done.
+
+rm -rf migrations
+flask db init 
+flask db migrate 
+flask db upgrade

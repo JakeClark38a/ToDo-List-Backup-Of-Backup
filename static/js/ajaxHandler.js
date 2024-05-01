@@ -11,13 +11,13 @@ import { DictCRUD, Utils } from "./userData.js";
 
 let ajaxHandler = {}
 
-ajaxHandler.addGroup = function (groupId, title, color) {
+ajaxHandler.addGroup = function (groupId, title, color , def_tag) {
     // Send AJAX request to backend at /todo/group/create to add group
     return new Promise(function (resolve, reject) {
         $.ajax({
             type: "POST",
             url: "/todo/group/create",
-            data: JSON.stringify({ groupId: groupId, title: title, color: color }),
+            data: JSON.stringify({ groupId: groupId, title: title, color: color , def_tag: def_tag}),
             contentType: "application/json",
             dataType: "json",
             success: function (data) {
@@ -329,8 +329,12 @@ ajaxHandler.LoadUserData = function () {
             Dict.country = userData.country;
 
             groupData.forEach(function (dt) {
-                Dict.createGroup(dt.title, [], null, dt.color, "", dt.groupId);
+                if (dt.def_tag == "") {
+                    dt.def_tag = null;
+                }
+                Dict.createGroup(dt.title, [], dt.def_tag, dt.color, "", dt.groupId,true);
             });
+
             console.log("[2] Group loaded successfully");
             tagData.forEach(function (dt) {
                 Dict.createTag(dt.title, dt.color, dt.groupId, true, true, true, dt.tagId);

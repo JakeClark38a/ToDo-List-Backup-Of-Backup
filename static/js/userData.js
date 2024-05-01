@@ -9,6 +9,7 @@ This file handles:
     - UserData
 */
 //=====================================================================\\
+import { ajaxHandler } from "./ajaxHandler.js";
 
 var SampleData = {  // Sample dictionary
     username: "JakeClark",
@@ -358,14 +359,22 @@ class DictCRUD extends Dict {
     }
     // Add methods to create, read, update, delete Dict
     // Create
-    createGroup(title, tags, def_tag, color, current_html, groupID = null) {
+    createGroup(title, tags, def_tag, color, current_html, groupID = null , isUsingAJAX = false ) {
         let group = new Group(title, tags, def_tag, color, current_html, groupID);
+        
+        if (isUsingAJAX ) {
+            ajaxHandler.addGroup(group.groupID, group.title, group.color, group.def_tag);
+        };
+
         if (!groupID) { group.generateID(); }
         if (!def_tag) {
-            group.def_tag = this.createTag(title, color, group.groupID).tagID;
+            let tg = this.createTag(title, color, group.groupID)
+            group.def_tag = tg.tagID;
+            ajaxHandler.addTag(tg.tagID, tg.groupId, tg.title, tg.color);
         }
         this.groups[group.groupID] = group;
         // return this
+
         return this.groups[group.groupID];
     }
     createTask(title, description, tag, deadline, points, taskID = null, isCompleted = false) {

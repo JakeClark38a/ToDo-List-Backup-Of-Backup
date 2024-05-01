@@ -265,7 +265,6 @@ modalMainScreen.LoadTags = function (Dict, GroupID) {
     });
   } else {
     var tagArray = Dict.readTagList(GroupID);
-    console.log(tagArray);
     tagArray.forEach(element => {
       let options = `<option value="${element.tagID}">${Dict.tags[element.tagID].title}</option>`
       $("#crud-modal select#tags").append(options)
