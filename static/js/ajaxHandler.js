@@ -333,6 +333,14 @@ ajaxHandler.LoadUserData = function () {
                     dt.def_tag = null;
                 }
                 let gr = Dict.createGroup(dt.title, [], dt.def_tag, dt.color, "", dt.groupId);
+                //somehow the def_tag is null on database creation
+                if (!dt.def_tag) {
+                    let dft = Dict.tags[gr.def_tag];
+                    console.log("[" + dt.title + "] Def tag not found, creating new tag");
+                    $.when(ajaxHandler.addTag(dft.tagID, dft.groupId, dft.title, dft.color)).done(
+                        ajaxHandler.updateGroup(gr.groupID, gr.title, gr.color, gr.def_tag) // update the group for def_tag
+                    );
+                }
             });
 
             console.log("[2] Group loaded successfully");
