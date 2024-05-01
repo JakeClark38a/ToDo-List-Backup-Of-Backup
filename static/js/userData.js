@@ -359,24 +359,27 @@ class DictCRUD extends Dict {
     }
     // Add methods to create, read, update, delete Dict
     // Create
-    createGroup(title, tags, def_tag, color, current_html, groupID = null , isUsingAJAX = false ) {
-        let group = new Group(title, tags, def_tag, color, current_html, groupID);
-        
-        if (isUsingAJAX ) {
-            ajaxHandler.addGroup(group.groupID, group.title, group.color, group.def_tag);
-        };
+    createGroup(title, tags, def_tag, color, current_html, groupID = null) {
+        let group = new Group(title, tags, def_tag, color, current_html, groupID); // def_tag still null through normal create
+        // Todo:
+        // 1. Create group in the Dict 
+        // 2. if no def_tag defined create def_tag for the group
+        // 3. add def_tag to the database server
+        // 4. add def_tag to group 
 
         if (!groupID) { group.generateID(); }
+        console.log(title + " have def_tag is: " + def_tag);
+        // Create def_tag if not defined
         if (!def_tag) {
-            let tg = this.createTag(title, color, group.groupID)
+            console.log("No def_tag detected , making new one for " + title);
+            let tg = this.createTag(title, color, group.groupID);
             group.def_tag = tg.tagID;
-            ajaxHandler.addTag(tg.tagID, tg.groupId, tg.title, tg.color);
         }
         this.groups[group.groupID] = group;
         // return this
-
         return this.groups[group.groupID];
     }
+
     createTask(title, description, tag, deadline, points, taskID = null, isCompleted = false) {
         let task = new Task(title, description, tag, deadline, points, taskID, isCompleted);
         if (!taskID) { task.generateID(); }

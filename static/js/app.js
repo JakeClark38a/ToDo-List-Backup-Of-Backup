@@ -374,17 +374,22 @@ $(document).ready(function () {
 
     if (mode == "group") {
       if (id == "none") {  /// Create a new group
-        let g = Dict.createGroup( title, [], null, color, "", null , true);
+        let g = Dict.createGroup(title, [], null, color, "", null);
+        let dft = Dict.tags[g.def_tag]
+        console.log(dft);
         $("#MMenu-Group-Section").append(MainMenu.GroupTemplates(g.groupID, g));
         /// Main Screen Add 
         renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"), g, currentMode);
-       // $.when().done(() => { RefreshAll(); });
+        $.when(
+          ajaxHandler.addGroup(g.groupID, g.title, g.color, g.def_tag)).done( // add Group
+            ajaxHandler.addTag(dft.tagID, dft.groupId, dft.title, dft.color) // add def_tag
+          ).done(() => { RefreshAll(); });
       }
       else { // Edit groups
-        let g = Dict.createGroup(title, [], null, color, "", id,false);
+        let g = Dict.createGroup(title, [], null, color, "", id);
         Dict.updateGroup(g.groupID, g);
         $("#MMenu-Group-Section").find("#" + g.groupID).find("#MMenu-Group-Title").text(g.title);
-        $.when(ajaxHandler.updateGroup(g.groupID, g.title, g.color)).done(() => { RefreshAll(); });
+        $.when(ajaxHandler.updateGroup(g.groupID, g.title, g.color, g.def_tag)).done(() => { RefreshAll(); });
       }
     }
 

@@ -11,13 +11,13 @@ import { DictCRUD, Utils } from "./userData.js";
 
 let ajaxHandler = {}
 
-ajaxHandler.addGroup = function (groupId, title, color , def_tag) {
+ajaxHandler.addGroup = function (groupId, title, color, def_tag) {
     // Send AJAX request to backend at /todo/group/create to add group
     return new Promise(function (resolve, reject) {
         $.ajax({
             type: "POST",
             url: "/todo/group/create",
-            data: JSON.stringify({ groupId: groupId, title: title, color: color , def_tag: def_tag}),
+            data: JSON.stringify({ groupId: groupId, title: title, color: color, def_tag: def_tag }),
             contentType: "application/json",
             dataType: "json",
             success: function (data) {
@@ -53,13 +53,13 @@ ajaxHandler.addTag = function (tagId, groupId, title, color) {
     });
 }
 
-ajaxHandler.updateGroup = function (groupId, title, color) {
+ajaxHandler.updateGroup = function (groupId, title, color, def_tag) {
     // Send AJAX request to backend at /todo/group/update to edit group
     return new Promise(function (resolve, reject) {
         $.ajax({
             type: "POST",
             url: "/todo/group/update",
-            data: JSON.stringify({ groupId: groupId, title: title, color: color }),
+            data: JSON.stringify({ groupId: groupId, title: title, color: color, def_tag: def_tag }),
             contentType: "application/json",
             dataType: "json",
             success: function (data) {
@@ -332,7 +332,7 @@ ajaxHandler.LoadUserData = function () {
                 if (dt.def_tag == "") {
                     dt.def_tag = null;
                 }
-                Dict.createGroup(dt.title, [], dt.def_tag, dt.color, "", dt.groupId,true);
+                let gr = Dict.createGroup(dt.title, [], dt.def_tag, dt.color, "", dt.groupId);
             });
 
             console.log("[2] Group loaded successfully");
