@@ -10,10 +10,10 @@
   <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 </head>
 
-<body class="bg-main bg-cover overflow-x-hidden">
+<body class="bg-[#dbdcdf] bg-cover overflow-x-hidden">
   <!--Navbar Start-->
   <div id="navbar"
-    class="sticky hidden flex transition-all ease-in-out duration-200 transform w-full top-0 z-[50] navbar h-[8vh] p-3 bg-primary-100 backdrop-blur-sm shadow-xl justify-between items-center">
+    class="sticky hidden flex transition-all ease-in-out duration-200 transform w-full top-0 z-[50] h-[8vh] p-3 bg-transparent backdrop-blur-sm shadow-xl justify-between items-center">
     <div class="logo ml-[3vw] flex items-center">
       <img class="h-10 w-10" src="/static/images/icons8-timer-50.png" alt="Logo">
       <div class="ml-2 font-bold font-sans md:visible invisible">Donow</div>
@@ -24,21 +24,23 @@
         <div class="group-hover/sg:w-48 base-anim h-full w-0 bg-primary-200/75 absolute">
         </div>
         <div class="absolute">
-          <button class="w-20 text-main"> <a href="{{url_for('register')}}">Sign up</a></button>
+          <button class="w-20 text-main"> <a href="{{url_for('auth.register')}}">Sign up</a></button>
         </div>
       </div>
 
       <div
-        class="group/sg flex justify-center items-center base-anim overflow-hidden button-login w-20 lg:w-24 border-2 h-8 lg:h-10 rounded-md shadow-lg hover:shadow-xl">
+        class="group/sg flex justify-center items-center base-anim overflow-hidden bg-gray-400 button-login w-20 lg:w-24 border-2 h-8 lg:h-10 rounded-md shadow-lg hover:shadow-xl">
         <div class="group-hover/sg:w-48 base-anim h-full w-0 bg-primary-200/75 absolute">
         </div>
         <div class="absolute">
-          <button class="w-20 text-main"> <a href="{{url_for('login')}}">Login</a></button>
+          <button class="w-20 text-main"> <a href="{{url_for('auth.login')}}">Login</a></button>
         </div>
       </div>
     </div>
   </div>
   <!--Navbar End-->
+
+
   <!--Hero Start-->
   <div id="hero"
     class="hero h-[120vh] flex bg-herosm bg-cover bg-center md:heroxl xl:bg-heroxl md:flex-col md:items-center">
@@ -46,7 +48,8 @@
       class="hero-text sm:mt-10 sm:ml-10 flex flex-col justify-start md:mt-[20vh] md:items-center md:justify-center">
       <div class="main-text title text-4xl md:text-5xl lg:text-7xl md:text-center ">Free from distractions.</div>
       <div class="main-text mb-3 title text-4xl md:text-5xl lg:text-7xl md:text-center">Forever.</div>
-      <div class="detail-text font-serif content md:text-center mb-7 text-md md:text-2xl md:w-[45vw] lg:w-[25vw]">
+      <div
+        class="detail-text font-serif content text-left md:text-center mb-7 text-md md:text-2xl md:w-[45vw] lg:w-[25vw]">
         Effort-lessly
         organizing your time, tasks, life and many more... with Donow. The best task manager and to-do list app.
       </div>
@@ -56,11 +59,11 @@
         </div>
         <div class="absolute">
           <button class=" text-main base-anim scale-100 h-12 w-[9rem] md:h-14 md:w-48 text-center font-medium text-xl">
-            <a href="{{url_for('register')}}">Get started</a> </button>
+            <a href="{{url_for('auth.register')}}">Get started</a> </button>
         </div>
       </div>
       <button class="base-anim px-2 w-16 text-center font-medium text-xl">
-        <a href="{{url_for('login')}}">Login</a> </button>
+        <a href="{{url_for('auth.login')}}">Login</a> </button>
     </div>
   </div>
   <!--Hero End-->
@@ -85,12 +88,12 @@
   </div>
   <!--Partner End-->
   <!--Quote-->
-  <div class="section quote flex justify-center items-center bg-accent-200/35 py-8">
+  <div class="section quote flex justify-center items-center bg-accent-200 py-8">
     <div class="quote-wrapper flex flex-col justify-center items-center">
-      <div class="quote font-serif text-center  text-xl md:text-2xl lg:text-4xl lg:px-36 mb-3">
+      <div class="quote font-serif text-center px-5 text-xl md:text-2xl lg:text-4xl lg:px-36 mb-3">
         "Productivity is never an accident. It is always the result of a commitment to excellence, intelligent planning,
         and focused effort."</div>
-      <div class="author text-center text-lg md:text-xl lg:text-2xl">- Paul J. Meyer</div>
+      <div class="author text-center text-lg md:text-xl lg:text-2xl font-serif">- Paul J. Meyer</div>
     </div>
   </div>
   <!--Quote End-->
@@ -98,27 +101,27 @@
   <div class="section des flex justify-center items-center bg-accent-100/35 py-8">
     <div></div>
     <div>
-      <div class="text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
-        <span class="content font-bold">Zero-Effort Organization: </span>
+      <div class="flex flex-col text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
+        <span class="title-2 font-bold">Zero-Effort Organization </span>
         <span class="content font-light font-md">Manage your time, tasks, and life with just a few clicks. Stop
           wasting energy, start crushing goals.</span>
       </div>
 
-      <div class="text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
-        <span class="content font-bold">Laser Focus, Unleashed: </span>
+      <div class="flex flex-col text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
+        <span class="title-2 font-bold">Laser Focus, Unleashed </span>
         <span class="content font-light font-md">Ditch the distractions and prioritize what needs to get done.
           Get ready to experience peak productivity.</span>
       </div>
 
 
-      <div class="text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
-        <span class="content font-bold">Effortless Doesn't Mean Basic: </span>
+      <div class="flex flex-col text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
+        <span class="title-2 font-bold">Effortless Doesn't Mean Basic </span>
         <span class="content font-light font-md">We've got all the features you need to stay on top of your
           game.</span>
       </div>
 
-      <div class="text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
-        <span class="content font-bold">Celebrate Every Win: </span>
+      <div class="flex flex-col text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
+        <span class="title-2 font-bold">Celebrate Every Win </span>
         <span class="content font-light font-md">Track your progress and reward yourself, keeping motivation
           high.</span>
       </div>
@@ -126,7 +129,7 @@
   </div>
   <!--Des End-->
   <!--Product Start-->
-  <div class="section lg:flex lg:justify-center lg:items-center bg-accent-200/35 py-8" data-carousel="slide"
+  <div class="section flex justify-center items-center bg-accent-200/35 py-8" data-carousel="slide"
     data-carousel-interval="3500">
     <div class="products relative h-72 w-72 overflow-hidden rounded-lg md:w-1/2 md:h-96">
 
@@ -136,7 +139,7 @@
           <img class="product-image" src="/static/images/Time management - 640x427.png" alt="img">
         </div>
         <div class="mb-3 w-64 lg:w-96">
-          <div class="font-bold text-sm text-center text-accent-green lg:text-left">Do you not know what to do
+          <div class="font-bold text-sm text-center text-accent-green lg:text-left">Not know what to do
             first?
           </div>
           <div class="title text-xl text-center lg:text-left">Effort-less task management</div>
@@ -150,8 +153,7 @@
           <img class="product-image" src="/static/images/Managing time - 640x427.png" alt="img">
         </div>
         <div class="mb-3 w-64 lg:w-96">
-          <div class="font-bold text-sm text-center text-accent-red lg:text-left">Do you not know what you
-            have to
+          <div class="font-bold text-sm text-center text-accent-red lg:text-left">Not know what to
             do
             tomorrow?</div>
           <div class="title text-xl text-center lg:text-left">Planning your week</div>
@@ -167,7 +169,7 @@
           <img class="product-image" src="/static/images/Guidance - 480x480.png" alt="img">
         </div>
         <div class="mb-3 w-64 lg:w-96">
-          <div class="font-bold text-sm text-center text-accent-red lg:text-left">Do you not have enough
+          <div class="font-bold text-sm text-center text-accent-red lg:text-left">Not have enough
             motivation?
           </div>
           <div class="title text-xl text-center lg:text-left">Progress tracking</div>
@@ -183,7 +185,7 @@
           <img class="product-image" src="/static/images/Space Robot - 640x587.png" alt="img">
         </div>
         <div class="mb-3 w-64 lg:w-96">
-          <div class="font-bold text-sm text-center text-accent-red lg:text-left">You need some suggestions ?
+          <div class="font-bold text-sm text-center text-accent-red lg:text-left">Need some suggestions ?
           </div>
           <div class="title text-xl text-center lg:text-left">AI partner</div>
           <div class="content text-center lg:text-left"> Your AI assistant, Donnel, will think for you.
@@ -208,7 +210,7 @@
       </div>
       <div class="absolute">
         <button class="base-anim scale-100 w-48 h-14 text-center text-main font-medium text-xl">
-          <a href="{{url_for('register')}}">
+          <a href="{{url_for('auth.register')}}">
             Make me
             better!</a></button>
       </div>
@@ -224,53 +226,54 @@
         on a
         journey to productivity like never before. With collaborative features, shared goals, and mutual encouragement,
         we're here to help you achieve more, together.
-        <a href="{{url_for('register')}}" class="font-bold hover:underline">Sign up now</a> to start organizing,
+        <a href="{{url_for('auth.register')}}" class="font-bold hover:underline">Sign up now</a> to start organizing,
         collaborating, and conquering your to-do's with a supportive community by your side!
       </div>
     </div>
     <div class="w-full lg:w-72 flex items-center justify-center">
       <div class="flex items-center justify-center relative">
 
-        <div
-          class="fade-left absolute left-0 z-20 h-56 lg:h-80 w-14 bg-gradient-to-r from-main to-transparent rounded-lg">
-        </div>
-
-        <div class="relative" data-carousel="slide" data-carousel-interval="4500">
-          <div class="statistics relative z-10 w-72 h-56 overflow-hidden rounded-lg md:w-96 md:h-80">
-
-            <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
-              <div class="image-wrapper">
-                <img class="logo-image" src="/static/images/Team Building - 640x469.png" alt="img">
-              </div>
-              <div class="content text-center font-semibold text-lg">1+ millions teams</div>
-            </div>
-
-            <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
-              <div class="image-wrapper">
-                <img class="logo-image" src="/static/images/Work scheduling - 640x427.png" alt="img">
-              </div>
-              <div class="content text-center font-semibold text-lg">47+ millions hours saved</div>
-            </div>
-
-            <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
-              <div class="image-wrapper">
-                <img class="logo-image" src="/static/images/Global Impact - 640x608.png" alt="img">
-              </div>
-              <div class="content text-center font-semibold text-lg">67+ countries</div>
-            </div>
-
-            <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
-              <div class="image-wrapper">
-                <img class="logo-image" src="/static/images/Guidance - 480x480.png" alt="img">
-              </div>
-              <div class="content text-center font-semibold text-lg">50k+ successful projects</div>
-            </div>
-
+          <div
+            class="fade-left absolute left-0 z-20 h-56 w-14 md:h-80 bg-gradient-to-r from-main to-transparent rounded-lg">
           </div>
-        </div>
 
-        <div
-          class="fade-right absolute right-0 z-20 h-56 lg:h-80 w-14 bg-gradient-to-l from-main to-transparent rounded-lg">
+          <div class="relative z-10 p-2" data-carousel="slide" data-carousel-interval="4500">
+            <div class="statistics relative h-56 w-80 md:w-96 md:h-80 overflow-hidden rounded-lg">
+
+              <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                <div class="image-wrapper">
+                  <img class="logo-image" src="/static/images/Team Building - 640x469.png" alt="img">
+                </div>
+                <div class="content text-center font-semibold text-lg">1+ millions teams</div>
+              </div>
+
+              <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                <div class="image-wrapper">
+                  <img class="logo-image" src="/static/images/Work scheduling - 640x427.png" alt="img">
+                </div>
+                <div class="content text-center font-semibold text-lg">47+ millions hours saved</div>
+              </div>
+
+              <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                <div class="image-wrapper">
+                  <img class="logo-image" src="/static/images/Global Impact - 640x608.png" alt="img">
+                </div>
+                <div class="content text-center font-semibold text-lg">67+ countries</div>
+              </div>
+
+              <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                <div class="image-wrapper">
+                  <img class="logo-image" src="/static/images/Guidance - 480x480.png" alt="img">
+                </div>
+                <div class="content text-center font-semibold text-lg">50k+ successful projects</div>
+              </div>
+
+            </div>
+          </div>
+
+          <div
+            class="fade-right absolute right-0 z-20 h-56 w-14 md:h-80 bg-gradient-to-l from-main to-transparent rounded-lg">
+          </div>
         </div>
       </div>
     </div>
@@ -279,7 +282,7 @@
   <!--Statistic End-->
 
   <!-- Footer Start -->
-  <footer class=" bg-accent-300  text-gray-800 flex flex-col items-center justify-center">
+  <footer class=" bg-accent-300 text-gray-800 flex flex-col items-center justify-center">
     <div
       class="flex flex-col items-center justify-center lg:flex-row lg:justify-evenly lg:items-start mx-8 my-10 lg:my-0 lg:mt-5 lg:w-[100vw]">
       <div class="mb-3 lg:mb-7 flex flex-col items-center lg:items-start ">
