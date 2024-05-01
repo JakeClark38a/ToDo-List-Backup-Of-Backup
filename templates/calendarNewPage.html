@@ -242,6 +242,7 @@
 
         const pickDate = function(){
             var day = undefined;
+            // Get day from focused datepicker-cell
             $("#calendar .datepicker-cell").each(function() {
                 if ($(this).hasClass("focused")) {
                     day = $(this).text();
