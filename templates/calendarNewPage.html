@@ -302,15 +302,24 @@
         const changeExpiredColor = (days) => {
             // Change color of days that have deadline before today
             // to red
+
+            // Because Flowbite datepicker design calendar with 6 rows,
+            // if colored days from 22 to 31, choose second occurence of DOM
+            // else choose first occurence of DOM 
+            let isFirstOccurence = true;
             console.log("Change color", days);
             // Scan through all days in calendar via #calendar .datepicker-cell
             $("#calendar span.datepicker-cell").each(function() {
-                // If day is in days, change its color to red
-                if (days[$(this).text()]) {
-                    $(this).css("color", "red");
-                }
-                else {
-                    $(this).css("color", "black");
+                // Get day from text content of element
+                var day = parseInt($(this).text());
+                // If day is in days, change color to red
+                if (days[day]) {
+                    if (isFirstOccurence) {
+                        $(this).css("color", "red");
+                        isFirstOccurence = false;
+                    } else {
+                        $(this).css("color", "black");
+                    }
                 }
             });
         }
@@ -321,7 +330,7 @@
             // set initial date for #calendar is today
             // format: MM/DD/YYYY
             $("#calendar").attr("data-date", new Date().toLocaleDateString("en-US"));
-            // changeExpiredColor(getExpiredDays(5, 2024));
+            changeExpiredColor(getExpiredDays(5, 2024));
             // with each div with class datepicker-cell, find "focused" class
             // if found, console log text content of the element
             // refresh each time user click datepicker-cell
