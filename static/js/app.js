@@ -367,7 +367,7 @@ $(document).ready(function () {
         let t = Dict.createTask(title, desc, tag, expired, 4, id);
         Dict.updateTask(t.taskID, t);
         // Call ajaxHandler. at /todo/create with JSON data
-        $.when(ajaxHandler.updateTask(t.taskID, t.title, t.desc, t.tag, t.expired, t.points)).done(() => { RefreshAll(); });
+        $.when(ajaxHandler.updateTask(t.taskID, t.title, t.description, t.tag, t.deadline, t.points)).done(() => { RefreshAll(); });
       }
     }
 
@@ -402,12 +402,6 @@ $(document).ready(function () {
         $.when(ajaxHandler.addTag(t.tagID, t.groupId, t.title, t.color)).done(() => { RefreshAll(); });
       }
       else { //Edit tags     
-        /*  if (groupId != Dict.tags[id].groupId) {
-            //change group
-            console.log("Change group");
-            $("#MMenu-Group-Section").find("#" + Dict.tags[id].groupId).find("#MMenu-Tag-Section").find("#" + id).remove();
-            addNewTagMainMenu($("#" + Dict.tags[id].groupId).find("#MMenu-Tag-Section"), id, Dict.tags[id]);
-          }*/
         let t = Dict.createTag(title, color, groupId, true, true, true, id);
         Dict.updateTag(t.tagID, t);
         $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Tag-Title").text(t.title);
