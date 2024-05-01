@@ -50,7 +50,7 @@ def get_profile():
     json_data = {
         "username": curr_user.name,
         "bio": curr_user.bio,
-        "Location": curr_user.location,
+        "country": curr_user.country,
     }
     return jsonify(json_data), 200
 
@@ -61,7 +61,7 @@ def update_profile():
     data = request.get_json()
     curr_user.name = data['username']
     curr_user.bio = data['bio']
-    curr_user.location = data['Location']
+    curr_user.country = data['country']
     curr_user.isFillForm = True
     tododb.session.commit()
     return jsonify({"message":"Profile Updated"}), 200

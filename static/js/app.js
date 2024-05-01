@@ -12,68 +12,85 @@ This file handle:
 
 // Templates 
 import { MainMenu } from "./hmtlComponent.js";
-import { DictWithAJAX, Utils } from "./userData.js";
+import { Utils } from "./userData.js";
 import { modalMainScreen } from "./CRUDmodal_handler.js";
 import { ajaxHandler } from "./ajaxHandler.js";
-import { LoadMainMenu, toggleHiddenMMenuGroup , addNewTagMainMenu} from "./mainMenuRenderer.js";
+import { LoadMainMenu, toggleHiddenMMenuGroup, addNewTagMainMenu } from "./mainMenuRenderer.js";
 import { LoadMainScreen, renderGroupMainScreen } from "./mainScreenRenderer.js";
+
+
+//================================================================\\
+//=========================== Variables ==========================\\
+//================================================================\\
+var Dict = {}//Utils.getSampleData();
+let isDebugMode = false;
+var currentMode = 0; // 0-grid 1-any
+var currentMMenuTab = 0;  // 0-today 1-cal 2-garden
+
+function getData() {
+  return new Promise(function (resolve) {
+    $.when(ajaxHandler.LoadUserData()).done(function (data) {
+      Dict = data;
+      console.log("[5] Data is loaded to app.js: ");
+      console.log(Dict);
+
+      if (isDebugMode) {
+        let g1 = Dict.createGroup("Group 1", [], "red", "");
+        let g2 = Dict.createGroup("Group 2", [], "blue", "");
+        let g3 = Dict.createGroup("Group 3", [], "green", "");
+        console.log(g3);
+        // Create a new Tag
+        let tag1 = Dict.createTag("Tag 1", "red", g1.groupID, false, true, true);
+        let tag2 = Dict.createTag("Tag 2", "blue", g2.groupID, false, true, true);
+        let tag3 = Dict.createTag("Tag 3", "green", g3.groupID, false, true, true);
+        let tag4 = Dict.createTag("Tag 4", "yellow", g1.groupID, false, true, true);
+        console.log(tag4);
+
+        g1.tags.push(tag1.tagID);
+        g1.tags.push(tag4.tagID);
+        g2.tags.push(tag2.tagID);
+        g3.tags.push(tag3.tagID);
+
+        // Create a new Task
+        let t1 = Dict.createTask("Task 1", "Description 1", tag1.tagID, "2023-12-12", 10);
+        let t2 = Dict.createTask("Task 2", "Description 2", tag2.tagID, "2024-12-12", 10);
+        let t3 = Dict.createTask("Task 3", "Description 3", tag3.tagID, "2025-12-12", 10);
+        console.log(t3);
+
+        console.log("[6-s] Debug mode enabled: ");
+
+      };
+      resolve(Dict);
+    });
+  });
+}
 
 $(document).ready(function () {
   //================================================================\\
-  //=========================== Sample var =========================\\
+  //========================== Initialize ==========================\\
   //================================================================\\
-  let isDebugMode = true;
-  let Dict = Utils.getSampleData();
-  if (isDebugMode) {
 
-    let g1 = Dict.createGroup("Group 1", [], null, "red", "");
-    let g2 = Dict.createGroup("Group 2", [], null, "blue", "");
-    let g3 = Dict.createGroup("Group 3", [], null, "green", "");
-    console.log(g3);
-    // Create a new Tag
-    let tag1 = Dict.createTag("Tag 1", "red", g1.groupID, false, true, true);
-    let tag2 = Dict.createTag("Tag 2", "blue", g2.groupID, false, true, true);
-    let tag3 = Dict.createTag("Tag 3", "green", g3.groupID, false, true, true);
-    let tag4 = Dict.createTag("Tag 4", "yellow", g1.groupID, false, true, true);
-    console.log(tag4);
+  function RefreshAll() {
+    $.when(getData()).done(function (data) {
+      Dict = data;
+      console.log("[7] Refresh the mainscreen");
+      console.log(Dict);
+      $("#Main-Screen").empty();
+      $("#MMenu-Group-Section").empty();
+      LoadMainMenu(Dict);
+      LoadMainScreen(Dict, currentMode);
+      updateMMenuTabIndicator();
+      modalMainScreen.LoadTags(Dict);
+      modalMainScreen.LoadGroups(Dict);
+    });
+  }
 
-    g1.tags.push(tag1.tagID);
-    g1.tags.push(tag4.tagID);
-    g2.tags.push(tag2.tagID);
-    g3.tags.push(tag3.tagID);
-
-    // Create a new Task
-    let t1 = Dict.createTask("Task 1", "Description 1", tag1.tagID, "2023-12-12", 10);
-    let t2 = Dict.createTask("Task 2", "Description 2", tag2.tagID, "2024-12-12", 10);
-    let t3 = Dict.createTask("Task 3", "Description 3", tag3.tagID, "2025-12-12", 10);
-    console.log(t3);
-
-    console.log(Dict);
-  };
-
-  //================================================================\\
-  //=========================== Variables ==========================\\
-  //================================================================\\
-  if (!isDebugMode) Dict = DictWithAJAX.LoadData();
-  if (isDebugMode) { console.log(Dict); };
-  let currentMode = 0;
-  let currentMMenuTab = 0;  // 0-today 1-cal 2-garden
-
-  // Export updated user data
-  let updatedUserData = Dict.exportDict();
-
-  // Send updated user data to server
-  let dictWithAJAX = new DictWithAJAX();
-  dictWithAJAX.importDict(updatedUserData);
-  dictWithAJAX.setDict();
-
-  function initUser() {
+  function init() {
     currentMMenuTab = 0; // 0-today 2-calendar 3-garden
     currentMode = 0;
-    LoadUser();
-    updateMMenuTabIndicator();
+    RefreshAll();
   }
-  initUser();
+  init();
 
 
   /* Main Display rule
@@ -150,8 +167,9 @@ $(document).ready(function () {
 
   /// Add tag
   $("#MMenu-Group-Section").on("click", ".MMenu-Tag-Add", function () {
-    LoadGroups();
-    modalMainScreen.AddEditTag();
+    modalMainScreen.LoadGroups(Dict);
+    let gid = $(this).parent().parent().closest('.MMenu-Group').attr('id');
+    modalMainScreen.AddEditTag(null, Dict.groups[gid]);
   });
 
   /// Edit Group
@@ -187,7 +205,7 @@ $(document).ready(function () {
     const now = new Date();
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const monthsOfYear = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    
+
     const dayOfWeek = daysOfWeek[now.getDay()];
     const day = now.getDate().toString().padStart(2, '0');
     const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-indexed, so we add 1
@@ -197,9 +215,9 @@ $(document).ready(function () {
     let hours = now.getHours();
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12 || 12; // Convert to 12-hour format
-    const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}, ${dayOfWeek}, ${monthsOfYear[month-1]} ${day}, ${year}`;
+    const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}, ${dayOfWeek}, ${monthsOfYear[month - 1]} ${day}, ${year}`;
     document.getElementById('clock').textContent = formattedTime;
-}
+  }
 
   setInterval(clockTick, 1000);
 
@@ -248,29 +266,8 @@ $(document).ready(function () {
     }, 800);
   });
 
-  //================================================================\\
-  //========================== Initialize ==========================\\
-  //================================================================\\
-
-  function RefreshMainScreen() {
-    console.log("Refresh the mainscreen");
-    $("#Main-Screen").empty();
-    $("#MMenu-Group-Section").empty();
-    LoadMainMenu(Dict);
-    LoadMainScreen(Dict, currentMode);
-
-  }
-
-  function LoadUser() {
-    ajaxHandler.LoadGroup(); /// load userdata
-    RefreshMainScreen();
-  }
 
 
-
-
-  modalMainScreen.LoadTags(Dict);
-  modalMainScreen.LoadGroups(Dict);
 
   $("#crud-modal").on('change', '#groups', function () {
     modalMainScreen.LoadTags(Dict, $(this).val());
@@ -287,7 +284,7 @@ $(document).ready(function () {
     var gid = $(this).closest(".group-outer").attr("id");
     modalMainScreen.LoadTags(Dict, gid);
     modalMainScreen.LoadGroups(Dict);
-    modalMainScreen.AddEditTask();
+    modalMainScreen.AddEditTask(null, Dict.groups[gid]);
     e.stopPropagation();
   });
 
@@ -343,7 +340,7 @@ $(document).ready(function () {
   })
 
   // Submit button
-  $('#crud-modal form').on("submit", function (e) {
+  $('#crud-modal #submit-sec').on("click", function (e) {
     e.preventDefault();
     // Get id from honeypot, if id is empty string, it means it's a new task
     let submitValues = modalMainScreen.getSubmitValues();
@@ -363,31 +360,36 @@ $(document).ready(function () {
         // Adding a new task to the tasks object within Dict
         let t = Dict.createTask(title, desc, tag, expired, 4);
         // Call ajaxHandler. at /todo/create with JSON data
-        ajaxHandler.createTask(t.taskID, t.title, t.desc, t.tag, t.expired, t.points);
+        $.when(ajaxHandler.createTask(t.taskID, t.title, t.description, t.tag, t.deadline, t.points, t.isCompleted)).done(() => { RefreshAll(); });
       }
       else {
         // Update Dict
         let t = Dict.createTask(title, desc, tag, expired, 4, id);
         Dict.updateTask(t.taskID, t);
         // Call ajaxHandler. at /todo/create with JSON data
-        ajaxHandler.updateTask(t.taskID, t.title, t.desc, t.tag, t.expired, t.points);
+        $.when(ajaxHandler.updateTask(t.taskID, t.title, t.desc, t.tag, t.expired, t.points)).done(() => { RefreshAll(); });
       }
     }
 
 
     if (mode == "group") {
       if (id == "none") {  /// Create a new group
-        let g = Dict.createGroup(title, desc, null, color, "");
+        let g = Dict.createGroup(title, [], null, color, "", null);
+        let dft = Dict.tags[g.def_tag]
+        console.log(dft);
         $("#MMenu-Group-Section").append(MainMenu.GroupTemplates(g.groupID, g));
         /// Main Screen Add 
         renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"), g, currentMode);
-        ajaxHandler.addGroup(g.groupID, g.title, g.color);
+        $.when(
+          ajaxHandler.addGroup(g.groupID, g.title, g.color, g.def_tag)).done( // add Group
+            ajaxHandler.addTag(dft.tagID, dft.groupId, dft.title, dft.color) // add def_tag
+          ).done(() => { RefreshAll(); });
       }
       else { // Edit groups
-        let g = Dict.createGroup(title, desc, null, color, "", id);
+        let g = Dict.createGroup(title, [], null, color, "", id);
         Dict.updateGroup(g.groupID, g);
         $("#MMenu-Group-Section").find("#" + g.groupID).find("#MMenu-Group-Title").text(g.title);
-        ajaxHandler.updateGroup(g.groupID, g.title, g.color);
+        $.when(ajaxHandler.updateGroup(g.groupID, g.title, g.color, g.def_tag)).done(() => { RefreshAll(); });
       }
     }
 
@@ -397,18 +399,27 @@ $(document).ready(function () {
         let t = Dict.createTag(title, color, groupId, true, true, true);
         Dict.groups[groupId].tags.push(t.tagID);
         addNewTagMainMenu($("#" + groupId).find("#MMenu-Tag-Section"), t.tagID, t);
-        ajaxHandler.addTag(t.tagID, t.groupId, t.title, t.color);
+        $.when(ajaxHandler.addTag(t.tagID, t.groupId, t.title, t.color)).done(() => { RefreshAll(); });
       }
-      else { //Edit tags
-        let t = Dict.createTag(title, color, groupId, null, null, null, id);
+      else { //Edit tags     
+        /*  if (groupId != Dict.tags[id].groupId) {
+            //change group
+            console.log("Change group");
+            $("#MMenu-Group-Section").find("#" + Dict.tags[id].groupId).find("#MMenu-Tag-Section").find("#" + id).remove();
+            addNewTagMainMenu($("#" + Dict.tags[id].groupId).find("#MMenu-Tag-Section"), id, Dict.tags[id]);
+          }*/
+        let t = Dict.createTag(title, color, groupId, true, true, true, id);
         Dict.updateTag(t.tagID, t);
         $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Tag-Title").text(t.title);
-        ajaxHandler.updateTag(t.tagID, t.groupId, t.title, t.color);
+
+
+        $.when(ajaxHandler.updateTag(t.tagID, t.groupId, t.title, t.color)).done(() => { RefreshAll(); });
+
       }
     }
 
     console.log(Dict);
-    RefreshMainScreen();
+    //  RefreshAll();
     modalMainScreen.hide();
   })
 
@@ -425,27 +436,25 @@ $(document).ready(function () {
         // Deleting task
         Dict.removeTask(id);
         // Call ajaxHandler. at /todo/delete with JSON data
-        ajaxHandler.deleteTask(id);
+        $.when(ajaxHandler.deleteTask(id)).done(() => { RefreshAll(); });
       }
     }
 
     if (mode == "group") {
       if (id != "none") {  /// Delete a new group
         Dict.removeGroup(id);
-        ajaxHandler.deleteGroup(id);
+        $.when(ajaxHandler.deleteGroup(id)).done(() => { RefreshAll(); });
       }
     }
 
     if (mode == "tag") {   ///  Delete a tag
       if (id != "none") {
         Dict.removeTag(id);
-        ajaxHandler.deleteTag(id);
+        $.when(ajaxHandler.deleteTag(id)).done(() => { RefreshAll(); });
       }
     }
 
-    alert("Deleted: " + id);
-    RefreshMainScreen();
-    console.log(Dict);
+    console.log("Deleted: " + id);
     modalMainScreen.hide();
   });
 
@@ -499,6 +508,6 @@ $(document).ready(function () {
     })
 
   //$("#Calendar").load("calendar.html");
-  ajaxHandler.getUserProfileImage();
+
   // End of app.js
 })

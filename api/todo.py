@@ -38,6 +38,14 @@ def default_tag(tag_id,group_id,tag_title,tag_color,user_id):
     else:
         return
 
+def default_task(task_id,task_title,task_description,tag_id,user_id,deadline,points,isCompleted):
+    if not Tasks.query.filter_by(task_id=task_id, user_id=user_id).first():
+        new_task = Tasks(task_id=task_id, task_title=task_title, task_description=task_description, tag_id=tag_id, user_id=user_id, deadline=deadline, points=points, isCompleted=isCompleted)
+        tododb.session.add(new_task)
+        tododb.session.commit()
+    else:
+        return
+
 #Endpoints
 
 @todo.route('/todo', methods=['GET'])
@@ -54,6 +62,7 @@ def main_page():
         default_tag('tag3','gid003','tag3','#ac7acf',curr_user.user_id)
         default_tag('tag4','gid004','tag4','#c5e875',curr_user.user_id)
         default_tag('tag5','gid001','tag5','#7aa5cf',curr_user.user_id)
+        default_task('a021c966-3116-4671-9e65-c7f8f92af4c6','Task 3','Description 3','tag1',curr_user.user_id,datetime.datetime.now(),10,False)
         return redirect(url_for('profiles.profile', type=session['type']))
     else:
         return render_template('mainPage.html')
@@ -121,7 +130,7 @@ def uncompleted_todo(id):
 def create_group():
     data = request.get_json()
     print(data)
-    new_group = Groupss(group_id=data['groupId'], group_title=data['title'], user_id=current_user.get_id(), color=data['color'])
+    new_group = Groupss(group_id=data['groupId'], group_title=data['title'], user_id=current_user.get_id(), color=data['color'] , def_tag = data['def_tag'])
     tododb.session.add(new_group)
     tododb.session.commit()
     return jsonify({'message': 'Group created successfully!'}), 200
@@ -133,6 +142,7 @@ def update_group():
     group = Groupss.query.filter_by(group_id=data['groupId'], user_id=current_user.get_id()).first()
     group.group_title = data['title']
     group.color = data['color']
+    group.def_tag = data['def_tag']
     tododb.session.commit()
     return jsonify({'message': 'Group updated successfully!'}), 200
 
@@ -151,7 +161,7 @@ def get_groups():
     groups = Groupss.query.filter_by(user_id=current_user.get_id()).all()
     group_list = []
     for group in groups:
-        group_list.append({'groupId': group.group_id, 'title': group.group_title, 'color': group.color})
+        group_list.append({'groupId': group.group_id, 'title': group.group_title, 'color': group.color , 'def_tag':group.def_tag})
     return jsonify(group_list), 200
 
 @todo.route('/todo/tag/create', methods=['POST'])

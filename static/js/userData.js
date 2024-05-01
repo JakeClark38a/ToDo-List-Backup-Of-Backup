@@ -9,6 +9,7 @@ This file handles:
     - UserData
 */
 //=====================================================================\\
+import { ajaxHandler } from "./ajaxHandler.js";
 
 var SampleData = {  // Sample dictionary
     username: "JakeClark",
@@ -359,16 +360,27 @@ class DictCRUD extends Dict {
     // Add methods to create, read, update, delete Dict
     // Create
     createGroup(title, tags, def_tag, color, current_html, groupID = null) {
-        let group = new Group(title, tags, def_tag, color, current_html, groupID);
+        let group = new Group(title, tags, def_tag, color, current_html, groupID); // def_tag still null through normal create
+        // Todo:
+        // 1. Create group in the Dict 
+        // 2. if no def_tag defined create def_tag for the group
+        // 3. add def_tag to the database server
+        // 4. add def_tag to group 
+
         if (!groupID) { group.generateID(); }
+        console.log(title + " have def_tag is: " + def_tag);
+        // Create def_tag if not defined
         if (!def_tag) {
-            group.def_tag = this.createTag(title, color, group.groupID).tagID;
+            console.log("No def_tag detected , making new one for " + title);
+            let tg = this.createTag(title, color, group.groupID);
+            group.def_tag = tg.tagID;
         }
         this.groups[group.groupID] = group;
         // return this
         return this.groups[group.groupID];
     }
-    createTask(title, description, tag, deadline, points,  taskID = null, isCompleted = false) {
+
+    createTask(title, description, tag, deadline, points, taskID = null, isCompleted = false) {
         let task = new Task(title, description, tag, deadline, points, taskID, isCompleted);
         if (!taskID) { task.generateID(); }
         this.tasks[task.taskID] = task;
@@ -500,66 +512,5 @@ class DictCRUD extends Dict {
     }
 }
 
-class DictWithAJAX extends DictCRUD {
-    constructor(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {}) {
-        // Generate Dict object and assign to this
-        super(username, userid, groups, tasks, completed, tags);
-    }
-    // Add methods to interact with the server by AJAX
-    // Add methods to get Dict from server
-    getDict(fromServer = true) {
-        let dict = this;
-        // Get the dict from the server
-        if (fromServer) {
-            $.ajax({
-                type: "GET",
-                url: "/getDict",
-                contentType: "application/json",
-                dataType: "json",
-                success: function (data) {
-                    // Import the dict from the server
-                    dict.importDict(data);
-                    console.log("Dict imported from server");
-                    // console.log(dict);
-                }
-            })
-        }
-        // return the dict
-        return dict;
-    }
-    setDict(toServer = true) {
-        // Set the dict to the server
-        if (toServer) {
-            $.ajax({
-                type: "POST",
-                url: "/setDict",
-                contentType: "application/json",
-                dataType: "json",
-                data: this.exportDict(),
-                success: function (data) {
-                    console.log("Dict set to server");
-                }
-            })
-        }
-        // return the dict
-        return this;
-    }
-    addGroup() {
-        let dict = this;
-        console.log(dict);
-        // Add group to the server
-        $.ajax({
-            type: "POST",
-            url: "/addGroup",
-            contentType: "application/json",
-            dataType: "json",
-            data: { groupID: dict.groupID, title: dict.title, color: dict.color },
-            success: function (data) {
-                console.log("Group added to server");
-            }
-        })
-    }
-}
 
-
-export { DictWithAJAX, Utils };
+export { DictCRUD, Utils };

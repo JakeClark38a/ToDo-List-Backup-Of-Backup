@@ -30,6 +30,13 @@ Password: (dont type anything, just enter)
 mysql> (Type all things in setup.sql)
 
 # Done.
+##############################  NullFD2
+
+rm -rf migrations
+flask db init 
+flask db migrate 
+flask db upgrade
+=======
 #########################################################################################
 # Or: Use Docker
 
@@ -110,3 +117,4 @@ try:
 except mysql.connector.Error as error:
     print("Failed to connect to MySQL server:", error)
 ```
+################## master

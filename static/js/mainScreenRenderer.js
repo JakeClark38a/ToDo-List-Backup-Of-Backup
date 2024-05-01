@@ -35,15 +35,15 @@ function renderGroupMainScreen(group_html, group, unique_id, mode = 0) {
 }
 
 function LoadMainScreen(Dict, currentMode = 0) {
-    console.log("Loading Main Screen");
     // Also add Draggable button again
     $("#Main-Screen").append(MainScreen.AddFloatButton(true));
     var formatter_html = $("#Main-Screen").append(
         MainScreen.FormatterTemplate()
     );
-
+    //console.log(Dict.groups);
     // Iterate over groups
     for (var groupId in Dict.groups) {
+        console.log(groupId);
         if (Dict.groups.hasOwnProperty(groupId)) {
             var group = Dict.groups[groupId];
             var g = renderGroupMainScreen(
@@ -52,6 +52,7 @@ function LoadMainScreen(Dict, currentMode = 0) {
                 groupId,
                 currentMode
             );
+
             //console.log(groupId);
             var task_html = $(g).find("#Task-Section");
             // Iterate over tasks
@@ -72,6 +73,7 @@ function LoadMainScreen(Dict, currentMode = 0) {
         }
     }
     renderFormatterAddons(formatter_html, currentMode);
+    console.log("[9] Loaded Main Screen");
 }
 
 export { LoadMainScreen, renderFormatterAddons, renderGroupMainScreen, renderTagMainScreen, renderTaskMainScreen };
