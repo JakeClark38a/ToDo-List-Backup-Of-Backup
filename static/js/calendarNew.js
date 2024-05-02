@@ -304,12 +304,11 @@ var Dict = {};
 const loadDict = function () {
     return new Promise(function (resolve) {
         $.when(ajaxHandler.LoadUserData()).done(function (data) {
-            Dict = data;
-            console.log(Dict);
             resolve(Dict);
         })
     });
 }
+
 
 const appendTask = function (Dict, day, month, year) {
     $("#Task-Section").empty();
@@ -320,6 +319,16 @@ const appendTask = function (Dict, day, month, year) {
             $("#Task-Section").append(MainScreen.TaskTemplate(taskId, Dict.tasks[taskId]));
         }
     }
+}
+
+
+const mapDatepickerToTable = function (){
+    // Map datepicker #calendar to #CalendarTable
+    // Get all div with class datepicker-cell
+
+    $("#calendar span.datepicker-cell").each(function() {
+        // Fill in #CalendarTable with datepicker-cell
+    });
 
 }
 
@@ -327,6 +336,7 @@ const appendTask = function (Dict, day, month, year) {
 
 $(document).ready(function () {
     // Load dict
+
     $.when(loadDict()).done(function (data) {
         // set initial date for #calendar is today
         // format: MM/DD/YYYY'
@@ -354,5 +364,6 @@ $(document).ready(function () {
             }, 50);
             console.log('[7] Selected date: ' + date[0] + ' ' + date[1] + ' ' + date[2]);
         });
+
     });
 });

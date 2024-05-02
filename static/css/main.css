@@ -3026,6 +3026,18 @@ input:checked + .toggle-bg {
   height: 100vh;
 }
 
+.h-1 {
+  height: 0.25rem;
+}
+
+.h-\[20px\] {
+  height: 20px;
+}
+
+.h-\[10px\] {
+  height: 10px;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -3249,6 +3261,10 @@ input:checked + .toggle-bg {
 
 .grow {
   flex-grow: 1;
+}
+
+.table-fixed {
+  table-layout: fixed;
 }
 
 .border-collapse {
@@ -4359,8 +4375,16 @@ input:checked + .toggle-bg {
   font-weight: 600;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 .lowercase {
   text-transform: lowercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
 }
 
 .leading-6 {
@@ -4675,6 +4699,10 @@ input:checked + .toggle-bg {
 
 .\*\:p-0 > * {
   padding: 0px;
+}
+
+.\*\:align-top > * {
+  vertical-align: top;
 }
 
 .\*\:transition-all > * {
