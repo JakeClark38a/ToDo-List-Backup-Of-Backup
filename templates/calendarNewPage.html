@@ -116,14 +116,14 @@
                     title: "Crying",
                     description: "About making a website",
                     tag: "tag3",
-                    deadline: "2024-05-07T11:17",
+                    deadline: "2024-06-17T11:17",
                     points: 4,
                 },
                 id004: {
                     title: "Laughing",
                     description: "About making a website",
                     tag: "tag5",
-                    deadline: "2024-05-07T11:17",
+                    deadline: "2024-04-04T11:17",
                     points: 4,
                 },
             },
@@ -225,6 +225,21 @@
                 }
             }
         };
+        // Convert month to number
+        let monthDict = {
+            "January": 1,
+            "February": 2,
+            "March": 3,
+            "April": 4,
+            "May": 5,
+            "June": 6,
+            "July": 7,
+            "August": 8,
+            "September": 9,
+            "October": 10,
+            "November": 11,
+            "December": 12,
+        };
         const combineMonth = function(day, month, year){
             // Add st, nd, rd, th to day
             if (day == 1 || day == 21 || day == 31) {
@@ -235,6 +250,13 @@
                 day += "rd";
             } else {
                 day += "th";
+            }
+            // Convert back month number to month name
+            for (var key in monthDict) {
+                if (monthDict[key] == month) {
+                    month = key;
+                    break;
+                }
             }
             // Return as: March 7th, 2024
             return month + " " + day + ", " + year;
@@ -253,20 +275,14 @@
             // if it contains both text and number (<month> <year>), output month and year
             // if it contains only number (<year>), output year
             // if it contains range of number (<year>-<year>), output range of year
-
             var text = $("button.view-switch").text();
             var month = text.split(" ")[0];
             var year = text.split(" ")[1];
-            // if (isNaN(month)) {
-            //     console.log("Month", month);
-            // }
-            // if (!isNaN(year)) {
-            //     console.log("Year", year);
-            // }
-            // if (year.includes("-")) {
-            //     console.log("Year range", year);
-            // }
-            return combineMonth(day, month, year);
+            
+            // Convert month to number
+            month = monthDict[month];
+
+            return [day, month, year];
         }
 
         const getTask = function(day, month, year){
@@ -304,24 +320,45 @@
             // to red
 
             // Because Flowbite datepicker design calendar with 6 rows,
-            // if colored days from 22 to 31, choose second occurence of DOM
-            // else choose first occurence of DOM 
-            let isFirstOccurence = true;
-            console.log("Change color", days);
-            // Scan through all days in calendar via #calendar .datepicker-cell
+            // if colored days from 22 to 31 and in first row, don't change color
+            // if colored days from 1 to 13 and in 5th and 6th row, don't change color
+            // else, change color to red
+
+            // Get all div with class datepicker-cell
+            // if day is in days, change color to red
+            // else, change color to default
+            let countCell = 0;
             $("#calendar span.datepicker-cell").each(function() {
-                // Get day from text content of element
+                // Take day from text content of div
                 var day = parseInt($(this).text());
-                // If day is in days, change color to red
+                // Make outside days gray
+                // if (day >= 22 && countCell < 7) {
+                //     $(this).css("color", "gray");
+                // } else if (day <= 13 && countCell > 28) {
+                //     $(this).css("color", "gray");
+                // }
+                // Change color of days that have deadline
                 if (days[day]) {
-                    if (isFirstOccurence) {
-                        $(this).css("color", "red");
-                        isFirstOccurence = false;
-                    } else {
+                    if (day >= 22 && countCell < 7) {
                         $(this).css("color", "black");
+                    } else if (day <= 13 && countCell > 28) {
+                        $(this).css("color", "black");
+                    } else {
+                        $(this).css("color", "red");
                     }
+                } else {
+                    $(this).css("color", "black");
                 }
+                countCell++;
             });
+            
+        } // Calendar: Saturday evening
+
+        const appendTask = function(tasks, day, month, year){
+            // Append task to Task-Section-Outer
+            // Steps: Get task info, create task element, append to Task-Section-Outer
+            
+            
         }
         
         // Use jQuery
@@ -329,17 +366,19 @@
         $(document).ready(function() {
             // set initial date for #calendar is today
             // format: MM/DD/YYYY
-            $("#calendar").attr("data-date", new Date().toLocaleDateString("en-US"));
-            changeExpiredColor(getExpiredDays(5, 2024));
+            let date = pickDate();
+            console.log(date);
+            changeExpiredColor(getExpiredDays(date[1], date[2]));
             // with each div with class datepicker-cell, find "focused" class
             // if found, console log text content of the element
             // refresh each time user click datepicker-cell
-            $("#Task-Group-Title").text(pickDate());
-            $("#calendar .datepicker-cell").click(function() {
+            $("#Task-Group-Title").text(combineMonth(...pickDate()));
+            $("#calendar .datepicker-cell, #calendar button.prev-btn, #calendar button.next-btn").click(function() {
+                date = pickDate();
                 // set timeout to wait for focused class to be added
-                // changeExpiredColor(getExpiredDays(5, 2024));
+                changeExpiredColor(getExpiredDays(date[1], date[2]));
                 setTimeout(function() {
-                    $("#Task-Group-Title").text(pickDate());
+                    $("#Task-Group-Title").text(combineMonth(...pickDate()));
                 }, 50);
             });
         });
