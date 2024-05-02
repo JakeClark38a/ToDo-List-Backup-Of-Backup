@@ -11,377 +11,131 @@
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body class="*:m-0 *:p-0 *:box-border h-screen">
-    <!-- Mobile version -->
-    <div class="relative w-full flex flex-col items-center">
-        <!-- Calendar - data-date will fill in backend -->
-        <div id="calendar" inline-datepicker data-date="05/02/2024" class="pb-[10px]"></div>
-        <!-- Todo with expired day -->
-        <div id="tasks-display" class="group-outer w-[300px] lg:w-[400px]">
-            <div class="flex justify-between items-center px-3 ">
+    <div class="w-full flex justify-around">
+        <!-- Mobile version -->
+        <div class="relative w-[300px] flex-none flex flex-col items-center">
+            <!-- Calendar - data-date will fill in backend -->
+            <div id="calendar" inline-datepicker data-date="05/02/2024" class="pb-[10px]"></div>
+            <!-- Todo with expired day -->
+            <div id="tasks-display" class="group-outer ">
+                <div class="flex justify-between items-center px-3 ">
                 <!-- Title -->
-              <div id="Task-Group-Title" class="todobox-title lg:text-2xl dark:text-white">March 7th, 2024</div>
-              <div class="Group-Task-Add ">
-                      <!-- <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"></path>
-                      </svg> -->
-                  </div>
-              </div>
-              <!-- Content -->
-              <div id="Task-Section-Outer" class="bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl " style="border-color: #546f72;">
-                    <!-- In this div, height of gid001 will dynamically change based on 100vh, 350px is height of calendar, 40px is height of title and padding-->
-                    <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-[calc(100vh-350px-40px)] lg:w-96">
-                    <!--task here-->
-                    <div id="id001" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default">
-                    <div class=" rounded-lg shadow-lg">
-                        <!-- Title -->
-                        <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
-                            <!-- Task title -->
-                            <div class="font-semibold text-lg lg:text-xl truncate w-full dark:text-white ">Meeting</div>
-                            <!-- Task edit and delete -->
-                            <div class="flex items-center gap-2">
-                                <div class="Task-Edit mx-1 cursor-pointer">
-                                    <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"></path>
-                                    </svg>
-                                </div>
-                                <div id="Task-Cancel" class="bg-red-500 rounded-full shadow-lg h-4 w-4 lg:h-6 lg:w-6 font-bold cursor-pointer"></div>
-                            </div>
-                        </div>
-                        <!-- Task description -->
-                        <div class="p-2 flex items-center h-fit">
-                            <p class="h-full w-full text-left p-2 font-base truncate lg:text-xl dark:text-white">About making a website</p>
-                            <!-- Complete checkbox -->
-                            <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer">
-                        </div>
-                        <!-- Tag -->
-                        <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
-                            <div id="tag1" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer" style="background-color: #546f72;">tag1</div>    
-                            <div id="tag1" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer" style="background-color: #546f72;">tag1</div>              
-                        </div>
+                    <div id="Task-Group-Title" class="todobox-title  dark:text-white">March 7th, 2024</div>
+                    <div class="Group-Task-Add ">
+                        <!-- <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"></path>
+                        </svg> -->
                     </div>
-            
                 </div>
-                </div>   
+                <!-- Content -->
+                <div id="Task-Section-Outer" class="bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl " style="border-color: #546f72;">
+                    <!-- In this div, height of gid001 will dynamically change based on 100vh, 350px is height of calendar, 40px is height of title and  - remove lg:w-96, lg:text-xl-->
+                    <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-[calc(100vh-350px-40px)] ">
+                        <!--task here-->
+                        <div id="id001" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default">
+                            <div class=" rounded-lg shadow-lg">
+                                <!-- Title -->
+                                <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
+                                    <!-- Task title -->
+                                    <div class="font-semibold text-lg truncate w-full dark:text-white ">Meeting</div>
+                                    <!-- Task edit and delete -->
+                                    <div class="flex items-center gap-2">
+                                        <div class="Task-Edit mx-1 cursor-pointer">
+                                            <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"></path>
+                                            </svg>
+                                        </div>
+                                        <div id="Task-Cancel" class="bg-red-500 rounded-full shadow-lg h-4 w-4 font-bold cursor-pointer"></div>
+                                    </div>
+                                </div>
+                                <!-- Task description -->
+                                <div class="p-2 flex items-center h-fit">
+                                    <p class="h-full w-full text-left p-2 font-base truncate dark:text-white">About making a website</p>
+                                    <!-- Complete checkbox -->
+                                    <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer">
+                                </div>
+                                <!-- Tag -->
+                                <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
+                                    <div id="tag1" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer" style="background-color: #546f72;">tag1</div>    
+                                    <div id="tag1" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer" style="background-color: #546f72;">tag1</div>              
+                                </div>
+                            </div>
+                
+                        </div>
+                    </div>   
                 </div>
+            </div>
+        </div>
+        <!-- Desktop grid -->
+        <!-- Show when in desktop size, hidden in mobile size -->
+        <div class="flex-1 hidden">
+            <table class="w-full h-full border-collapse">
+                <tr>
+                    <td class="text-center align-middle border-2">1 row</td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+                <tr>
+                    <td>1 row</td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+                <tr>
+                    <td>1 row</td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+                <tr>
+                    <td>1 row</td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+                <tr>
+                    <td>1 row</td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+                <tr>
+                    <td>1 row</td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+                <tr>
+                    <td>1 row</td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+            </table>
         </div>
     </div>
-    <script>
-        var Dict = {  // sample dict
-            username: "JakeClark",
-            userid: "User ID",
-            bio: "hmm...",
-            timeZone: "Asia/Tokyo",
-            displayLocalTimeZone: false,
-            localTimeZoneName: "UTC",
-
-            groups: {
-                gid001: {
-                    title: "Do",
-                    tags: ["tag1"],
-                    def_tag: "do",
-                    color: "#7aa5cf",
-                    current_html: "",
-                },
-                gid002: {
-                    title: "Delegate",
-                    tags: ["tag2"],
-                    def_tag: "delegate",
-                    color: "#63c074",
-                    current_html: "",
-                },
-                gid003: {
-                    title: "Schedule",
-                    tags: ["tag3", "tag5"],
-                    def_tag: "schedule",
-                    color: "#ac7acf",
-                    current_html: "",
-                },
-                gid004: {
-                    title: "Later",
-                    tags: ["tag4"],
-                    def_tag: "later",
-                    color: "#c5e875",
-                    current_html: "",
-                },
-            },
-            tasks: {
-                id001: {
-                    title: "Meeting",
-                    description: "About making a website",
-                    tag: "tag1",
-                    deadline: "2024-05-07T11:17",
-                    points: 4,
-                },
-                id002: {
-                    title: "Crying",
-                    description: "About making a website",
-                    tag: "tag3",
-                    deadline: "2024-06-17T11:17",
-                    points: 4,
-                },
-                id004: {
-                    title: "Laughing",
-                    description: "About making a website",
-                    tag: "tag5",
-                    deadline: "2024-04-04T11:17",
-                    points: 4,
-                },
-            },
-            completed: {
-                id003: {
-                    title: "Journaling",
-                    description: "About making a website",
-                    tag: "tag1",
-                    deadline: 62783,
-                    points: 5,
-                },
-            },
-            tags: {
-
-                do: {
-                    title: "Do",
-                    color: "#7aa5cf",
-                    groupId: "gid001",
-                    deleteable: false,
-                    editable: false,
-                    display: false,
-                },
-                delegate: {
-                    title: "Delegate",
-                    color: "#63c074",
-                    groupId: "gid002",
-                    deleteable: false,
-                    editable: false,
-                    display: false,
-                },
-                schedule: {
-                    title: "Schedule",
-                    color: "#ac7acf",
-                    groupId: "gid003",
-                    deleteable: false,
-                    editable: false,
-                    display: false,
-                },
-                later: {
-                    title: "Later",
-                    color: "#c5e875",
-                    groupId: "gid004",
-                    deleteable: false,
-                    editable: false,
-                    display: false,
-                },
-                tag1: {
-                    title: "tag1",
-                    color: "#7aa5cf",
-                    groupId: "gid001",
-                    deleteable: true,
-                    editable: true,
-                    display: true,
-
-                },
-                tag2: {
-                    title: "tag2",
-                    color: "#63c074",
-                    groupId: "gid002",
-                    deleteable: true,
-                    editable: true,
-                    display: true,
-
-                },
-                tag3: {
-                    title: "tag3",
-                    color: "#ac7acf",
-                    groupId: "gid003",
-                    deleteable: true,
-                    editable: true,
-                    display: true,
-
-                },
-                tag4: {
-                    title: "tag4",
-                    color: "#c5e875",
-                    groupId: "gid004",
-                    deleteable: true,
-                    editable: true,
-                    display: true,
-
-                },
-                tag5: {
-                    title: "tag5",
-                    color: "#f7d38c",
-                    groupId: "gid003",
-                    deleteable: true,
-                    editable: true,
-                    display: true,
-
-                },
-                none: {
-                    title: "none",
-                    color: "#ffffff",
-                    deleteable: false,
-                    editable: false,
-                    display: false,
-
-                }
-            }
-        };
-        // Convert month to number
-        let monthDict = {
-            "January": 1,
-            "February": 2,
-            "March": 3,
-            "April": 4,
-            "May": 5,
-            "June": 6,
-            "July": 7,
-            "August": 8,
-            "September": 9,
-            "October": 10,
-            "November": 11,
-            "December": 12,
-        };
-        const combineMonth = function(day, month, year){
-            // Add st, nd, rd, th to day
-            if (day == 1 || day == 21 || day == 31) {
-                day += "st";
-            } else if (day == 2 || day == 22) {
-                day += "nd";
-            } else if (day == 3 || day == 23) {
-                day += "rd";
-            } else {
-                day += "th";
-            }
-            // Convert back month number to month name
-            for (var key in monthDict) {
-                if (monthDict[key] == month) {
-                    month = key;
-                    break;
-                }
-            }
-            // Return as: March 7th, 2024
-            return month + " " + day + ", " + year;
-        }
-
-        const pickDate = function(){
-            var day = undefined;
-            // Get day from focused datepicker-cell
-            $("#calendar .datepicker-cell").each(function() {
-                if ($(this).hasClass("focused")) {
-                    day = $(this).text();
-                }
-            });
-
-            // depends on textContent of button with class "text-sm" to get month and year
-            // if it contains both text and number (<month> <year>), output month and year
-            // if it contains only number (<year>), output year
-            // if it contains range of number (<year>-<year>), output range of year
-            var text = $("button.view-switch").text();
-            var month = text.split(" ")[0];
-            var year = text.split(" ")[1];
-            
-            // Convert month to number
-            month = monthDict[month];
-
-            return [day, month, year];
-        }
-
-        const getTask = function(day, month, year){
-            // Get all tasks that have deadline on focused day (in args)
-            // Return as array of tasks ID
-            var tasks = [];
-            for (var task in Dict.tasks) {
-                var deadline = new Date(Dict.tasks[task].deadline);
-                console.log(deadline, deadline.getDate(), deadline.getMonth(), deadline.getFullYear());
-                if (deadline.getDate() == day && deadline.getMonth() + 1 == month && deadline.getFullYear() == year) {
-                    tasks.push(task);
-                    console.log("Task", task);
-                }
-            }
-            return tasks;
-        }
-
-        const getExpiredDays = function(month, year){
-            // Get all days that have deadline in month and year
-            // Steps: Get deadline of each task, if it is in month and year, add its day to array
-            // Return as array of days
-            var days = {};
-            for (var task in Dict.tasks) {
-                var deadline = new Date(Dict.tasks[task].deadline);
-                if (deadline.getMonth() + 1 == month && deadline.getFullYear() == year) {
-                    days[deadline.getDate()] = true;
-                }
-            }
-            console.log("Days", days);
-            return days;
-        }
-
-        const changeExpiredColor = (days) => {
-            // Change color of days that have deadline before today
-            // to red
-
-            // Because Flowbite datepicker design calendar with 6 rows,
-            // if colored days from 22 to 31 and in first row, don't change color
-            // if colored days from 1 to 13 and in 5th and 6th row, don't change color
-            // else, change color to red
-
-            // Get all div with class datepicker-cell
-            // if day is in days, change color to red
-            // else, change color to default
-            let countCell = 0;
-            $("#calendar span.datepicker-cell").each(function() {
-                // Take day from text content of div
-                var day = parseInt($(this).text());
-                // Make outside days gray
-                // if (day >= 22 && countCell < 7) {
-                //     $(this).css("color", "gray");
-                // } else if (day <= 13 && countCell > 28) {
-                //     $(this).css("color", "gray");
-                // }
-                // Change color of days that have deadline
-                if (days[day]) {
-                    if (day >= 22 && countCell < 7) {
-                        $(this).css("color", "black");
-                    } else if (day <= 13 && countCell > 28) {
-                        $(this).css("color", "black");
-                    } else {
-                        $(this).css("color", "red");
-                    }
-                } else {
-                    $(this).css("color", "black");
-                }
-                countCell++;
-            });
-            
-        } // Calendar: Saturday evening
-
-        const appendTask = function(tasks, day, month, year){
-            // Append task to Task-Section-Outer
-            // Steps: Get task info, create task element, append to Task-Section-Outer
-            
-            
-        }
-        
-        // Use jQuery
-        
-        $(document).ready(function() {
-            // set initial date for #calendar is today
-            // format: MM/DD/YYYY
-            let date = pickDate();
-            console.log(date);
-            changeExpiredColor(getExpiredDays(date[1], date[2]));
-            // with each div with class datepicker-cell, find "focused" class
-            // if found, console log text content of the element
-            // refresh each time user click datepicker-cell
-            $("#Task-Group-Title").text(combineMonth(...pickDate()));
-            $("#calendar .datepicker-cell, #calendar button.prev-btn, #calendar button.next-btn").click(function() {
-                date = pickDate();
-                // set timeout to wait for focused class to be added
-                changeExpiredColor(getExpiredDays(date[1], date[2]));
-                setTimeout(function() {
-                    $("#Task-Group-Title").text(combineMonth(...pickDate()));
-                }, 50);
-            });
-        });
-    </script>
+    <script src="../static/js/calendarNew.js" type="module"></script>
 </body>
 </html>
