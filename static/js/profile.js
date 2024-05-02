@@ -1,4 +1,27 @@
 /////////////////////////////////////// password modal code begin
+import { ajaxHandler } from "./ajaxHandler.js";
+var userInfo = {}//Utils.getSampleData();
+
+async function getData() {
+  try {
+    const loadedData = await ajaxHandler.LoadUserData();
+    console.log('Data loaded successfully:', loadedData);
+    userInfo = loadedData;
+
+  } catch (error) {
+    console.log("Error loading data:", error);
+  }
+}
+// Call getData
+getData();
+
+
+function init()
+{
+  displayUserInfo();
+}
+setTimeout(init, 300);
+
 
 // Set the password modal element
 const $passwordModalEl = document.getElementById("password-modal");
@@ -279,53 +302,32 @@ document.getElementById("change-avatar-btn").addEventListener("click", () => {
 /////////////////////////////////////// change avatar modal code end
 
 /////////////////////////////////////// update user info
-var userInfo = {
-  username: "John Doe",
-  bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  Location: "UTC",
-};
+console.log(userInfo);
 function displayUserInfo() {
   $("#Username-Section").find("#user_profile_name").val(userInfo.username);
   $("#Bio-Section").find("#user_profile_bio").text(userInfo.bio);
-  $("#Time-Zone-Section").find("#user_location_name").val(userInfo.Location);
+  $("#Time-Zone-Section").find("#country").val(userInfo.country);
 }
-displayUserInfo();
+
 function updateUserInfo() {
   userInfo.username = $("#Username-Section").find("#user_profile_name").val();
   userInfo.bio = $("#Bio-Section").find("#user_profile_bio").val();
-  userInfo.Location = $("#Time-Zone-Section").find("#user_location_name").val();
+  userInfo.country = $("#Time-Zone-Section").find("#country").val();
   displayUserInfo();
-  AJAXsetUserInfo(userInfo.username, userInfo.bio, userInfo.Location);
+  AJAXsetUserInfo(userInfo.username, userInfo.bio, userInfo.country);
   console.log("bruh");
 }
 $("#Apply-Change-Button").click(updateUserInfo);
 
-function AJAXgetUserInfo() {
-  $.ajax({
-    url: "/profile/get",
-    type: "GET",
-    success: function (data) {
-      console.log(data);
-      userInfo.username = data.username;
-      userInfo.bio = data.bio;
-      userInfo.Location = data.Location;
-      console.log(userInfo);
-      displayUserInfo();
-    },
-    error: function (data) {
-      console.log(data);
-    },
-  });
-}
-AJAXgetUserInfo();
-function AJAXsetUserInfo(username, bio, Location) {
+
+function AJAXsetUserInfo() {
   $.ajax({
     url: "/profile/update",
     type: "POST",
     data: JSON.stringify({
       username: userInfo.username,
       bio: userInfo.bio,
-      Location: userInfo.Location,
+      country: userInfo.country,
     }),
     contentType: "application/json",
     dataType: "json",
@@ -381,7 +383,7 @@ function AJAXgetUserProfileImage() {
     url: "/profile/get/image",
     type: "GET",
     success: function (data) {
-      $("#User-Current-Avatar").attr("src",data);
+      $("#User-Current-Avatar").attr("src", data);
     },
     error: function (data) {
       console.log(data);
@@ -392,6 +394,7 @@ function AJAXgetUserProfileImage() {
 AJAXgetUserProfileImage();
 
 $("#change-email").click(function () {
+  e.preventDefault()
   AJAXChangeEmail();
   location.reload();
 });

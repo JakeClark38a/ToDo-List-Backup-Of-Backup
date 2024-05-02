@@ -15,7 +15,7 @@
         <div class="text-center font-bold text-3xl w-full text-main my-5">
           Register
         </div>
-        <form class="max-w-sm mx-auto" action="{{url_for('register')}}" method="post">
+        <form class="max-w-sm mx-auto" action="{{url_for('auth.register')}}" method="post">
           <div class="mb-3">
             <label for="email" class="block mb-2 ml-2 text-sm font-medium text-white">Your email</label>
             <input type="email" id="email"
@@ -84,7 +84,7 @@
           <p class="flex justify-center text-white">
             Already have an account?
           </p>
-          <a class="text-main font-bold hover:underline dark:text-blue-500" href="{{url_for('login')}}">Login</a>
+          <a class="text-main font-bold hover:underline dark:text-blue-500" href="{{url_for('auth.login')}}">Login</a>
         </div>
       </div>
     </div>

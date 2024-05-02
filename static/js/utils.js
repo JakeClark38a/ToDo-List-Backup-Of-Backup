@@ -161,8 +161,15 @@ var Dict = {
   
   };
 */
+let Settings = {
+    currentMMenuTab: 0,
+    currentMode: 0,
+    isMakeChangeGroup: false,
+    debugMode: false,
+}
 
 class Utils {
+
     static getUuid() {
         // old uuid
         // return (
@@ -176,7 +183,7 @@ class Utils {
         );
     }
     static randHexColor() {
-        return "#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0'));
+        return "#" + ((Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0'));
     }
     static toJSON(classObj, template = []) {
         // If template is empty, return all in JavaScript Object
@@ -386,7 +393,7 @@ class Dict {
 class DictCRUD extends Dict {
     constructor(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {}) {
         // Generate Dict object and assign to this
-        super(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {});
+        super(username, userid, groups, tasks, completed, tags);
     }
     // Add methods to create, read, update, delete Dict
     // Create
@@ -404,7 +411,7 @@ class DictCRUD extends Dict {
         // return this
         return this;
     }
-    createTag(title, color, groupId, deleteable, editable, display, tagID = null) {
+    createTag(title, color, groupId, deleteable = false, editable = false, display = false, tagID = null) {
         let tag = new Tag(title, color, groupId, deleteable, editable, display, tagID);
         tag.generateID();
         this.tags[tag.tagID] = tag;
@@ -420,6 +427,10 @@ class DictCRUD extends Dict {
     }
     readTagList(groupID) {
         return Object.values(this.tags).filter(tag => tag.groupId === groupID);
+    }
+    readAllGroups() {
+        // Return all groups ID
+        return Object.values(this.groups);
     }
     // Update   
     updateGroup(groupID, newGroup) {
@@ -468,7 +479,7 @@ class DictCRUD extends Dict {
 class DictAJAX extends DictCRUD {
     constructor(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {}) {
         // Generate Dict object and assign to this
-        super(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {});
+        super(username, userid, groups, tasks, completed, tags);
     }
     // Add methods to interact with the server by AJAX
     // Add methods to get Dict from server
@@ -530,6 +541,7 @@ class DictAJAX extends DictCRUD {
 // Caution: This code is copied from app.js!
 class Templates {
     // Add methods to create html templates
+    //For main menu
     static MainMenuTag(id, tag) {
         return (
             `
@@ -748,12 +760,14 @@ class MainMenu {
             $tab.toggleClass(indiModeCSS);
         }
     }
-    static toggleHiddenGroup(group) {
-        group.find("#MMenu-Tag-Section").toggle("hidden");
-        group.find(".MMenu-Dropdown-Arrow").toggleClass("-rotate-90");
+
+    static toggleHiddenGroup(_ghtml) {
+        _ghtml.find("#MMenu-Tag-Section").toggle("hidden");
+        _ghtml.find(".MMenu-Dropdown-Arrow").toggleClass("-rotate-90");
     }
+
     static addNewTag(group_html, id, tag) {
-        //console.log(group_html);
+        console.log(group_html);
         group_html.append(Templates.MainMenuTag(id, tag));
         // LoadTags();
     }
@@ -764,26 +778,37 @@ class MainMenu {
         return $("#" + unique_id);
     }
     // TODO: Need to implement new Dict class
-    static LoadGroups_Tag() {
+    // MainMenu.LoadGroups_Tag(DictCRUD)
+    // createTag(title, color, groupId, deleteable, editable, display, tagID = null)
+    static LoadGroups_Tag(dict = null) {
+        if (dict === null)
+            return;
         // Iterate over each group in Dict.groups
-        for (var groupId in Dict.groups) {
-            if (Dict.groups.hasOwnProperty(groupId)) {
-                var group = Dict.groups[groupId];
-                var g = this.addNewGroup(groupId, group);
+        dict = dict.exportDict();
+        // createGroup(title, tags, def_tag, color, current_html) {
+        $("#MMenu-Group-Section").empty();
+        // Iterate over each group in Dict.groups
+        for (let groupId in dict.groups) {
+            if (dict.groups.hasOwnProperty(groupId)) {
+                let group = dict.groups[groupId];
+                let g = this.addNewGroup(groupId, group);
                 // console.log("Group: " + group.title);
                 // Iterate over tags in the current group
-                for (var j = 0; j < group.tags.length; j++) {
-
-                    if (Dict.tags[group.tags[j]].display == false) continue;
-
-                    this.addNewTag(g.find("#MMenu-Tag-Section"), group.tags[j], Dict.tags[group.tags[j]]);
+                for (let j = 0; j < group.tags.length; j++) {
+                    if (dict.tags[group.tags[j]].display == false) continue;
+                    this.addNewTag(g.find("#MMenu-Tag-Section"), group.tags[j], dict.tags[group.tags[j]]);
                 }
                 this.toggleHiddenGroup(g);
             }
         }
+        return dict;
     }
 }
 class CRUDModalHandler {
+    static closeAllModal() {
+        addGroupnTagModal.hide();
+        addTaskModal.hide();
+    }
     static addGroup() {
         // Customize modal appearance
         $('#crud-modal label[for="name"]').text("Title");
@@ -824,7 +849,7 @@ class CRUDModalHandler {
         // Show modal
         addGroupnTagModal.show();
     }
-    static editGroup() {
+    static editGroup(gInfo = null, gid = null) {
         $('#crud-modal label[for="name"]').text("Title");
 
         $('#crud-modal h3').text("Edit Group");
@@ -851,7 +876,7 @@ class CRUDModalHandler {
         // Show modal
         addGroupnTagModal.show();
     }
-    static editTag() {
+    static editTag(tagInfo = null) {
         // Customize modal appearance
         $('#crud-modal label[for="name"]').text("Name");
 
@@ -938,7 +963,7 @@ class CRUDModalHandler {
     }
 }
 
-class MainScreen {
+class MainScreen extends MainMenu {
     static updateTime() {
         const now = new Date();
         const seconds = now.getSeconds().toString().padStart(2, '0');
@@ -946,8 +971,22 @@ class MainScreen {
         let hours = now.getHours().toString().padStart(2, '0');
         const ampm = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12 || 12; // Convert to 12-hour format
-        const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}`;
+
+        // Format date
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const dayOfWeek = daysOfWeek[now.getDay()];
+        const day = now.getDate().toString().padStart(2, '0');
+        const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+        const year = now.getFullYear();
+
+        // Construct formatted date string
+        const formattedDate = `${dayOfWeek} ${day}/${month}/${year}`;
+
+        // Construct formatted time string
+        const formattedTime = `${hours}:${minutes}:${seconds} ${ampm} ${formattedDate}`;
+
         document.getElementById('clock').textContent = formattedTime;
+
     }
     static renderTag(tag_html, tag, id, mode = 0) {
         //console.log(tag.display);
@@ -983,8 +1022,7 @@ class MainScreen {
                     $(formatter_html).find("#Main-Formatter").find("#Wrapper"),
                     group,
                     groupId,
-                    // currentMode
-                    0
+                    this.currentMode
                 );
                 //console.log(groupId);
                 var task_html = $(g).find("#Task-Section");
@@ -999,20 +1037,19 @@ class MainScreen {
                             task_html,
                             Dict.tasks[taskId],
                             taskId,
-                            currentMode
+                            this.currentMode
                         );
                     }
                 }
             }
         }
-        this.renderFormatterAddons(formatter_html, 
-            //currentMode
+        this.renderFormatterAddons(formatter_html,
+            this.currentMode
         );
     }
 }
 
-
-class Initialize {
+class Initialize extends MainScreen {
     static RefreshMainScreen() {
         $("#Main-Screen").empty();
         // $("#MMenu-Group-Section").empty();
@@ -1060,6 +1097,8 @@ class Initialize {
     }
     // Main function to load everything
     static initApp() {
+        setInterval(this.updateTime, 1000);
+
         this.LoadTags();
         this.LoadGroups();
         this.initUser();
@@ -1079,184 +1118,186 @@ Dict.createGroup("Group 3", [], null, "green", "");
 Dict.createTag("Tag 1", "red", "1", false, true, true);
 Dict.createTag("Tag 2", "blue", "1", false, true, true);
 Dict.createTag("Tag 3", "green", "1", false, true, true);
+Dict.createTag("Tag 4", "yellow", "1", false, true, true);
 // Create a new Task
 Dict.createTask("Task 1", "Description 1", "1", "2023-12-12", 10);
 Dict.createTask("Task 2", "Description 2", "1", "2023-12-12", 10);
 Dict.createTask("Task 3", "Description 3", "1", "2023-12-12", 10);
-// End place to test Group, Tag, Task classes
+// End place to test Group, Tag, Task class
 
-Initialize.initApp();
+let currSession = Initialize.initApp();
 // Print Dict
 
 
-console.log(Dict);
-
+console.log(Dict)
+;
 let DictString = {
     // sample dict
     username: "JakeClark",
     userid: "User ID",
     groups: {
-      gid001: {
-        title: "Do",
-        tags: ["tag1"],
-        def_tag: "do",
-        color: "#7aa5cf",
-        current_html: "",
-      },
-      gid002: {
-        title: "Delegate",
-        tags: ["tag2"],
-        def_tag: "delegate",
-        color: "#63c074",
-        current_html: "",
-      },
-      gid003: {
-        title: "Schedule",
-        tags: ["tag3", "tag5"],
-        def_tag: "schedule",
-        color: "#ac7acf",
-        current_html: "",
-      },
-      gid004: {
-        title: "Later",
-        tags: ["tag4"],
-        def_tag: "later",
-        color: "#c5e875",
-        current_html: "",
-      },
+        gid001: {
+            title: "Do",
+            tags: ["tag1"],
+            def_tag: "do",
+            color: "#7aa5cf",
+            current_html: "",
+        },
+        gid002: {
+            title: "Delegate",
+            tags: ["tag2"],
+            def_tag: "delegate",
+            color: "#63c074",
+            current_html: "",
+        },
+        gid003: {
+            title: "Schedule",
+            tags: ["tag3", "tag5"],
+            def_tag: "schedule",
+            color: "#ac7acf",
+            current_html: "",
+        },
+        gid004: {
+            title: "Later",
+            tags: ["tag4"],
+            def_tag: "later",
+            color: "#c5e875",
+            current_html: "",
+        },
     },
     tasks: {
-      id001: {
-        title: "Meeting",
-        description: "About making a website",
-        tag: "tag1",
-        deadline: 62783,
-        points: 4,
-      },
-      id002: {
-        title: "Crying",
-        description: "About making a website",
-        tag: "tag3",
-        deadline: 62783,
-        points: 4,
-      },
-      id004: {
-        title: "Laughing",
-        description: "About making a website",
-        tag: "tag5",
-        deadline: 62783,
-        points: 4,
-      },
+        id001: {
+            title: "Meeting",
+            description: "About making a website",
+            tag: "tag1",
+            deadline: 62783,
+            points: 4,
+        },
+        id002: {
+            title: "Crying",
+            description: "About making a website",
+            tag: "tag3",
+            deadline: 62783,
+            points: 4,
+        },
+        id004: {
+            title: "Laughing",
+            description: "About making a website",
+            tag: "tag5",
+            deadline: 62783,
+            points: 4,
+        },
     },
     completed: {
-      id003: {
-        title: "Journaling",
-        description: "About making a website",
-        tag: "tag1",
-        deadline: 62783,
-        points: 5,
-      },
+        id003: {
+            title: "Journaling",
+            description: "About making a website",
+            tag: "tag1",
+            deadline: 62783,
+            points: 5,
+        },
     },
     tags: {
 
-      do:{
-        title: "Do",
-        color: "#7aa5cf",
-        groupId: "gid001",
-        deleteable: false,
-        editable: false,
-        display: false,
-      },
-      delegate: {
-        title: "Delegate",
-        color: "#63c074",
-        groupId: "gid002",
-        deleteable: false,
-        editable: false,
-        display: false,
-      },
-      schedule: {
-        title: "Schedule",
-        color: "#ac7acf",
-        groupId: "gid003",
-        deleteable: false,
-        editable: false,
-        display: false,
-      },
-      later: {
-        title: "Later",
-        color: "#c5e875",
-        groupId: "gid004",
-        deleteable: false,
-        editable: false,
-        display: false,
-      },
-      tag1: {
-          title: "tag1",
-          color: "#7aa5cf",
-          groupId: "gid001",
-          deleteable: true,
-          editable: true,
-          display: true,
+        do: {
+            title: "Do",
+            color: "#7aa5cf",
+            groupId: "gid001",
+            deleteable: false,
+            editable: false,
+            display: false,
+        },
+        delegate: {
+            title: "Delegate",
+            color: "#63c074",
+            groupId: "gid002",
+            deleteable: false,
+            editable: false,
+            display: false,
+        },
+        schedule: {
+            title: "Schedule",
+            color: "#ac7acf",
+            groupId: "gid003",
+            deleteable: false,
+            editable: false,
+            display: false,
+        },
+        later: {
+            title: "Later",
+            color: "#c5e875",
+            groupId: "gid004",
+            deleteable: false,
+            editable: false,
+            display: false,
+        },
+        tag1: {
+            title: "tag1",
+            color: "#7aa5cf",
+            groupId: "gid001",
+            deleteable: true,
+            editable: true,
+            display: true,
 
-      },
-      tag2: {
-          title: "tag2",
-          color: "#63c074",
+        },
+        tag2: {
+            title: "tag2",
+            color: "#63c074",
 
-          groupId: "gid002",
-          deleteable: true,
-          editable: true,
-          display: true,
+            groupId: "gid002",
+            deleteable: true,
+            editable: true,
+            display: true,
 
-      },
-      tag3: {
-          title: "tag3",
-          color: "#ac7acf",
+        },
+        tag3: {
+            title: "tag3",
+            color: "#ac7acf",
 
-          groupId: "gid003",
-          deleteable: true,
-          editable: true,
-          display: true,
+            groupId: "gid003",
+            deleteable: true,
+            editable: true,
+            display: true,
 
-      },
-      tag4: {
-          title: "tag4",
-          color: "#c5e875",
+        },
+        tag4: {
+            title: "tag4",
+            color: "#c5e875",
 
-          groupId: "gid004",
-          deleteable: true,
-          editable: true,
-          display: true,
+            groupId: "gid004",
+            deleteable: true,
+            editable: true,
+            display: true,
 
-      },
-      tag5: {
-          title: "tag5",
-          color: "#f7d38c",
+        },
+        tag5: {
+            title: "tag5",
+            color: "#f7d38c",
 
-          groupId: "gid003",
-          deleteable: true,
-          editable: true,
-          display: true,
+            groupId: "gid003",
+            deleteable: true,
+            editable: true,
+            display: true,
 
-      },
-      none: {
-          title: "none",
-          color: "#ffffff",
+        },
+        none: {
+            title: "none",
+            color: "#ffffff",
 
-          deleteable: false,
-          editable: false,
-          display: false,
+            deleteable: false,
+            editable: false,
+            display: false,
 
-      }
-  }
-  
-  };
+        }
+    }
+
+};
 
 Dict2 = new DictAJAX();
 Dict2.importDict(DictString);
 console.log(Dict2);
-console.log(Dict2.exportDict()); 
+MainMenu.LoadGroups_Tag(Dict);
+console.log(Dict2.exportDict());
 console.log(Dict2.getDict());
 console.log(Dict2.addGroup())
 

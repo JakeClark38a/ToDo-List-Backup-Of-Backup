@@ -17,7 +17,7 @@
         <div class="text-center font-bold text-3xl w-full text-main my-3">
           Login
         </div>
-        <form class="max-w-md w-64 mx-auto" method="post" action="{{url_for('login')}}">
+        <form class="max-w-md w-64 mx-auto" method="post" action="{{url_for('auth.login')}}">
           <div class="mt-5 mb-3">
             <label for="email" class="block ml-2 mb-2 text-sm font-medium text-main">Your email</label>
             <input type="email" id="email"
@@ -43,7 +43,7 @@
           </div>
           <div class="mb-9">
             <p class="ml-2 text-sm font-medium text-main w-full">
-              <a class="text-main hover:underline dark:text-blue-500" href="{{url_for('forgot_password')}}">Forgot password ?</a>
+              <a class="text-main hover:underline dark:text-blue-500" href="{{url_for('auth.forgot_password')}}">Forgot password ?</a>
             </p>
           </div>
           <div class="flex justify-center">
@@ -56,7 +56,7 @@
         <p class="flex justify-center mt-3 mb-10 text-main">
           Have no account?
           <a class="text-main font-bold hover:underline dark:text-blue-500 ml-1"
-            href="{{url_for('register')}}">Register</a>
+            href="{{url_for('auth.register')}}">Register</a>
         </p>
         <div class="flex flex-row justify-center items-center w-full">
           <hr class="w-16 h-[1.5px] my-3 bg-main border-0 dark:bg-gray-700">
@@ -65,10 +65,10 @@
         </div>
         <!-- end horizon line -->
         <div class="flex flex-row justify-evenly w-full my-2">
-          <a href="{{url_for('facebook')}}"><button>
+          <a href="{{url_for('auth.facebook')}}"><button>
               <image src="../static/images/loginfb.jpg" class="h-10 rounded-md">
             </button></a>
-          <a href="{{url_for('login_google')}}"><button>
+          <a href="{{url_for('auth.login_google')}}"><button>
               <image src="../static/images/Logingg.png" class="h-10">
             </button></a>
         </div>
