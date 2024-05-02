@@ -295,10 +295,11 @@ const changeExpiredColor = (days) => {
 // Step 3: Take Dict.tasks and use getTask() to get all taskID need to be displayed - done
 // Step 4: Show all tasks taken in step 3 using appendTask() - todo
 // Step 5: Handle click on tasks - including edit, complete and delete - todo
+
 // Use jQuery
 
-// Step 1 in here
-// u sure? yes
+// Step 1 
+// 
 var Dict = {};
 const loadDict = function(){
     return new Promise(function (resolve) {
@@ -311,14 +312,14 @@ const loadDict = function(){
 }
 
 const appendTask = function(tasks, day, month, year){
-    // Append task to Task-Section-Outer
-    // Steps: Get task info, create task element, append to Task-Section-Outer
-    // hey, any templates? Take template from your code, about how to load task into a group, but calendar just has 1 group
-    $('#Task-Section-Outer').append(MainScreen.TaskTemplate(tasks.taskID,tasks));
-    /// is it correct?
-
-    // 
-    
+    console.log("Append Task", day, month, year);
+    $("#Task-Section").empty();
+    for(taskId in tasks){
+        var deadline = new Date(tasks[taskId].deadline);
+        if (deadline.getDate() == day && deadline.getMonth() + 1 == month && deadline.getFullYear() == year) {
+            $("#Task-Section").append(MainScreen.TaskTemplate(taskId, tasks[taskId]));
+        }
+    }
 }
 
 
@@ -331,6 +332,7 @@ $(document).ready(function() {
     let date = pickDate();
     console.log(date);
     changeExpiredColor(getExpiredDays(date[1], date[2]));
+    appendTask(Dict.tasks, date[0], date[1], date[2]);
     console.log(getTask(...date));
     // with each div with class datepicker-cell, find "focused" class
     // if found, console log text content of the element
@@ -343,5 +345,7 @@ $(document).ready(function() {
         setTimeout(function() {
             $("#Task-Group-Title").text(combineMonth(...pickDate()));
         }, 50);
+        appendTask(Dict.tasks, date[0], date[1], date[2]);
     });
+
 });

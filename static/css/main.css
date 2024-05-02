@@ -4252,6 +4252,10 @@ input:checked + .toggle-bg {
   text-align: center;
 }
 
+.align-top {
+  vertical-align: top;
+}
+
 .align-middle {
   vertical-align: middle;
 }
