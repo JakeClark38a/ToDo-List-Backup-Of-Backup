@@ -299,7 +299,7 @@ const changeExpiredColor = (days) => {
 
 // Step 1 in here
 // u sure? yes
-
+var Dict = {};
 const loadDict = function(){
     return new Promise(function (resolve) {
         $.when(ajaxHandler.LoadUserData()).done(function (data) {

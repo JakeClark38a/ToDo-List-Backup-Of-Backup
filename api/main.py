@@ -3,6 +3,8 @@ from .model import tododb
 from .authetication import auth, SECRET_KEY, mail, bcrypt, oauth
 from .todo import todo
 from .profile import profiles
+from .calendar import calendar
+from .gameTree import game
 from flask_login import LoginManager
 from secrets import token_bytes
 from flask_migrate import Migrate
@@ -44,6 +46,8 @@ def create_app():
     app.register_blueprint(auth)
     app.register_blueprint(todo)
     app.register_blueprint(profiles)
+    app.register_blueprint(calendar)
+    app.register_blueprint(game)
     # with app.app_context():
     #     tododb.create_all()
     
