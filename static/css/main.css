@@ -2380,6 +2380,8 @@ input:checked + .toggle-bg {
 
 /* End profile */
 
+/* Start tree */
+
 .vt323-regular {
   font-family: "VT323", monospace;
   font-weight: 400;
@@ -2388,7 +2390,6 @@ input:checked + .toggle-bg {
 
 #waterbutton img,
   #fertilizebutton img {
-  margin-right: 0.625rem;
   cursor: pointer;
   border-width: 2px;
   border-style: solid;
@@ -2476,6 +2477,40 @@ input:checked + .toggle-bg {
 
 .animate-wiggle {
   animation: wiggle 0.5s;
+}
+
+.center-display {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1000px) {
+  #house {
+    width: 40%;
+  }
+
+  #shop {
+    width: 40%;
+  }
+
+  .center-display {
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 1001px) {
+  .no-flex-col-when-less-1000px {
+    flex-direction: column;
+  }
+}
+
+.forest-background{
+  background-color: #667a31;
+  background-image: url(https://img.itch.zone/aW1nLzExMTg4NTE2LnBuZw==/original/XYcMgs.png);
+  background-repeat: repeat;
+  background-position: 50% 0;
 }
 
 /* end tree */
@@ -3124,6 +3159,10 @@ input:checked + .toggle-bg {
   height: 100vh;
 }
 
+.max-h-\[400px\] {
+  max-height: 400px;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -3309,8 +3348,20 @@ input:checked + .toggle-bg {
   width: 100vw;
 }
 
+.w-3\/5 {
+  width: 60%;
+}
+
+.w-3\/4 {
+  width: 75%;
+}
+
 .min-w-12 {
   min-width: 3rem;
+}
+
+.min-w-full {
+  min-width: 100%;
 }
 
 .max-w-full {
@@ -3803,11 +3854,6 @@ input:checked + .toggle-bg {
 .border-yellow-700 {
   --tw-border-opacity: 1;
   border-color: rgb(143 106 54 / var(--tw-border-opacity));
-}
-
-.bg-\[\#50c293\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(80 194 147 / var(--tw-bg-opacity));
 }
 
 .bg-\[\#7b90fd\] {
