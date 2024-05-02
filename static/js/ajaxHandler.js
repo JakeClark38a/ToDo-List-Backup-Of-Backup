@@ -369,6 +369,15 @@ ajaxHandler.LoadUserData = function () {
                 Dict.groups[t.groupId].tags.push(t.tagID);
             }
 
+            // somehow the def_tag is not in tags dict yet
+            for (let groupId in Dict.groups){
+                if ( Dict.groups[groupId].def_tag && !Dict.tags.hasOwnProperty( Dict.groups[groupId].def_tag)){
+                    let group =  Dict.groups[groupId]
+                    let dft = Dict.createTag( group.title, group.color, group.groupID, false, false, false, group.def_tag);
+                    console.log("Not found def_tag: " + group.def_tag +" in tags dict, adding new one!");
+                    ajaxHandler.addTag(dft.tagID, dft.groupId, dft.title, dft.color);
+                };
+            };
             // filter all task that have group and tags no longer exist
             // implement later
 

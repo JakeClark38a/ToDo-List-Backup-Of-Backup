@@ -28,7 +28,20 @@ MainScreen.TagTemplate = function (id, tag, mode = 0) {
     }
 };
 
+function convertTime(ms) {
+    const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+    return { days, hours, minutes };
+}
+
 MainScreen.TaskTemplate = function (id, task, mode = 0) {
+
+    let timeLeftMs = new Date(task.deadline).getTime() - Date.now();
+    const timeLeft = convertTime(timeLeftMs);
+    let timeLeftStr = `${timeLeft.days}d: ${timeLeft.hours}h: ${timeLeft.minutes}m left`
+    if (timeLeftMs <= 0) timeLeftStr = "Due now!";
+
     if (mode == 0) {
         return (
             ` 
@@ -71,8 +84,11 @@ MainScreen.TaskTemplate = function (id, task, mode = 0) {
                 <input id="Task-Destroyer" type="checkbox"
                     class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer"></input>
             </div>
-            <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
             
+            <div id="Task-Tag" class=" p-2 flex gap-2 overflow-hidden font-medium">
+                <div class="flex justify-end">
+                    <span class="text-sm font-medium text-blue-700 dark:text-white">`+ timeLeftStr + `</span>
+                </div>
             </div>
         </div>
 
@@ -220,7 +236,7 @@ MainScreen.FormmatterAddons = function (mode = 0) {
 MainScreen.AddFloatButton = function (isActive = true) {
     return isActive ? (`
     <!-- add question action button here-->
-    <div id="add-draggable"  class="z-40 absolute">
+    <div id="add-draggable"  class="z-30 absolute">
         <div  class="touch-none select-none">
             <div id="moveButton" 
                 class="hover:w-12 hover:h-12 border-2 border-gray-300 absolute rounded-full w-12 h-12 bg-main/55 dark:bg-gray-700/60 backdrop-blur-sm shadow-xl p-2">
@@ -318,9 +334,10 @@ MainMenu.GroupTemplates = function (id, group) {
 let alert = {};
 alert.Success = function (msg) {
     let uuid = Utils.getUuid();
-    return {html: (`
+    return {
+        html: (`
     <div id="`+ uuid + `"
-                class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+                class="flex items-center z-50 w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
                 role="alert">
                 <div
                     class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
@@ -341,13 +358,14 @@ alert.Success = function (msg) {
                     </svg>
                 </button>
             </div>
-    `), uuid: uuid};
+    `), uuid: uuid
+    };
 };
 
 alert.Danger = function (msg) {
     let uuid = Utils.getUuid();
     return (`
-    <div id="`+ uuid + `" class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+    <div id="`+ uuid + `" class="flex items-center z-50 w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
@@ -367,7 +385,7 @@ alert.Danger = function (msg) {
 
 alert.Warning = function (msg) {
     return (`
-    <div id="`+ uuid + `" class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+    <div id="`+ uuid + `" class="flex items-center z-50 w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>

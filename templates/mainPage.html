@@ -99,13 +99,17 @@
                                 class="bg-gray-50 border border-gray-300 p-1 h-[2.65rem]  w-20 rounded-lg focus:ring-primary-500 focus:border-primary-500 block dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         </div>
 
+                        <div id="warn-sec" class="col-span-2">
+                            <div id="warn" class="block mb-2 text-sm font-medium text-red-400">Warning</div>
+                        </div>
+
                     </div>
                     <!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
                     <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
                         autocomplete="off" tabindex="-1">
                     <div class="col-span-2 flex justify-between">
                         <button id="submit-sec" type="button"
-                            class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                            class="text-white inline-flex items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-blue-500">
                             <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -117,7 +121,7 @@
 
                         <!--Delete btn-->
                         <button id="delete-sec" type="button"
-                            class="text-white inline-flex items-center bg-red-300 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                            class="text-white inline-flex items-center bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
                             <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -232,7 +236,7 @@
                     <label class="inline-flex items-center cursor-pointer px-3">
                         <input id="Toggle-DarkMode" type="checkbox" value="" class="sr-only peer">
                         <div
-                            class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                            class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-blue-500 peer-checked:bg-green-500">
                         </div>
                     </label>
                 </div>

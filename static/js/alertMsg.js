@@ -10,6 +10,7 @@ Alert.Success = function (msg , timeout){
     }, t);
 }
 Alert.Danger = function (msg , timeout ){
+    console.warn('Alert.Danger: ', msg, timeout);
     let obj = alert.Danger(msg)
     let t = timeout == null || timeout <= 0 ? 5000 : timeout; 
     $('#Alert-Screen').append(obj['html']);
@@ -18,6 +19,7 @@ Alert.Danger = function (msg , timeout ){
     }, t);
 }
 Alert.Warning = function (msg , timeout ){
+    console.warn('Alert.Warning', msg, timeout);
     let obj = alert.Warning(msg)
     let t = timeout == null || timeout <= 0 ? 5000 : timeout; 
     $('#Alert-Screen').append(obj['html']);
