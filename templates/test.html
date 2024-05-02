@@ -1,12 +1,37 @@
-<div id="Drop-Down-Options-Profile" class="rounded-lg w-[150px] border-2 absolute bg-white " role="menu">
-    <label for="upload-photo" class="dropdown-item text-sm hover:bg-cyan-600 cursor-pointer p-2">
-        Upload a photo…
-        <input type="file" id="upload-photo" name="photo" accept="image/*" style="display: none;">
-    </label>
-    <form class="dropdown-item text-sm hover:bg-cyan-600 p-2" action="/settings/primary_avatar" accept-charset="UTF-8" method="post">
-        <input type="hidden" name="_method" value="delete" autocomplete="off">
-        <button onclick="return confirm('Are you sure you want to remove the photo?')">
-            Remove photo
-        </button>
-    </form>
+<div class="flex">
+	<img id="shop" src="../static/images/tree_game/shop.png" alt="Shop" class="w-1/3 m-auto"> 
+	<div class="h-full">
+		<img id="tree" src="../static/images/tree_game/tree1.gif" class="m-auto" alt="Tree">
+		<div class="options flex justify-center bottom-0 ml-6">
+			<div id="waterbutton" class="flex">
+				<img src="../static/images/tree_game/watercan-full.png" alt="Watering Can" onclick="waterTree()"> 
+				<div id="waterCount" class="text-5xl vt323-regular absolute pointer-events-none"></div>
+			</div>
+			<div id="fertilizebutton" class="flex">
+				<img src="../static/images/tree_game/fertilizer-opened.png" alt="Fertilizer" onclick="fertilizeTree()"> 
+				<div id="fertilizerCount" class="text-5xl vt323-regular absolute pointer-events-none"></div>
+			</div>
+		</div>
+	</div>
+	<img id="house" src="../static/images/tree_game/house.png" alt="House" class="w-1/3 m-auto"> 
+</div>
+
+<div class="flex">
+	<div class="flex">
+		<img id="shop" src="../static/images/tree_game/shop.png" alt="Shop" class="w-1/3 m-auto"> 
+		<img id="house" src="../static/images/tree_game/house.png" alt="House" class="w-1/3 m-auto"> 
+	</div>
+	<div class="h-full">
+		<img id="tree" src="../static/images/tree_game/tree1.gif" class="m-auto" alt="Tree">
+		<div class="options flex justify-center bottom-0 ml-6">
+			<div id="waterbutton" class="flex">
+				<img src="../static/images/tree_game/watercan-full.png" alt="Watering Can" onclick="waterTree()"> 
+				<div id="waterCount" class="text-5xl vt323-regular absolute pointer-events-none"></div>
+			</div>
+			<div id="fertilizebutton" class="flex">
+				<img src="../static/images/tree_game/fertilizer-opened.png" alt="Fertilizer" onclick="fertilizeTree()"> 
+				<div id="fertilizerCount" class="text-5xl vt323-regular absolute pointer-events-none"></div>
+			</div>
+		</div>
+	</div>
 </div>
