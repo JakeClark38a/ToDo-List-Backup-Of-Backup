@@ -46,15 +46,37 @@ modalteampage.CreateTeam = function () {
   $('#crud-modal2 #teamdesc-sec').show();
   $('#crud-modal2 #Create-sec').show();
   $('#crud-modal2 #Join-sec').hide();
+  $('#crud-modal2 #save-sec').hide();
+  $('#crud-modal2 #delete-sec').hide();
   $('#crud-modal2 label[for="teamname"]').text("Team's Name");
   $('#crud-modal2 label[for="teamdescription"]').text("Team Description");
   $('#crud-modal2 h3').text(h3);
-  $('#crud-modal #teamname').val(teamname);
-  $('#crud-modal #teamdescription').val(teamdescription);
+  $('#crud-modal2 #teamname').val(teamname);
+  $('#crud-modal2 #teamdescription').val(teamdescription);
 
   modalteampage.show();
 }
+modalteampage.editTeam = function (team) {
+  let h3 = "Edit Team";
+  let teamname = team.name;
+  let teamdescription = team.des;
+  let id = team.team_id;
+  $("#crud-modal2 #code-sec").hide();
+  $('#crud-modal2 #teamname-sec').show();
+  $('#crud-modal2 #teamdesc-sec').show();
+  $('#crud-modal2 #Create-sec').hide();
+  $('#crud-modal2 #Join-sec').hide();
+  $('#crud-modal2 #save-sec').show();
+  $('#crud-modal2 #delete-sec').show();
+  $('#crud-modal2 label[for="teamname"]').text("Team's Name");
+  $('#crud-modal2 label[for="teamdescription"]').text("Team Description");
+  $('#crud-modal2 h3').text(h3);
+  $('#crud-modal2 input[type="checkbox"]').attr("id", `${id}`);
+  $('#crud-modal2 #teamname').val(teamname);
+  $('#crud-modal2 #teamdescription').val(teamdescription);
 
+  modalteampage.show();
+}
 modalteampage.JoinTeam = function () {
   let h3 = "Join Team";
   let teamcode = "";
@@ -63,6 +85,8 @@ modalteampage.JoinTeam = function () {
   $('#crud-modal2 #code-sec').show();
   $('#crud-modal2 #Create-sec').hide();
   $('#crud-modal2 #Join-sec').show ();
+  $('#crud-modal2 #save-sec').hide();
+  $('#crud-modal2 #delete-sec').hide();
   $('#crud-modal2 label[for="teamcode"]').text("Team's Code");
   $('#crud-modal2 h3').text(h3);
   $('#crud-modal2 #teamcode').val(teamcode);
