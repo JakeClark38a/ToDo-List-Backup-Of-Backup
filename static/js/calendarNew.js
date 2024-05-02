@@ -175,7 +175,7 @@ let monthDict = {
     "November": 11,
     "December": 12,
 };
-const combineMonth = function(day, month, year){
+const combineMonth = function (day, month, year) {
     // Add st, nd, rd, th to day
     if (day == 1 || day == 21 || day == 31) {
         day += "st";
@@ -197,10 +197,10 @@ const combineMonth = function(day, month, year){
     return month + " " + day + ", " + year;
 }
 
-const pickDate = function(){
+const pickDate = function () {
     var day = undefined;
     // Get day from focused datepicker-cell
-    $("#calendar .datepicker-cell").each(function() {
+    $("#calendar .datepicker-cell").each(function () {
         if ($(this).hasClass("focused")) {
             day = $(this).text();
         }
@@ -213,14 +213,14 @@ const pickDate = function(){
     var text = $("button.view-switch").text();
     var month = text.split(" ")[0];
     var year = text.split(" ")[1];
-    
+
     // Convert month to number
     month = monthDict[month];
 
     return [day, month, year];
 }
 
-const getTask = function(day, month, year){
+const getTask = function (day, month, year) {
     // Get all tasks that have deadline on focused day (in args)
     // Return as array of tasks ID
     var tasks = [];
@@ -235,7 +235,7 @@ const getTask = function(day, month, year){
     return tasks;
 }
 
-const getExpiredDays = function(month, year){
+const getExpiredDays = function (month, year) {
     // Get all days that have deadline in month and year
     // Steps: Get deadline of each task, if it is in month and year, add its day to array
     // Return as array of days
@@ -263,7 +263,7 @@ const changeExpiredColor = (days) => {
     // if day is in days, change color to red
     // else, change color to default
     let countCell = 0;
-    $("#calendar span.datepicker-cell").each(function() {
+    $("#calendar span.datepicker-cell").each(function () {
         // Take day from text content of div
         var day = parseInt($(this).text());
         // Make outside days gray
@@ -286,7 +286,7 @@ const changeExpiredColor = (days) => {
         }
         countCell++;
     });
-    
+
 } // Calendar: Saturday evening
 
 // All steps:
@@ -301,7 +301,7 @@ const changeExpiredColor = (days) => {
 // Step 1 
 // 
 var Dict = {};
-const loadDict = function(){
+const loadDict = function () {
     return new Promise(function (resolve) {
         $.when(ajaxHandler.LoadUserData()).done(function (data) {
             Dict = data;
@@ -311,41 +311,48 @@ const loadDict = function(){
     });
 }
 
-const appendTask = function(tasks, day, month, year){
-    console.log("Append Task", day, month, year);
+const appendTask = function (Dict, day, month, year) {
     $("#Task-Section").empty();
-    for(taskId in tasks){
-        var deadline = new Date(tasks[taskId].deadline);
+
+    for (let taskId in Dict.tasks) {
+        var deadline = new Date(Dict.tasks[taskId].deadline);
         if (deadline.getDate() == day && deadline.getMonth() + 1 == month && deadline.getFullYear() == year) {
-            $("#Task-Section").append(MainScreen.TaskTemplate(taskId, tasks[taskId]));
+            $("#Task-Section").append(MainScreen.TaskTemplate(taskId, Dict.tasks[taskId]));
         }
     }
+
 }
 
 
 
-$(document).ready(function() {
+$(document).ready(function () {
     // Load dict
-    loadDict()
-    // set initial date for #calendar is today
-    // format: MM/DD/YYYY
-    let date = pickDate();
-    console.log(date);
-    changeExpiredColor(getExpiredDays(date[1], date[2]));
-    appendTask(Dict.tasks, date[0], date[1], date[2]);
-    console.log(getTask(...date));
-    // with each div with class datepicker-cell, find "focused" class
-    // if found, console log text content of the element
-    // refresh each time user click datepicker-cell
-    $("#Task-Group-Title").text(combineMonth(...pickDate()));
-    $("#calendar .datepicker-cell, #calendar button.prev-btn, #calendar button.next-btn").click(function() {
-        date = pickDate();
-        // set timeout to wait for focused class to be added
-        changeExpiredColor(getExpiredDays(date[1], date[2]));
-        setTimeout(function() {
-            $("#Task-Group-Title").text(combineMonth(...pickDate()));
-        }, 50);
-        appendTask(Dict.tasks, date[0], date[1], date[2]);
-    });
+    $.when(loadDict()).done(function (data) {
+        // set initial date for #calendar is today
+        // format: MM/DD/YYYY'
+        Dict = data;
+        console.log('[6] Load data to calendar successfully!');
+        console.log(Dict);
 
+        let date = pickDate();
+        console.log(date);
+        changeExpiredColor(getExpiredDays(date[1], date[2]));
+        appendTask(Dict.tasks, date[0], date[1], date[2]);
+        console.log(getTask(...date));
+
+        // with each div with class datepicker-cell, find "focused" class
+        // if found, console log text content of the element
+        // refresh each time user click datepicker-cell
+        $("#Task-Group-Title").text(combineMonth(...pickDate()));
+        $("#calendar .datepicker-cell, #calendar button.prev-btn, #calendar button.next-btn").click(function () {
+            date = pickDate();
+            // set timeout to wait for focused class to be added
+            changeExpiredColor(getExpiredDays(date[1], date[2]));
+            setTimeout(function () {
+                $("#Task-Group-Title").text(combineMonth(...pickDate()));
+                appendTask(Dict, date[0], date[1], date[2]);
+            }, 50);
+            console.log('[7] Selected date: ' + date[0] + ' ' + date[1] + ' ' + date[2]);
+        });
+    });
 });
