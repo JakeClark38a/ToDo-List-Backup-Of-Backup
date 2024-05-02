@@ -259,6 +259,70 @@ document.getElementById("autobutton").addEventListener("click", function () {
     startAuto(); // If autoInterval doesn't exist, start auto watering and fertilizing
     this.textContent = "Stop Auto"; // Change button text to "Stop Auto"
 
+  }
+});
+
+
+/////////////////////////////////////// End Modal for the shop items ///////////////////////////////////////
+// Set the shop modal element
+const $shopModalEl = document.getElementById("ShopModal");
+
+// Options for the shop modal
+const shopModalOptions = {
+  backdrop: "dynamic",
+  backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
+  closable: true,
+  onHide: () => {
+    console.log("Shop modal is hidden");
+  },
+  onShow: () => {
+    console.log("Shop modal is shown");
+  },
+  onToggle: () => {
+    console.log("Shop modal has been toggled");
+  },
+};
+
+// Create a new instance of the modal for the shop modal
+const shopModal = new Modal($shopModalEl, shopModalOptions);
+
+// Function to handle closing the shop modal when the close button is clicked
+document
+  .getElementById("btn-close-shop-modal")
+  .addEventListener("click", () => {
+    shopModal.hide();
+  });
+
+// Function to unhide the shop modal when the shop button is clicked
+document.getElementById("shop").addEventListener("click", () => {
+  fetch('shop-content.html')
+    .then(response => response.text())
+    .then(data => {
+      $shopModalEl.innerHTML = data;
+      shopModal.show();
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+});
+
+// Function to center the shop modal
+function centerShopModal() {
+  $shopModalEl.style.top = "50%";
+  $shopModalEl.style.left = "50%";
+  $shopModalEl.style.transform = "translate(-50%, -50%)";
+}
+
+// Call the centerShopModal function when the window is resized
+window.addEventListener("resize", centerShopModal);
+
+// Call the centerShopModal function initially to center the modal
+centerShopModal();
+
+/////////////////////////////////////// End Modal for the shop items ///////////////////////////////////////
+
+
+
 
 $(document).ready(function () {
   // Constants
@@ -332,63 +396,3 @@ $(document).ready(function () {
     return treeCounter * 10 + 10;
   }
 });
-
-
-/////////////////////////////////////// End Modal for the shop items ///////////////////////////////////////
-// Set the shop modal element
-const $shopModalEl = document.getElementById("ShopModal");
-
-// Options for the shop modal
-const shopModalOptions = {
-  backdrop: "dynamic",
-  backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
-  closable: true,
-  onHide: () => {
-    console.log("Shop modal is hidden");
-  },
-  onShow: () => {
-    console.log("Shop modal is shown");
-  },
-  onToggle: () => {
-    console.log("Shop modal has been toggled");
-  },
-};
-
-// Create a new instance of the modal for the shop modal
-const shopModal = new Modal($shopModalEl, shopModalOptions);
-
-// Function to handle closing the shop modal when the close button is clicked
-document
-  .getElementById("btn-close-shop-modal")
-  .addEventListener("click", () => {
-    shopModal.hide();
-  });
-
-// Function to unhide the shop modal when the shop button is clicked
-document.getElementById("shop").addEventListener("click", () => {
-  fetch('shop-content.html')
-    .then(response => response.text())
-    .then(data => {
-      $shopModalEl.innerHTML = data;
-      shopModal.show();
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-});
-
-// Function to center the shop modal
-function centerShopModal() {
-  $shopModalEl.style.top = "50%";
-  $shopModalEl.style.left = "50%";
-  $shopModalEl.style.transform = "translate(-50%, -50%)";
-}
-
-// Call the centerShopModal function when the window is resized
-window.addEventListener("resize", centerShopModal);
-
-// Call the centerShopModal function initially to center the modal
-centerShopModal();
-
-/////////////////////////////////////// End Modal for the shop items ///////////////////////////////////////
-
