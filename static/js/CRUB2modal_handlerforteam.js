@@ -45,7 +45,6 @@ modalteampage.CreateTeam = function () {
   $('#crud-modal2 #teamname-sec').show();
   $('#crud-modal2 #teamdesc-sec').show();
   $('#crud-modal2 #Create-sec').show();
-  $('#crud-modal2 #delete-sec').show();
   $('#crud-modal2 #Join-sec').hide();
   $('#crud-modal2 label[for="teamname"]').text("Team's Name");
   $('#crud-modal2 label[for="teamdescription"]').text("Team Description");
@@ -63,7 +62,6 @@ modalteampage.JoinTeam = function () {
   $('#crud-modal2 #teamdesc-sec').hide();
   $('#crud-modal2 #code-sec').show();
   $('#crud-modal2 #Create-sec').hide();
-  $('#crud-modal2 #delete-sec').hide();
   $('#crud-modal2 #Join-sec').show ();
   $('#crud-modal2 label[for="teamcode"]').text("Team's Code");
   $('#crud-modal2 h3').text(h3);
