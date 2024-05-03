@@ -304,6 +304,7 @@ var Dict = {};
 const loadDict = function () {
     return new Promise(function (resolve) {
         $.when(ajaxHandler.LoadUserData()).done(function (data) {
+            console.log(data);
             resolve(Dict);
         })
     });
