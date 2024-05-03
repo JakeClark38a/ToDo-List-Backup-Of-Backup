@@ -2506,6 +2506,12 @@ input:checked + .toggle-bg {
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .mt-32-when-lower-1000px {
+    margin-top: 8rem;
+  }
+}
+
 .forest-background{
   background-color: #667a31;
   background-image: url(https://img.itch.zone/aW1nLzExMTg4NTE2LnBuZw==/original/XYcMgs.png);
@@ -3225,6 +3231,10 @@ input:checked + .toggle-bg {
 
 .w-3 {
   width: 0.75rem;
+}
+
+.w-3\/4 {
+  width: 75%;
 }
 
 .w-32 {

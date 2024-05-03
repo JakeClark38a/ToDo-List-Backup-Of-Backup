@@ -123,6 +123,10 @@
 				<source src="../static/sounds/big-plants-crops-growing-quickly.mp3" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
+			<audio id="birdHitAudio">
+				<source src="../static/sounds/quack(bird_hit_sound).mp3" type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio>
 			<audio id="treeResetAudio">
 				<source src="../static/sounds/treegrown.mp3" type="audio/mpeg">
 				Your browser does not support the audio element.
@@ -131,7 +135,22 @@
 				<source src="../static/sounds/forest-wind-and-bird-ambient.mp3" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
-		
+			<audio id="buyingAudio">
+				<source src="../static/sounds/buying.mp3" type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio>
+			<audio id="storebellAudio">
+				<source src="../static/sounds/bellringAudio.mp3" type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio>
+			<audio id="wateringAudio">
+				<source src="../static/sounds/audio_watering.wav" type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio>
+			<audio id="fertilizingAudio">
+				<source src="../static/sounds/dirt_fertilize.wav" type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio>
 			<button id="toggleButton" class="absolute left-0 top-0 bg-blue-600 rounded-r-lg" onclick="toggleAudio()">Play Audio</button>
 			<button id="autobutton" class="absolute right-0 top-0 bg-blue-600 rounded-l-lg">Start Auto</button>
 		
@@ -145,12 +164,12 @@
 			</div>
 			<!-- main display -->
 			<div class="center-display flex items-center justify-center overflow-hidden">
-				<div class="no-flex-col-when-less-1000px flex">
+				<div class="no-flex-col-when-less-1000px mt-32-when-lower-1000px flex">
 					<img id="shop" src="../static/images/tree_game/shop.png" alt="Shop" class="max-h-[400px] m-auto"> 
 					<img id="house" src="../static/images/tree_game/house.png" alt="House" class="max-h-[400px] m-auto"> 
 				</div>
 				<div>
-					<div>
+					<div class="w-3/4 m-auto">
 						<img id="tree" src="../static/images/tree_game/tree1.gif" class="" alt="Tree">
 						<div class="options flex justify-center">
 							<div id="waterbutton" class="flex">
@@ -174,8 +193,7 @@
 	<script src="../static/js/bird.js"></script>
 	<script src="../static/js/tree.js"></script>
 	<script src="../static/js/shop.js"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </body>
 
 </html>

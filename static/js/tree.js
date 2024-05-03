@@ -1,12 +1,100 @@
-let treeStage = 0; // Initial stage of the tree
-let treeCount = 0; // Initial count of trees planted
+let treeStage = 30; // Initial stage of the tree
+let treeCount = 100; // Initial count of trees planted
 let lastAction = "fertilize"; // Variable to store the last action (water or fertilize)
 let wateringsLeft = 50; // Variable to store the number of remaining waterings
 let fertilizationsLeft = 50; // Variable to store the number of remaining fertilizations
+let autoOption = false; // Variable to store the auto option state
+let audioOption = true; // Variable to store the audio option state
+let autoInterval; // Variable to store the interval for auto watering and fertilizing
 
-updateWaterCount();
-updateFertilizerCount();
-updateButtonStates();
+document.addEventListener('DOMContentLoaded', function() {
+  // Execute the functions when the DOM content is loaded
+  updateWaterCount();
+  updateFertilizerCount();
+  updateButtonStates();
+  updateTree();
+  updateProgressBar();
+  updateButtonStates();
+  updateNumberofTrees(); 
+  updateAutoOption();
+  document.getElementById("backgroundAudio").play();
+  updateAudioOption();
+});
+
+function updateAudioOption(){
+  var toggleButton = document.getElementById("toggleButton");
+  var audioElements = document.querySelectorAll('audio');
+  if(audioOption){
+    audioElements.forEach(function(audio) {
+        console.log(audio.muted);
+        audio.muted = false;
+    });
+    toggleButton.innerText = "Pause Audio";
+  } else { 
+    audioElements.forEach(function(audio) {
+        console.log(audio.muted);
+        audio.muted = true;
+    });
+    toggleButton.innerText = "Play Audio";
+  }
+}
+
+// Function to toggle audio play/pause
+function toggleAudio() {
+  var toggleButton = document.getElementById("toggleButton");
+  var audioElements = document.querySelectorAll('audio');
+  audioOption = !audioOption;
+  if(audioOption){
+    audioElements.forEach(function(audio) {
+        console.log(audio.muted);
+        audio.muted = false;
+    });
+    toggleButton.innerText = "Pause Audio";
+  } else { 
+    audioElements.forEach(function(audio) {
+        console.log(audio.muted);
+        audio.muted = true;
+    });
+    toggleButton.innerText = "Play Audio";
+  }
+}
+
+function updateAutoOption() {
+  if(autoOption){
+    startAuto();
+    document.getElementById("autobutton").innerText ="Stop Auto"
+  } else { 
+    stopAuto();
+    document.getElementById("autobutton").innerText ="Start Auto"
+  }
+}
+
+// Set up the auto button click event listener
+document.getElementById("autobutton").addEventListener("click", function () {
+  if (document.getElementById("autobutton").innerText === "Stop Auto") {
+    stopAuto(); // If autoInterval exists, stop auto watering and fertilizing
+    this.textContent = "Start Auto"; // Change button text to "Start Auto"
+  } else {
+    startAuto(); // If autoInterval doesn't exist, start auto watering and fertilizing
+    this.textContent = "Stop Auto"; // Change button text to "Stop Auto"
+  }
+});
+
+function startAuto() {
+  autoInterval = setInterval(autoWaterAndFertilize, 500); // Call autoWaterAndFertilize every second
+}
+
+function stopAuto() {
+  clearInterval(autoInterval); // Stop the interval
+}
+
+
+
+function updateNumberofTrees() {
+  document.getElementById(
+    "treeCount"
+  ).innerText = `Number of Trees: ${treeCount}`
+}
 
 function waterTree() {
   if (wateringsLeft > 0 && treeStage < 220) {
@@ -25,8 +113,8 @@ function waterTree() {
     wiggleImage("waterbutton"); // Add wiggle animation to water button
 
     // Play watering audio
-    const wateringAudio = new Audio("../static/sounds/audio_watering.wav");
-    wateringAudio.play();
+    var fertilizingAudio = document.getElementById("wateringAudio");
+    fertilizingAudio.play();
   }
 }
 
@@ -43,8 +131,8 @@ function fertilizeTree() {
     wiggleImage("fertilizebutton"); // Add wiggle animation to fertilizer button
 
     // Play watering audio
-    const wateringAudio = new Audio("../static/sounds/dirt_fertilize.wav");
-    wateringAudio.play();
+    var fertilizingAudio = document.getElementById("fertilizingAudio");
+    fertilizingAudio.play();
   }
 }
 
@@ -208,30 +296,10 @@ function updateFertilizerCount() {
   }
 }
 
-// Get the audio element
-var audio = document.getElementById("backgroundAudio");
 
-// Function to toggle audio play/pause
-function toggleAudio() {
-  var toggleButton = document.getElementById("toggleButton");
-  if (audio.paused) {
-    audio.play();
-    toggleButton.textContent = "Pause Audio";
-  } else {
-    audio.pause();
-    toggleButton.textContent = "Play Audio";
-  }
-}
 
-let autoInterval; // Variable to store the interval for auto watering and fertilizing
 
-function startAuto() {
-  autoInterval = setInterval(autoWaterAndFertilize, 500); // Call autoWaterAndFertilize every second
-}
 
-function stopAuto() {
-  clearInterval(autoInterval); // Stop the interval
-}
 
 function autoWaterAndFertilize() {
   console.log(wateringsLeft, lastAction);
@@ -250,17 +318,7 @@ function autoWaterAndFertilize() {
   }
 }
 
-// Set up the auto button click event listener
-document.getElementById("autobutton").addEventListener("click", function () {
-  if (document.getElementById("autobutton").innerText === "Stop Auto") {
-    stopAuto(); // If autoInterval exists, stop auto watering and fertilizing
-    this.textContent = "Start Auto"; // Change button text to "Start Auto"
-  } else {
-    startAuto(); // If autoInterval doesn't exist, start auto watering and fertilizing
-    this.textContent = "Stop Auto"; // Change button text to "Stop Auto"
 
-  }
-});
 
 
 /////////////////////////////////////// End Modal for the shop items ///////////////////////////////////////
@@ -277,6 +335,7 @@ const shopModalOptions = {
   },
   onShow: () => {
     console.log("Shop modal is shown");
+    document.getElementById("storebellAudio").play();
   },
   onToggle: () => {
     console.log("Shop modal has been toggled");

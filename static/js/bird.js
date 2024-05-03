@@ -1,3 +1,5 @@
+var birdCount = 2; // Initial number of birds
+
 // Array of animation GIFs
 var animations = [
   "../static/images/bird/flying.gif",
@@ -6,6 +8,11 @@ var animations = [
   "../static/images/bird/idle.gif",
   "../static/images/bird/walking-forward.gif",
 ];
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Call addBirdContainers initially
+  addBirdContainers();
+});
 
 // Function to fly the bird to a random location
 function flyToRandomLocation(bird, birdContainer) {
@@ -40,11 +47,20 @@ function startFlying(bird) {
   bird.src = animations[0]; // "flying.gif"
 }
 
-let birdCount = 0;
+
+
+// Function to add bird containers
+function addBirdContainers() {
+  // Load bird containers based on the initial birdCount
+  for (let i = 0; i < birdCount; i++) {
+      // console.log("Adding bird container");
+      addBirdContainer();
+  }
+}
+
 
 function addBirdContainer() {
-  console.log(birdCount);
-  if (birdCount >= 5) return;
+  if (birdCount >= 6) return;
   var treeContainer = document.querySelector('.tree-container');
   var birdContainer = document.createElement('div');
   birdContainer.id = 'bird-container';
@@ -59,7 +75,7 @@ function addBirdContainer() {
   function handleClickOnBird() {
     // Change bird animation to hit.gif
     bird.src = "../static/images/bird/hit.gif";
-
+    document.getElementById("birdHitAudio").play(); // Play the bird hit sound
     wateringsLeft += 10;
     fertilizationsLeft += 10;
     updateWaterCount();
@@ -78,12 +94,14 @@ function addBirdContainer() {
   // Start the animation for the newly added bird container
   startFlying(bird);
   flyToRandomLocation(bird, birdContainer);
-
-  birdCount++;
 }
 
-// Call the function to add bird container initially
-addBirdContainer();
 
-// Set interval to add bird container every 5 seconds
-setInterval(addBirdContainer, 3600000);
+// Set interval to add bird container every hours
+setInterval(function() {
+  addBirdContainer();
+  birdCount++; // Increment birdCount
+}, 600);
+
+
+

@@ -556,15 +556,16 @@
   .progress-container {
     @apply w-full bg-[#fff] h-5 mb-2.5;
     @apply rounded-lg border-black border-solid border-2;
-  }
+}
+
   .progress-bar {
-    @apply bg-[#4caf50] h-full w-0 transition-[width] duration-[0.3s] rounded-md border-solid;
-    /* Initial width is 0 */
-    /* Add smooth transition effect */
-    /* Add border */
-    /* Add border radius */
-    
+      @apply bg-[#4caf50] h-full w-0 transition-[width] duration-[0.3s] rounded-md border-solid;
+      /* Initial width is 0 */
+      /* Add smooth transition effect */
+      /* Add border */
+      /* Add border radius */
   }
+
   @keyframes wiggle {
     0% { transform: rotate(0); }
     25% { transform: rotate(10deg); }
@@ -597,6 +598,12 @@
   @media screen and (min-width: 1001px) {
     .no-flex-col-when-less-1000px {
       @apply flex-col;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .mt-32-when-lower-1000px {
+      @apply mt-32;
     }
   }
   .forest-background{

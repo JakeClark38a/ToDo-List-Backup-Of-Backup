@@ -1,4 +1,10 @@
-let coins = 1000; // Variable to store the number of coins
+let coins = 2414; // Variable to store the number of coins
+
+
+document.addEventListener('DOMContentLoaded', function() {
+	// Call updateModal initially to set the coin display
+	updateModal();
+});
 
 // Function to update the modal with current coin count
 function updateModal() {
@@ -61,6 +67,7 @@ document.getElementById('purchase-btn').addEventListener('click', function() {
 	// Perform the purchase action here (e.g., calling the purchaseItem function)
 	purchaseItem('fertilizer');
 	purchaseItem('water');
+	document.getElementById("buyingAudio").play();
 });
 
 // Event listeners for decrease and increase buttons
@@ -92,5 +99,4 @@ document.getElementById('water-increase').addEventListener('click', function() {
   }
 });
 
-// Call updateModal initially to set the coin display
-updateModal();
+
