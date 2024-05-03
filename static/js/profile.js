@@ -1,31 +1,30 @@
-/////////////////////////////////////// password modal code begin
+
 import { ajaxHandler } from "./ajaxHandler.js";
+
 var userInfo = {}//Utils.getSampleData();
 
-async function getData() {
-  try {
-    const loadedData = await ajaxHandler.LoadUserData();
-    console.log('Data loaded successfully:', loadedData);
-    userInfo = loadedData;
-
-  } catch (error) {
-    console.log("Error loading data:", error);
-  }
+function getData() {
+  return new Promise(function (resolve) {
+    $.when(ajaxHandler.LoadUserData()).done(function (data) {
+      userInfo = data
+      resolve(userInfo);
+    });
+  });
 }
-// Call getData
-getData();
 
 
-function init()
-{
-  displayUserInfo();
+function init() {
+  $.when(getData()).done(function (data) {
+    userInfo = data;
+    displayUserInfo();
+  });
 }
-setTimeout(init, 300);
+init();
 
+/////////////////////////////////////// password modal code begin
 
 // Set the password modal element
 const $passwordModalEl = document.getElementById("password-modal");
-const changePasswordButton = document.getElementById("Change-Password-Button");
 
 // Options for the password modal
 const passwordModalOptions = {
@@ -67,29 +66,7 @@ function centerPasswordModal() {
   $passwordModalEl.style.left = "50%";
   $passwordModalEl.style.transform = "translate(-50%, -50%)";
 }
-function AJAXresetpassword(curr_password, new_password, confirm_password) {
-  $.ajax({
-    url: "/profile/update/password",
-    type: "POST",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    data: JSON.stringify({
-      curr_password: curr_password,
-      new_password: new_password,
-      confirm_password: confirm_password,
-    }),
-    contentType: "application/json",
-    dataType: "json",
-    success: function (data) {
-      alert(data);
-    },
-    error: function (data) {
-      alert(data);
-    },
-  });
-}
+
 
 
 $("#submit-password").click(function (e) {
@@ -97,8 +74,7 @@ $("#submit-password").click(function (e) {
   var current_password = $("#current-password-sec").find("#current-password").val();
   var new_password = $("#new-password-sec").find("#new-password").val();
   var confirm_password = $("#confirm-password-sec").find("#confirm-password").val();
-  console.log(current_password, new_password, confirm_password);
-  AJAXresetpassword(current_password, new_password, confirm_password);
+  ajaxHandler.resetpassword(current_password, new_password, confirm_password);
   passwordModal.hide();
 
 });
@@ -302,7 +278,6 @@ document.getElementById("change-avatar-btn").addEventListener("click", () => {
 /////////////////////////////////////// change avatar modal code end
 
 /////////////////////////////////////// update user info
-console.log(userInfo);
 function displayUserInfo() {
   $("#Username-Section").find("#user_profile_name").val(userInfo.username);
   $("#Bio-Section").find("#user_profile_bio").text(userInfo.bio);
@@ -314,94 +289,24 @@ function updateUserInfo() {
   userInfo.bio = $("#Bio-Section").find("#user_profile_bio").val();
   userInfo.country = $("#Time-Zone-Section").find("#country").val();
   displayUserInfo();
-  AJAXsetUserInfo(userInfo.username, userInfo.bio, userInfo.country);
-  console.log("bruh");
+  ajaxHandler(userInfo.username, userInfo.bio, userInfo.country);
 }
 $("#Apply-Change-Button").click(updateUserInfo);
 
-
-function AJAXsetUserInfo() {
-  $.ajax({
-    url: "/profile/update",
-    type: "POST",
-    data: JSON.stringify({
-      username: userInfo.username,
-      bio: userInfo.bio,
-      country: userInfo.country,
-    }),
-    contentType: "application/json",
-    dataType: "json",
-    success: function (data) {
-      console.log(data);
-    },
-    error: function (data) {
-      console.log(data);
-    },
-  });
-}
-
-function AJAXSendConfirmation() {
-  $.ajax({
-    url: "/profile/update/email_confirmation",
-    type: "POST",
-    data: JSON.stringify({
-      curr_email: $("#current-email-sec").find("#current-email").val(),
-    }),
-    contentType: "application/json",
-    dataType: "json",
-    success: function (data) {
-      console.log(data);
-    },
-    error: function (data) {
-      console.log(data);
-    },
-  });
-}
-
-function AJAXChangeEmail() {
-  $.ajax({
-    url: "/profile/update/email",
-    type: "POST",
-    data: JSON.stringify({
-      curr_email: $("#current-email-sec").find("#current-email").val(),
-      new_email: $("#new-email-sec").find("#new-email").val(),
-      otp: $("#authenticate-code-sec").find("#authenticate-code").val(),
-    }),
-    contentType: "application/json",
-    dataType: "json",
-    success: function (data) {
-      console.log(data);
-    },
-    error: function (data) {
-      console.log(data);
-    },
-  });
-}
-
-function AJAXgetUserProfileImage() {
-  $.ajax({
-    url: "/profile/get/image",
-    type: "GET",
-    success: function (data) {
-      $("#User-Current-Avatar").attr("src", data);
-    },
-    error: function (data) {
-      console.log(data);
-    },
-  });
-
-}
-AJAXgetUserProfileImage();
-
 $("#change-email").click(function () {
   e.preventDefault()
-  AJAXChangeEmail();
+  let curr_email = $("#current-email-sec").find("#current-email").val();
+  let new_email = $("#new-email-sec").find("#new-email").val();
+  let otp = $("#authenticate-code-sec").find("#authenticate-code").val();
+  ajaxHandler.ChangeEmail(curr_email, new_email, otp);
   location.reload();
 });
 
 $("#send-mail").click(function () {
-  AJAXSendConfirmation();
+  let curr_mail = $("#current-email-sec").find("#current-email").val();
+  ajaxHandler.SendConfirmation(curr_mail);
 });
 
+ajaxHandler.getUserProfileImage();
 
 /////////////////////////////////////// update user info end

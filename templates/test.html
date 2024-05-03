@@ -1,12 +1,37 @@
-<div id="Drop-Down-Options-Profile" class="rounded-lg w-[150px] border-2 absolute bg-white " role="menu">
-    <label for="upload-photo" class="dropdown-item text-sm hover:bg-cyan-600 cursor-pointer p-2">
-        Upload a photo…
-        <input type="file" id="upload-photo" name="photo" accept="image/*" style="display: none;">
-    </label>
-    <form class="dropdown-item text-sm hover:bg-cyan-600 p-2" action="/settings/primary_avatar" accept-charset="UTF-8" method="post">
-        <input type="hidden" name="_method" value="delete" autocomplete="off">
-        <button onclick="return confirm('Are you sure you want to remove the photo?')">
-            Remove photo
-        </button>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative AI Chat</title>
+</head>
+
+<body>
+    <form name="form1">
+        <input type="text" name="input1" id="input1" placeholder="Enter your text here...">
+        <button type="button" id="button">Generate</button>
     </form>
-</div>
+    <div id="edit">Message will be here</div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "@google/generative-ai": "https://esm.run/@google/generative-ai"
+            }
+        }
+    </script>
+    <script type="module">
+        import { chadBot } from '../static/js/chadBot.js';
+        async function run() {
+            let input = document.getElementById('input1').value;
+            let text = await chadBot.chat(input);
+            document.getElementById('edit').innerHTML = text;
+        }
+        window.onload = function () {
+            document.getElementById('button').addEventListener('click', run);
+        };
+    </script>
+</body>
+
+</html>

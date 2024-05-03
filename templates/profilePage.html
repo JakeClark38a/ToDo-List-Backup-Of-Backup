@@ -203,13 +203,13 @@
 
   <!--########################################################### EoAddons ######################################################################-->
 
-  <div class="bg-main dark:bg-gray-700/70">
+  <div class="bg-main dark:bg-gray-700/70 ">
     <!--Body Container-->
     <!--Begin header-->
     <!--########################################################### Main Screen ######################################################################-->
     <!--Begin profile screen-->
     <div id="Profile-Screen" class="Container backdrop-blur-sm py-10 min-h-[90vh] overflow-y-scroll overflow-x-hidden">
-      <div id="Profile-Box" class="bg-main dark:bg-gray-700 relative w-4/5 h-full m-auto rounded-lg">
+      <div id="Profile-Box" class="bg-main dark:bg-gray-700 relative w-1/2 h-full m-auto rounded-lg">
         <div id="Profile-Box-Content" class="py-[5vh] px-[5vh]">
           <div id="Profile-Public-Content">
             <div class="flex justify-between">
@@ -263,8 +263,8 @@
                 <div id="Username-Section">
                   <div class="text-lg font-bold mb-2 text-gray-800 dark:text-white ">Name</div>
                   <input class="form-control w-[440px] max-w-full rounded-lg shadow-lg bg-main dark:bg-gray-400"
-                    type="text" value="__ShynBombx__" name="user[profile_name]" id="user_profile_name" />
-                  <div class="note text-xs text-gray-600 dark:text-slate-400 my-1">
+                    type="text" value="" name="user[profile_name]" id="user_profile_name" />
+                  <div class="note text-sm text-gray-600 dark:text-slate-400 my-1">
                     Your name may appear around Todos where you contribute or
                     are mentioned. You can remove it at any time.
                   </div>
@@ -276,9 +276,8 @@
                     class="form-control user-profile-bio-field js-length-limited-input rounded-lg shadow-lg w-[440px] max-w-full text-gray-800 bg-main dark:bg-gray-400 "
                     placeholder="Tell us a little bit about yourself" data-input-max-length="160"
                     data-warning-text="{{remaining}} remaining" name="user[profile_bio]" id="user_profile_bio"
-                    data-lt-tmp-id="lt-115975" spellcheck="false" data-gramm="false">
-Love playing video games, listening to music, and doing cool stuff.</textarea>
-                  <div class="note text-xs my-1 text-gray-600 dark:text-slate-400">
+                    data-lt-tmp-id="lt-115975" spellcheck="false" data-gramm="false"></textarea>
+                  <div class="note text-sm my-1 text-gray-600 dark:text-slate-400">
                     You can @mention other users and organizations to link to
                     them.
                   </div>
@@ -288,6 +287,7 @@ Love playing video games, listening to music, and doing cool stuff.</textarea>
                   <div class="text-lg font-bold mb-2 text-gray-800 dark:text-white ">Location</div>
 
                   <select id="country" name="country" class="form-control bg-main dark:bg-gray-400 rounded-lg ">
+                    <option value="Global">Global</option>
                     <option value="Afghanistan">Afghanistan</option>
                     <option value="Åland Islands">Åland Islands</option>
                     <option value="Albania">Albania</option>
