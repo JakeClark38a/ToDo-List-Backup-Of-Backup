@@ -300,12 +300,102 @@ ajaxHandler.getUserProfileImage = function () {
         url: "/profile/get/image",
         success: function (data) {
             $("#Avatar-Image").attr("src", data);
+            $("#User-Current-Avatar").attr("src", data);
         },
         error: function (data) {
             console.log("Error");
         }
     });
 }
+
+ajaxHandler.setUserInfo = function (username, bio, country) {
+    $.ajax({
+        url: "/profile/update",
+        type: "POST",
+        data: JSON.stringify({
+            username: username,
+            bio: bio,
+            country: country,
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+            console.log('Success');
+        },
+        error: function (data) {
+            console.log('Error');
+        },
+    });
+}
+
+
+ajaxHandler.ChangeEmail = function (curr_email, new_email, opt) {
+    $.ajax({
+        url: "/profile/update/email",
+        type: "POST",
+        data: JSON.stringify({
+            curr_email: curr_email,
+            new_email: new_email,
+            otp: opt,
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+            console.log('Success');
+        },
+        error: function (data) {
+            console.log('Error');
+        },
+    });
+}
+
+
+
+ajaxHandler.SendConfirmation = function (curr_email) {
+    $.ajax({
+        url: "/profile/update/email_confirmation",
+        type: "POST",
+        data: JSON.stringify({
+            curr_email: curr_email,
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+            console.log('Success');
+        },
+        error: function (data) {
+            console.log('Error');
+        },
+    });
+}
+
+ajaxHandler.resetpassword = function (curr_password, new_password, confirm_password) {
+    $.ajax({
+        url: "/profile/update/password",
+        type: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        data: JSON.stringify({
+            curr_password: curr_password,
+            new_password: new_password,
+            confirm_password: confirm_password,
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+            console.log('Success');
+        },
+        error: function (data) {
+            console.log('Error');
+        },
+    });
+}
+
+
+
+
 
 ajaxHandler.LoadUserData = function () {
     return new Promise(function (resolve) {
@@ -327,6 +417,11 @@ ajaxHandler.LoadUserData = function () {
             Dict.username = userData.username;
             Dict.bio = userData.bio;
             Dict.country = userData.country;
+            if (!Dict.username) {
+                Dict.username = "User-" + Utils.getUuid().substring(0, 6);
+                Dict.country = "Global";
+                ajaxHandler.setUserInfo(Dict.username, Dict.bio, Dict.country);
+            }
 
             groupData.forEach(function (dt) {
                 if (dt.def_tag == "") {
@@ -369,6 +464,15 @@ ajaxHandler.LoadUserData = function () {
                 Dict.groups[t.groupId].tags.push(t.tagID);
             }
 
+            // somehow the def_tag is not in tags dict yet
+            for (let groupId in Dict.groups) {
+                if (Dict.groups[groupId].def_tag && !Dict.tags.hasOwnProperty(Dict.groups[groupId].def_tag)) {
+                    let group = Dict.groups[groupId]
+                    let dft = Dict.createTag(group.title, group.color, group.groupID, false, false, false, group.def_tag);
+                    console.log("Not found def_tag: " + group.def_tag + " in tags dict, adding new one!");
+                    ajaxHandler.addTag(dft.tagID, dft.groupId, dft.title, dft.color);
+                };
+            };
             // filter all task that have group and tags no longer exist
             // implement later
 
