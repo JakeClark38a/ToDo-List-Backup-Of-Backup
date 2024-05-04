@@ -5,6 +5,8 @@ let wateringsLeft = 50; // Variable to store the number of remaining waterings
 let fertilizationsLeft = 50; // Variable to store the number of remaining fertilizations
 let autoOption = false; // Variable to store the auto option state
 let audioOption = true; // Variable to store the audio option state
+let prevSrc = "../static/images/tree_game/tree1.png";
+let animationInProgress = false;
 
 // DONT STORE THIS IN THE DATABASE !!!!!!!!!!!!!!!!
 let autoInterval; // Variable to store the interval for auto watering and fertilizing
@@ -138,8 +140,6 @@ function updateProgressBar() {
   percentage.innerText = `${Math.round(progress)}%`; // Update the percentage display
 }
 
-let prevSrc = "../static/images/tree_game/tree1.gif";
-let animationInProgress = false;
 
 function updateTree() {
   // Calculate the current stage of the tree
@@ -147,7 +147,7 @@ function updateTree() {
   if (stage === 12) stage = 1;
 
   // Set the tree image based on the current stage
-  let newSrc = `../static/images/tree_game/tree${stage}.gif`;
+  let newSrc = `../static/images/tree_game/tree${stage}.png`;
 
   if (prevSrc !== newSrc && !animationInProgress) {
     // Set flag to indicate animation is in progress
@@ -163,11 +163,9 @@ function updateTree() {
     setTimeout(() => {
       // Change tree image source after 1 second
       // console.log(
-      //   `../static/images/tree_game/tree${stage - 1}_grown_tree${stage}.gif`
+      //   `../static/images/tree_game/grown${stage - 1}.gif`
       // );
-      document.getElementById("tree").src = `../static/images/tree_game/tree${
-        stage - 1
-      }_grown_tree${stage}.gif`;
+      document.getElementById("tree").src = `../static/images/tree_game/grown${stage - 1}.gif`;
 
       // Change tree image to the new source
       setTimeout(
