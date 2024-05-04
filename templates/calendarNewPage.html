@@ -192,7 +192,7 @@
             class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
 
 
-            <a href="{{url_for('profile', type=session['type'])}}">
+            <a href="{{url_for('profiles.profile', type=session['type'])}}">
                 <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
                     <div class="flex items-center">
                         <div class="PMenu-Primary-Image-Wrapper">
@@ -244,7 +244,7 @@
             </div><!--eoblock-->
 
             <div id="PMenu-Logout" class="PMenu-Primary-Section"> <!--block-->
-                <a href="{{url_for('logout')}}">
+                <a href="{{url_for('auth.logout')}}">
                     <button>
                         <div class="flex items-center">
                             <div class="PMenu-Primary-Image-Wrapper">
@@ -364,7 +364,7 @@
             </div>
             <div id="MMenu-Bottom" class="flex justify-between items-center p-2">
                 <div class="Log-out">
-                    <a href="{{url_for('logout')}}">
+                    <a href="{{url_for('auth.logout')}}">
                         <button>
                             <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -432,7 +432,7 @@
                 <div id="calendar" inline-datepicker data-date="05/02/2024" class="pb-[10px]"></div>
                 <!-- Todo with expired day -->
                 <div id="tasks-display" class="group-outer ">
-                    <div class="flex justify-between items-center px-3 ">
+                    <div class="flex justify-between items-center px-3 rounded-t-lg bg-white dark:bg-gray-700">
                     <!-- Title -->
                         <div id="Task-Group-Title" class="todobox-title  dark:text-white">March 7th, 2024</div>
                         <div class="Group-Task-Add ">
@@ -444,11 +444,11 @@
                     <!-- Content -->
                     <div id="Task-Section-Outer" class="bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl " style="border-color: #546f72;">
                         <!-- In this div, height of gid001 will dynamically change based on 100vh, 350px is height of calendar, 40px is height of title and  - remove lg:w-96, lg:text-xl-->
-                        <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-[calc(100vh-350px-40px)] ">
+                        <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-[calc(100vh-350px-40px-100px)] ">
                             <!--task here-->
     
                             
-                            <div id="id001" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default">
+                            <div id="id001" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default hidden">
                                 <div class=" rounded-lg shadow-lg">
                                     <!-- Title -->
                                     <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
@@ -481,6 +481,77 @@
                         </div>   
                     </div>
                 </div>
+            </div>
+            <!-- Desktop grid -->
+            <!-- Show when in desktop size, hidden in mobile size -->
+            <div class="flex-1 inline-block rounded-lg bg-white dark:bg-gray-700 shadow-lg p-4">
+                <table id="CalendarTable" class="w-full h-full *:align-top border-collapse text-center table-fixed">
+                    <tr id="Weekday" class="text-sm h-0 uppercase">
+                        <td class="text-center h-6 leading-6 text-sm font-medium text-gray-500 dark:text-gray-400">Mon</td>
+                        <td>Tue</td>
+                        <td>Wed</td>
+                        <td>Thu</td>
+                        <td>Fri</td>
+                        <td>Sat</td>
+                        <td>Sun</td>
+                    </tr>
+                    <tr class="week">
+                        <td>
+                           1 row 
+                        </td>
+                        <td>2 row</td>
+                        <td>3 row</td>
+                        <td>4 row</td>
+                        <td>5 row</td>
+                        <td>6 row</td>
+                        <td>7 row</td>
+                    </tr>
+                    <tr class="week">
+                        <td>1 row</td>
+                        <td>2 row</td>
+                        <td>3 row</td>
+                        <td>4 row</td>
+                        <td>5 row</td>
+                        <td>6 row</td>
+                        <td>7 row</td>
+                    </tr>
+                    <tr class="week">
+                        <td>1 row</td>
+                        <td>2 row</td>
+                        <td>3 row</td>
+                        <td>4 row</td>
+                        <td>5 row</td>
+                        <td>6 row</td>
+                        <td>7 row</td>
+                    </tr>
+                    <tr class="week">
+                        <td>1 row</td>
+                        <td>2 row</td>
+                        <td>3 row</td>
+                        <td>4 row</td>
+                        <td>5 row</td>
+                        <td>6 row</td>
+                        <td>7 row</td>
+                    </tr>
+                    <tr class="week">
+                        <td>1 row</td>
+                        <td>2 row</td>
+                        <td>3 row</td>
+                        <td>4 row</td>
+                        <td>5 row</td>
+                        <td>6 row</td>
+                        <td>7 row</td>
+                    </tr>
+                    <tr class="week">
+                        <td>1 row</td>
+                        <td>2 row</td>
+                        <td>3 row</td>
+                        <td>4 row</td>
+                        <td>5 row</td>
+                        <td>6 row</td>
+                        <td>7 row</td>
+                    </tr>
+                </table>
             </div>
         </div>    
     

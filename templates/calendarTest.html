@@ -1,126 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar - Todolist</title>
     <link rel="stylesheet" href="../static/css/main.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Reddit+Mono:wght@200..900&display=swap"
-        rel="stylesheet" />
-    <!-- Kienadd 2 more line here -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
-
-<body class="">
-    <!-- Begin Calendar -->
-    <div id="Calendar-Container" class="bg-main">
-        <div class="left">
-            <div class="calendar">
-                <div class="month">
-                    <i class="prev">
-                        &lt;</i>
-                    <div class="date">december 2015</div>
-                    <i class="next">&gt;</i>
-                </div>
-                <div class="weekdays">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
-                </div>
-                <div class="days"></div>
-                <div class="goto-today">
-                    <div class="goto">
-                        <input type="text" placeholder="mm/yyyy" class="date-input" />
-                        <button class="goto-btn">Go</button>
+<body class="*:m-0 *:p-0 *:box-border h-screen bg-slate-300">
+    <div class="w-full flex justify-around">
+        <!-- Mobile version -->
+        <div class="relative w-[300px] flex-none flex flex-col items-center">
+            <!-- Calendar - data-date will fill in backend -->
+            <div id="calendar" inline-datepicker data-date="05/02/2024" class="pb-[10px]"></div>
+            <!-- Todo with expired day -->
+            <div id="tasks-display" class="group-outer ">
+                <div class="flex justify-between items-center px-3 ">
+                <!-- Title -->
+                    <div id="Task-Group-Title" class="todobox-title  dark:text-white">March 7th, 2024</div>
+                    <div class="Group-Task-Add ">
+                        <!-- <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"></path>
+                        </svg> -->
                     </div>
-                    <button class="today-btn">Today</button>
                 </div>
-            </div>
-        </div>
+                <!-- Content -->
+                <div id="Task-Section-Outer" class="bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl " style="border-color: #546f72;">
+                    <!-- In this div, height of gid001 will dynamically change based on 100vh, 350px is height of calendar, 40px is height of title and  - remove lg:w-96, lg:text-xl-->
+                    <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-[calc(100vh-350px-40px-100px)] ">
+                        <!--task here-->
 
-        <div class="right">
-            <div class="tasks-display">
-                <div class="today-date">
-                    <div class="day-and-date">
-                        <div class="event-day">wed</div>
-                        <div class="event-date">12th december 2022</div>
-                    </div>
-        
-                    <!-- today-date equivilent to events -->
-                    <!-- task-container is equivilent to event -->
-                    <!-- this events div call a lot of function, be ware deleted it -->
-                    <div class="events"></div>
-        
-                    <!-- `<div class="event">
-                                    //       <div class="title">
-                                    //         <i class="fas fa-circle"></i>
-                                    //         <h3 class="event-title">${event.title}</h3>
-                                    //       </div>
-                                    //       <div class="event-time">
-                                    //         <span class="event-time">${event.time}</span>
-                                    //       </div>
-                                    //   </div>` -->
-        
-                    <!-- if we click in the event class div it will have delete function available -->
-        
-                    <!-- <div class="task-container">
-                                    <div class="time-display">8:30</div>
-                                    <div class="task-information">
-                                        <div class="task-title">đi nhà nghỉ</div>
-                                        <div class="task-description">Không nên nghỉ</div> 
-                                        <div class="tags-display">
-                                            <div class="tag-important">important</div>
-                                            <div class="tag-urgent">urgent</div>
+                        
+                        <div id="id001" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default">
+                            <div class=" rounded-lg shadow-lg">
+                                <!-- Title -->
+                                <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
+                                    <!-- Task title -->
+                                    <div class="font-semibold text-lg truncate w-full dark:text-white ">Meeting</div>
+                                    <!-- Task edit and delete -->
+                                    <!-- <div class="flex items-center gap-2">
+                                        <div class="Task-Edit mx-1 cursor-pointer">
+                                            <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"></path>
+                                            </svg>
                                         </div>
-                                    </div>
-                                </div> -->
-        
-                </div>
-            </div>
-            <div class="add-event-wrapper">
-                <div class="add-event-header">
-                    <div class="title">Add Event</div>
-                    <i class="fas fa-times close"></i>
-                </div>
-                <div class="add-event-body">
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Event Name" class="event-name" />
-                    </div>
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Event Time From" class="event-time-from" />
-                    </div>
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Event Time To" class="event-time-to" />
-                    </div>
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Description" class="event-description" />
-                    </div>
-                </div>
-                <div class="add-event-footer">
-                    <button class="add-event-btn">Add Event</button>
+                                        <div id="Task-Cancel" class="bg-red-500 rounded-full shadow-lg h-4 w-4 font-bold cursor-pointer"></div>
+                                    </div> -->
+                                </div>
+                                <!-- Task description -->
+                                <div class="p-2 flex items-center h-fit">
+                                    <p class="h-full w-full text-left p-2 font-base truncate dark:text-white">About making a website</p>
+                                    <!-- Complete checkbox -->
+                                    <!-- <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer"> -->
+                                </div>
+                                <!-- Tag -->
+                                <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
+                                    <div id="tag1" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer" style="background-color: #546f72;">tag1</div>    
+                                    <div id="tag1" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer" style="background-color: #546f72;">tag1</div>              
+                                </div>
+                            </div>
+                
+                        </div>
+                    </div>   
                 </div>
             </div>
         </div>
-        <button class="add-event">
-            <i class="">+</i>
-        </button>
-
+        <!-- Desktop grid -->
+        <!-- Show when in desktop size, hidden in mobile size -->
+        <div class="flex-1 inline-block rounded-lg bg-white dark:bg-gray-700 shadow-lg p-4">
+            <table id="CalendarTable" class="w-full h-full *:align-top border-collapse text-center table-fixed">
+                <tr id="Weekday" class="text-sm h-0 uppercase">
+                    <td class="border-2">Mon</td>
+                    <td>Tue</td>
+                    <td>Wed</td>
+                    <td>Thu</td>
+                    <td>Fri</td>
+                    <td>Sat</td>
+                    <td>Sun</td>
+                </tr>
+                <tr class="week">
+                    <td>
+                        <span class="datepicker-cell hover:bg-gray-100 dark:hover:bg-gray-600 block flex-1 leading-9 border-0 rounded-lg cursor-pointer text-center text-gray-900 dark:text-white font-semibold text-sm day" data-date="1714496400000">1</span>
+                    </td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+                <tr class="week">
+                    <td>1 row</td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+                <tr class="week">
+                    <td>1 row</td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+                <tr class="week">
+                    <td>1 row</td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+                <tr class="week">
+                    <td>1 row</td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+                <tr class="week">
+                    <td>1 row</td>
+                    <td>2 row</td>
+                    <td>3 row</td>
+                    <td>4 row</td>
+                    <td>5 row</td>
+                    <td>6 row</td>
+                    <td>7 row</td>
+                </tr>
+            </table>
+        </div>
     </div>
-    <!-- End Calendar -->
-
-    <!-- <script defer src="{{url_for('static', filename='js/calendar.js')}}"></script> -->
-    <script defer src="../static/js/calendar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.js"></script>
+    <script src="../static/js/calendarNew.js" type="module"></script>
 </body>
-
 </html>
