@@ -22,7 +22,7 @@
     <!--########################################################### Addons ######################################################################-->
 
     <!-- Main modal  -->
-    <div id="crud-modal" tabindex="-1" aria-hidden="true"
+    <div id="crud-modal2" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <!-- Modal content -->
@@ -46,92 +46,65 @@
                 <!-- Modal body -->
                 <form class="p-4 md:p-5">
                     <div class="grid gap-4 mb-4 grid-cols-2">
-                        <div id="name-sec" class="col-span-2">
-                            <label for="name"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
-                            <input type="text" name="name" id="name"
+                        <div id="code-sec" class="col-span-2">
+                            <label for="teamcode"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Team's code</label>
+                            <input type="text" name="teamcode" id="teamcode"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type todo title" required="" maxlength="128">
+                                placeholder="Code" required="" maxlength="128">
                         </div>
-                        <div id="desc-sec" class="col-span-2">
-                            <label for="description"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task
+
+                        <div id="teamname-sec" class="col-span-2">
+                            <label for="teamname"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Team's name </label>
+                            <input type="text" name="teamname" id="teamname"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Type your team name" required="" maxlength="128">
+                        </div>
+                        <div id="teamdesc-sec" class="col-span-2">
+                            <label for="teamdescription"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Team
                                 Description</label>
-                            <textarea id="description" rows="4"
+                            <textarea id="teamdescription" rows="4"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
-                                placeholder="Write task description here" maxlength="256"></textarea>
+                                placeholder="Write team description here" maxlength="256"></textarea>
                         </div>
-                        <div id="todo-expired-sec" class="col-span-2">
-                            <label for="todo-expired"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expired
-                                Time</label>
-                            <input type="datetime-local" name="" id="todo-expired"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required="">
-                        </div>
+                       
 
-                        <div id="groups-sec" class="col-span-2 sm:col-span-1">
-                            <label for="groups"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Group</label>
-                            <select id="groups"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                required="">
-                                <option>Select group</option>
-                                <!-- Dynamic JS options here -->
-                            </select>
-                        </div>
+                      
 
-                        <div id="tags-sec" class="col-span-2 sm:col-span-1">
-                            <label for="tags"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tag</label>
-                            <select id="tags"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                required="">
-                                <option>Select tag</option>
-                                <!-- Dynamic JS options here -->
-                            </select>
-                        </div>
-
-                        <div id="colors-sec" class="col-span-2 sm:col-span-1">
-                            <label for="colors"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
-                            <input id="colors" type="color"
-                                class="bg-gray-50 border border-gray-300 p-1 h-[2.65rem]  w-20 rounded-lg focus:ring-primary-500 focus:border-primary-500 block dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        </div>
-
-                        <div id="warn-sec" class="col-span-2">
-                            <div id="warn" class="block mb-2 text-sm font-medium text-red-400">Warning</div>
-                        </div>
 
                     </div>
                     <!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
                     <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
                         autocomplete="off" tabindex="-1">
-                    <div class="col-span-2 flex justify-between">
-                        <button id="submit-sec" type="button"
-                            class="text-white inline-flex items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-blue-500">
-                            <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            Create
-                        </button>
+                    <div class="col-span-2 flex justify-around">
+                         <!--join btn-->
+                    <button id="Join-sec" type="button"
+                    class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                   Jointeam
+                   </button>
+                   <button id="save-sec" type="button"
+                   class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                  Save
+                  </button>
+                  <button id="delete-sec" type="button"
+                  class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                 Delete
+                 </button>
+                        <button id="Create-sec" type="button"
+                    class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                      Create
+                     </button>
 
-                        <!--Delete btn-->
-                        <button id="delete-sec" type="button"
-                            class="text-white inline-flex items-center bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
-                            <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
-                            </svg>
-
-                            Delete
-                        </button>
+               
+               
                     </div>
                 </form>
             </div>
@@ -140,8 +113,12 @@
     <!--eoModal -->
 
 
+    
 
     <!--########################################################### EoAddons ######################################################################-->
+
+
+
 
     <div class="bg-main/25 dark:bg-gray-700/70"> <!--Body Container-->
         <!--Begin header-->
@@ -161,7 +138,7 @@
                 </div>
             </div>
 
-            <div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center font-[Lato] dark:text-main"></div>
+            <div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center"></div>
 
             <div class="flex justify-end items-center p-2 gap-2 ">
 
@@ -191,7 +168,7 @@
             class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
 
 
-            <a href="{{url_for('profiles.profile',type=session['type'])}}">
+            <a href="{{url_for('profile', type=session['type'])}}">
                 <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
                     <div class="flex items-center">
                         <div class="PMenu-Primary-Image-Wrapper">
@@ -236,14 +213,14 @@
                     <label class="inline-flex items-center cursor-pointer px-3">
                         <input id="Toggle-DarkMode" type="checkbox" value="" class="sr-only peer">
                         <div
-                            class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-blue-500 peer-checked:bg-green-500">
+                            class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                         </div>
                     </label>
                 </div>
             </div><!--eoblock-->
 
             <div id="PMenu-Logout" class="PMenu-Primary-Section"> <!--block-->
-                <a href="{{url_for('auth.logout')}}">
+                <a href="{{url_for('logout')}}">
                     <button>
                         <div class="flex items-center">
                             <div class="PMenu-Primary-Image-Wrapper">
@@ -361,6 +338,32 @@
                 class="relative MMenu-Group-Section overflow-y-scroll py-5 h-1/2 bg-gray-300/35 ">
                 <!--group here-->
             </div>
+            <div id="MMenu-Bottom" class="flex justify-between items-center p-2">
+                <div class="Log-out">
+                    <a href="{{url_for('logout')}}">
+                        <button>
+                            <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.5"
+                                    d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+                            </svg>
+                        </button>
+                    </a>
+                </div>
+                <div class="Settings">
+                    <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                    </svg>
+                </div>
+            </div>
+
+
         </div>
         <!--End Dropdown menu-->
         <!--########################################################### EoDropdown Main Menu ######################################################################-->
@@ -394,33 +397,31 @@
 
 
 
-
-        <!--########################################################### Main Screen ######################################################################-->
-        <!--Begin Main screen-->
-        <div id="Main-Screen" class="Container backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
-            <!-- Dynamic draggable button here -->
-
-            <!--Formatter-->
-
+        <!--########################################################### Calendar ######################################################################-->
+        <!-- Redirect to Backend Generator here -->
+        <!-- Begin Calendar -->
+        <div id="teampage" class="Container backdrop-blur-sm py-10 h-screen overflow-y-scroll overflow-x-hidden"></div>
+        
         </div>
-        <!--End Main screen-->
-        <!--########################################################### EoMain Screen ######################################################################-->
+        <!--End Calendar-->
+        <!--########################################################### EoCalendar ######################################################################-->
 
 
-        <div id="Alert-Screen"
-            class="absolute flex flex-col justify-end  gap-1 items-end right-1 bottom-5 bg-transparent overflow-hidden">
-            <!--Alerts here-->
-        </div>
+
+
 
         <div class="Bottom-Bar w-full bottom-0 bg-accent-200 flex justify-between m-0">
-            <div class="">.</div>
+            <div class=""></div>
         </div>
 
 
-
+        
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="../static/js/app.js" type="module"></script>
+        <script src="../static/js/list.js" type="module"></script>
+        <script>
+            $("#teampage").load("teampagegroupallfunct.html");
+        </script>
 </body>
 
 </html>

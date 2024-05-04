@@ -201,7 +201,7 @@ class Utils {
     }
 
     static getSampleData() {
-        return new DictWithAJAX().importDict(SampleData);
+        return new DictCRUD().importDict(SampleData);
     }
 }
 

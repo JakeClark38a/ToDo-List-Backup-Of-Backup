@@ -1,3 +1,4 @@
+
 <div id="ShopModal" tabindex="-1" aria-hidden="true"
 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
 <div class="relative p-4 w-full max-w-md max-h-full">
@@ -99,3 +100,42 @@ class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 
   </div>
 </div>
          
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative AI Chat</title>
+</head>
+
+<body>
+    <form name="form1">
+        <input type="text" name="input1" id="input1" placeholder="Enter your text here...">
+        <button type="button" id="button">Generate</button>
+    </form>
+    <div id="edit">Message will be here</div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "@google/generative-ai": "https://esm.run/@google/generative-ai"
+            }
+        }
+    </script>
+    <script type="module">
+        import { chadBot } from '../static/js/chadBot.js';
+        async function run() {
+            let input = document.getElementById('input1').value;
+            let text = await chadBot.chat(input);
+            document.getElementById('edit').innerHTML = text;
+        }
+        window.onload = function () {
+            document.getElementById('button').addEventListener('click', run);
+        };
+    </script>
+</body>
+
+</html>
+
