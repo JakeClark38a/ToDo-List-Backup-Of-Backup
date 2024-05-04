@@ -1,7 +1,7 @@
 import { ajaxHandler } from './ajaxHandler.js';
 import { MainScreen } from './hmtlComponent.js';
 
-var sampleDict = {  // sample dict
+var Dict = {  // sample dict
     username: "JakeClark",
     userid: "User ID",
     bio: "hmm...",
@@ -224,8 +224,8 @@ const getTask = function (day, month, year) {
     // Get all tasks that have deadline on focused day (in args)
     // Return as array of tasks ID
     var tasks = [];
-    for (var task in sampleDict.tasks) {
-        var deadline = new Date(sampleDict.tasks[task].deadline);
+    for (var task in Dict.tasks) {
+        var deadline = new Date(Dict.tasks[task].deadline);
         console.log(deadline, deadline.getDate(), deadline.getMonth(), deadline.getFullYear());
         if (deadline.getDate() == day && deadline.getMonth() + 1 == month && deadline.getFullYear() == year) {
             tasks.push(task);
@@ -240,8 +240,8 @@ const getExpiredDays = function (month, year) {
     // Steps: Get deadline of each task, if it is in month and year, add its day to array
     // Return as array of days
     var days = {};
-    for (var task in sampleDict.tasks) {
-        var deadline = new Date(sampleDict.tasks[task].deadline);
+    for (var task in Dict.tasks) {
+        var deadline = new Date(Dict.tasks[task].deadline);
         if (deadline.getMonth() + 1 == month && deadline.getFullYear() == year) {
             days[deadline.getDate()] = true;
         }
@@ -304,7 +304,8 @@ var Dict = {};
 const loadDict = function () {
     return new Promise(function (resolve) {
         $.when(ajaxHandler.LoadUserData()).done(function (data) {
-            console.log(data);
+            console.log("Dict: ", data);
+            Dict = data;
             resolve(Dict);
         })
     });
@@ -317,6 +318,7 @@ const appendTask = function (Dict, day, month, year) {
     for (let taskId in Dict.tasks) {
         var deadline = new Date(Dict.tasks[taskId].deadline);
         if (deadline.getDate() == day && deadline.getMonth() + 1 == month && deadline.getFullYear() == year) {
+            console.log("append task: ", taskId, Dict.tasks[taskId]);
             $("#Task-Section").append(MainScreen.TaskTemplate(taskId, Dict.tasks[taskId]));
         }
     }
@@ -325,12 +327,42 @@ const appendTask = function (Dict, day, month, year) {
 
 const mapDatepickerToTable = function (){
     // Map datepicker #calendar to #CalendarTable
-    // Get all div with class datepicker-cell
+    // Get all div with class dow
+    $('#calendar span.dow').each(function(){
+        // Clone the cell
+        var clonedCell = $(this).clone();
 
+        // Find the index of the current cell in the total 42 cells
+        var index = $("#calendar span.dow").index($(this));
+
+        // Find the corresponding cell in the calendar table and fill it with the cloned cell
+        $('#CalendarTable #Weekday td:eq(' + index + ')').html(clonedCell);
+    })
+    // Get all div with class datepicker-cell
     $("#calendar span.datepicker-cell").each(function() {
         // Fill in #CalendarTable with datepicker-cell
+        // $("#CalendarTable").append($(this).clone());
+        // Clone the cell
+        var clonedCell = $(this).clone();
+
+        // Find the index of the current cell in the total 42 cells
+        var index = $("#calendar span.datepicker-cell").index($(this));
+
+        // Calculate the row and column index in the calendar table
+        var rowIndex = Math.floor(index / 7) ; // Add 1 because index starts from 0
+        var colIndex = index % 7;
+
+        console.log("Index", index, "Row", rowIndex, "Col", colIndex);
+
+        // Find the corresponding cell in the calendar table and fill it with the cloned cell
+        $('#CalendarTable tr.week:eq(' + rowIndex + ') td:eq(' + colIndex + ')').html(clonedCell);
     });
 
+    // Clone $("button.view-switch").text()
+    var clonedText = $("button.view-switch").clone();
+    // Disable clock with change id of #clock to #month 
+    // Clone the text, also change class from text-sm to text-xl
+    $('#clock').attr('id', 'month').html(clonedText).children().first().removeClass("text-sm view-switch").addClass("text-xl");
 }
 
 
@@ -338,6 +370,14 @@ const mapDatepickerToTable = function (){
 $(document).ready(function () {
     // Load dict
 
+    // If screen width is greater than 768px, show calendar table
+    // else hide it
+    if ($(window).width() > 768) {
+        $("#CalendarTable").parent().removeClass("hidden");
+    } else {
+        $("#CalendarTable").parent().addClass("hidden");
+    }
+    mapDatepickerToTable();
     $.when(loadDict()).done(function (data) {
         // set initial date for #calendar is today
         // format: MM/DD/YYYY'
@@ -356,12 +396,14 @@ $(document).ready(function () {
         // refresh each time user click datepicker-cell
         $("#Task-Group-Title").text(combineMonth(...pickDate()));
         $("#calendar .datepicker-cell, #calendar button.prev-btn, #calendar button.next-btn").click(function () {
-            date = pickDate();
-            // set timeout to wait for focused class to be added
-            changeExpiredColor(getExpiredDays(date[1], date[2]));
             setTimeout(function () {
+                date = pickDate();
+                // set timeout to wait for focused class to be added
+                changeExpiredColor(getExpiredDays(date[1], date[2]));
                 $("#Task-Group-Title").text(combineMonth(...pickDate()));
                 appendTask(Dict, date[0], date[1], date[2]);
+                // update calendar table
+                mapDatepickerToTable();
             }, 50);
             console.log('[7] Selected date: ' + date[0] + ' ' + date[1] + ' ' + date[2]);
         });
