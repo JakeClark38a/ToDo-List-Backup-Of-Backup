@@ -3,13 +3,16 @@ let treeCount = 100; // Initial count of trees planted
 let lastAction = "fertilize"; // Variable to store the last action (water or fertilize)
 let wateringsLeft = 50; // Variable to store the number of remaining waterings
 let fertilizationsLeft = 50; // Variable to store the number of remaining fertilizations
-let autoOption = false; // Variable to store the auto option state
+let autoOption = true; // Variable to store the auto option state
 let audioOption = true; // Variable to store the audio option state
 let prevSrc = "../static/images/tree_game/tree1.png";
 let animationInProgress = false;
 
 // DONT STORE THIS IN THE DATABASE !!!!!!!!!!!!!!!!
 let autoInterval; // Variable to store the interval for auto watering and fertilizing
+var autoButtontag = document.getElementById('autoButton');
+var audioButtontag = document.getElementById('audioButton');
+var backgroundAudio = document.getElementById('backgroundAudio');
 
 document.addEventListener('DOMContentLoaded', function() {
   // Execute the functions when the DOM content is loaded
@@ -21,59 +24,58 @@ document.addEventListener('DOMContentLoaded', function() {
   updateButtonStates();
   updateNumberofTrees(); 
   updateAutoOption();
-  updateAudioOption(1);
+  updateAudioOption();
+  
 });
 
-function updateAudioOption(init = false) {
-  var toggleButton = document.getElementById("toggleButton");
+function updateAudioOption(click = false) {
+  var audioButton = document.getElementById("audioButton");
   var audioElements = document.querySelectorAll('audio');
-  if(!init){
+  if(click){
     audioOption = !audioOption;
   }
   if(audioOption){
     audioElements.forEach(function(audio) {
         // console.log(audio.muted);
         audio.muted = false;
+        
     });
-    document.getElementById("backgroundAudio").play();
-    toggleButton.innerText = "Pause Audio";
+    backgroundAudio.play();
+    audioButtontag.src = "../static/images/tree_game/AudioButton.png";
+    // audioButton.innerText = "Pause Audio";
   } else { 
     audioElements.forEach(function(audio) {
         // console.log(audio.muted);
         audio.muted = true;
     });
-    toggleButton.innerText = "Play Audio";
+    backgroundAudio.pause();
+    audioButtontag.src = "../static/images/tree_game/AudioButtonPressed.png";
+    // audioButton.innerText = "Play Audio";
   }
 }
 
 
-function updateAutoOption() {
+function updateAutoOption(click = false) {
+  if(click){
+    autoOption = !autoOption;
+  }
   if(autoOption){
     startAuto();
-    document.getElementById("autobutton").innerText ="Stop Auto"
   } else { 
     stopAuto();
-    document.getElementById("autobutton").innerText ="Start Auto"
   }
 }
 
-// Set up the auto button click event listener
-document.getElementById("autobutton").addEventListener("click", function () {
-  if (document.getElementById("autobutton").innerText === "Stop Auto") {
-    stopAuto(); // If autoInterval exists, stop auto watering and fertilizing
-    this.textContent = "Start Auto"; // Change button text to "Start Auto"
-  } else {
-    startAuto(); // If autoInterval doesn't exist, start auto watering and fertilizing
-    this.textContent = "Stop Auto"; // Change button text to "Stop Auto"
-  }
-});
 
 function startAuto() {
+  console.log(autoButtontag.src)
   autoInterval = setInterval(autoWaterAndFertilize, 500); // Call autoWaterAndFertilize every second
+  autoButtontag.src = '../static/images/tree_game/AutoButtonPressed.png';
 }
 
 function stopAuto() {
   clearInterval(autoInterval); // Stop the interval
+  autoButtontag.src = "../static/images/tree_game/AutoButton.png";
 }
 
 
@@ -201,7 +203,10 @@ function animate(action) {
       : "../static/images/tree_game/fertilizer-anim-loop.gif";
   // Set its position and styling
   animation.style.position = "absolute";
+  animation.style.cursor = "pointer"; // Adding cursor pointer
+  animation.style.pointerEvents = "none"; // Adding pointer events none
 
+  
   // Get the position and size of the tree image
   const treeImg = document.getElementById("tree");
   const treeRect = treeImg.getBoundingClientRect();
@@ -283,8 +288,6 @@ function updateFertilizerCount() {
 
 
 
-
-
 function autoWaterAndFertilize() {
   console.log(wateringsLeft, lastAction);
   if (
@@ -298,6 +301,7 @@ function autoWaterAndFertilize() {
   ) {
     fertilizeTree(); // Fertilize the tree if fertilizer is available
   } else {
+    autoOption = false; // Update auto option state if ran out of resource
     stopAuto(); // Stop auto watering and fertilizing if both water and fertilizer are depleted
   }
 }

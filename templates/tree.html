@@ -151,11 +151,13 @@
 				<source src="../static/sounds/dirt_fertilize.wav" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
-			<button id="toggleButton" class="absolute left-0 top-0 bg-blue-600 rounded-r-lg" onclick="updateAudioOption()">Play Audio</button>
-			<button id="autobutton" class="absolute right-0 top-0 bg-blue-600 rounded-l-lg">Start Auto</button>
-		
+			<div class="absolute flex left-0 flex-col">
+				<img src="../static/images/tree_game/AudioButton.png" id="audioButton" class="" onclick="updateAudioOption(true)"></img>
+				<img src="../static/images/tree_game/AutoButton.png" id="autoButton" class="" onclick="updateAutoOption(true)"></img>
+			</div>
+
 			<div id="Items-hub" class="absolute right-0 top-0 mr-8 mt-24 bg-black rounded-lg"> 
-				<div id="treeCount" class="text-5xl vt323-regular">Number of Trees: 0</div>
+				<div id="treeCount" class="text-4xl vt323-regular">Number of Trees: 0</div>
 				<div class="progress-container">
 					<div class="progress-bar" id="progressBar">
 						<div class="percentage" id="percentage">0%</div>

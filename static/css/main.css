@@ -2423,10 +2423,31 @@ input:checked + .toggle-bg {
   #fertilizebutton {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+#autoButton {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  height: 3rem;
+  width: 3rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+#audioButton {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  height: 3rem;
+  width: 3rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+#waterbutton, #fertilizebutton {
   background-image: url("../images/tree_game/button.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center
 }
 
 #Items-hub {
@@ -3939,11 +3960,6 @@ input:checked + .toggle-bg {
 .bg-blue-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(140 185 190 / var(--tw-bg-opacity));
-}
-
-.bg-blue-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(112 148 152 / var(--tw-bg-opacity));
 }
 
 .bg-blue-700 {

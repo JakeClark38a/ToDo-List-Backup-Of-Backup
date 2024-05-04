@@ -552,6 +552,14 @@
     @apply px-6
   }
 
+  #autoButton{
+    @apply my-1 rounded-l-lg w-12 h-12;
+  }
+
+  #audioButton{
+    @apply my-1 rounded-l-lg w-12 h-12;
+  }
+
   #waterbutton, #fertilizebutton {
     background-image: url("../images/tree_game/button.png");
     background-repeat: no-repeat;
