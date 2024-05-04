@@ -132,7 +132,7 @@
 				Your browser does not support the audio element.
 			</audio>
 			<audio id="backgroundAudio" loop>
-				<source src="../static/sounds/forest-wind-and-bird-ambient.mp3" type="audio/mpeg">
+				<source src="../static/sounds/ambient_sound.mp3" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
 			<audio id="buyingAudio">
@@ -151,10 +151,10 @@
 				<source src="../static/sounds/dirt_fertilize.wav" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
-			<button id="toggleButton" class="absolute left-0 top-0 bg-blue-600 rounded-r-lg" onclick="toggleAudio()">Play Audio</button>
+			<button id="toggleButton" class="absolute left-0 top-0 bg-blue-600 rounded-r-lg" onclick="updateAudioOption()">Play Audio</button>
 			<button id="autobutton" class="absolute right-0 top-0 bg-blue-600 rounded-l-lg">Start Auto</button>
 		
-			<div id="Items-hub" class="absolute right-0 top-0 mr-8 mt-24"> 
+			<div id="Items-hub" class="absolute right-0 top-0 mr-8 mt-24 bg-black rounded-lg"> 
 				<div id="treeCount" class="text-5xl vt323-regular">Number of Trees: 0</div>
 				<div class="progress-container">
 					<div class="progress-bar" id="progressBar">
@@ -171,7 +171,7 @@
 				<div>
 					<div class="w-3/4 m-auto">
 						<img id="tree" src="../static/images/tree_game/tree1.gif" class="" alt="Tree">
-						<div class="options flex justify-center">
+						<div class="options">
 							<div id="waterbutton" class="flex">
 								<img src="../static/images/tree_game/watercan-full.png" alt="Watering Can" onclick="waterTree()"> 
 								<div id="waterCount" class="text-5xl vt323-regular absolute pointer-events-none"></div>

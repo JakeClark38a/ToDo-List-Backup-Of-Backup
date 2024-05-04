@@ -5,6 +5,8 @@ let wateringsLeft = 50; // Variable to store the number of remaining waterings
 let fertilizationsLeft = 50; // Variable to store the number of remaining fertilizations
 let autoOption = false; // Variable to store the auto option state
 let audioOption = true; // Variable to store the audio option state
+
+// DONT STORE THIS IN THE DATABASE !!!!!!!!!!!!!!!!
 let autoInterval; // Variable to store the interval for auto watering and fertilizing
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -17,47 +19,31 @@ document.addEventListener('DOMContentLoaded', function() {
   updateButtonStates();
   updateNumberofTrees(); 
   updateAutoOption();
-  document.getElementById("backgroundAudio").play();
-  updateAudioOption();
+  updateAudioOption(1);
 });
 
-function updateAudioOption(){
+function updateAudioOption(init = false) {
   var toggleButton = document.getElementById("toggleButton");
   var audioElements = document.querySelectorAll('audio');
+  if(!init){
+    audioOption = !audioOption;
+  }
   if(audioOption){
     audioElements.forEach(function(audio) {
-        console.log(audio.muted);
+        // console.log(audio.muted);
         audio.muted = false;
     });
+    document.getElementById("backgroundAudio").play();
     toggleButton.innerText = "Pause Audio";
   } else { 
     audioElements.forEach(function(audio) {
-        console.log(audio.muted);
+        // console.log(audio.muted);
         audio.muted = true;
     });
     toggleButton.innerText = "Play Audio";
   }
 }
 
-// Function to toggle audio play/pause
-function toggleAudio() {
-  var toggleButton = document.getElementById("toggleButton");
-  var audioElements = document.querySelectorAll('audio');
-  audioOption = !audioOption;
-  if(audioOption){
-    audioElements.forEach(function(audio) {
-        console.log(audio.muted);
-        audio.muted = false;
-    });
-    toggleButton.innerText = "Pause Audio";
-  } else { 
-    audioElements.forEach(function(audio) {
-        console.log(audio.muted);
-        audio.muted = true;
-    });
-    toggleButton.innerText = "Play Audio";
-  }
-}
 
 function updateAutoOption() {
   if(autoOption){
@@ -176,9 +162,9 @@ function updateTree() {
 
     setTimeout(() => {
       // Change tree image source after 1 second
-      console.log(
-        `../static/images/tree_game/tree${stage - 1}_grown_tree${stage}.gif`
-      );
+      // console.log(
+      //   `../static/images/tree_game/tree${stage - 1}_grown_tree${stage}.gif`
+      // );
       document.getElementById("tree").src = `../static/images/tree_game/tree${
         stage - 1
       }_grown_tree${stage}.gif`;

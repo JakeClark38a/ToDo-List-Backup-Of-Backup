@@ -531,6 +531,9 @@
     font-weight: 400;
     font-style: normal;
   }
+  .options{
+    @apply flex justify-center rounded-lg ;
+  }
   #waterbutton img,
   #fertilizebutton img {
     @apply cursor-pointer p-[5px] border-2 border-solid border-transparent;
@@ -543,9 +546,31 @@
     @apply border-[black];
     /* Change border color on hover */
   }
+
+  #waterbutton,
+  #fertilizebutton {
+    @apply px-6
+  }
+
+  #waterbutton, #fertilizebutton {
+    background-image: url("../images/tree_game/button.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center
+  }
+  #Items-hub {
+    background-image: url("../images/tree_game/letterbox-desktop2.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
   @media screen and (max-width: 1000px) {
     #Items-hub {
       @apply absolute translate-x-2/4 mr-0 mt-6 right-2/4 top-0;
+      background-image: url("../images/tree_game/letterbox.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
   }
   @media screen and (max-width: 1000px) {
@@ -608,9 +633,15 @@
   }
   .forest-background{
     background-color: #667a31;
-    background-image: url(https://img.itch.zone/aW1nLzExMTg4NTE2LnBuZw==/original/XYcMgs.png);
+    background-image: url("../images/tree_game/background_image_desktop.png");
     background-repeat: repeat;
     background-position: 50% 0;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .forest-background{
+      background-image: url("../images/tree_game/background_image_mobile.png");
+    }
   }
   /* end tree */
 
