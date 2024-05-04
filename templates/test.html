@@ -1,12 +1,141 @@
-<div id="Drop-Down-Options-Profile" class="rounded-lg w-[150px] border-2 absolute bg-white " role="menu">
-    <label for="upload-photo" class="dropdown-item text-sm hover:bg-cyan-600 cursor-pointer p-2">
-        Upload a photo…
-        <input type="file" id="upload-photo" name="photo" accept="image/*" style="display: none;">
-    </label>
-    <form class="dropdown-item text-sm hover:bg-cyan-600 p-2" action="/settings/primary_avatar" accept-charset="UTF-8" method="post">
-        <input type="hidden" name="_method" value="delete" autocomplete="off">
-        <button onclick="return confirm('Are you sure you want to remove the photo?')">
-            Remove photo
-        </button>
-    </form>
+
+<div id="ShopModal" tabindex="-1" aria-hidden="true"
+class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div class="relative p-4 w-full max-w-md max-h-full">
+	<!-- Modal content -->
+	<div class="relative bg-main rounded-lg dark:bg-gray-700">
+		<!-- Modal header -->
+		<div class="flex items-center justify-between p-2 md:p-4 border-b rounded-t dark:border-gray-600">
+			<h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+				Shop
+			</h3>
+			<!-- close btn -->
+			<button id="btn-close-shop-modal" type="button"
+				class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+				<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+					viewBox="0 0 14 14">
+					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+						d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+				</svg>
+				<span class="sr-only">Close modal</span>
+			</button>
+		</div>
+		<!-- Modal body -->
+		<div id="shopModalContent" class="p-4">
+			<!-- Content from shop.html will be loaded here -->
+		</div>
+	</div>
 </div>
+</div>
+
+
+
+
+<!-- Shop modal -->
+<div id="ShopModal" tabindex="-1" aria-hidden="true"
+  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <div class="relative p-4 w-full max-w-md max-h-full">
+    <!-- Shop content -->
+    <div class="relative bg-main rounded-lg dark:bg-gray-700">
+      <!-- Shop header -->
+      <div class="flex items-center justify-between p-2 md:p-4 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+          Shop
+        </h3>
+        <!-- close btn -->
+        <button id="btn-close-shop-modal" type="button"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Shop body -->
+      <div class="p-4 md:p-5">
+        <!-- Coin display -->
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-sm font-medium text-gray-900 dark:text-white">Coins:</span>
+          <span id="coin-display" class="text-sm font-medium text-gray-900 dark:text-white">1000</span>
+        </div>
+        <!-- Shop image -->
+        <img src="path/to/shop/image.jpg" alt="Shop Image" class="mb-4 rounded-lg w-full">
+        <!-- Fertilize image -->
+        <img src="path/to/fertilize/image.jpg" alt="Fertilize" class="mb-2 rounded-lg w-full">
+        <!-- Water image -->
+        <img src="path/to/water/image.jpg" alt="Water" class="mb-4 rounded-lg w-full">
+        <!-- Quantity selector -->
+        <div class="flex items-center justify-between mb-4">
+          <button id="decrease-quantity" type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M20 12H4" />
+            </svg>
+          </button>
+          <input id="quantity-input" type="number" min="1" value="1"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-24 p-2.5 text-center dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+          <button id="increase-quantity" type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+          </button>
+        </div>
+        <!-- Purchase button -->
+        <button id="purchase-btn" type="button"
+          class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+          <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="inline-block align-middle">Purchase</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+         
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative AI Chat</title>
+</head>
+
+<body>
+    <form name="form1">
+        <input type="text" name="input1" id="input1" placeholder="Enter your text here...">
+        <button type="button" id="button">Generate</button>
+    </form>
+    <div id="edit">Message will be here</div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "@google/generative-ai": "https://esm.run/@google/generative-ai"
+            }
+        }
+    </script>
+    <script type="module">
+        import { chadBot } from '../static/js/chadBot.js';
+        async function run() {
+            let input = document.getElementById('input1').value;
+            let text = await chadBot.chat(input);
+            document.getElementById('edit').innerHTML = text;
+        }
+        window.onload = function () {
+            document.getElementById('button').addEventListener('click', run);
+        };
+    </script>
+</body>
+
+</html>
+

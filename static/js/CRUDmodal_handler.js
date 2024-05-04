@@ -91,6 +91,8 @@ modalMainScreen.resetState = function () {
   $('#crud-modal #colors').val("#" + ((Math.random() * 0xF0F0F0 << 0).toString(16).padStart(6, '0')));
   $('#crud-modal #colors-sec').show();
 
+  $('#crud-modal #warn-sec').hide();
+  $('#crud-modal #warn-sec #warn').text("");
 
   $('#crud-modal button[type="submit"]').html(`
           <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
@@ -114,15 +116,27 @@ modalMainScreen.resetState = function () {
   $('#crud-modal input[type="checkbox"]').attr("id", `none_none`);
 }
 
+function getCurrentDateTimeString(timeString) {
+  const now = new Date(timeString);
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
 modalMainScreen.AddEditTask = function (task, group) {
   let h3 = task ? "Edit Task" : "Add Task";
   let id = task ? task.taskID : "none";
   let title = task ? task.title : '';
   let desc = task ? task.description : '';
   let tag = task ? task.tag : '';
-  let expired = task ? task.deadline : '';
+  let expired = task ? task.deadline : getCurrentDateTimeString(Date.now());
   let groupId = group ? group.groupID : '';
   let groupName = group ? group.title : '';
+  console.log(expired);
   // Customize modal appearance 
   $('#crud-modal #colors-sec').hide();
 
@@ -139,32 +153,50 @@ modalMainScreen.AddEditTask = function (task, group) {
   // Change input to task details
   $('#crud-modal #name').val(title);
   $('#crud-modal #description').val(desc);
-  
+
   $('#crud-modal').find(`#tags option[value="${tag}"]`).attr("selected", title);
   $('#crud-modal').find(`#groups option[value="${groupId}"]`).attr("selected", groupName);
-
-  $('#crud-modal #todo-expired').val(expired);
+  $(document).ready(function () {
+    $('#crud-modal #todo-expired').val(expired);
+  });
   $('#crud-modal button[type="submit"]').text(h3);
   // Change honeypot to id
   $('#crud-modal input[type="checkbox"]').attr("id", `task_${id}`);
-  // Get current date
-  let current_date = new Date();
-  // Get date input
+
   let date_element = $('#crud-modal #todo-expired');
   // Get input date
-  let input_date = new Date(date_element.val());
+  let input_date = new Date(date_element.val()-100);
   // If input date is less than current date, show alert
-  if (input_date < current_date) {
+  if (input_date - new Date() <= 0) {
     date_element.css("border", "2px solid red");
+    $('#crud-modal #warn-sec').show();
+    $('#crud-modal #warn-sec #warn').text("Cannot set due time in the past!");
   }
   else {
     date_element.css("border", "2px solid green");
+    $('#crud-modal #warn-sec').hide();
+    $('#crud-modal #warn-sec #warn').text("");
   }
+
+  $('#crud-modal #todo-expired').on('change', function () {
+    let input_date = new Date(date_element.val());
+    if (input_date - new Date() <= 0) {
+      date_element.css("border", "2px solid red");
+      $('#crud-modal #warn-sec').show();
+      $('#crud-modal #warn-sec #warn').text("Cannot set due time in the past!");
+    }
+    else {
+      date_element.css("border", "2px solid green");
+      $('#crud-modal #warn-sec').hide();
+      $('#crud-modal #warn-sec #warn').text("");
+    }
+  });
+
   modalMainScreen.show();
 }
 
-modalMainScreen.AddEditTag = function (tag , group) {
-  
+modalMainScreen.AddEditTag = function (tag, group) {
+
   let h3 = tag ? "Edit Tag" : "Add Tag";
   let title = tag ? tag.title : '';
   let id = tag ? tag.tagID : "none";
@@ -288,6 +320,7 @@ modalMainScreen.LoadGroups = function (Dict) {
 $('#btn-close-modal').click(function () {
   modalMainScreen.hide();
 });
+modalMainScreen.hide(); // initalize
 
 //================================================================\\
 //=========================== Export  ============================\\
