@@ -57,8 +57,8 @@
 
 
     <div id="chat-box-wrapper"
-      class="chat-wrapper flex flex-col justify-center items-start fixed z-40 p-2 pt-1 bottom-5 right-5 rounded-lg border-2 border-main bg-orange-200">
-      
+      class="chat-wrapper hidden flex flex-col justify-center items-start fixed z-40 p-2 pt-1 bottom-5 right-5 rounded-lg border-2 border-main bg-orange-200">
+
       <div id="close-chat-box" class="flex items-center w-full justify-end px-2">
         <svg class="w-6 h-6 lg:w-8 lg:h-8 text-accent-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
           width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -69,7 +69,7 @@
       <div id="chat-content"
         class="chat-text-sec h-[50vh] lg:h-[70vh] p-3 mb-2 w-full mt-1 rounded-lg bg-blue-500/50 overflow-x-hidden overflow-y-scroll">
         <!--chat content-->
-        
+
       </div>
 
       <div class="chat-input-sec flex">
@@ -78,11 +78,13 @@
           placeholder="Type a message" autocomplete="off">
         <button id="chat-send-button" type="button"
           class="chat-send-button border-2 border-main bg-accent-300 h-8 w-8 lg:h-11 lg:w-11 rounded-e-lg flex justify-center items-center hover:bg-blue-600">
+
           <svg class="w-full h-full text-main rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
             width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
               d="m12 18-7 3 7-18 7 18-7-3Zm0 0v-5" />
           </svg>
+
 
         </button>
       </div>
