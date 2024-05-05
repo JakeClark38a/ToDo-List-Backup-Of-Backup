@@ -366,6 +366,55 @@ centerShopModal();
 
 
 
+/////////////////////////////////////// Start Modal for the helps ///////////////////////////////////////
+// Set the help modal element
+const $helpModalEl = document.getElementById("HelpModal");
+
+// Options for the help modal
+const helpModalOptions = {
+  backdrop: "dynamic",
+  backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
+  closable: true,
+  onHide: () => {
+    console.log("Help modal is hidden");
+  },
+  onShow: () => {
+    console.log("Help modal is shown");
+  },
+  onToggle: () => {
+    console.log("Help modal has been toggled");
+  },
+};
+
+// Create a new instance of the modal for the help modal
+const helpModal = new Modal($helpModalEl, helpModalOptions);
+
+// Function to handle closing the help modal when the close button is clicked
+document
+  .getElementById("btn-close-help-modal")
+  .addEventListener("click", () => {
+    helpModal.hide();
+  });
+
+// Function to unhide the help modal when the help button is clicked
+document.getElementById("helpButton").addEventListener("click", () => {
+  helpModal.show();
+});
+
+// Function to center the help modal
+function centerHelpModal() {
+  $helpModalEl.style.top = "50%";
+  $helpModalEl.style.left = "50%";
+  $helpModalEl.style.transform = "translate(-50%, -50%)";
+}
+
+// Call the centerHelpModal function when the window is resized
+window.addEventListener("resize", centerHelpModal);
+
+// Call the centerHelpModal function initially to center the modal
+centerHelpModal();
+/////////////////////////////////////// End Modal for the help ///////////////////////////////////////
+
 
 // $(document).ready(function () {
 //   // Constants

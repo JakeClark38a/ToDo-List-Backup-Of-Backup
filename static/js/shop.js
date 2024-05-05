@@ -44,6 +44,10 @@ function updateModal() {
 // Function to handle purchasing of items
 function purchaseItem() {
 
+	if (totalCost == 0) {
+		return;
+	}
+
 	// Check if the user has enough coins
 	if (totalCost <= coins) {
 		// Update the coin count

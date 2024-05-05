@@ -552,11 +552,7 @@
     @apply px-6
   }
 
-  #autoButton{
-    @apply my-1 rounded-l-lg w-12 h-12;
-  }
-
-  #audioButton{
+  #autoButton, #audioButton, #helpButton {
     @apply my-1 rounded-l-lg w-12 h-12;
   }
 

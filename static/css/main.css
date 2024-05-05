@@ -2425,16 +2425,7 @@ input:checked + .toggle-bg {
   padding-right: 1.5rem;
 }
 
-#autoButton {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-  height: 3rem;
-  width: 3rem;
-  border-top-left-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
-}
-
-#audioButton {
+#autoButton, #audioButton, #helpButton {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
   height: 3rem;
@@ -2974,10 +2965,6 @@ input:checked + .toggle-bg {
   margin-right: 1rem;
 }
 
-.mr-8 {
-  margin-right: 2rem;
-}
-
 .mr-\[3vw\] {
   margin-right: 3vw;
 }
@@ -3004,10 +2991,6 @@ input:checked + .toggle-bg {
 
 .mt-2 {
   margin-top: 0.5rem;
-}
-
-.mt-24 {
-  margin-top: 6rem;
 }
 
 .mt-3 {
@@ -3490,10 +3473,6 @@ input:checked + .toggle-bg {
 
 .min-w-12 {
   min-width: 3rem;
-}
-
-.min-w-64 {
-  min-width: 16rem;
 }
 
 .max-w-full {
@@ -4154,11 +4133,6 @@ input:checked + .toggle-bg {
   background-color: rgb(208 113 65 / 0.35);
 }
 
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
 .bg-blue-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(163 199 203 / var(--tw-bg-opacity));
@@ -4226,6 +4200,11 @@ input:checked + .toggle-bg {
 .bg-green-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(222 247 236 / var(--tw-bg-opacity));
+}
+
+.bg-green-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(132 225 188 / var(--tw-bg-opacity));
 }
 
 .bg-green-500 {
@@ -4331,23 +4310,22 @@ input:checked + .toggle-bg {
   background-color: rgb(216 216 216 / 0.5);
 }
 
-.bg-green-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(132 225 188 / var(--tw-bg-opacity));
-}
-
-.bg-yellow-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(245 208 156 / var(--tw-bg-opacity));
-}
-
 .bg-yellow-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(238 177 90 / var(--tw-bg-opacity));
 }
 
+.bg-gray-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-90 {
   --tw-bg-opacity: 0.9;
+}
+
+.bg-opacity-50 {
+  --tw-bg-opacity: 0.5;
 }
 
 .bg-bg1 {
@@ -4492,10 +4470,6 @@ input:checked + .toggle-bg {
   padding: 1rem;
 }
 
-.p-5 {
-  padding: 1.25rem;
-}
-
 .p-6 {
   padding: 1.5rem;
 }
@@ -4604,11 +4578,6 @@ input:checked + .toggle-bg {
   padding-bottom: 0.75rem;
 }
 
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
@@ -4692,10 +4661,6 @@ input:checked + .toggle-bg {
 
 .pt-5 {
   padding-top: 1.25rem;
-}
-
-.pl-1 {
-  padding-left: 0.25rem;
 }
 
 .text-left {
