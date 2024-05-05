@@ -153,7 +153,50 @@
 				<!-- Help body -->
 				<div class="p-4 md:p-5">
 					<!-- Help information -->
-					<p>This is the help information. You can provide instructions or guidance here.</p>
+					<div id="help-lines">
+						<div>
+							<img src="../static/images/tree_game/AudioButton.png">
+							<span class="text-sm font-medium text-gray-900 dark:text-white">Toggle audio</span>
+						</div>
+						<div>
+							<img src="../static/images/tree_game/AutoButton.png">
+							<span class="text-sm font-medium text-gray-900 dark:text-white">Toggle auto</span>
+						</div>
+						<div>
+							<img src="../static/images/tree_game/HelpButton.png">
+							<span class="text-sm font-medium text-gray-900 dark:text-white">Toggle help</span>
+						</div>
+						<div>
+							<img src="../static/images/tree_game/shop.png">
+							<span class="text-sm font-medium text-gray-900 dark:text-white">Access the shop to purchase additional fertilizer and water supplies to support your gardening efforts.</span>
+						</div>
+						<div>
+							<img src="../static/images/tree_game/house.png">
+							<span class="text-sm font-medium text-gray-900 dark:text-white">Navigate to your house to unlock additional tasks and rewards. Completing these tasks will earn you more JP coins.</span>
+						</div>
+						<div>
+							<img src="../static/images/tree_game/button.png">
+							<img src="../static/images/tree_game/watercan-full.png" class="absolute">
+							<span class="text-sm font-medium text-gray-900 dark:text-white">Water the tree to ensure its healthy growth and vitality.</span>
+						</div>
+						<div>
+							<img src="../static/images/tree_game/button.png">
+							<img src="../static/images/tree_game/fertilizer-opened.png" class="absolute">
+							<span class="text-sm font-medium text-gray-900 dark:text-white">Fertilize the tree to provide essential nutrients for its optimal growth and development.</span>
+						</div>
+						<div>
+							<img src="../static/images/tree_game/tree11.png">
+							<span class="text-sm font-medium text-gray-900 dark:text-white">The number of trees you have planted can be used to redeem valuable rewards.</span>
+						</div>
+						<div>
+							<img src="../static/images/tree_game/JackPotCoin.png">
+							<span class="text-sm font-medium text-gray-900 dark:text-white">JP coins, the currency used to exchange for fertilizers and water supplies, can be earned by completing tasks.</span>
+						</div>
+						<div>
+							<img src="../static/images/bird/idle.gif">
+							<span class="text-sm font-medium text-gray-900 dark:text-white">These birds appear every hour, and eliminating them will yield additional water and fertilizer. The maximum number of birds is five, so be sure to check regularly.</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -199,10 +242,11 @@
 				<source src="../static/sounds/dirt_fertilize.wav" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
-			<div class="absolute flex left-0 flex-col ml-2">
+
+			<div id="sideOptions">
 				<img src="../static/images/tree_game/AudioButton.png" id="audioButton" class="" onclick="updateAudioOption(true)"></img>
 				<img src="../static/images/tree_game/AutoButton.png" id="autoButton" class="" onclick="updateAutoOption(true)"></img>
-				<img src="../static/images/tree_game/HelpButton.png" id="helpButton" class="" onclick="showHelp()"></img>
+				<img src="../static/images/tree_game/HelpButton.png" id="helpButton" class=""></img>
 			</div>
 
 			<div id="Items-hub" class=""> 
@@ -226,8 +270,8 @@
 			<!-- main display -->
 			<div class="center-display flex items-center justify-center overflow-hidden">
 				<div class="no-flex-col-when-less-1000px mt-32-when-lower-1000px flex">
-					<img id="shop" src="../static/images/tree_game/shop.png" alt="Shop" class="max-h-[400px] m-auto"> 
-					<img id="house" src="../static/images/tree_game/house.png" alt="House" class="max-h-[400px] m-auto"> 
+					<img id="shop" src="../static/images/tree_game/shop.png" alt="Shop" class=""> 
+					<img id="house" src="../static/images/tree_game/house.png" alt="House" class=""> 
 				</div>
 				<div>
 					<div class="w-3/4 m-auto">

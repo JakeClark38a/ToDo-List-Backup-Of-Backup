@@ -377,9 +377,11 @@ const helpModalOptions = {
   closable: true,
   onHide: () => {
     console.log("Help modal is hidden");
+    document.getElementById("helpButton").src="../static/images/tree_game/HelpButton.png";
   },
   onShow: () => {
     console.log("Help modal is shown");
+    document.getElementById("helpButton").src="../static/images/tree_game/HelpButtonPressed.png";
   },
   onToggle: () => {
     console.log("Help modal has been toggled");
