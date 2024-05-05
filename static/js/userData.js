@@ -190,7 +190,8 @@ class Utils {
     }
 
     static randHexColor() {
-        return "#" + ((Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0'));
+        // make sure the hex color not too bright or dark
+        return "#" + (Math.floor((Math.random()*222)+40).toString(16))+(Math.floor((Math.random()*222)+40).toString(16))+(Math.floor((Math.random()*222)+40).toString(16));
     }
 
     static fromJSON(obj, json) {

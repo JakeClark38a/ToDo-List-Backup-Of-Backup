@@ -147,7 +147,7 @@
         <!--Begin header-->
 
         <!--########################################################### NavBar ######################################################################-->
-        <div
+        <div id="NavBar"
             class="flex justify-between items-center shadow-xl bg-white dark:bg-gray-700 py-0 pt-2 h-16 lg:h-18 lg:py-2 ">
             <div class="flex justify-evenly items-center gap-2 md:gap-8">
                 <!--button-->
@@ -171,6 +171,15 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
                             d="M6 12h.01m6 0h.01m5.99 0h.01" />
                     </svg>
+                </div>
+
+                <div id="ChatBox-Toggle" class="headbar-button p-1 border-0 hover:bg-main/35">
+                    <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                            d="M7 9h5m3 0h2M7 12h2m3 0h5M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.616a1 1 0 0 0-.67.257l-2.88 2.592A.5.5 0 0 1 8 18.477V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" />
+                    </svg>
+
                 </div>
 
                 <div id="Avatar-Menu-Click"
@@ -358,7 +367,7 @@
             </div><!--eoblock-->
 
             <div id="MMenu-Group-Section"
-                class="relative MMenu-Group-Section overflow-y-scroll py-5 h-1/2 bg-gray-300/35 ">
+                class="relative MMenu-Group-Section overflow-y-scroll py-5 max-h-[95%] bg-gray-300/35 ">
                 <!--group here-->
             </div>
         </div>
@@ -396,12 +405,67 @@
 
 
         <!--########################################################### Main Screen ######################################################################-->
-        <!--Begin Main screen-->
-        <div id="Main-Screen" class="Container backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
-            <!-- Dynamic draggable button here -->
 
-            <!--Formatter-->
+        <div id="Main-Section" class="flex">
+            <!--Begin Main screen-->
+            <div id="Main-Screen"
+                class="w-full inline-block backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
+                <!-- Dynamic draggable button here -->
 
+                <!--Formatter-->
+
+            </div>
+
+            <div id="Chat-Section"
+                class="hidden w-full md:w-4/12 h-[90vh] bg-main dark:bg-gray-500 flex flex-col overflow-hidden">
+                <div class="">
+
+                    <div id="chat-box-wrapper" class="chat-wrapper p-4 flex flex-col justify-center items-start">
+                        <div class="w-full flex items-center justify-between">
+                            <div class="px-2">
+                                <h1 class="text-lg font-semibold text-gray-800 dark:text-white">Chat</h1>
+                            </div>
+                            <div id="clear-chat-box"
+                                class="flex items-center justify-center px-2 rounded-lg hover:bg-gray-300">
+                                <svg class="w- h-8 text-red-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.5"
+                                        d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div id="chat-content"
+                            class="chat-text-sec h-[70vh] p-4 mb-4 w-full mt-1 rounded-lg bg-gray-300/50 overflow-x-hidden overflow-y-scroll">
+                            <!--chat content-->
+                       
+
+                            <!--eochat content-->
+                        </div>
+
+                        <div class="chat-input-sec flex w-full justify-center items-center">
+                            <textarea id="chat-message"
+                                class="chat-input rounded-s-lg border-2 resize-none dark:text-main border-main h-11 w-full lg:h-12 text-base bg-gray-300/50"
+                                placeholder="Type a message" rows="1"></textarea>
+                            <button id="chat-send-button" type="button"
+                                class="chat-send-button border-2 border-main bg-green-500 h-11 w-11 lg:h-12 lg:w-12 rounded-e-lg flex justify-center items-center hover:bg-blue-600">
+
+                                <svg class="w-full h-full text-main rotate-90" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.5" d="m12 18-7 3 7-18 7 18-7-3Zm0 0v-5" />
+                                </svg>
+
+
+                            </button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
         </div>
         <!--End Main screen-->
         <!--########################################################### EoMain Screen ######################################################################-->
@@ -413,7 +477,7 @@
         </div>
 
         <div class="Bottom-Bar w-full bottom-0 bg-accent-200 flex justify-between m-0">
-            <div class="">.</div>
+            <div class=""></div>
         </div>
 
 
