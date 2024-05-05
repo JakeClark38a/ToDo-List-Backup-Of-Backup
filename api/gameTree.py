@@ -5,5 +5,5 @@ game = Blueprint('game', __name__, static_folder='../static/', template_folder='
 
 
 @game.route('/tree')
-def treePage():
-    return render_template('treePage.html')
+def treePage_init():
+    return render_template('tree.html')

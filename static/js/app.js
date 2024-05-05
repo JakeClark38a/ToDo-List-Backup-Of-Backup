@@ -393,9 +393,8 @@ $(document).ready(function () {
     const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}, ${dayOfWeek}, ${monthsOfYear[month - 1]} ${day}, ${year}`;
     document.getElementById('clock').textContent = formattedTime;
   }
-
+  clockTick();
   setInterval(clockTick, 1000);
-
 
   //Remove task
   $("#Main-Screen").on("click", "#Task-Cancel", function (e) {
