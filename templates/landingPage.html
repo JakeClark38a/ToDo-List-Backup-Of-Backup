@@ -8,12 +8,43 @@
   <link rel="stylesheet" href="../static/css/main.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript" charset="UTF-8">
+    var socket;
+    $(document).ready(function () {
+      socket = io.connect('http://' + document.domain + ':' + location.port);
+      socket.on('connect', function () {
+        socket.emit('join', {});
+      });
+      socket.on('status', function (data) {
+        $('#chat-content').append('<div>' + data.msg + '</div>');
+        $('#chat-content').scrollTop($('#chat-content')[0].scrollHeight);
+      });
+      socket.on('message', function (data) {
+        $('#chat-content').append('<div>' + data.msg + '</div>');
+        $('#chat-content').scrollTop($('#chat-content')[0].scrollHeight);
+      });
+      $('#chat-send-button').click(function () {
+        socket.emit('text', {
+          msg: $('#chat-message').val()
+        });
+        $('#chat-message').val('');
+      });
+      $('#chat-open-button').click(function () {
+        $('#chat-box-wrapper').toggleClass('hidden');
+      });
+      $('#close-chat-box').click(function () {
+        $('#chat-box-wrapper').toggleClass('hidden');
+      });
+    });
+  </script>
 </head>
 
-<body class="bg-main bg-cover overflow-x-hidden">
+<body class="bg-[#dbdcdf] bg-cover overflow-x-hidden">
   <!--Navbar Start-->
   <div id="navbar"
-    class="sticky hidden flex transition-all ease-in-out duration-200 transform w-full top-0 z-[50] navbar h-[8vh] p-3 bg-primary-100 backdrop-blur-sm shadow-xl justify-between items-center">
+    class="sticky hidden flex transition-all ease-in-out duration-200 transform w-full top-0 z-[50] h-[8vh] p-3 bg-transparent backdrop-blur-sm shadow-xl justify-between items-center">
     <div class="logo ml-[3vw] flex items-center">
       <img class="h-10 w-10" src="/static/images/icons8-timer-50.png" alt="Logo">
       <div class="ml-2 font-bold font-sans md:visible invisible">Donow</div>
@@ -29,7 +60,7 @@
       </div>
 
       <div
-        class="group/sg flex justify-center items-center base-anim overflow-hidden button-login w-20 lg:w-24 border-2 h-8 lg:h-10 rounded-md shadow-lg hover:shadow-xl">
+        class="group/sg flex justify-center items-center base-anim overflow-hidden bg-gray-400 button-login w-20 lg:w-24 border-2 h-8 lg:h-10 rounded-md shadow-lg hover:shadow-xl">
         <div class="group-hover/sg:w-48 base-anim h-full w-0 bg-primary-200/75 absolute">
         </div>
         <div class="absolute">
@@ -39,6 +70,59 @@
     </div>
   </div>
   <!--Navbar End-->
+
+    <!-- chat  -->
+  <div id='Chat-Section' class="Chat-Section z-40">
+
+    <div id='chat-open-button'
+      class="chat-open-button z-40 base-anim fixed flex justify-center items-center rounded-full border-main border-2 focus:ring-4 ring-blue-500 bg-accent-300 hover:bg-primary-100 w-14 h-14  bottom-5 right-5">
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-300 opacity-75"></span>
+      <div class="svg-wrapper">
+        <svg class="w-8 h-8 text-main" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+          fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M7.556 8.5h8m-8 3.5H12m7.111-7H4.89a.896.896 0 0 0-.629.256.868.868 0 0 0-.26.619v9.25c0 .232.094.455.26.619A.896.896 0 0 0 4.89 16H9l3 4 3-4h4.111a.896.896 0 0 0 .629-.256.868.868 0 0 0 .26-.619v-9.25a.868.868 0 0 0-.26-.619.896.896 0 0 0-.63-.256Z" />
+        </svg>
+      </div>
+    </div>
+
+
+    <div id="chat-box-wrapper"
+      class="chat-wrapper flex flex-col justify-center items-start fixed z-40 p-2 pt-1 bottom-5 right-5 rounded-lg border-2 border-main bg-orange-200">
+      
+      <div id="close-chat-box" class="flex items-center w-full justify-end px-2">
+        <svg class="w-6 h-6 lg:w-8 lg:h-8 text-accent-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+            d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </div>
+      <div id="chat-content"
+        class="chat-text-sec h-[50vh] lg:h-[70vh] p-3 mb-2 w-full mt-1 rounded-lg bg-blue-500/50 overflow-x-hidden overflow-y-scroll">
+        <!--chat content-->
+        
+      </div>
+
+      <div class="chat-input-sec flex">
+        <input id="chat-message" type="text"
+          class="chat-input rounded-s-lg border-2 border-main h-8 lg:w-72 lg:h-11 text-base"
+          placeholder="Type a message" autocomplete="off">
+        <button id="chat-send-button" type="button"
+          class="chat-send-button border-2 border-main bg-accent-300 h-8 w-8 lg:h-11 lg:w-11 rounded-e-lg flex justify-center items-center hover:bg-blue-600">
+          <svg class="w-full h-full text-main rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="m12 18-7 3 7-18 7 18-7-3Zm0 0v-5" />
+          </svg>
+
+        </button>
+      </div>
+
+
+    </div>
+  </div>
+    <!-- Eochat-->
+
   <!--Hero Start-->
   <div id="hero"
     class="hero h-[120vh] flex bg-herosm bg-cover bg-center md:heroxl xl:bg-heroxl md:flex-col md:items-center">
@@ -46,7 +130,8 @@
       class="hero-text sm:mt-10 sm:ml-10 flex flex-col justify-start md:mt-[20vh] md:items-center md:justify-center">
       <div class="main-text title text-4xl md:text-5xl lg:text-7xl md:text-center ">Free from distractions.</div>
       <div class="main-text mb-3 title text-4xl md:text-5xl lg:text-7xl md:text-center">Forever.</div>
-      <div class="detail-text font-serif content md:text-center mb-7 text-md md:text-2xl md:w-[45vw] lg:w-[25vw]">
+      <div
+        class="detail-text font-serif content text-left md:text-center mb-7 text-md md:text-2xl md:w-[45vw] lg:w-[25vw]">
         Effort-lessly
         organizing your time, tasks, life and many more... with Donow. The best task manager and to-do list app.
       </div>
@@ -85,12 +170,12 @@
   </div>
   <!--Partner End-->
   <!--Quote-->
-  <div class="section quote flex justify-center items-center bg-accent-200/35 py-8">
+  <div class="section quote flex justify-center items-center bg-accent-200 py-8">
     <div class="quote-wrapper flex flex-col justify-center items-center">
-      <div class="quote font-serif text-center  text-xl md:text-2xl lg:text-4xl lg:px-36 mb-3">
+      <div class="quote font-serif text-center px-5 text-xl md:text-2xl lg:text-4xl lg:px-36 mb-3">
         "Productivity is never an accident. It is always the result of a commitment to excellence, intelligent planning,
         and focused effort."</div>
-      <div class="author text-center text-lg md:text-xl lg:text-2xl">- Paul J. Meyer</div>
+      <div class="author text-center text-lg md:text-xl lg:text-2xl font-serif">- Paul J. Meyer</div>
     </div>
   </div>
   <!--Quote End-->
@@ -98,27 +183,27 @@
   <div class="section des flex justify-center items-center bg-accent-100/35 py-8">
     <div></div>
     <div>
-      <div class="text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
-        <span class="content font-bold">Zero-Effort Organization: </span>
+      <div class="flex flex-col text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
+        <span class="title-2 font-bold">Zero-Effort Organization </span>
         <span class="content font-light font-md">Manage your time, tasks, and life with just a few clicks. Stop
           wasting energy, start crushing goals.</span>
       </div>
 
-      <div class="text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
-        <span class="content font-bold">Laser Focus, Unleashed: </span>
+      <div class="flex flex-col text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
+        <span class="title-2 font-bold">Laser Focus, Unleashed </span>
         <span class="content font-light font-md">Ditch the distractions and prioritize what needs to get done.
           Get ready to experience peak productivity.</span>
       </div>
 
 
-      <div class="text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
-        <span class="content font-bold">Effortless Doesn't Mean Basic: </span>
+      <div class="flex flex-col text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
+        <span class="title-2 font-bold">Effortless Doesn't Mean Basic </span>
         <span class="content font-light font-md">We've got all the features you need to stay on top of your
           game.</span>
       </div>
 
-      <div class="text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
-        <span class="content font-bold">Celebrate Every Win: </span>
+      <div class="flex flex-col text-center md:text-left px-14 md:w-[60vw] my-5 md:my-8">
+        <span class="title-2 font-bold">Celebrate Every Win </span>
         <span class="content font-light font-md">Track your progress and reward yourself, keeping motivation
           high.</span>
       </div>
@@ -126,7 +211,7 @@
   </div>
   <!--Des End-->
   <!--Product Start-->
-  <div class="section lg:flex lg:justify-center lg:items-center bg-accent-200/35 py-8" data-carousel="slide"
+  <div class="section flex justify-center items-center bg-accent-200/35 py-8" data-carousel="slide"
     data-carousel-interval="3500">
     <div class="products relative h-72 w-72 overflow-hidden rounded-lg md:w-1/2 md:h-96">
 
@@ -136,7 +221,7 @@
           <img class="product-image" src="/static/images/Time management - 640x427.png" alt="img">
         </div>
         <div class="mb-3 w-64 lg:w-96">
-          <div class="font-bold text-sm text-center text-accent-green lg:text-left">Do you not know what to do
+          <div class="font-bold text-sm text-center text-accent-green lg:text-left">Not know what to do
             first?
           </div>
           <div class="title text-xl text-center lg:text-left">Effort-less task management</div>
@@ -150,8 +235,7 @@
           <img class="product-image" src="/static/images/Managing time - 640x427.png" alt="img">
         </div>
         <div class="mb-3 w-64 lg:w-96">
-          <div class="font-bold text-sm text-center text-accent-red lg:text-left">Do you not know what you
-            have to
+          <div class="font-bold text-sm text-center text-accent-red lg:text-left">Not know what to
             do
             tomorrow?</div>
           <div class="title text-xl text-center lg:text-left">Planning your week</div>
@@ -167,7 +251,7 @@
           <img class="product-image" src="/static/images/Guidance - 480x480.png" alt="img">
         </div>
         <div class="mb-3 w-64 lg:w-96">
-          <div class="font-bold text-sm text-center text-accent-red lg:text-left">Do you not have enough
+          <div class="font-bold text-sm text-center text-accent-red lg:text-left">Not have enough
             motivation?
           </div>
           <div class="title text-xl text-center lg:text-left">Progress tracking</div>
@@ -183,7 +267,7 @@
           <img class="product-image" src="/static/images/Space Robot - 640x587.png" alt="img">
         </div>
         <div class="mb-3 w-64 lg:w-96">
-          <div class="font-bold text-sm text-center text-accent-red lg:text-left">You need some suggestions ?
+          <div class="font-bold text-sm text-center text-accent-red lg:text-left">Need some suggestions ?
           </div>
           <div class="title text-xl text-center lg:text-left">AI partner</div>
           <div class="content text-center lg:text-left"> Your AI assistant, Donnel, will think for you.
@@ -231,46 +315,47 @@
     <div class="w-full lg:w-72 flex items-center justify-center">
       <div class="flex items-center justify-center relative">
 
-        <div
-          class="fade-left absolute left-0 z-20 h-56 lg:h-80 w-14 bg-gradient-to-r from-main to-transparent rounded-lg">
-        </div>
-
-        <div class="relative" data-carousel="slide" data-carousel-interval="4500">
-          <div class="statistics relative z-10 w-72 h-56 overflow-hidden rounded-lg md:w-96 md:h-80">
-
-            <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
-              <div class="image-wrapper">
-                <img class="logo-image" src="/static/images/Team Building - 640x469.png" alt="img">
-              </div>
-              <div class="content text-center font-semibold text-lg">1+ millions teams</div>
-            </div>
-
-            <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
-              <div class="image-wrapper">
-                <img class="logo-image" src="/static/images/Work scheduling - 640x427.png" alt="img">
-              </div>
-              <div class="content text-center font-semibold text-lg">47+ millions hours saved</div>
-            </div>
-
-            <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
-              <div class="image-wrapper">
-                <img class="logo-image" src="/static/images/Global Impact - 640x608.png" alt="img">
-              </div>
-              <div class="content text-center font-semibold text-lg">67+ countries</div>
-            </div>
-
-            <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
-              <div class="image-wrapper">
-                <img class="logo-image" src="/static/images/Guidance - 480x480.png" alt="img">
-              </div>
-              <div class="content text-center font-semibold text-lg">50k+ successful projects</div>
-            </div>
-
+          <div
+            class="fade-left absolute left-0 z-20 h-56 w-14 md:h-80 bg-gradient-to-r from-main to-transparent rounded-lg">
           </div>
-        </div>
 
-        <div
-          class="fade-right absolute right-0 z-20 h-56 lg:h-80 w-14 bg-gradient-to-l from-main to-transparent rounded-lg">
+          <div class="relative z-10 p-2" data-carousel="slide" data-carousel-interval="4500">
+            <div class="statistics relative h-56 w-80 md:w-96 md:h-80 overflow-hidden rounded-lg">
+
+              <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                <div class="image-wrapper">
+                  <img class="logo-image" src="/static/images/Team Building - 640x469.png" alt="img">
+                </div>
+                <div class="content text-center font-semibold text-lg">1+ millions teams</div>
+              </div>
+
+              <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                <div class="image-wrapper">
+                  <img class="logo-image" src="/static/images/Work scheduling - 640x427.png" alt="img">
+                </div>
+                <div class="content text-center font-semibold text-lg">47+ millions hours saved</div>
+              </div>
+
+              <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                <div class="image-wrapper">
+                  <img class="logo-image" src="/static/images/Global Impact - 640x608.png" alt="img">
+                </div>
+                <div class="content text-center font-semibold text-lg">67+ countries</div>
+              </div>
+
+              <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                <div class="image-wrapper">
+                  <img class="logo-image" src="/static/images/Guidance - 480x480.png" alt="img">
+                </div>
+                <div class="content text-center font-semibold text-lg">50k+ successful projects</div>
+              </div>
+
+            </div>
+          </div>
+
+          <div
+            class="fade-right absolute right-0 z-20 h-56 w-14 md:h-80 bg-gradient-to-l from-main to-transparent rounded-lg">
+          </div>
         </div>
       </div>
     </div>
@@ -279,7 +364,7 @@
   <!--Statistic End-->
 
   <!-- Footer Start -->
-  <footer class=" bg-accent-300  text-gray-800 flex flex-col items-center justify-center">
+  <footer class=" bg-accent-300 text-gray-800 flex flex-col items-center justify-center">
     <div
       class="flex flex-col items-center justify-center lg:flex-row lg:justify-evenly lg:items-start mx-8 my-10 lg:my-0 lg:mt-5 lg:w-[100vw]">
       <div class="mb-3 lg:mb-7 flex flex-col items-center lg:items-start ">

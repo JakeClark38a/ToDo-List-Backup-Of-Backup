@@ -1,6 +1,7 @@
 
 #SQL config
-SQLALCHEMY_DATABASE_URI='mysql+pymysql://todolist:Todolist<123456789@todolist-database-do-user-16128636-0.c.db.ondigitalocean.com:25060/todolist'
+SQLALCHEMY_DATABASE_URI='mysql+pymysql://todolist:Todolist<123456789@localhost/todolist'
+#'mysql+pymysql://todolist:Todolist<123456789@todolist-database-do-user-16128636-0.c.db.ondigitalocean.com:25060/todolist'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 ##Mail config
 MAIL_SERVER = 'smtp.gmail.com'

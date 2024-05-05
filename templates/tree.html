@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <!-- pixel font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <!-- pixel font -->
+</head>
+
+<body class="bg-background1 bg-cover">
+
+
+
+
+    <!--########################################################### EoCalendar ######################################################################-->
+
+
+    <!--########################################################### Tree ######################################################################-->
+    <div id="Tree-Container">
+        <div id="Trees" class="bg-[#50c293] w-screen h-screen flex overflow-y-scroll">
+            <div class=""></div>
+            <img src="../static/images/tree1.gif" alt="myTree" class="currTree w-auto m-auto tree">
+            <div id="Items-hub" class="absolute right-0 mr-20 mt-10"> <!-- Adjust margin-right -->
+                <div id="treeCount" class="text-5xl vt323-regular">Number of Trees: 0</div>
+                <div class="water-hub flex items-center">
+                    <img src="../static/images/watercan-full.png"> <!-- Adjust margin-right -->
+                    <div id="waterCount" class="text-5xl vt323-regular">: 1</div>
+                </div>
+                <div class="fertilizer-hub flex items-center">
+                    <img src="../static/images/fertilizer-opened.png"> <!-- Adjust margin-right -->
+                    <div id="fertilizerCount" class="text-5xl vt323-regular">: 1</div>
+                </div>
+                <div class="xp-hub flex items-center">
+                    
+                    <div id="xpCount" class="text-5xl vt323-regular">Xp: 1</div>
+                </div>
+            </div>
+            <div id="Items-buttons">
+                <div class="watercan-button absolute bottom-0 left-0">
+                    <img src="../static/images/watercan-full.png">
+                </div>
+                <div class="fertilizer-button absolute bottom-0 right-0">
+                    <img src="../static/images/fertilizer-opened.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--########################################################### EoTree ######################################################################-->
+
+
+
+
+    <script defer src="../static/js/tree.js"></script>
+    <!-- <script defer src="../static/js/tree(app-copy).js"></script> -->
+    <script defer src="../static/js/calendar.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        ntegrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

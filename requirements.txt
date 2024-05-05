@@ -11,3 +11,4 @@ Flask-Migrate
 PyMySQL
 flask-Login
 flask-bcrypt
+Flask-SocketIO
