@@ -1,6 +1,5 @@
 
 import { modalteampage } from "./CRUDmodal_handlerforteam.js";
-import { Utils } from "./userData.js";
 
 let user = {
     user_id: "ddeffdsdfgsd",
@@ -43,7 +42,6 @@ let team = {
 }
 function teamlist(id, name, des) {
     if (user.user_id == team[id].admin) {
-        let did = Utils.getUuid();
         return (` <div id="` + id + `"class=" team_createlist flex sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl  h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg  ">
         <div class="inline-block  self-center border-2 rounded-full mx-4 ">
             <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
@@ -263,12 +261,5 @@ $(document).ready(function () {
 
         modalteampage.editTeam(team[teamid]);
     });
-    // click the dropdown button on team(create)'s team that is created by user
-    $("#teamlist2").on("click", ".dropdown_button", function () {
-        let id = $(this).attr("id");
-        console.log(id);
-        let dropdown = $(this).attr("data-dropdown-toggle");
-        console.log(dropdown);
-        $("#" + dropdown).toggle();
-    });
+   
 });
