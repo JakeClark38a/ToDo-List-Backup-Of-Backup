@@ -127,13 +127,14 @@ function getCurrentDateTimeString(timeString) {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
-modalMainScreen.AddEditTask = function (task, group) {
+modalMainScreen.AddEditTask = function (task, group, isForceCreateNew = false) {
   let h3 = task ? "Edit Task" : "Add Task";
-  let id = task ? task.taskID : "none";
+  let id = (task && isForceCreateNew == false) ? task.taskID : "none";
   let title = task ? task.title : '';
   let desc = task ? task.description : '';
   let tag = task ? task.tag : '';
-  let expired = task ? task.deadline : getCurrentDateTimeString(Date.now());
+  let expiredShow = task ? task.deadline : getCurrentDateTimeString(Date.now());
+  let expired = task ? task.deadline : Date.now();
   let groupId = group ? group.groupID : '';
   let groupName = group ? group.title : '';
   console.log(expired);
@@ -157,29 +158,37 @@ modalMainScreen.AddEditTask = function (task, group) {
   $('#crud-modal').find(`#tags option[value="${tag}"]`).attr("selected", title);
   $('#crud-modal').find(`#groups option[value="${groupId}"]`).attr("selected", groupName);
   $(document).ready(function () {
-    $('#crud-modal #todo-expired').val(expired);
+    $('#crud-modal #todo-expired').val(expiredShow);
+
+    let date_element = $('#crud-modal #todo-expired')
+    // Get input date
+    let input_date = new Date(expired);
+    // If input date is less than current date, show alert
+
+    console.log(input_date , new Date());
+
+    if (input_date - new Date() <= 0) {
+      date_element.css("border", "2px solid red");
+      $('#crud-modal #warn-sec').show();
+      $('#crud-modal #warn-sec #warn').text("Cannot set due time in the past!");
+    }
+    else {
+      date_element.css("border", "2px solid green");
+      $('#crud-modal #warn-sec').hide();
+      $('#crud-modal #warn-sec #warn').text("");
+    }
+
+
   });
   $('#crud-modal button[type="submit"]').text(h3);
   // Change honeypot to id
+
   $('#crud-modal input[type="checkbox"]').attr("id", `task_${id}`);
 
   let date_element = $('#crud-modal #todo-expired');
-  // Get input date
-  let input_date = new Date(date_element.val()-100);
-  // If input date is less than current date, show alert
-  if (input_date - new Date() <= 0) {
-    date_element.css("border", "2px solid red");
-    $('#crud-modal #warn-sec').show();
-    $('#crud-modal #warn-sec #warn').text("Cannot set due time in the past!");
-  }
-  else {
-    date_element.css("border", "2px solid green");
-    $('#crud-modal #warn-sec').hide();
-    $('#crud-modal #warn-sec #warn').text("");
-  }
 
   $('#crud-modal #todo-expired').on('change', function () {
-    let input_date = new Date(date_element.val());
+    let input_date = new Date(expired);
     if (input_date - new Date() <= 0) {
       date_element.css("border", "2px solid red");
       $('#crud-modal #warn-sec').show();
