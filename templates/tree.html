@@ -50,63 +50,79 @@
 						<span class="text-sm font-medium text-gray-900 dark:text-white">Coins:</span>
 						<span id="coin-display" class="text-sm font-medium text-gray-900 dark:text-white">1000</span>
 					</div>
+
 					<!-- Shop image -->
 					<img src="../static/images/shop/shop-background.png" alt="Shop Image" class="mb-4 rounded-lg w-full">
+
 					<!-- Fertilize quantity selector -->
 					<div class="flex items-center justify-between mb-4">
-						<label>Fertilizer</label>
-						<img src="../static/images/tree_game/fertilizer-opened.png" alt="Fertilize" class="w-20 rounded-lg">
-						<button id="fertilize-decrease" type="button"
+						<div class="flex items-center justify-between">
+							<label>Fertilizer</label>
+							<img src="../static/images/tree_game/fertilizer-opened.png" alt="Fertilize" class="w-20 rounded-lg">
+						</div>
+
+						<div class="flex items-center justify-between">
+							<button id="fertilize-decrease" type="button"
 							class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-							<svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-									d="M20 12H4" />
-							</svg>
-						</button>
-						<input id="fertilize-quantity" type="number" min="0" value="0"
-							class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-16 p-2.5 text-center dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-						<button id="fertilize-increase" type="button"
-							class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-							<svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-									d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-							</svg>
-						</button>
+								<svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+									<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+										d="M20 12H4" />
+								</svg>
+							</button>
+							<input id="fertilize-quantity" type="number" min="0" value="0"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-32 p-2.5 text-center dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+							<button id="fertilize-increase" type="button"
+								class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+								<svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+									<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+										d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+								</svg>
+							</button>
+						</div>
+
 					</div>
 
 					<!-- Water quantity selector -->
 					<div class="flex items-center justify-between mb-4">
-						<label>Water</label>
-						<img src="../static/images/tree_game/watercan-full.png" alt="Water" class="w-20 rounded-lg">
-						<button id="water-decrease" type="button"
+						<div class="flex items-center justify-between">
+							<label>Water</label>
+							<img src="../static/images/tree_game/watercan-full.png" alt="Water" class="w-20 rounded-lg">
+						</div>
+						<div class="flex items-center justify-between">
+							<button id="water-decrease" type="button"
 							class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-							<svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-									d="M20 12H4" />
-							</svg>
-						</button>
-						<input id="water-quantity" type="number" min="0" value="0"
-							class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-16 p-2.5 text-center dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-						<button id="water-increase" type="button"
-							class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-							<svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-									d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-							</svg>
-						</button>
+								<svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+									<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+										d="M20 12H4" />
+								</svg>
+							</button>
+							<input id="water-quantity" type="number" min="0" value="0"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-32 p-2.5 text-center dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+							<button id="water-increase" type="button"
+								class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+								<svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+									<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+										d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+								</svg>
+							</button>
+						</div>
+
 					</div>
 
-					<!-- Purchase button -->
-					<button id="purchase-btn" type="button"
-						class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
-						<svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-							xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd"
-								d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-								clip-rule="evenodd"></path>
-						</svg>
-						<span class="inline-block align-middle">Purchase</span>
-					</button>
+					<!-- Purchase button and total cost -->
+					<div class="flex items-center">
+						<button id="purchase-btn" type="button"
+								class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+								<svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+										xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd"
+												d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+												clip-rule="evenodd"></path>
+								</svg>
+								<span class="inline-block align-middle">Purchase</span>
+						</button>
+						<span id="total-cost" class="text-sm font-medium text-gray-900 dark:text-white m-auto">Total Cost: 0</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -151,16 +167,26 @@
 				<source src="../static/sounds/dirt_fertilize.wav" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
-			<div class="absolute flex left-0 flex-col">
+			<div class="absolute flex left-0 flex-col ml-2">
 				<img src="../static/images/tree_game/AudioButton.png" id="audioButton" class="" onclick="updateAudioOption(true)"></img>
 				<img src="../static/images/tree_game/AutoButton.png" id="autoButton" class="" onclick="updateAutoOption(true)"></img>
 			</div>
 
-			<div id="Items-hub" class="absolute right-0 top-0 mr-8 mt-24 p-5 bg-black rounded-lg"> 
-				<div id="treeCount" class="text-4xl vt323-regular">Number of Trees: 0</div>
+			<div id="Items-hub" class=""> 
+				<div id="TreeDisplay" class="flex bg-green-300">
+					<img src="../static/images/tree_game/tree11.png" class="w-10">
+					<div class="vt323-regular"> : </div>
+					<div id="treeCount" class="vt323-regular">0</div>
+				</div>
+				
+				<div id="CoinDisplay" class="flex my-4 py-1 bg-yellow-500">
+					<img src="../static/images/tree_game/JackpotCoin.png" class="w-7 ml-1">
+					<div class="vt323-regular ml-2"> : </div>
+					<div id="CoinsOwnNumber" class="vt323-regular">0</div>
+				</div>
 				<div class="progress-container">
 					<div class="progress-bar" id="progressBar">
-						<div class="percentage" id="percentage">0%</div>
+						<div class="percentage hidden" id="percentage">0%</div>
 					</div>
 				</div>
 			</div>

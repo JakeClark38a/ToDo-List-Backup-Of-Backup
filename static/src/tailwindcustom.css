@@ -571,14 +571,11 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    @apply absolute right-0 top-0 mr-8 mt-24 p-5 bg-black rounded-lg text-3xl min-w-64;
   }
   @media screen and (max-width: 1000px) {
     #Items-hub {
-      @apply absolute translate-x-2/4 mr-0 mt-6 right-2/4 top-0;
-      background-image: url("../images/tree_game/letterbox.png");
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
+      @apply translate-x-2/4 mr-0 mt-6 right-2/4;
     }
   }
   @media screen and (max-width: 1000px) {

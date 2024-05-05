@@ -3,12 +3,13 @@ let treeCount = 100; // Initial count of trees planted
 let lastAction = "fertilize"; // Variable to store the last action (water or fertilize)
 let wateringsLeft = 50; // Variable to store the number of remaining waterings
 let fertilizationsLeft = 50; // Variable to store the number of remaining fertilizations
-let autoOption = true; // Variable to store the auto option state
+let autoOption = false; // Variable to store the auto option state
 let audioOption = true; // Variable to store the audio option state
-let prevSrc = "../static/images/tree_game/tree1.png";
-let animationInProgress = false;
+let coins = 2414; // Variable to store the number of coins
 
 // DONT STORE THIS IN THE DATABASE !!!!!!!!!!!!!!!!
+let animationInProgress = false;
+let prevSrc;
 let autoInterval; // Variable to store the interval for auto watering and fertilizing
 var autoButtontag = document.getElementById('autoButton');
 var audioButtontag = document.getElementById('audioButton');
@@ -25,8 +26,13 @@ document.addEventListener('DOMContentLoaded', function() {
   updateNumberofTrees(); 
   updateAutoOption();
   updateAudioOption();
+  updateCoinsDisplay()
   
 });
+
+function updateCoinsDisplay(){
+  document.getElementById('CoinsOwnNumber').innerText = coins;
+}
 
 function updateAudioOption(click = false) {
   var audioButton = document.getElementById("audioButton");
@@ -83,7 +89,7 @@ function stopAuto() {
 function updateNumberofTrees() {
   document.getElementById(
     "treeCount"
-  ).innerText = `Number of Trees: ${treeCount}`
+  ).innerText = `${treeCount}`
 }
 
 function waterTree() {
@@ -188,7 +194,7 @@ function updateTree() {
     treeCount++; // Increment tree count
     document.getElementById(
       "treeCount"
-    ).innerText = `Number of Trees: ${treeCount}`; // Update tree count
+    ).innerText = `${treeCount}`; // Update tree count
     updateTree();
   }
 }
@@ -284,8 +290,6 @@ function updateFertilizerCount() {
       "../static/images/tree_game/fertilizer-notopen.png";
   }
 }
-
-
 
 
 function autoWaterAndFertilize() {
