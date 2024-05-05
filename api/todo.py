@@ -53,11 +53,11 @@ def default_task(task_id,task_title,task_description,tag_id,user_id,deadline,poi
 def main_page():
     curr_user = Users.query.get(current_user.get_id())
     if curr_user.isFillForm == False:
-        g1 = uuid.uuid4()
-        g2 = uuid.uuid4()
-        g3 = uuid.uuid4()
-        g4 = uuid.uuid4()
-        t1 = uuid.uuid4()
+        g1 = uuid.uuid4().hex
+        g2 = uuid.uuid4().hex
+        g3 = uuid.uuid4().hex
+        g4 = uuid.uuid4().hex
+        t1 = uuid.uuid4().hex
         default_group(g1,"Do",curr_user.user_id,"#7aa5cf")
         default_group(g2,"Delegate",curr_user.user_id,"#63c074")
         default_group(g3,"Schedule",curr_user.user_id,"#ac7acf")
@@ -119,12 +119,16 @@ def completed_todo(id):
     task = Tasks.query.filter_by(task_id=id, user_id=current_user.get_id()).first()
     task.isCompleted = True
     tododb.session.commit()
+    update_points = Users.query.filter_by(user_id=current_user.get_id()).first()
+    update_points.points += task.points
+    tododb.session.commit()
     return jsonify({'message': 'Task completed successfully!'}), 200
 
 @todo.route('/todo/uncompleted/<id>', methods=['POST'])
 def uncompleted_todo(id):
     task = Tasks.query.filter_by(task_id=id, user_id=current_user.get_id()).first()
     task.isCompleted = False
+    task.points = 0
     tododb.session.commit()
     return jsonify({'message': 'Task uncompleted successfully!'}), 200
 

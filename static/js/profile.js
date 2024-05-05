@@ -23,6 +23,29 @@ function init() {
 init();
 
 /////////////////////////////////////// password modal code begin
+import { ajaxHandler } from "./ajaxHandler.js";
+var userInfo = {}//Utils.getSampleData();
+
+async function getData() {
+  try {
+    const loadedData = await ajaxHandler.LoadUserData();
+    console.log('Data loaded successfully:', loadedData);
+    userInfo = loadedData;
+
+  } catch (error) {
+    console.log("Error loading data:", error);
+  }
+}
+// Call getData
+getData();
+
+
+function init()
+{
+  displayUserInfo();
+}
+setTimeout(init, 300);
+
 
 // Set the password modal element
 const $passwordModalEl = document.getElementById("password-modal");
@@ -288,6 +311,7 @@ function displayUserInfo() {
   $("#Bio-Section").find("#user_profile_bio").text(userInfo.bio);
   $("#Time-Zone-Section").find("#country").val(userInfo.country);
 }
+
 
 function updateUserInfo() {
   userInfo.username = $("#Username-Section").find("#user_profile_name").val();
