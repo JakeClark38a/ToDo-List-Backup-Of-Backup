@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../static/css/main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -423,8 +424,66 @@
         <!--########################################################### Calendar ######################################################################-->
         <!-- Redirect to Backend Generator here -->
         <!-- Begin Calendar -->
-        <div id="Calendar" class="Container backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden"></div>
-        
+        <div id="Calendar" class="Container backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
+        <div class="w-full flex justify-around">
+            <!-- Mobile version -->
+            <div class="relative w-[300px] flex-none flex flex-col items-center">
+                <!-- Calendar - data-date will fill in backend -->
+                <div id="calendar" inline-datepicker data-date="05/02/2024" class="pb-[10px]"></div>
+                <!-- Todo with expired day -->
+                <div id="tasks-display" class="group-outer ">
+                    <div class="flex justify-between items-center px-3 ">
+                    <!-- Title -->
+                        <div id="Task-Group-Title" class="todobox-title  dark:text-white">March 7th, 2024</div>
+                        <div class="Group-Task-Add ">
+                            <!-- <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"></path>
+                            </svg> -->
+                        </div>
+                    </div>
+                    <!-- Content -->
+                    <div id="Task-Section-Outer" class="bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl " style="border-color: #546f72;">
+                        <!-- In this div, height of gid001 will dynamically change based on 100vh, 350px is height of calendar, 40px is height of title and  - remove lg:w-96, lg:text-xl-->
+                        <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-[calc(100vh-350px-40px)] ">
+                            <!--task here-->
+    
+                            
+                            <div id="id001" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default">
+                                <div class=" rounded-lg shadow-lg">
+                                    <!-- Title -->
+                                    <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
+                                        <!-- Task title -->
+                                        <div class="font-semibold text-lg truncate w-full dark:text-white ">Meeting</div>
+                                        <!-- Task edit and delete -->
+                                        <div class="flex items-center gap-2">
+                                            <div class="Task-Edit mx-1 cursor-pointer">
+                                                <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"></path>
+                                                </svg>
+                                            </div>
+                                            <div id="Task-Cancel" class="bg-red-500 rounded-full shadow-lg h-4 w-4 font-bold cursor-pointer"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Task description -->
+                                    <div class="p-2 flex items-center h-fit">
+                                        <p class="h-full w-full text-left p-2 font-base truncate dark:text-white">About making a website</p>
+                                        <!-- Complete checkbox -->
+                                        <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer">
+                                    </div>
+                                    <!-- Tag -->
+                                    <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
+                                        <div id="tag1" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer" style="background-color: #546f72;">tag1</div>    
+                                        <div id="tag1" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer" style="background-color: #546f72;">tag1</div>              
+                                    </div>
+                                </div>
+                    
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+        </div>    
+    
         </div>
         <!--End Calendar-->
         <!--########################################################### EoCalendar ######################################################################-->
@@ -441,9 +500,10 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <!-- <script src="../static/js/app.js" type="module"></script> -->
+    <script src="../static/js/app.js" type="module"></script>
+    <script src="../static/js/calendarNew.js" type="module"></script>
     <script>
-        $("#Calendar").load("calendar.html");
+        // $("#Calendar").load("calendarNewPage.html");
     </script>
 </body>
 
