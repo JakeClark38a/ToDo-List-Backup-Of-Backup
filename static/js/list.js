@@ -42,7 +42,7 @@ let team = {
 }
 function teamlist(id, name, des) {
     if (user.user_id == team[id].admin) {
-        return (` <div id="` + id + `"class=" team_createlist flex sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl  h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg  ">
+        return (` <div id="` + id + `"class="py-3 team_createlist flex sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl  h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg  ">
         <div class="inline-block  self-center border-2 rounded-full mx-4 ">
             <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
         </div>
@@ -50,7 +50,7 @@ function teamlist(id, name, des) {
             <p id="`+ name + `" class="dark:text-white">` + name + `</p>
             <p id="`+ des + `" class="dark:text-white">` + des + `</p>
         </div>
-        <div class=" justify-self-end self-center mr-4">
+        <div class=" justify-self-end self-center mr-4 ">
                             <button id="dropdownMenuIconButton `+ id + `"  class="dropdown_btn_tc bg-white inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
                                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
                                 <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
@@ -76,7 +76,7 @@ function teamlist(id, name, des) {
     }
     else {
         return (
-            ` <div id="` + id + `"class="team_joinlist flex sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl  h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg  ">
+            ` <div id="` + id + `"class="team_joinlist py-3 flex sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl  h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg  ">
         <div class="inline-block  self-center border-2 rounded-full mx-4 ">
             <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
         </div>
@@ -261,5 +261,18 @@ $(document).ready(function () {
 
         modalteampage.editTeam(team[teamid]);
     });
-   
+    $("#backbtn").click(function () {
+        $("#teamcreate_join").hide();
+        $("#teampage").show();
+        $("#teampage #pageheader").show();
+        $("#teampage #teamlist").show();
+        $("#teampage #teamlist2").hide();
+        $("#changetojoin").addClass("text-gray-800");
+        $("#changetojoin").addClass("dark:text-white");
+        $("#changetocreate").addClass("text-gray-400");
+        $("#changetojoin").removeClass("text-gray-400");
+        $("#changetocreate").removeClass("text-gray-800");
+        $("#changetocreate").removeClass("dark:text-white");
+         
+    });
 });

@@ -30,13 +30,13 @@
 
                     <div class="flex flex-row justify-start items-center h-12 w-9/12  ">
                         <button id="changetojoin"
-                            class="w-fit h-full text-gray-800 dark:text-white text-lg mr-4 ">Team(Join) </button>
-                        <button id="changetocreate" class="w-fit h-full text-gray-400 text-lg">Team(Create)</button>
+                            class="w-fit h-full text-gray-800 dark:text-white text-lg mr-4 ">Joined </button>
+                        <button id="changetocreate" class="w-fit h-full text-gray-400 text-lg">Created</button>
                     </div>
 
                     <div class=" flex self-center ">
                         <button id="createandjoin" type="button"
-                            class="text-blue-700 border font-bold border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-xl rounded-full text-sm px-2 md:px-0 h-2/3  md:self-center md:py-2  text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500 ">
+                            class="text-blue-700 border font-bold border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-xl rounded-full text-sm px-2  h-2/3    text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500 ">
                             <p class="md:hidden text-2xl">+</p>
                             <p class="hidden md:flex">Create/Join team</p>
                         </button>
@@ -167,23 +167,32 @@
                 }) 
             </script>
 
-            <section id="teamcreate_join" class=" hidden "> <!--Team create and join-->
+            <section id="teamcreate_join" class="hidden  "> <!--Team create and join-->
                 <div class=" xl:hidden ">
                     <!--teampage main screen-->
-                    <div class=" flex flex-col justify-center items-center h-10 w-full border-b-2 border-gray-500   ">
-                        <p class="text-xl font-bold dark:text-white"> Join or create team</p>
+                    <div class=" flex items-center  justify-around h-14 w-full border-b-2 border-gray-500   ">
+                        <p class="text-xl font-bold dark:text-white"> Join or create</p>
+                        <button id="backbtn" class="text-lg dark:text-white">
+                            <div class="flex gap-1  items-center  justify-around">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h13a5 5 0 0 1 0 10H7M3 9l4-4M3 9l4 4"/>
+                                  </svg>          
+                              <div>Back</div>
+                              </div>
+                        </button>
                     </div>
                     <!-- screen for Join and create   -->
                     <div class=" flex flex-col items-center h-[70vh] w-full  ">
                         <div class="flex flex-row justify-evenly items-center h-12 w-full  ">
                             <button id="Jointeam" class="w-1/2 h-full text-gray-800 dark:text-white "> Join team
                             </button>
-                            <button id="Createteam" class="w-1/2 h-full text-gray-400 "> Create team</button>
+                            <button id="Createteam" class="w-1/2 h-full text-gray-400 "> Create team 
+                            </button>
                         </div>
                         <!-- join form -->
-                        <div id="joinform" class="h-full w-full ">
+                        <div id="joinform" class="  w-full ">
                             <div
-                                class="bg-white shadow-inner  shadow-gray-300 flex flex-col justify-center  items-center h-full w-full rounded-b-2xl   ">
+                                class="py-24 bg-white shadow-inner  shadow-gray-300 flex flex-col justify-center  items-center h-full w-full rounded-b-2xl   ">
                                 <div
                                     class="bg-white shadow-inner     shadow-gray-300 flex flex-col justify-center  items-center h-full w-full mx-10 rounded-b-2xl">
                                     <image src="../static/images/Createteam.png" alt="Create a team"
@@ -243,6 +252,7 @@
                             $(this).removeClass("text-gray-400");
                             $("#Jointeam").removeClass("dark:text-white");
                         });
+                       
                     }) 
                 </script>
 
