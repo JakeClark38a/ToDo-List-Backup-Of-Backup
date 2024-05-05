@@ -2789,6 +2789,10 @@ input:checked + .toggle-bg {
   margin-top: 5vh;
 }
 
+.ms-3 {
+  margin-inline-start: 0.75rem;
+}
+
 .block {
   display: block;
 }
@@ -3935,6 +3939,11 @@ input:checked + .toggle-bg {
   background-color: rgb(216 216 216 / 0.5);
 }
 
+.bg-gray-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }
@@ -4499,6 +4508,11 @@ input:checked + .toggle-bg {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(216 216 216 / var(--tw-text-opacity));
+}
+
+.text-red-700 {
+  --tw-text-opacity: 1;
+  color: rgb(200 30 30 / var(--tw-text-opacity));
 }
 
 .text-opacity-50 {
@@ -5322,6 +5336,10 @@ input:checked + .toggle-bg {
 
   .md\:mt-\[20vh\] {
     margin-top: 20vh;
+  }
+
+  .md\:mb-0 {
+    margin-bottom: 0px;
   }
 
   .md\:flex {
