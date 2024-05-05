@@ -479,7 +479,7 @@ class DictCRUD extends Dict {
 class DictAJAX extends DictCRUD {
     constructor(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {}) {
         // Generate Dict object and assign to this
-        super(username, userid, groups, tasks, completed, tags);
+        super(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {});
     }
     // Add methods to interact with the server by AJAX
     // Add methods to get Dict from server

@@ -30,7 +30,6 @@ module.exports = {
         bg3: "url('/static/images/wallpaper3.jpg')",
         bg4: "url('https://source.unsplash.com/random/1920x1080?nature')",
         bg5: "url('/static/images/wallpaper3.jpg')",
-        bg6: "url('/static/images/bg7.jpg')",
       },
       colors: {
         primary: {

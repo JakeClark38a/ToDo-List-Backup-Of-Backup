@@ -68,28 +68,259 @@ function getData() {
 
 $(document).ready(function () {
   //================================================================\\
-  //========================== Initialize ==========================\\
+  //=========================== Sample var =========================\\
+  //================================================================\\
+  var Dict = {  // sample dict
+    username: "JakeClark",
+    userid: "User ID",
+    bio: "hmm...",
+    timeZone: "Asia/Tokyo",
+    displayLocalTimeZone: false,
+    localTimeZoneName: "UTC",
+
+    groups: {
+      gid001: {
+        title: "Do",
+        tags: ["tag1"],
+        def_tag: "do",
+        color: "#7aa5cf",
+        current_html: "",
+      },
+      gid002: {
+        title: "Delegate",
+        tags: ["tag2"],
+        def_tag: "delegate",
+        color: "#63c074",
+        current_html: "",
+      },
+      gid003: {
+        title: "Schedule",
+        tags: ["tag3", "tag5"],
+        def_tag: "schedule",
+        color: "#ac7acf",
+        current_html: "",
+      },
+      gid004: {
+        title: "Later",
+        tags: ["tag4"],
+        def_tag: "later",
+        color: "#c5e875",
+        current_html: "",
+      },
+    },
+    tasks: {
+      id001: {
+        title: "Meeting",
+        description: "About making a website",
+        tag: "tag1",
+        deadline: 62783,
+        points: 4,
+      },
+      id002: {
+        title: "Crying",
+        description: "About making a website",
+        tag: "tag3",
+        deadline: 62783,
+        points: 4,
+      },
+      id004: {
+        title: "Laughing",
+        description: "About making a website",
+        tag: "tag5",
+        deadline: 62783,
+        points: 4,
+      },
+    },
+    completed: {
+      id003: {
+        title: "Journaling",
+        description: "About making a website",
+        tag: "tag1",
+        deadline: 62783,
+        points: 5,
+      },
+    },
+    tags: {
+
+      do: {
+        title: "Do",
+        color: "#7aa5cf",
+        groupId: "gid001",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      delegate: {
+        title: "Delegate",
+        color: "#63c074",
+        groupId: "gid002",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      schedule: {
+        title: "Schedule",
+        color: "#ac7acf",
+        groupId: "gid003",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      later: {
+        title: "Later",
+        color: "#c5e875",
+        groupId: "gid004",
+        deleteable: false,
+        editable: false,
+        display: false,
+      },
+      tag1: {
+        title: "tag1",
+        color: "#7aa5cf",
+        groupId: "gid001",
+        deleteable: true,
+        editable: true,
+        display: true,
+
+      },
+      tag2: {
+        title: "tag2",
+        color: "#63c074",
+
+        groupId: "gid002",
+        deleteable: true,
+        editable: true,
+        display: true,
+
+      },
+      tag3: {
+        title: "tag3",
+        color: "#ac7acf",
+
+        groupId: "gid003",
+        deleteable: true,
+        editable: true,
+        display: true,
+
+      },
+      tag4: {
+        title: "tag4",
+        color: "#c5e875",
+
+        groupId: "gid004",
+        deleteable: true,
+        editable: true,
+        display: true,
+
+      },
+      tag5: {
+        title: "tag5",
+        color: "#f7d38c",
+
+        groupId: "gid003",
+        deleteable: true,
+        editable: true,
+        display: true,
+
+      },
+      none: {
+        title: "none",
+        color: "#ffffff",
+
+        deleteable: false,
+        editable: false,
+        display: false,
+
+      }
+    }
+  };
+
+
+  var currentMode = 0;
+  var isMakeChangeGroup = false;
+
+  var currentMMenuTab = 0;  // 0-today 1-cal 2-garden
+
+
+  //
+  //
+  //
+
+  //################################################### Templates #########################################################
+
+  //================================================================\\
+  //=========================== Main Menu ==========================\\
   //================================================================\\
 
-  function RefreshAll() {
-    $.when(getData()).done(function (data) {
-      Dict = data;
-      console.log("[7] Refresh the mainscreen");
-      console.log(Dict);
-      $("#Main-Screen").empty();
-      $("#MMenu-Group-Section").empty();
-      LoadMainMenu(Dict);
-      LoadMainScreen(Dict, currentMode);
-      updateMMenuTabIndicator();
-      modalMainScreen.LoadTags(Dict);
-      modalMainScreen.LoadGroups(Dict);
-    });
+  function MainMenuTagTempplate(id, tag) {
+    return (
+      `
+    
+    <div id="` + id + `" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
+    <div class="h-full">
+        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
+        </svg>
+    </div>
+
+    <div id="MMenu-Tag-Title" class="text-lg px-1 my-1 center dark:text-white">` + tag.title + `</div>
+    <div class="MMenu-Tag-Edit mx-1">
+    <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+</svg>
+</div>
+</div>
+
+`
+    );
   }
 
-  function init() {
-    currentMMenuTab = 0; // 0-today 2-calendar 3-garden
-    currentMode = 0;
-    RefreshAll();
+  function MainMenuGroupTemplates(id, group) {
+    return (
+      `
+  
+  <div id="` + id + `" class="MMenu-Group"><!--block-->
+    <!-- Greeting div, status centered -->
+        <div class="flex justify-between items-center pl-3 pr-1">
+
+          <div class="MMenu-Toggle-Hidden flex items-center w-full">
+            <div class="MMenu-Dropdown-Arrow">
+            <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19 9-7 7-7-7"/>
+          </svg>          
+            </div>
+
+                <div id="MMenu-Group-Title" class="text-xl ml-2 dark:text-white">` + group.title + `</div>
+        </div>
+
+        <div class="MMenu-Group-Edit mx-1">
+        <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+      </svg>
+      
+      
+        </div>
+        <div class="MMenu-Tag-Add">
+            <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M5 12h14m-7 7V5" />
+            </svg>
+        </div>
+
+
+    </div>
+    <div id="MMenu-Tag-Section" class="">
+        <!--tag-->
+
+    </div>
+</div><!--eoblock-->
+
+  
+  `
+    );
   }
   init();
 
@@ -195,7 +426,6 @@ $(document).ready(function () {
   $("#MMenu-Group-Section").on("click", ".MMenu-Toggle-Hidden", function () {
     toggleHiddenMMenuGroup($(this).parent().parent());
   });
-
 
 
   //================================================================\\
