@@ -357,7 +357,7 @@ const mapDatepickerToTable = function (){
         var rowIndex = Math.floor(index / 7) ; // Add 1 because index starts from 0
         var colIndex = index % 7;
 
-        console.log("Index", index, "Row", rowIndex, "Col", colIndex);
+        // console.log("Index", index, "Row", rowIndex, "Col", colIndex);
 
         // Find the corresponding cell in the calendar table and fill it with the cloned cell
         $('#CalendarTable tr.week:eq(' + rowIndex + ') td:eq(' + colIndex + ')').html(clonedCell);
@@ -365,9 +365,13 @@ const mapDatepickerToTable = function (){
 
     // Clone $("button.view-switch").text()
     var clonedText = $("button.view-switch").clone();
-    // Disable clock with change id of #clock to #month 
+    // Disable clock by hiding it
+    $('#clock').hide();
+    // If #month already exists, don't create new one
+    if (!$('#month').length) {
+        $('#clock').after('<div id="month"></div>');
+    }
     // Clone the text, also change class from text-sm to text-xl
-    $('#clock').attr('id', 'month');
     $('#month').html(clonedText).children().first().removeClass("text-sm view-switch").addClass("text-xl");
 }
 
@@ -407,7 +411,7 @@ Sample bottom tooltip:
 const tooltipTemplate = function (taskId, task) {
     return `
     <button data-tooltip-target="tooltip-bottom-${taskId}" data-tooltip-trigger="click" data-tooltip-placement="bottom" type="button" class="ms-3 mb-2 md:mb-0 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">${task.title}</button>
-    <div id="tooltip-bottom-${taskId}" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+    <div id="tooltip-bottom-${taskId}" role="tooltip" class="absolute z-50 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
         <h3>${task.title}</h3>
         <p>
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -443,7 +447,11 @@ const showAllTasksInTable = function (Dict) {
     // When click on that tooltip, show full description of the task
     // Tooltip will show deadline, description, tags, group of the task
 
-    // Get all 
+    // Debug only: show first task in #CalendarTable row 1 col 1
+    // Take first task in Dict.tasks
+    let taskId = Object.keys(Dict.tasks)[0];
+
+    $("#CalendarTable tr.week:eq(0) td:eq(0)").append(tooltipTemplate(taskId, Dict.tasks[taskId]));
 }
 
 
@@ -456,6 +464,7 @@ $(document).ready(function () {
     //     $("#CalendarTable").parent().addClass("hidden");
     // }
     mapDatepickerToTable();
+    
 
     // Load data to calendar
     $.when(loadDict()).done(function (data) {
@@ -464,7 +473,8 @@ $(document).ready(function () {
         Dict = data;
         console.log('[6] Load data to calendar successfully!');
         console.log(Dict);
-
+        // Show all tasks in #CalendarTable
+        showAllTasksInTable(Dict);
         // Get date from focused datepicker-cell
         let date = pickDate();
         console.log(date);
