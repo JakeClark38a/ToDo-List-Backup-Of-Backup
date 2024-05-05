@@ -410,8 +410,8 @@ Sample bottom tooltip:
 */
 const tooltipTemplate = function (taskId, task) {
     return `
-    <button data-tooltip-target="tooltip-bottom-${taskId}" data-tooltip-trigger="click" data-tooltip-placement="bottom" type="button" class="ms-3 mb-2 md:mb-0 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">${task.title}</button>
-    <div id="tooltip-bottom-${taskId}" role="tooltip" class="absolute z-50 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+    <button data-tooltip-target="tooltip-bottom-${taskId}" data-tooltip-placement="bottom" type="button" class="ms-3 mb-2 md:mb-0 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">${task.title}</button>
+    <div id="tooltip-bottom-${taskId}" role="tooltip" class="absolute z-50 inline-block invisible px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
         <h3>${task.title}</h3>
         <p>
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -463,6 +463,7 @@ $(document).ready(function () {
     // } else {
     //     $("#CalendarTable").parent().addClass("hidden");
     // }
+    $("#CalendarTable").parent().addClass("hidden");
     mapDatepickerToTable();
     
 
