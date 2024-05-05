@@ -423,9 +423,7 @@ $(document).ready(function () {
     $(this).prop("disabled", true);
 
     console.log("Completed: " + taskId);
-
-    Dict.completed[taskId] = Dict.tasks[taskId];
-    delete Dict.tasks[taskId];
+    Dict.tasks[taskId].isCompleted = true;
 
     // Also send to backend at /todo/completed/<id>
     ajaxHandler.completeTask(taskId);

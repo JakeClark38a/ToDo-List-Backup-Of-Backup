@@ -25,7 +25,7 @@ class Users(tododb.Model, UserMixin):
     TeamUser = tododb.relationship('Teams', secondary=User_Team, backref='users')
 
     def __repr__(self) -> str:
-        return f'{self.user_id, self.email, self.name, self.bio, self.country, self.image, self.type_account, self.external_id, self.isFillForm}'
+        return f'{self.user_id, self.email, self.name, self.bio, self.country, self.image, self.type_account, self.external_id, self.isFillForm , self.points}'
     
     def get_id(self):
         return self.user_id

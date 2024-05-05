@@ -28,8 +28,6 @@ def datetime_to_string(user_date):
     result = datetime.datetime.strptime(user_date, '%Y-%m-%dT%H:%M')
     return result.strftime('%Y-%m-%d %H:%M:%S')
 
-
-
 @team.route('/team', methods=['GET'])
 @login_required
 def waiting_page():
@@ -171,11 +169,12 @@ def completed_todo(id):
     team_id = session['team_id']
     if validate_user(current_user.get_id(), team_id):
         task = TeamTasks.query.filter_by(task_id=id, team_id=team_id).first()
+        get_points = task.points
         task.isCompleted = True
         task.completed_user = current_user.get_id()
         tododb.session.commit()
-        update_points = Users.query.filter_by(user_id=current_user.get_id()).first()
-        update_points.points += task.points
+        update_points = Users.query.filter_by(user_id=current_user.get_id()).first()       
+        update_points.points = update_points.points +  get_points
         tododb.session.commit()
         return jsonify({'message': 'Task completed successfully!'}), 200
 

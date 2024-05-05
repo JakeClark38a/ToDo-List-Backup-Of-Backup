@@ -120,7 +120,10 @@ def completed_todo(id):
     task.isCompleted = True
     tododb.session.commit()
     update_points = Users.query.filter_by(user_id=current_user.get_id()).first()
-    update_points.points += task.points
+    if (update_points.points == None):
+        update_points.points = task.points
+    else:
+        update_points.points += task.points
     tododb.session.commit()
     return jsonify({'message': 'Task completed successfully!'}), 200
 

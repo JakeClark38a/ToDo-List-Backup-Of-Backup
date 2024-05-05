@@ -203,17 +203,18 @@
 
   <!--########################################################### EoAddons ######################################################################-->
 
-  <div class="bg-main dark:bg-gray-700/70 ">
+  <div class="bg-main dark:bg-gray-700/70">
     <!--Body Container-->
     <!--Begin header-->
     <!--########################################################### Main Screen ######################################################################-->
     <!--Begin profile screen-->
     <div id="Profile-Screen" class="Container backdrop-blur-sm py-10 min-h-[90vh] overflow-y-scroll overflow-x-hidden">
-      <div id="Profile-Box" class="bg-main dark:bg-gray-700 relative w-1/2 h-full m-auto rounded-lg">
+      <div id="Profile-Box" class="bg-main dark:bg-gray-700 w-full relative md:w-1/2 h-full m-auto rounded-lg">
         <div id="Profile-Box-Content" class="py-[5vh] px-[5vh]">
           <div id="Profile-Public-Content">
             <div class="flex justify-between">
-              <div class="text-3xl text-gray-800 dark:text-white ">Public profile</div>
+              <div class="text-2xl lg:text-3xl text-gray-800 dark:text-white ">Public profile</div>
+
               <a href="{{url_for('todo.main_page')}}">
                 <div id="exit-button" class="flex justify-center items-center cursor-pointer">
                   <div class="flex items-center h-8">
@@ -223,9 +224,10 @@
                         d="m15 19-7-7 7-7" />
                     </svg>
                   </div>
-                  <div class="text-xl text-gray-800 dark:text-white">Back to homepage</div>
+                  <div class="text-md lg:text-xl text-gray-800 dark:text-white">Back</div>
                 </div>
               </a>
+
             </div>
 
             <div id="sectionDivider" class="mt-2 mb-2 border-t border-gray-800 dark:border-gray-200 "></div>
@@ -242,7 +244,6 @@
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                         d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28" />
                     </svg>
-
                     Edit
                   </div>
                   <img id="User-Current-Avatar" class="h-36 rounded-full"
@@ -261,7 +262,7 @@
 
               <div class="seperate-div">
                 <div id="Username-Section">
-                  <div class="text-lg font-bold mb-2 text-gray-800 dark:text-white ">Name</div>
+                  <div class="text-lg font-bold mb-2 mt-4 text-gray-800 dark:text-white ">Name</div>
                   <input class="form-control w-[440px] max-w-full rounded-lg shadow-lg bg-main dark:bg-gray-400"
                     type="text" value="" name="user[profile_name]" id="user_profile_name" />
                   <div class="note text-sm text-gray-600 dark:text-slate-400 my-1">
@@ -286,7 +287,7 @@
                 <div id="Time-Zone-Section">
                   <div class="text-lg font-bold mb-2 text-gray-800 dark:text-white ">Location</div>
 
-                  <select id="country" name="country" class="form-control bg-main dark:bg-gray-400 rounded-lg ">
+                  <select id="country" name="country" class="form-control bg-main dark:bg-gray-400 rounded-lg w-[440px] max-w-full">
                     <option value="Global">Global</option>
                     <option value="Afghanistan">Afghanistan</option>
                     <option value="Åland Islands">Åland Islands</option>
@@ -550,25 +551,27 @@
           </div>
 
           <div id="Change-Password-Content" class="mb-7">
-            <div class="text-3xl text-gray-800 dark:text-white ">Change password</div>
+            <div class="text-xl lg:text-2xl text-gray-800 dark:text-white ">Change password</div>
             <div id="sectionDivider" class="mt-2 mb-2 border-t border-gray-200"></div>
             <div class="note my-1 text-gray-600 dark:text-slate-400">
               Make sure it's at least 15 characters OR at least 8 characters
               including a number and a lowercase letter. Learn more.
             </div>
-            <div id="Change-Password-Options" class="flex items-center">
+            <div id="Change-Password-Options" class="flex flex-col md:flex md:flex-row justify-center md:justify-start md:items-center gap-5">
               <button id="Change-Password-Button"
-                class="form-control max-w-full rounded-lg shadow-lg p-2 border-2 border-gray-200 text-main bg-green-500 hover:bg-green-600  active:bg-green-800">
+                class="form-control max-w-40 font-semibold rounded-lg shadow-lg p-2 my-4 lg:my-2 border-2 border-gray-200 text-main bg-green-500 hover:bg-green-600  active:bg-green-800">
                 Change password
               </button>
-              <div id="Forgot-Password-Text" class="ml-3 hover:underline text-[#0000CC] dark:text-blue-200 cursor-p">
+
+              <div id="Forgot-Password-Text" class="hover:underline text-[#0000CC] dark:text-blue-200 cursor-p">
                 <a href="{{url_for('auth.forgot_password')}}" class="text-md">I forgot my password</a>
               </div>
+
             </div>
           </div>
 
           <div id="Change-email-Content">
-            <div class="text-3xl text-gray-700 dark:text-white ">Change email</div>
+            <div class="text-xl lg:text-2xl text-gray-700 dark:text-white ">Change email</div>
             <div id="sectionDivider" class="mt-2 mb-2 border-t border-gray-200"></div>
             <div class="note my-1 text-gray-600 dark:text-slate-400">
               Changing your email can have unintended side effects.
@@ -585,8 +588,9 @@
 
   <!--End profile screen-->
   <div id="Alert-Screen"
-    class="absolute flex flex-col justify-end  gap-1 items-end right-1 bottom-5 bg-transparent overflow-hidden">
+    class="sticky h-full flex flex-col justify-end gap-1 items-end right-1 bottom-5 bg-transparent z-40 overflow-hidden">
     <!--Alerts here-->
+
   </div>
 
   <!--########################################################### EoMain Screen ######################################################################-->
