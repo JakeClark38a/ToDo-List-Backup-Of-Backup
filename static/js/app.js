@@ -31,7 +31,7 @@ var suggestTasks = {};
 
 function getData() {
   return new Promise(function (resolve) {
-    $.when(ajaxHandler.LoadUserData()).done(function (data) {
+    $.when(ajaxHandler.LoadTeamData("tid001")).done(function (data) {
       Dict = data;
       console.log("[5] Data is loaded to app.js: ");
       console.log(Dict);
