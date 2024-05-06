@@ -1,4 +1,4 @@
-var birdCount = 2; // Initial number of birds
+var birdCount = 0; // Initial number of birds
 
 // Array of animation GIFs
 var animations = [
@@ -9,7 +9,7 @@ var animations = [
   "../static/images/bird/walking-forward.gif",
 ];
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Call addBirdContainers initially
   addBirdContainers();
 });
@@ -36,7 +36,7 @@ function flyToRandomLocation(bird, birdContainer) {
     bird.src = isFlipped ? "../static/images/bird/idle-flipped.gif" : "../static/images/bird/idle.gif";
 
     // Wait for a while and then fly to another random location
-    setTimeout(function() {
+    setTimeout(function () {
       flyToRandomLocation(bird, birdContainer);
     }, 2000); // Change location every 2 seconds
   }, 2000); // Wait for 2 seconds before changing animation to idle
@@ -53,8 +53,8 @@ function startFlying(bird) {
 function addBirdContainers() {
   // Load bird containers based on the initial birdCount
   for (let i = 0; i < birdCount; i++) {
-      // console.log("Adding bird container");
-      addBirdContainer();
+    // console.log("Adding bird container");
+    addBirdContainer();
   }
 }
 
@@ -65,7 +65,7 @@ function addBirdContainer() {
   var birdContainer = document.createElement('div');
   birdContainer.id = 'bird-container';
   treeContainer.appendChild(birdContainer);
-  
+
   var bird = document.createElement('img');
   bird.id = 'bird';
   bird.src = '../static/images/bird/idle.gif';
@@ -80,9 +80,9 @@ function addBirdContainer() {
     fertilizationsLeft += 10;
     updateWaterCount();
     updateFertilizerCount();
-      
+
     // After a delay, remove the bird container from the DOM
-    setTimeout(function() {
+    setTimeout(function () {
       birdContainer.parentNode.removeChild(birdContainer);
       birdCount--;
     }, 200); // Adjust the delay as needed to match the duration of the hit animation
@@ -98,10 +98,10 @@ function addBirdContainer() {
 
 
 // Set interval to add bird container every hours
-setInterval(function() {
+setInterval(function () {
   addBirdContainer();
   birdCount++; // Increment birdCount
-}, 600);
+}, Math.random() * 1000 * 60 * 5);
 
 
 
