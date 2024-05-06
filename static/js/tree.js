@@ -15,6 +15,79 @@ var autoButtontag = document.getElementById('autoButton');
 var audioButtontag = document.getElementById('audioButton');
 var backgroundAudio = document.getElementById('backgroundAudio');
 
+
+// Function to load data from the server
+function loadData() {
+  fetch('load_data_url', {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          // You can add any additional headers if required
+      }
+  })
+  .then(response => response.json())
+  .then(data => {
+      // Update variables with data received from the server
+      treeStage = data.treeStage;
+      treeCount = data.treeCount;
+      lastAction = data.lastAction;
+      wateringsLeft = data.wateringsLeft;
+      fertilizationsLeft = data.fertilizationsLeft;
+      autoOption = data.autoOption;
+      audioOption = data.audioOption;
+      coins = data.coins;
+
+      // Now, you can use the updated variables as needed
+      // For example, update UI elements with the new data
+  })
+  .catch(error => {
+      console.error('Error loading data:', error);
+      // Handle error loading data
+  });
+}
+
+// Function to send data to the server
+function sendData() {
+  const data = {
+      treeStage: treeStage,
+      treeCount: treeCount,
+      lastAction: lastAction,
+      wateringsLeft: wateringsLeft,
+      fertilizationsLeft: fertilizationsLeft,
+      autoOption: autoOption,
+      audioOption: audioOption,
+      coins: coins
+  };
+
+  fetch('send_data_url', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          // You can add any additional headers if required
+      },
+      body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(responseData => {
+      // Handle response from the server if needed
+  })
+  .catch(error => {
+      console.error('Error sending data:', error);
+      // Handle error sending data
+  });
+}
+
+// Example usage:
+// Call loadData() to load initial data from the server when the page loads
+// loadData();
+
+// Call sendData() whenever you need to send updated data to the server
+// For example, when a user performs an action that changes the data
+// You can call sendData() inside those action functions after updating the data
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
   // Execute the functions when the DOM content is loaded
   updateWaterCount();
@@ -27,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
   updateAutoOption();
   updateAudioOption();
   updateCoinsDisplay();
+  loadData();
 });
 
 document.body.addEventListener('click', function ()  {backgroundAudio.play()});
