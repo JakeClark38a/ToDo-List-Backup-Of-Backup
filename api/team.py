@@ -62,7 +62,7 @@ def get_team_create():
     team = Teams.query.filter_by(admin_id=curr_user.user_id).all()
     team_data = []
     for i in team:
-        team_data.append({"team_name": i.team_name, "team_description": i.team_description})
+        team_data.append({"team_name": i.team_name, "team_description": i.team_description, "team_code": i.team_code, "user_id": current_user.get_id(), "admin_id": i.admin_id})
     return jsonify(team_data), 200
 
 
@@ -107,7 +107,7 @@ def get_team():
     team = curr_user.TeamUser
     team_data = []
     for i in team:
-        team_data.append({"team_name": i.team_name, "team_description": i.team_description})
+        team_data.append({"team_name": i.team_name, "team_description": i.team_description, "team_code": i.team_code, "user_id": current_user.get_id(), "admin_id": i.admin_id})
     return jsonify(team_data), 200
 
 

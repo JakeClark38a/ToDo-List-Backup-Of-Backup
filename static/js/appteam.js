@@ -42,24 +42,6 @@ var UsersList = {
   },
 }
 
-function getJoinedTeam() {
-  return new Promise(function (resolve) {
-    $.when(ajaxHandler.team_LoadJoinedList()).done(function (data) {
-      console.log(data);
-      resolve(data);
-    });
-  });
-};
-
-function getCreatedTeam() {
-  return new Promise(function (resolve) {
-    $.when(ajaxHandler.team_LoadCreatedList()).done(function (data) {
-      console.log(data);
-      resolve(data);
-    });
-  });
-};
-
 function getTeamUserList(team_id) {
   return new Promise(function (resolve) {
     $.when(ajaxHandler.team_LoadUserList(team_id)).done(function (data) {

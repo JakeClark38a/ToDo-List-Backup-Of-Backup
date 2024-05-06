@@ -506,7 +506,14 @@ const refreshOnDelay = function () {
     // remove all tooltips and button
     // refreshTooltipTable();
 }
-
+// Event handler for resizing window: If screen width is greater than 768px, show calendar table, else hide it
+$(window).resize(function () {
+    if ($(window).width() > 768) {
+        $("#CalendarTable").parent().removeClass("hidden");
+    } else {
+        $("#CalendarTable").parent().addClass("hidden");
+    }
+})
 
 $(document).ready(function () {
     // If screen width is greater than 768px, show calendar table

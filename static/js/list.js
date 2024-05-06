@@ -1,5 +1,6 @@
+import { get } from "jquery";
 import { modalteampage } from "./CRUDmodal_handlerforteam.js";
-
+import { ajaxHandler } from "./ajaxHandler.js";
 let user = {
     user_id: "ddeffdsdfgsd",
 };
@@ -39,6 +40,7 @@ let team = {
         team_id: "id000003",
     },
 }
+
 
 function teamlist(id, name, des) {
     if (user.user_id == team[id].admin) {
@@ -96,8 +98,40 @@ function teamlist(id, name, des) {
     }
 }
 
+function getJoinedTeam() {
+    return new Promise(function (resolve) {
+        $.when(ajaxHandler.team_LoadJoinedList()).done(function (data) {
+            console.log(data);
+            resolve(data);
+        });
+    });
+};
+
+function getCreatedTeam() {
+    return new Promise(function (resolve) {
+        $.when(ajaxHandler.team_LoadCreatedList()).done(function (data) {
+            console.log(data);
+            resolve(data);
+        });
+    });
+};
+
+
+
 $(document).ready(function () {
 
+    function init() {
+        $.when(getJoinedTeam(),
+            getCreatedTeam()).done(function (joined, created) {
+                team = Object.assign({}, team, joined)
+            }).then(
+                function () {
+                    console.log('teamlist1 running');
+                    teamlist1();
+                }
+            );
+    };
+    init();
 
     function teamlist1() {
         console.log('teamlist running');
@@ -106,17 +140,16 @@ $(document).ready(function () {
         console.log(teamlistjoi, teamlistcre);
         teamlistjoi.empty();
         teamlistcre.empty();
-        
-        for (let key in team) {
+
+        for (let key in teamCrea) {
             let teamname = team[key].name;
             let teamid = key;
             let teamcode = team[key].code;
             let teamdes = team[key].des;
             let admin = team[key].admin;
-           // console.log(teamname, teamid, teamcode, teamdes);
+            // console.log(teamname, teamid, teamcode, teamdes);
             if (user.user_id != admin) {
                 teamlistjoi.append(teamlist(teamid, teamname, teamdes));
-                console.log('helllo ')
             }
             else {
                 teamlistcre.append(teamlist(teamid, teamname, teamdes));
@@ -157,7 +190,8 @@ $(document).ready(function () {
         delete team[teamid];
         teamlist1();
     }
-    teamlist1();
+
+
 
 
     $("#CreateAndJoinTeam #create").click(function () {
@@ -198,7 +232,7 @@ $(document).ready(function () {
         return teamId, teamname, teamdes;
      }
      */
-    $("#CreateAndJoinTeam #Join-sec").click(function () {
+    $("#crud-modal2 #Join-sec").click(function () {
         let searchCode = $("#code-sec #teamcode").val();
         console.log(searchCode);
         let teamId = Object.keys(team).find(key => team[key].code == searchCode);
@@ -214,7 +248,7 @@ $(document).ready(function () {
         $('#teamlist2').hide();
         teamlist1();
     });
-    $("#CreateAndJoinTeam #Create-sec").click(function () {
+    $("#crud-modal2 #Create-sec").click(function () {
         let teamname = $("#teamname-sec #teamname").val();
         let teamdes = $("#teamdesc-sec #teamdescription").val();
         addteam(null, teamname, teamdes);
@@ -232,7 +266,7 @@ $(document).ready(function () {
         $("#changetojoin").removeClass("dark:text-white");
         teamlist1();
     });
-    $("#CreateAndJoinTeam #save-sec").click(function () {
+    $("#crud-modal2 #save-sec").click(function () {
         let id = $('#crud-modal2 input[type="checkbox"]').attr("id");
         team[id].name = $('#crud-modal2 #teamname').val();
         team[id].des = $('#crud-modal2 #teamdescription').val();
@@ -245,7 +279,7 @@ $(document).ready(function () {
         teamlist1();
 
     });
-    $("#CreateAndJoinTeam #delete-sec").click(function () {
+    $("#crud-modal2 #delete-sec").click(function () {
         let id = $('#crud-modal2 input[type="checkbox"]').attr("id");
         $('#teamname-sec #teamname').val("");
         $('#teamdesc-sec #teamdescription').val("");
