@@ -5130,6 +5130,10 @@ input:checked + .toggle-bg {
     margin-top: 2.5rem;
   }
 
+  .sm\:inline-block {
+    display: inline-block;
+  }
+
   .sm\:w-5\/6 {
     width: 83.333333%;
   }

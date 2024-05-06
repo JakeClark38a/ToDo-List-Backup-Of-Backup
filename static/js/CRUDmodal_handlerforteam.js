@@ -84,7 +84,7 @@ modalteampage.JoinTeam = function () {
   $('#crud-modal2 #teamdesc-sec').hide();
   $('#crud-modal2 #code-sec').show();
   $('#crud-modal2 #Create-sec').hide();
-  $('#crud-modal2 #Join-sec').show ();
+  $('#crud-modal2 #Join-sec').show();
   $('#crud-modal2 #save-sec').hide();
   $('#crud-modal2 #delete-sec').hide();
   $('#crud-modal2 label[for="teamcode"]').text("Team's Code");
@@ -93,7 +93,7 @@ modalteampage.JoinTeam = function () {
   modalteampage.show();
 }
 
-$('#btn-close-modal').click(function () {
+$('#crud-modal2 #btn-close-modal').click(function () {
   modalteampage.hide();
 });
 
