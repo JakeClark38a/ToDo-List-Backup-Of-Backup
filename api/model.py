@@ -122,9 +122,13 @@ class TeamTasks(tododb.Model):
 class Trees(tododb.Model):
     __tablename__ = 'trees'
     tree_id = tododb.Column(tododb.NVARCHAR(40), primary_key=True)
-    number = tododb.Column(tododb.Integer)
-    water = tododb.Column(tododb.Integer)
-    fert = tododb.Column(tododb.Integer)
+    treeStage = tododb.Column(tododb.Integer)
+    treeCount = tododb.Column(tododb.Integer)
+    lastAction = tododb.Column(tododb.NVARCHAR(40))
+    wateringsLeft = tododb.Column(tododb.Integer)
+    fertilizationsLeft = tododb.Column(tododb.Integer)
+    autoOption = tododb.Column(tododb.BOOLEAN, default=False)
+    audioOption = tododb.Column(tododb.BOOLEAN, default=True)
     user_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('users.user_id', ondelete="CASCADE"),primary_key=True)
 
     def __repr__(self) -> str:
