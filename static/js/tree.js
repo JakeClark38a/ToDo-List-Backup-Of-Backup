@@ -26,9 +26,10 @@ document.addEventListener('DOMContentLoaded', function() {
   updateNumberofTrees(); 
   updateAutoOption();
   updateAudioOption();
-  updateCoinsDisplay()
-  
+  updateCoinsDisplay();
 });
+
+document.body.addEventListener('click', function ()  {backgroundAudio.play()});
 
 function updateCoinsDisplay(){
   document.getElementById('CoinsOwnNumber').innerText = coins;
@@ -42,19 +43,18 @@ function updateAudioOption(click = false) {
   }
   if(audioOption){
     audioElements.forEach(function(audio) {
-        // console.log(audio.muted);
-        audio.muted = false;
-        
+      // console.log(audio.muted);
+      audio.muted = false;
+      backgroundAudio.play();
     });
-    backgroundAudio.play();
     audioButtontag.src = "../static/images/tree_game/AudioButton.png";
     // audioButton.innerText = "Pause Audio";
   } else { 
     audioElements.forEach(function(audio) {
-        // console.log(audio.muted);
-        audio.muted = true;
+      // console.log(audio.muted);
+      audio.muted = true;
     });
-    backgroundAudio.pause();
+    // backgroundAudio.pause();
     audioButtontag.src = "../static/images/tree_game/AudioButtonPressed.png";
     // audioButton.innerText = "Play Audio";
   }
@@ -76,7 +76,7 @@ function updateAutoOption(click = false) {
 function startAuto() {
   console.log(autoButtontag.src)
   autoInterval = setInterval(autoWaterAndFertilize, 500); // Call autoWaterAndFertilize every second
-  autoButtontag.src = '../static/images/tree_game/AutoButtonPressed.png';
+  autoButtontag.src = '../static/images/tree_game/AutoButtonLooping.gif';
 }
 
 function stopAuto() {
