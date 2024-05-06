@@ -170,7 +170,7 @@ $(document).ready(function () {
     const groupRegex = /\[Group\] (.*?) \[\/Group\]/;
     const tagRegex = /\[Tag\] (.*?) \[\/Tag\]/;
     const desRegex = /\[Des\] (.*?) \[\/Des\]/;
-
+    let suggestTasksSession = {};
     for (let i = 0; i < taskSegments.length; i++) {
       const taskSegment = taskSegments[i];
       const task = {};
@@ -207,17 +207,18 @@ $(document).ready(function () {
       task.taskID = id;
       if (Object.keys(task).length <= 3) continue;
       suggestTasks[id] = task;
+      suggestTasksSession[id] = task;
     }
 
     // Outputting the extracted data
-    console.log(suggestTasks);
+    console.log(suggestTasksSession);
 
-    for (let idx in suggestTasks) {
-      let dueStr = suggestTasks[idx].deadline;
-      $('#Chat-Section #chat-content').append(chatBox.chatSuggestTask(idx, suggestTasks[idx].title, suggestTasks[idx].description, dueStr)); // ai chat suggestion task
+    for (let idx in suggestTasksSession) {
+      let dueStr = suggestTasksSession[idx].deadline;
+      $('#Chat-Section #chat-content').append(chatBox.chatSuggestTask(idx, suggestTasksSession[idx].title, suggestTasksSession[idx].description, dueStr)); // ai chat suggestion task
       let c = $('#Chat-Section #chat-content #' + idx)
-      c.find('#Task-Tag').append(MainScreen.TagTemplate('tg' + idx, { title: suggestTasks[idx].tag }));
-      c.find('#Task-Group').append(MainScreen.TagTemplate('gp' + idx, { title: suggestTasks[idx].group }));
+      c.find('#Task-Tag').append(MainScreen.TagTemplate('tg' + idx, { title: suggestTasksSession[idx].tag }));
+      c.find('#Task-Group').append(MainScreen.TagTemplate('gp' + idx, { title: suggestTasksSession[idx].group }));
       c.find('#Task-Tag').find("#tg" + idx).css({ "background-color": Utils.randHexColor() })
       c.find('#Task-Group').find("#gp" + idx).css({ "background-color": Utils.randHexColor() })
     }

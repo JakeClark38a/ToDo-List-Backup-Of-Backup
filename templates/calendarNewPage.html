@@ -192,21 +192,20 @@
             class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
 
 
-            
-                <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
-                    <div class="flex items-center">
-                        <div class="PMenu-Primary-Image-Wrapper">
-                            <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-width="2"
-                                    d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            </svg>
-                        </div>
-                        <div class="PMenu-Primary-Text">Profile</div>
+
+            <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="PMenu-Primary-Image-Wrapper">
+                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-width="2"
+                                d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
                     </div>
+                    <div class="PMenu-Primary-Text">Profile</div>
                 </div>
-                
+            </div>
+
             <div id="PMenu-UserSett" class="PMenu-Primary-Section hidden"> <!--block-->
                 <div class="flex items-center">
                     <div class="PMenu-Primary-Image-Wrapper">
@@ -393,188 +392,172 @@
 
 
 
-        <!--########################################################### Dropdown Mode ######################################################################-->
-        <!-- Dropdown menu -->
-        <div id="Mode-Menu"
-            class="dropdown-anim duration-300 z-10 absolute right-10 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
-
-            <div id="ModeMenu-Profile" class="ModeMenu-Primary-Section"> <!--block-->
-                <div class="flex items-center">
-                    <div class="ModeMenu-Primary-Image-Wrapper">
-                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z" />
-                        </svg>
-
-                    </div>
-
-                    <div class="ModeMenu-Primary-Text">Grid</div>
-                </div>
-            </div><!--eoblock-->
-
-
-        </div>
-
-        <!--########################################################### EoDropdown Mode ######################################################################-->
-
-
-
         <!--########################################################### Calendar ######################################################################-->
         <!-- Redirect to Backend Generator here -->
         <!-- Begin Calendar -->
-        <div id="Calendar" class="Container backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
-        <div class="w-full flex justify-around">
-            <!-- Mobile version -->
-            <div class="relative w-[300px] flex-none flex flex-col items-center">
-                <!-- Calendar - data-date will fill in backend -->
-                <div id="calendar" inline-datepicker data-date="05/02/2024" class="pb-[10px]"></div>
-                <!-- Todo with expired day -->
-                <div id="tasks-display" class="group-outer ">
-                    <div class="flex justify-between items-center px-3 rounded-t-lg bg-white dark:bg-gray-700">
-                    <!-- Title -->
-                        <div id="Task-Group-Title" class="todobox-title  dark:text-white">March 7th, 2024</div>
-                        <div class="Group-Task-Add ">
-                            <!-- <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <div id="Calendar" class="Container backdrop-blur-sm py-1 h-[90vh] overflow-y-scroll overflow-x-hidden">
+            <div class="w-full flex justify-around">
+                <!-- Mobile version -->
+                <div class="relative w-[300px] flex-none flex flex-col items-center">
+                    <!-- Calendar - data-date will fill in backend -->
+                    <div id="calendar" inline-datepicker data-date="05/02/2024" class="pb-1"></div>
+                    <!-- Todo with expired day -->
+                    <div id="tasks-display" class="group-outer p-[10px] ">
+                        <div class="flex justify-between items-center px-3 rounded-t-lg ">
+                            <!-- Title -->
+                            <div id="Task-Group-Title" class="todobox-title  dark:text-white">March 7th, 2024</div>
+                            <div class="Group-Task-Add ">
+                                <!-- <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"></path>
                             </svg> -->
+                            </div>
                         </div>
-                    </div>
-                    <!-- Content -->
-                    <div id="Task-Section-Outer" class="bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl " style="border-color: #546f72;">
-                        <!-- In this div, height of gid001 will dynamically change based on 100vh, 350px is height of calendar, 40px is height of title and  - remove lg:w-96, lg:text-xl-->
-                        <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-[calc(100vh-350px-40px-100px)] ">
-                            <!--task here-->
-    
-                            
-                            <div id="id001" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default hidden">
-                                <div class=" rounded-lg shadow-lg">
-                                    <!-- Title -->
-                                    <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
-                                        <!-- Task title -->
-                                        <div class="font-semibold text-lg truncate w-full dark:text-white ">Meeting</div>
-                                        <!-- Task edit and delete -->
-                                        <div class="flex items-center gap-2">
-                                            <div class="Task-Edit mx-1 cursor-pointer">
-                                                <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"></path>
-                                                </svg>
+                        <!-- Content -->
+                        <div id="Task-Section-Outer"
+                            class="bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl "
+                            style="border-color: #546f72;">
+                            <!-- In this div, height of gid001 will dynamically change based on 100vh, 350px is height of calendar, 40px is height of title and  - remove lg:w-96, lg:text-xl-->
+                            <div id="Task-Section"
+                                class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 min-h-72">
+                                <!--task here-->
+
+
+                                <div id="id001"
+                                    class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default hidden">
+                                    <div class=" rounded-lg shadow-lg">
+                                        <!-- Title -->
+                                        <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
+                                            <!-- Task title -->
+                                            <div class="font-semibold text-lg truncate w-full dark:text-white ">Meeting
                                             </div>
-                                            <div id="Task-Cancel" class="bg-red-500 rounded-full shadow-lg h-4 w-4 font-bold cursor-pointer"></div>
+                                            <!-- Task edit and delete -->
+                                            <div class="flex items-center gap-2">
+                                                <div class="Task-Edit mx-1 cursor-pointer">
+                                                    <svg class="w-5 h-5 text-gray-800 dark:text-white"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="1.5"
+                                                            d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                                <div id="Task-Cancel"
+                                                    class="bg-red-500 rounded-full shadow-lg h-4 w-4 font-bold cursor-pointer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Task description -->
+                                        <div class="p-2 flex items-center h-fit">
+                                            <p class="h-full w-full text-left p-2 font-base truncate dark:text-white">
+                                                About making a website</p>
+                                            <!-- Complete checkbox -->
+                                            <input id="Task-Destroyer" type="checkbox"
+                                                class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer">
+                                        </div>
+                                        <!-- Tag -->
+                                        <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
+                                            <div id="tag1"
+                                                class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer"
+                                                style="background-color: #546f72;">tag1</div>
+                                            <div id="tag1"
+                                                class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer"
+                                                style="background-color: #546f72;">tag1</div>
                                         </div>
                                     </div>
-                                    <!-- Task description -->
-                                    <div class="p-2 flex items-center h-fit">
-                                        <p class="h-full w-full text-left p-2 font-base truncate dark:text-white">About making a website</p>
-                                        <!-- Complete checkbox -->
-                                        <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer">
-                                    </div>
-                                    <!-- Tag -->
-                                    <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
-                                        <div id="tag1" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer" style="background-color: #546f72;">tag1</div>    
-                                        <div id="tag1" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer" style="background-color: #546f72;">tag1</div>              
-                                    </div>
+
                                 </div>
-                    
                             </div>
-                        </div>   
+                        </div>
                     </div>
                 </div>
+                <!-- Desktop grid -->
+                <!-- Show when in desktop size, hidden in mobile size -->
+                <div class="hidden h-full md:inline-block flex-1 rounded-lg bg-white dark:bg-gray-700 shadow-lg p-4 overflow-x-hidden overflow-y-scroll ">
+                    <table id="CalendarTable"
+                        class=" w-full h-full *:align-top border-spacing-1 text-center border-separate table-fixed  *:overflow-x-hidden *:overflow-y-scroll">
+                        
+                        <tr id="Weekday" class="text-sm h-0 uppercase">
+                            <td class="text-center h-6 leading-6 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                Mon</td>
+                            <td>Tue</td>
+                            <td>Wed</td>
+                            <td>Thu</td>
+                            <td>Fri</td>
+                            <td>Sat</td>
+                            <td>Sun</td>
+                        </tr>
+                        <tr class="week">
+                            <td class="day ">1 row </td>
+                            <td class="day ">2 row</td>
+                            <td class="day ">3 row</td>
+                            <td class="day ">4 row</td>
+                            <td class="day ">5 row</td>
+                            <td class="day ">6 row</td>
+                            <td class="day ">7 row</td>
+                        </tr>
+                        <tr class="week">
+                            <td class="day ">1 row</td>
+                            <td class="day ">2 row</td>
+                            <td class="day ">3 row</td>
+                            <td class="day ">4 row</td>
+                            <td class="day ">5 row</td>
+                            <td class="day ">6 row</td>
+                            <td class="day ">7 row</td>
+                        </tr>
+                        <tr class="week">
+                            <td class="day ">1 row</td>
+                            <td class="day ">2 row</td>
+                            <td class="day ">3 row</td>
+                            <td class="day ">4 row</td>
+                            <td class="day ">5 row</td>
+                            <td class="day ">6 row</td>
+                            <td class="day ">7 row</td>
+                        </tr>
+                        <tr class="week">
+                            <td class="day ">1 row</td>
+                            <td class="day ">2 row</td>
+                            <td class="day ">3 row</td>
+                            <td class="day ">4 row</td>
+                            <td class="day ">5 row</td>
+                            <td class="day ">6 row</td>
+                            <td class="day ">7 row</td>
+                        </tr>
+                        <tr class="week">
+                            <td class="day ">1 row</td>
+                            <td class="day ">2 row</td>
+                            <td class="day ">3 row</td>
+                            <td class="day ">4 row</td>
+                            <td class="day ">5 row</td>
+                            <td class="day ">6 row</td>
+                            <td class="day ">7 row</td>
+                        </tr>
+                        <tr class="week">
+                            <td class="day ">1 row</td>
+                            <td class="day ">2 row</td>
+                            <td class="day ">3 row</td>
+                            <td class="day ">4 row</td>
+                            <td class="day ">5 row</td>
+                            <td class="day ">6 row</td>
+                            <td class="day ">7 row</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <!-- Desktop grid -->
-            <!-- Show when in desktop size, hidden in mobile size -->
-            <div class="flex-1 inline-block rounded-lg bg-white dark:bg-gray-700 shadow-lg p-4">
-                <table id="CalendarTable" class="w-full h-full *:align-top border-collapse text-center table-fixed">
-                    <tr id="Weekday" class="text-sm h-0 uppercase">
-                        <td class="text-center h-6 leading-6 text-sm font-medium text-gray-500 dark:text-gray-400">Mon</td>
-                        <td>Tue</td>
-                        <td>Wed</td>
-                        <td>Thu</td>
-                        <td>Fri</td>
-                        <td>Sat</td>
-                        <td>Sun</td>
-                    </tr>
-                    <tr class="week">
-                        <td>
-                           1 row 
-                        </td>
-                        <td>2 row</td>
-                        <td>3 row</td>
-                        <td>4 row</td>
-                        <td>5 row</td>
-                        <td>6 row</td>
-                        <td>7 row</td>
-                    </tr>
-                    <tr class="week">
-                        <td>1 row</td>
-                        <td>2 row</td>
-                        <td>3 row</td>
-                        <td>4 row</td>
-                        <td>5 row</td>
-                        <td>6 row</td>
-                        <td>7 row</td>
-                    </tr>
-                    <tr class="week">
-                        <td>1 row</td>
-                        <td>2 row</td>
-                        <td>3 row</td>
-                        <td>4 row</td>
-                        <td>5 row</td>
-                        <td>6 row</td>
-                        <td>7 row</td>
-                    </tr>
-                    <tr class="week">
-                        <td>1 row</td>
-                        <td>2 row</td>
-                        <td>3 row</td>
-                        <td>4 row</td>
-                        <td>5 row</td>
-                        <td>6 row</td>
-                        <td>7 row</td>
-                    </tr>
-                    <tr class="week">
-                        <td>1 row</td>
-                        <td>2 row</td>
-                        <td>3 row</td>
-                        <td>4 row</td>
-                        <td>5 row</td>
-                        <td>6 row</td>
-                        <td>7 row</td>
-                    </tr>
-                    <tr class="week">
-                        <td>1 row</td>
-                        <td>2 row</td>
-                        <td>3 row</td>
-                        <td>4 row</td>
-                        <td>5 row</td>
-                        <td>6 row</td>
-                        <td>7 row</td>
-                    </tr>
-                </table>
-            </div>
-        </div>    
-    
+
         </div>
         <!--End Calendar-->
         <!--########################################################### EoCalendar ######################################################################-->
 
 
 
-
-
-        <div class="Bottom-Bar w-full bottom-0 bg-accent-200 flex justify-between m-0">
-            <div class=""></div>
-        </div>
-
-
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <!--<script src="../static/js/app.js" type="module"></script>-->
-    <script src="../static/js/calendarNew.js" type="module"></script>
-    <script>
-        // $("#Calendar").load("calendarNewPage.html");
-    </script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <!--<script src="../static/js/app.js" type="module"></script>-->
+        <script src="../static/js/calendarNew.js" type="module"></script>
+        <script>
+            // $("#Calendar").load("calendarNewPage.html");
+        </script>
 </body>
 
 </html>

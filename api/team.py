@@ -38,9 +38,10 @@ def waiting_page():
 def create_team():
     data = request.get_json()
     curr_user = Users.query.get(current_user.get_id())
-    team_id = uuid.uuid4().hex
-    new_team = Teams(team_id=team_id, team_name=data['team_name'], team_description=data['team_description'], team_code=data['team_code'], admin_id=curr_user.user_id)
+    new_team = Teams(team_id=data['team_id'], team_name=data['team_name'], team_description=data['team_description'], team_code=data['team_code'], admin_id=curr_user.user_id)
     tododb.session.add(new_team)
+    tododb.session.commit()
+    curr_user.TeamUser.append(new_team)
     tododb.session.commit()
     return jsonify({"message": "Team created successfully"}), 200
 
@@ -86,21 +87,21 @@ def get_team():
 
 #Team section:
 
-@team.route('/team/todo', methods=['GET'])
+@team.route('/team/<teamid>/todo', methods=['GET'])
 @login_required
-def team_page():
-    team_id = session['team_id']
+def team_page(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
         return render_template('teamPage.html')
     return redirect(url_for('team.waiting_page'))
 
 
-@team.route('/team/todo/create', methods=['POST'])
+@team.route('/team/<teamid>/todo/create', methods=['POST'])
 @login_required
-def create_todo():
-    team_id = session['team_id']
+def create_todo(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
-        team = Teams.query.filter_by(team_id=session['team_id']).first()
+        team = Teams.query.filter_by(team_id=teamid).first()
         if team.admin_id == current_user.get_id():
             data = request.get_json()
             deadline = datetime_to_string(data['deadline'])
@@ -113,12 +114,12 @@ def create_todo():
     else:
         return jsonify({'message': 'You are not allowed here!'}), 400
 
-@team.route('/team/todo/update', methods=['POST'])
+@team.route('/team/<teamid>/todo/update', methods=['POST'])
 @login_required
-def update_todo():
-    team_id = session['team_id']
+def update_todo(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
-        team = Teams.query.filter_by(team_id=session['team_id']).first()
+        team = Teams.query.filter_by(team_id=teamid).first()
         if team.admin_id == current_user.get_id():
             data = request.get_json()
             task = TeamTasks.query.filter_by(task_id=data['taskId'], author_id=current_user.get_id(), team_id=team_id).first()
@@ -135,12 +136,12 @@ def update_todo():
     else:
         return jsonify({'message': 'You are not allowed here!'}), 400
 
-@team.route('/team/todo/delete', methods=['POST'])
+@team.route('/team/<teamid>/todo/delete', methods=['POST'])
 @login_required
-def delete_todo():
-    team_id = session['team_id']
+def delete_todo(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
-        team = Teams.query.filter_by(team_id=session['team_id']).first()
+        team = Teams.query.filter_by(team_id=teamid).first()
         if team.admin_id == current_user.get_id():
             data = request.get_json()
             task = TeamTasks.query.filter_by(task_id=data['taskId'], user_id=current_user.get_id(), team_id = team_id).first()
@@ -153,10 +154,10 @@ def delete_todo():
         return jsonify({'message': 'You are not allowed here!'}), 400
 
 
-@team.route('/team/todo/get', methods=['GET'])
+@team.route('/team/<teamid>/todo/get', methods=['GET'])
 @login_required
-def get_todo():
-    team_id = session['team_id']
+def get_todo(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
         tasks = TeamTasks.query.filter_by(user_id=current_user.get_id(), team_id=team_id).all()
         task_list = []
@@ -164,9 +165,9 @@ def get_todo():
             task_list.append({'taskId': task.task_id, 'title': task.task_title, 'description': task.task_description, 'tag': task.tag_id, 'deadline': task.deadline.strftime('%Y-%m-%dT%H:%M'), 'points': task.points, 'isCompleted': task.isCompleted})
         return jsonify(task_list), 200
 
-@team.route('/team/todo/completed/<id>', methods=['POST'])
-def completed_todo(id):
-    team_id = session['team_id']
+@team.route('/team/<teamid>/todo/completed/<id>', methods=['POST'])
+def completed_todo(teamid,id):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
         task = TeamTasks.query.filter_by(task_id=id, team_id=team_id).first()
         get_points = task.points
@@ -178,9 +179,9 @@ def completed_todo(id):
         tododb.session.commit()
         return jsonify({'message': 'Task completed successfully!'}), 200
 
-@team.route('/team/todo/uncompleted/<id>', methods=['POST'])
-def uncompleted_todo(id):
-    task = TeamTasks.query.filter_by(task_id=id, team_id = session['team_id']).first()
+@team.route('/team/<teamid>/todo/uncompleted/<id>', methods=['POST'])
+def uncompleted_todo(teamid,id):
+    task = TeamTasks.query.filter_by(task_id=id, team_id = teamid).first()
     task.isCompleted = False
     task.points = 0
     tododb.session.commit()
@@ -188,12 +189,12 @@ def uncompleted_todo(id):
 
 #Groups and Tags
 
-@team.route('/team/todo/group/create', methods=['POST'])
+@team.route('/team/<teamid>/todo/group/create', methods=['POST'])
 @login_required
-def create_group():
-    team_id = session['team_id']
+def create_group(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
-        team = Teams.query.filter_by(team_id=session['team_id']).first()
+        team = Teams.query.filter_by(team_id=teamid).first()
         if team.admin_id == current_user.get_id():
             data = request.get_json()
             new_group = TeamGroupss(group_id=data['groupId'], group_title=data['title'], author_id=current_user.get_id(), color=data['color'] , def_tag = data['def_tag'], team_id=team.team_id)
@@ -205,12 +206,12 @@ def create_group():
     else:
         return jsonify({'message': 'You are not allowed here!'}), 400
 
-@team.route('/team/todo/group/update', methods=['POST'])
+@team.route('/team/<teamid>/todo/group/update', methods=['POST'])
 @login_required
-def update_group():
-    team_id = session['team_id']
+def update_group(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
-        team = Teams.query.filter_by(team_id=session['team_id']).first()
+        team = Teams.query.filter_by(team_id=teamid).first()
         if team.admin_id == current_user.get_id():
             data = request.get_json()
             group = TeamGroupss.query.filter_by(group_id=data['groupId'], author_id=current_user.get_id(), team_id=team_id).first()
@@ -224,12 +225,12 @@ def update_group():
     else:
         return jsonify({'message': 'You are not allowed here!'}), 400
 
-@team.route('/team/todo/group/delete', methods=['POST'])
+@team.route('/team/<teamid>/todo/group/delete', methods=['POST'])
 @login_required
-def delete_group():
-    team_id = session['team_id']
+def delete_group(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
-        team = Teams.query.filter_by(team_id=session['team_id']).first()
+        team = Teams.query.filter_by(team_id=teamid).first()
         if team.admin_id == current_user.get_id():
             data = request.get_json()
             group = TeamGroupss.query.filter_by(group_id=data['groupId'], author_id=current_user.get_id(), team_id=team_id).first()
@@ -241,10 +242,10 @@ def delete_group():
     else:
         return jsonify({'message': 'You are not allowed here!'}), 400
 
-@team.route('/team/todo/group/get', methods=['GET'])
+@team.route('/team/<teamid>/todo/group/get', methods=['GET'])
 @login_required
-def get_groups():
-    team_id = session['team_id']
+def get_groups(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
         groups = TeamGroupss.query.filter_by(team_id=team_id).all()
         group_list = []
@@ -252,12 +253,12 @@ def get_groups():
             group_list.append({'groupId': group.group_id, 'title': group.group_title, 'color': group.color , 'def_tag':group.def_tag})
         return jsonify(group_list), 200
 
-@team.route('/team/todo/tag/create', methods=['POST'])
+@team.route('/team/<teamid>/todo/tag/create', methods=['POST'])
 @login_required
-def create_tag():
-    team_id = session['team_id']
+def create_tag(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
-        team = Teams.query.filter_by(team_id=session['team_id']).first()
+        team = Teams.query.filter_by(team_id=teamid).first()
         if team.admin_id == current_user.get_id():
             data = request.get_json()
             new_tag = TeamTags(tag_id=data['tagId'], tag_title=data['title'], tag_color=data['color'], author_id=current_user.get_id(), group_id=data['groupId'], team_id=team.team_id)
@@ -269,12 +270,12 @@ def create_tag():
     else:
         return jsonify({'message': 'You are not allowed here!'}), 400
 
-@team.route('/team/todo/tag/update', methods=['POST'])
+@team.route('/team/<teamid>/todo/tag/update', methods=['POST'])
 @login_required
-def update_tag():
-    team_id = session['team_id']
+def update_tag(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
-        team = Teams.query.filter_by(team_id=session['team_id']).first()
+        team = Teams.query.filter_by(team_id=teamid).first()
         if team.admin_id == current_user.get_id():
             data = request.get_json()
             tag = TeamTags.query.filter_by(tag_id=data['tagId'], author_id=current_user.get_id(), team_id=team_id).first()
@@ -288,12 +289,12 @@ def update_tag():
     else:
         return jsonify({'message': 'You are not allowed here!'}), 400
 
-@team.route('/team/todo/tag/delete', methods=['POST'])
+@team.route('/team/<teamid>/todo/tag/delete', methods=['POST'])
 @login_required
-def delete_tag():
-    team_id = session['team_id']
+def delete_tag(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
-        team = Teams.query.filter_by(team_id=session['team_id']).first()
+        team = Teams.query.filter_by(team_id=teamid).first()
         if team.admin_id == current_user.get_id():
             data = request.get_json()
             tag = TeamTags.query.filter_by(tag_id=data['tagId'], user_id=current_user.get_id(), team_id=team_id).first()
@@ -305,10 +306,10 @@ def delete_tag():
     else:
         return jsonify({'message': 'You are not allowed here!'}), 400
 
-@team.route('/team/todo/tag/get', methods=['GET'])
+@team.route('/team/<teamid>/todo/tag/get', methods=['GET'])
 @login_required
-def get_tags():
-    team_id = session['team_id']
+def get_tags(teamid):
+    team_id = teamid
     if validate_user(current_user.get_id(), team_id):
         tags = TeamTags.query.filter_by(team_id=team_id).all()
         tag_list = []

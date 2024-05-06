@@ -349,7 +349,8 @@ const mapDatepickerToTable = function (){
         // $("#CalendarTable").append($(this).clone());
         // Clone the cell
         var clonedCell = $(this).clone();
-
+        clonedCell.attr('class', ''); 
+        clonedCell.addClass('text-left datepicker-cell dark:text-white ');
         // Find the index of the current cell in the total 42 cells
         var index = $("#calendar span.datepicker-cell").index($(this));
 
@@ -463,7 +464,7 @@ $(document).ready(function () {
     // } else {
     //     $("#CalendarTable").parent().addClass("hidden");
     // }
-    $("#CalendarTable").parent().addClass("hidden");
+    //$("#CalendarTable").parent().addClass("hidden");
     mapDatepickerToTable();
     
 

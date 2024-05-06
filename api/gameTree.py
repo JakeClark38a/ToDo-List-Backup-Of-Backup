@@ -19,20 +19,31 @@ def loadTree():
     curr_user = Users.query.filter_by(user_id=current_user.get_id()).first()
     tree = Trees.query.filter_by(user_id=curr_user.user_id).first()
     if tree is None:
-        new_tree = Trees(user_id=curr_user.user_id, tree_id=uuid.uuid4().hex, number=0, water=0, fert=0)
+        new_tree = Trees(user_id=curr_user.user_id, tree_id = uuid.uuid4().hex, treeStage=0, treeCount=0, lastAction="", wateringsLeft=0, fertilizationsLeft=0, autoOption=False, audioOption=True)
+        tododb.session.add(new_tree)
         json_tree = {
             'tree_id': new_tree.tree_id,
-            'number': new_tree.number,
-            'water': new_tree.water,
-            'fert': new_tree.fert
+            'treeStage': new_tree.treeStage,
+            'treeCount': new_tree.treeCount,
+            'lastAction': new_tree.lastAction,
+            'wateringsLeft': new_tree.wateringsLeft,
+            'fertilizationsLeft': new_tree.fertilizationsLeft,
+            'autoOption': new_tree.autoOption,
+            'audioOption': new_tree.audioOption,
+            'coins': curr_user.points
         }
         return jsonify(json_tree), 200
     else:
         json_tree = {
-            'tree_id': tree.tree_id,
-            'number': tree.number,
-            'water': tree.water,
-            'fert': tree.fert
+            'tree_id': new_tree.tree_id,
+            'treeStage': new_tree.treeStage,
+            'treeCount': new_tree.treeCount,
+            'lastAction': new_tree.lastAction,
+            'wateringsLeft': new_tree.wateringsLeft,
+            'fertilizationsLeft': new_tree.fertilizationsLeft,
+            'autoOption': new_tree.autoOption,
+            'audioOption': new_tree.audioOption,
+            'coins': curr_user.points
         }
         return jsonify(json_tree), 200
     
@@ -46,8 +57,13 @@ def updateTree():
         return jsonify({'error': 'tree not found'}), 404
     else:
         data = request.get_json()
-        tree.number = data['number']
-        tree.water = data['water']
-        tree.fert = data['fert']
+        tree.treeStage = data['treeStage']
+        tree.treeCount = data['treeCount']
+        tree.lastAction = data['lastAction']
+        tree.wateringsLeft = data['wateringsLeft']
+        tree.fertilizationsLeft = data['fertilizationsLeft']
+        tree.autoOption = data['autoOption']
+        tree.audioOption = data['audioOption']
+        curr_user.points = data['coins']
         tododb.session.commit()
         return jsonify({'message': 'tree updated'}), 200
