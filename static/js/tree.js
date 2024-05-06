@@ -3,12 +3,13 @@ let treeCount = 100; // Initial count of trees planted
 let lastAction = "fertilize"; // Variable to store the last action (water or fertilize)
 let wateringsLeft = 50; // Variable to store the number of remaining waterings
 let fertilizationsLeft = 50; // Variable to store the number of remaining fertilizations
-let autoOption = true; // Variable to store the auto option state
+let autoOption = false; // Variable to store the auto option state
 let audioOption = true; // Variable to store the audio option state
-let prevSrc = "../static/images/tree_game/tree1.png";
-let animationInProgress = false;
+let coins = 2414; // Variable to store the number of coins
 
 // DONT STORE THIS IN THE DATABASE !!!!!!!!!!!!!!!!
+let animationInProgress = false;
+let prevSrc;
 let autoInterval; // Variable to store the interval for auto watering and fertilizing
 var autoButtontag = document.getElementById('autoButton');
 var audioButtontag = document.getElementById('audioButton');
@@ -25,8 +26,14 @@ document.addEventListener('DOMContentLoaded', function() {
   updateNumberofTrees(); 
   updateAutoOption();
   updateAudioOption();
-  
+  updateCoinsDisplay();
 });
+
+document.body.addEventListener('click', function ()  {backgroundAudio.play()});
+
+function updateCoinsDisplay(){
+  document.getElementById('CoinsOwnNumber').innerText = coins;
+}
 
 function updateAudioOption(click = false) {
   var audioButton = document.getElementById("audioButton");
@@ -36,19 +43,18 @@ function updateAudioOption(click = false) {
   }
   if(audioOption){
     audioElements.forEach(function(audio) {
-        // console.log(audio.muted);
-        audio.muted = false;
-        
+      // console.log(audio.muted);
+      audio.muted = false;
+      backgroundAudio.play();
     });
-    backgroundAudio.play();
     audioButtontag.src = "../static/images/tree_game/AudioButton.png";
     // audioButton.innerText = "Pause Audio";
   } else { 
     audioElements.forEach(function(audio) {
-        // console.log(audio.muted);
-        audio.muted = true;
+      // console.log(audio.muted);
+      audio.muted = true;
     });
-    backgroundAudio.pause();
+    // backgroundAudio.pause();
     audioButtontag.src = "../static/images/tree_game/AudioButtonPressed.png";
     // audioButton.innerText = "Play Audio";
   }
@@ -70,7 +76,7 @@ function updateAutoOption(click = false) {
 function startAuto() {
   console.log(autoButtontag.src)
   autoInterval = setInterval(autoWaterAndFertilize, 500); // Call autoWaterAndFertilize every second
-  autoButtontag.src = '../static/images/tree_game/AutoButtonPressed.png';
+  autoButtontag.src = '../static/images/tree_game/AutoButtonLooping.gif';
 }
 
 function stopAuto() {
@@ -83,7 +89,7 @@ function stopAuto() {
 function updateNumberofTrees() {
   document.getElementById(
     "treeCount"
-  ).innerText = `Number of Trees: ${treeCount}`
+  ).innerText = `${treeCount}`
 }
 
 function waterTree() {
@@ -188,7 +194,7 @@ function updateTree() {
     treeCount++; // Increment tree count
     document.getElementById(
       "treeCount"
-    ).innerText = `Number of Trees: ${treeCount}`; // Update tree count
+    ).innerText = `${treeCount}`; // Update tree count
     updateTree();
   }
 }
@@ -286,8 +292,6 @@ function updateFertilizerCount() {
 }
 
 
-
-
 function autoWaterAndFertilize() {
   console.log(wateringsLeft, lastAction);
   if (
@@ -361,6 +365,57 @@ centerShopModal();
 /////////////////////////////////////// End Modal for the shop items ///////////////////////////////////////
 
 
+
+/////////////////////////////////////// Start Modal for the helps ///////////////////////////////////////
+// Set the help modal element
+const $helpModalEl = document.getElementById("HelpModal");
+
+// Options for the help modal
+const helpModalOptions = {
+  backdrop: "dynamic",
+  backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
+  closable: true,
+  onHide: () => {
+    console.log("Help modal is hidden");
+    document.getElementById("helpButton").src="../static/images/tree_game/HelpButton.png";
+  },
+  onShow: () => {
+    console.log("Help modal is shown");
+    document.getElementById("helpButton").src="../static/images/tree_game/HelpButtonPressed.png";
+  },
+  onToggle: () => {
+    console.log("Help modal has been toggled");
+  },
+};
+
+// Create a new instance of the modal for the help modal
+const helpModal = new Modal($helpModalEl, helpModalOptions);
+
+// Function to handle closing the help modal when the close button is clicked
+document
+  .getElementById("btn-close-help-modal")
+  .addEventListener("click", () => {
+    helpModal.hide();
+  });
+
+// Function to unhide the help modal when the help button is clicked
+document.getElementById("helpButton").addEventListener("click", () => {
+  helpModal.show();
+});
+
+// Function to center the help modal
+function centerHelpModal() {
+  $helpModalEl.style.top = "50%";
+  $helpModalEl.style.left = "50%";
+  $helpModalEl.style.transform = "translate(-50%, -50%)";
+}
+
+// Call the centerHelpModal function when the window is resized
+window.addEventListener("resize", centerHelpModal);
+
+// Call the centerHelpModal function initially to center the modal
+centerHelpModal();
+/////////////////////////////////////// End Modal for the help ///////////////////////////////////////
 
 
 // $(document).ready(function () {
