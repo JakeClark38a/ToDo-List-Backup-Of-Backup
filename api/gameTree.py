@@ -19,13 +19,12 @@ def loadTree():
     curr_user = Users.query.filter_by(user_id=current_user.get_id()).first()
     tree = Trees.query.filter_by(user_id=curr_user.user_id).first()
     if tree is None:
-        new_tree = Trees(user_id=curr_user.user_id, tree_id = uuid.uuid4().hex, treeStage=0, treeCount=0, lastAction="", wateringsLeft=0, fertilizationsLeft=0, autoOption=False, audioOption=True)
+        new_tree = Trees(user_id=curr_user.user_id, tree_id = uuid.uuid4().hex, treeStage=0, treeCount=0, wateringsLeft=0, fertilizationsLeft=0, autoOption=False, audioOption=True)
         tododb.session.add(new_tree)
         json_tree = {
             'tree_id': new_tree.tree_id,
             'treeStage': new_tree.treeStage,
             'treeCount': new_tree.treeCount,
-            'lastAction': new_tree.lastAction,
             'wateringsLeft': new_tree.wateringsLeft,
             'fertilizationsLeft': new_tree.fertilizationsLeft,
             'autoOption': new_tree.autoOption,
@@ -38,7 +37,6 @@ def loadTree():
             'tree_id': new_tree.tree_id,
             'treeStage': new_tree.treeStage,
             'treeCount': new_tree.treeCount,
-            'lastAction': new_tree.lastAction,
             'wateringsLeft': new_tree.wateringsLeft,
             'fertilizationsLeft': new_tree.fertilizationsLeft,
             'autoOption': new_tree.autoOption,
@@ -59,7 +57,6 @@ def updateTree():
         data = request.get_json()
         tree.treeStage = data['treeStage']
         tree.treeCount = data['treeCount']
-        tree.lastAction = data['lastAction']
         tree.wateringsLeft = data['wateringsLeft']
         tree.fertilizationsLeft = data['fertilizationsLeft']
         tree.autoOption = data['autoOption']

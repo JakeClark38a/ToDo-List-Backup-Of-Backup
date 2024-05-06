@@ -22,6 +22,7 @@ class Users(tododb.Model, UserMixin):
     external_id = tododb.Column(tododb.NVARCHAR(40))
     isFillForm = tododb.Column(tododb.BOOLEAN, default=False)
     points = tododb.Column(tododb.Integer, default=0)
+    dark_mode = tododb.Column(tododb.BOOLEAN, default=False)
     TeamUser = tododb.relationship('Teams', secondary=User_Team, backref='users')
 
     def __repr__(self) -> str:
@@ -124,7 +125,6 @@ class Trees(tododb.Model):
     tree_id = tododb.Column(tododb.NVARCHAR(40), primary_key=True)
     treeStage = tododb.Column(tododb.Integer)
     treeCount = tododb.Column(tododb.Integer)
-    lastAction = tododb.Column(tododb.NVARCHAR(40))
     wateringsLeft = tododb.Column(tododb.Integer)
     fertilizationsLeft = tododb.Column(tododb.Integer)
     autoOption = tododb.Column(tododb.BOOLEAN, default=False)

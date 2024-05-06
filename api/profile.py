@@ -53,7 +53,8 @@ def get_profile():
         "country": curr_user.country,
         "email": curr_user.email,
         "isFirstTime": curr_user.isFillForm,
-        "points": curr_user.points
+        "points": curr_user.points,
+        "dark_mode": curr_user.dark_mode
     }
     return jsonify(json_data), 200
 

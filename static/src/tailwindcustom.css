@@ -191,7 +191,7 @@
 
   /*Start calendar*/
   #CalendarTable .day{
-    @apply text-lg text-left h-40 bg-primary-100/80 rounded-lg dark:bg-gray-600 p-2 ;
+    @apply text-lg text-left h-40 bg-primary-200/80 rounded-lg dark:bg-gray-600 p-2 ;
   }
   /*End calendar*/
 

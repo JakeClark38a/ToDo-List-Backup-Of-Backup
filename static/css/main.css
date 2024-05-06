@@ -1595,7 +1595,7 @@ input:checked + .toggle-bg {
 #CalendarTable .day {
   height: 10rem;
   border-radius: 0.5rem;
-  background-color: rgb(188 127 96 / 0.8);
+  background-color: rgb(140 185 190 / 0.8);
   padding: 0.5rem;
   text-align: left;
   font-size: 1.125rem;

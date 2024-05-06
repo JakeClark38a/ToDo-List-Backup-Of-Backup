@@ -1,6 +1,5 @@
 let treeStage = 30; // Initial stage of the tree
 let treeCount = 100; // Initial count of trees planted
-let lastAction = "fertilize"; // Variable to store the last action (water or fertilize)
 let wateringsLeft = 50; // Variable to store the number of remaining waterings
 let fertilizationsLeft = 50; // Variable to store the number of remaining fertilizations
 let autoOption = false; // Variable to store the auto option state
@@ -9,48 +8,131 @@ let coins = 2414; // Variable to store the number of coins
 
 // DONT STORE THIS IN THE DATABASE !!!!!!!!!!!!!!!!
 let animationInProgress = false;
+let lastAction = "water"; // Variable to store the last action (water or fertilize) default is "water"
 let prevSrc;
 let autoInterval; // Variable to store the interval for auto watering and fertilizing
 var autoButtontag = document.getElementById('autoButton');
 var audioButtontag = document.getElementById('audioButton');
 var backgroundAudio = document.getElementById('backgroundAudio');
 
-document.addEventListener('DOMContentLoaded', function() {
+// Function to load data from the server
+function loadData() {
+  return new Promise(function (resolve, reject) {
+    fetch('/tree/get', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        // You can add any additional headers if required
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Update variables with data received from the server
+        resolve(data);
+
+        // Now, you can use the updated variables as needed
+        // For example, update UI elements with the new data
+      })
+      .catch(error => {
+        console.error('Error loading data:', error);
+        // Handle error loading data
+        reject(error);
+      });
+  });
+}
+
+// Function to send data to the server
+function sendData() {
+  console.log("heelo");
+  const data = {
+    treeStage: treeStage,
+    treeCount: treeCount,
+    wateringsLeft: wateringsLeft,
+    fertilizationsLeft: fertilizationsLeft,
+    autoOption: autoOption,
+    audioOption: audioOption,
+    coins: coins
+  };
+  console.log("done");
+  fetch('/tree/update', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      // You can add any additional headers if required
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => response.json())
+    .then(responseData => {
+      // Handle response from the server if needed
+    })
+    .catch(error => {
+      console.error('Error sending data:', error);
+      // Handle error sending data
+    });
+}
+
+function RefreshAll() {
+  $.when(loadData()).done((data) => {
+
+    treeStage = data["treeStage"];
+    treeCount = data["treeCount"];
+    wateringsLeft = data["wateringsLeft"];
+    fertilizationsLeft = data["fertilizationsLeft"];
+    autoOption = data["autoOption"];
+    audioOption = data["audioOption"];
+    coins = data["coins"];
+    // console.log(treeStage);
+    // console.log(treeCount);
+    // console.log(wateringsLeft);
+    // console.log(fertilizationsLeft);
+
+    updateWaterCount();
+    updateFertilizerCount();
+    updateButtonStates();
+    updateTree(load = true);
+    updateProgressBar();
+    updateButtonStates();
+    updateNumberofTrees();
+    updateAutoOption();
+    updateAudioOption();
+    updateCoinsDisplay();
+    updateModal();
+  });
+}
+
+$(document).ready(function () {
+  //document.addEventListener('DOMContentLoaded', function() {
   // Execute the functions when the DOM content is loaded
-  updateWaterCount();
-  updateFertilizerCount();
-  updateButtonStates();
-  updateTree();
-  updateProgressBar();
-  updateButtonStates();
-  updateNumberofTrees(); 
-  updateAutoOption();
-  updateAudioOption();
-  updateCoinsDisplay();
+  RefreshAll();
 });
 
-document.body.addEventListener('click', function ()  {backgroundAudio.play()});
+wateringsLeft.on("change", sendData);
 
-function updateCoinsDisplay(){
+//// Refresh fuction 
+
+document.body.addEventListener('click', function () { backgroundAudio.play() });
+
+function updateCoinsDisplay() {
   document.getElementById('CoinsOwnNumber').innerText = coins;
 }
 
 function updateAudioOption(click = false) {
   var audioButton = document.getElementById("audioButton");
   var audioElements = document.querySelectorAll('audio');
-  if(click){
+  if (click) {
     audioOption = !audioOption;
   }
-  if(audioOption){
-    audioElements.forEach(function(audio) {
+  if (audioOption) {
+    audioElements.forEach(function (audio) {
       // console.log(audio.muted);
       audio.muted = false;
       backgroundAudio.play();
     });
     audioButtontag.src = "../static/images/tree_game/AudioButton.png";
     // audioButton.innerText = "Pause Audio";
-  } else { 
-    audioElements.forEach(function(audio) {
+  } else {
+    audioElements.forEach(function (audio) {
       // console.log(audio.muted);
       audio.muted = true;
     });
@@ -62,12 +144,12 @@ function updateAudioOption(click = false) {
 
 
 function updateAutoOption(click = false) {
-  if(click){
+  if (click) {
     autoOption = !autoOption;
   }
-  if(autoOption){
+  if (autoOption) {
     startAuto();
-  } else { 
+  } else {
     stopAuto();
   }
 }
@@ -149,13 +231,18 @@ function updateProgressBar() {
 }
 
 
-function updateTree() {
+function updateTree(load = false) {
   // Calculate the current stage of the tree
   let stage = Math.floor(treeStage / 20) + 1;
   if (stage === 12) stage = 1;
 
   // Set the tree image based on the current stage
   let newSrc = `../static/images/tree_game/tree${stage}.png`;
+
+  // If loading the tree, there will be no weird thing
+  if (load) {
+    prevSrc = newSrc;
+  }
 
   if (prevSrc !== newSrc && !animationInProgress) {
     // Set flag to indicate animation is in progress
@@ -212,7 +299,7 @@ function animate(action) {
   animation.style.cursor = "pointer"; // Adding cursor pointer
   animation.style.pointerEvents = "none"; // Adding pointer events none
 
-  
+
   // Get the position and size of the tree image
   const treeImg = document.getElementById("tree");
   const treeRect = treeImg.getBoundingClientRect();
@@ -377,11 +464,11 @@ const helpModalOptions = {
   closable: true,
   onHide: () => {
     console.log("Help modal is hidden");
-    document.getElementById("helpButton").src="../static/images/tree_game/HelpButton.png";
+    document.getElementById("helpButton").src = "../static/images/tree_game/HelpButton.png";
   },
   onShow: () => {
     console.log("Help modal is shown");
-    document.getElementById("helpButton").src="../static/images/tree_game/HelpButtonPressed.png";
+    document.getElementById("helpButton").src = "../static/images/tree_game/HelpButtonPressed.png";
   },
   onToggle: () => {
     console.log("Help modal has been toggled");
@@ -416,77 +503,3 @@ window.addEventListener("resize", centerHelpModal);
 // Call the centerHelpModal function initially to center the modal
 centerHelpModal();
 /////////////////////////////////////// End Modal for the help ///////////////////////////////////////
-
-
-// $(document).ready(function () {
-//   // Constants
-//   const MAX_TREE_LEVEL = 11;
-//   const XP_PER_CLICK = 5;
-//   const FERTILIZER_COST = 1;
-//   const WATER_COST = 1;
-
-//   // Variables
-//   let treeCounter = 0;
-//   let xp = 0;
-//   let food = 999;
-//   let water = 999;
-
-//   // DOM elements
-//   const treesContainer = $("#Trees");
-//   const treeCountDisplay = $("#treeCount");
-//   const fertilizerDisplay = $('#fertilizerCount');
-//   const waterDisplay = $('#waterCount');
-//   const xpDisplay = $('#xpCount');
-
-//   // Initialize UI
-//   fertilizerDisplay.text(food);
-//   waterDisplay.text(water);
-//   xpDisplay.text(`Xp: ${xp}/${xpForNextTree()}`);
-
-//   // Event listener
-//   treesContainer.on("click", ".currTree", function (event) {
-//     if (food < FERTILIZER_COST || water < WATER_COST) return;
-
-//     const $target = $(event.target);
-
-//     if ($target.hasClass("currTree")) {
-//       const currentSrc = $target.attr("src");
-//       const match = currentSrc.match(/tree(\d+)\.gif/);
-
-//       if (match && match[1]) {
-//         const currentNumber = parseInt(match[1], 10);
-//         const nextNumber = (currentNumber % MAX_TREE_LEVEL) + 1;
-
-//         // Update resources
-//         food -= FERTILIZER_COST;
-//         water -= WATER_COST;
-//         xp += 1;
-
-//         // Update UI
-//         fertilizerDisplay.text(food);
-//         waterDisplay.text(water);
-//         xpDisplay.text(`Xp: ${xp}/${xpForNextTree()}`);
-
-//         // Grow tree
-//         if (xp >= xpForNextTree()) {
-//           xp -= xpForNextTree();
-//           treeCounter++;
-//           treeCountDisplay.text(`Number of Trees: ${treeCounter}`);
-//           const newTree = $("<img />", {
-//             src: `../static/images/tree${nextNumber}.gif`,
-//             alt: "myTree",
-//             class: "m-auto tree new-tree currTree"
-//           });
-//           $target.attr("src", `../static/images/tree${nextNumber}.gif`).after(newTree);
-//         } else {
-//           $target.attr("src", `../static/images/tree${nextNumber}.gif`);
-//         }
-//       }
-//     }
-//   });
-
-//   // Function to calculate XP required for the next tree
-//   function xpForNextTree() {
-//     return treeCounter * 10 + 10;
-//   }
-// });
