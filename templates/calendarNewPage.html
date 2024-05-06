@@ -393,33 +393,6 @@
 
 
 
-        <!--########################################################### Dropdown Mode ######################################################################-->
-        <!-- Dropdown menu -->
-        <div id="Mode-Menu"
-            class="dropdown-anim duration-300 z-10 absolute right-10 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
-
-            <div id="ModeMenu-Profile" class="ModeMenu-Primary-Section"> <!--block-->
-                <div class="flex items-center">
-                    <div class="ModeMenu-Primary-Image-Wrapper">
-                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z" />
-                        </svg>
-
-                    </div>
-
-                    <div class="ModeMenu-Primary-Text">Grid</div>
-                </div>
-            </div><!--eoblock-->
-
-
-        </div>
-
-        <!--########################################################### EoDropdown Mode ######################################################################-->
-
-
-
         <!--########################################################### Calendar ######################################################################-->
         <!-- Redirect to Backend Generator here -->
         <!-- Begin Calendar -->
@@ -483,8 +456,8 @@
             </div>
             <!-- Desktop grid -->
             <!-- Show when in desktop size, hidden in mobile size -->
-            <div class="flex-1 inline-block rounded-lg bg-white dark:bg-gray-700 shadow-lg p-4">
-                <table id="CalendarTable" class="w-full h-full *:align-top border-collapse text-center table-fixed">
+            <div class="hidden md:inline-block flex-1 rounded-lg bg-white dark:bg-gray-700 shadow-lg p-4">
+                <table id="CalendarTable" class=" w-full h-full *:align-top border-collapse text-center table-fixed">
                     <tr id="Weekday" class="text-sm h-0 uppercase">
                         <td class="text-center h-6 leading-6 text-sm font-medium text-gray-500 dark:text-gray-400">Mon</td>
                         <td>Tue</td>
@@ -495,9 +468,7 @@
                         <td>Sun</td>
                     </tr>
                     <tr class="week">
-                        <td>
-                           1 row 
-                        </td>
+                        <td>1 row </td>
                         <td>2 row</td>
                         <td>3 row</td>
                         <td>4 row</td>

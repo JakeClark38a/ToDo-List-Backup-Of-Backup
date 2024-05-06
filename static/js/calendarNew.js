@@ -463,7 +463,7 @@ $(document).ready(function () {
     // } else {
     //     $("#CalendarTable").parent().addClass("hidden");
     // }
-    $("#CalendarTable").parent().addClass("hidden");
+    //$("#CalendarTable").parent().addClass("hidden");
     mapDatepickerToTable();
     
 
