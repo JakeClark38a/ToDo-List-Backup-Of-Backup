@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, redirect, url_for, render_template, session, flash, current_app
-from .model import Users, tododb, Teams, TeamGroupss, TeamTags, TeamTasks
+from .model import Users, tododb, Teams, TeamGroupss, TeamTags, TeamTasks, User_Team
 from flask_login import login_user, logout_user, login_required, current_user
 from flask_mail import Mail, Message
 from flask_bcrypt import Bcrypt
@@ -28,10 +28,20 @@ def datetime_to_string(user_date):
     result = datetime.datetime.strptime(user_date, '%Y-%m-%dT%H:%M')
     return result.strftime('%Y-%m-%d %H:%M:%S')
 
+
+
+#Endpoints
+
 @team.route('/team', methods=['GET'])
 @login_required
 def waiting_page():
-    return render_template('team.html')
+    return render_template('teamainpage.html')
+
+
+@team.route('/teamJoinCreatePage.html', methods=['GET'])
+@login_required
+def team_join_create_page():
+    return render_template('teamJoinCreatePage.html')
 
 @team.route('/team/create', methods=['POST'])
 @login_required
@@ -56,6 +66,23 @@ def get_team_create():
     return jsonify(team_data), 200
 
 
+@team.route('/team/<teamid>/get_info', methods=['GET'])
+@login_required
+def get_team_info(teamid):
+    team = Teams.query.filter_by(team_id=teamid).first()
+    team_data = {"team_name": team.team_name, "team_description": team.team_description}
+    return jsonify(team_data), 200
+
+@team.route('/team/<teamid>/user_list', methods=['GET'])
+@login_required
+def get_user_list(teamid):
+    team = Teams.query.filter_by(team_id=teamid).first()
+    user_list = team.users
+    user_data = []
+    for i in user_list:
+        user = Users.query.filter_by(user_id=i.user_id).first()
+        user_data.append({"userid": user.user_id, "name": user.name, "image": user.image})
+    return jsonify(user_data), 200
 
 
 #Joining team endpoint
@@ -159,7 +186,7 @@ def delete_todo(teamid):
 def get_todo(teamid):
     team_id = teamid
     if validate_user(current_user.get_id(), team_id):
-        tasks = TeamTasks.query.filter_by(user_id=current_user.get_id(), team_id=team_id).all()
+        tasks = TeamTasks.query.filter_by(team_id=team_id).all()
         task_list = []
         for task in tasks:
             task_list.append({'taskId': task.task_id, 'title': task.task_title, 'description': task.task_description, 'tag': task.tag_id, 'deadline': task.deadline.strftime('%Y-%m-%dT%H:%M'), 'points': task.points, 'isCompleted': task.isCompleted})

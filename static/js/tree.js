@@ -43,7 +43,7 @@ function loadData() {
 
 // Function to send data to the server
 function sendData() {
-  console.log("heelo");
+  console.log("test")
   const data = {
     treeStage: treeStage,
     treeCount: treeCount,
@@ -53,7 +53,6 @@ function sendData() {
     audioOption: audioOption,
     coins: coins
   };
-  console.log("done");
   fetch('/tree/update', {
     method: 'POST',
     headers: {
@@ -107,11 +106,9 @@ $(document).ready(function () {
   RefreshAll();
 });
 
-wateringsLeft.on("change", sendData);
-
 //// Refresh fuction 
 
-document.body.addEventListener('click', function () { backgroundAudio.play() });
+document.body.addEventListener('click', sendData);
 
 function updateCoinsDisplay() {
   document.getElementById('CoinsOwnNumber').innerText = coins;
@@ -242,6 +239,7 @@ function updateTree(load = false) {
   // If loading the tree, there will be no weird thing
   if (load) {
     prevSrc = newSrc;
+    document.getElementById("tree").src = `../static/images/tree_game/tree${stage}.png`
   }
 
   if (prevSrc !== newSrc && !animationInProgress) {

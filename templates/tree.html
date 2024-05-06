@@ -269,13 +269,13 @@
 				Your browser does not support the audio element.
 			</audio>
 
-			<div id="sideOptions">
-				<img src="../static/images/tree_game/MainPageButton.png" id="mainpageButton" class="" onclick=""></img>
+			<div id="sideOptions">	
+				<img src="../static/images/tree_game/MainPageButton.png" id="mainpageButton" class="" onclick="window.location.href=`{{url_for('todo.main_page')}}`">
 				<img src="../static/images/tree_game/AudioButton.png" id="audioButton" class=""
-					onclick="updateAudioOption(true)"></img>
+					onclick="updateAudioOption(true)">
 				<img src="../static/images/tree_game/AutoButton.png" id="autoButton" class=""
-					onclick="updateAutoOption(true)"></img>
-				<img src="../static/images/tree_game/HelpButton.png" id="helpButton" class=""></img>
+					onclick="updateAutoOption(true)">
+				<img src="../static/images/tree_game/HelpButton.png" id="helpButton" class="">
 			</div>
 
 			<div id="Items-hub" class="">

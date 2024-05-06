@@ -228,7 +228,7 @@ const getTask = function (day, month, year) {
     var tasks = [];
     for (var task in Dict.tasks) {
         var deadline = new Date(Dict.tasks[task].deadline);
-        console.log(deadline, deadline.getDate(), deadline.getMonth(), deadline.getFullYear());
+        // console.log(deadline, deadline.getDate(), deadline.getMonth(), deadline.getFullYear());
         if (deadline.getDate() == day && deadline.getMonth() + 1 == month && deadline.getFullYear() == year) {
             tasks.push(task);
             console.log("Task", task);
@@ -373,14 +373,20 @@ const mapDatepickerToTable = function () {
         let month = $("button.view-switch").text().split(" ")[0];
         month = monthDict[month];
         if (day >= 22 && countCell < 7) {
-            month --;
+            month--;
         } else if (day <= 13 && countCell > 28) {
-            month ++;
+            month++;
         } else {
             // nope
         }
         let year = parseInt($("button.view-switch").text().split(" ")[1]);
-        console.log("Tooltip", day, month, year, getTask(day, month, year));
+        // console.log("Tooltip", day, month, year, getTask(day, month, year));
+        if (getTask(day, month, year).length > 0) {
+            for (let taskId of getTask(day, month, year)) {
+                if (Dict.tasks[taskId].isCompleted == false)
+                    showTooltipInTable(Dict, taskId, rowIndex, colIndex);
+            }
+        }
         countCell++;
     });
 
@@ -450,7 +456,7 @@ const tooltipTemplate = function (taskId, task) {
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z"/>
             </svg>
-            Tags: ${task.tag}
+            Tags: ${Dict.tags[task.tag]}
         </p>
         <p>
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -462,24 +468,31 @@ const tooltipTemplate = function (taskId, task) {
     </div>
     `);
 }
-
+// Function to refresh tooltip table by removing all tooltips and buttons
 const refreshTooltipTable = function () {
     $('#CalendarTable button[data-tooltip-placement="bottom"]').remove();
     $('#CalendarTable div[role="tooltip"]').remove();
 }
-
+// Function to refresh task section by use .load() to reload #Task-Section
 const refreshTaskSection = function () {
     $("#Task-Section").load(location.href + " #Task-Section");
 }
-
+// Function to show tooltip in table with taskId and Dict at row, col
 const showTooltipInTable = function (Dict, taskId, row, col) {
     // With each day in #CalendarTable, find all tasks that have deadline on that day, then show its title in tooltip truncated
     // When click on that tooltip, show full description of the task
     // Tooltip will show deadline, description, tags, group of the task
 
-    // Debug only: show first task in #CalendarTable row 1 col 1
-    // Take first task in Dict.tasks
+    // Append tooltip to #CalendarTable at row, col with Dict and taskId
     $(`#CalendarTable tr.week:eq(${row}) td:eq(${col})`).append(tooltipTemplate(taskId, Dict.tasks[taskId]));
+    // Add event listener to show tooltip when click on button (because Flowbite tooltip is very LỎD)
+    $(`#CalendarTable button[data-tooltip-target="tooltip-bottom-${taskId}"]`).click(function () { });
+    const $targetEl = document.querySelector(`#CalendarTable #tooltip-bottom-${taskId}`);
+    const $triggerEl = document.querySelector(`#CalendarTable button[data-tooltip-target="tooltip-bottom-${taskId}"]`);
+    console.log("Target", $targetEl, "Trigger", $triggerEl);
+    const tooltip = new Tooltip($targetEl, $triggerEl, {
+        triggerType: "click",
+    });
 }
 
 const refreshOnDelay = function () {
@@ -491,24 +504,25 @@ const refreshOnDelay = function () {
     // update calendar table
     mapDatepickerToTable();
     // remove all tooltips and button
-    refreshTooltipTable();
+    // refreshTooltipTable();
 }
 
 
 $(document).ready(function () {
     // If screen width is greater than 768px, show calendar table
     // else hide it
-    // if ($(window).width() > 768) {
-    //     $("#CalendarTable").parent().removeClass("hidden");
-    // } else {
-    //     $("#CalendarTable").parent().addClass("hidden");
-    // }
+    if ($(window).width() > 768) {
+        $("#CalendarTable").parent().removeClass("hidden");
+    } else {
+        $("#CalendarTable").parent().addClass("hidden");
+    }
     //$("#CalendarTable").parent().addClass("hidden");
-    refreshTooltipTable();
+    // refreshTooltipTable();
+
     refreshTaskSection();
     function RefreshAll() {
         mapDatepickerToTable(); // reset all?
-        
+
         $.when(loadDict()).done(function (data) {
             // set initial date for #calendar is today
             // format: MM/DD/YYYY'
@@ -516,10 +530,10 @@ $(document).ready(function () {
             console.log('[6] Load data to calendar successfully!');
             console.log(Dict);
             // remove all tooltips and button
-            refreshTooltipTable();
+            // refreshTooltipTable();
             refreshTaskSection();
             // Show all tasks in #CalendarTable
-            showAllTasksInTable(Dict);
+            // showAllTasksInTable(Dict);
             // Get date from focused datepicker-cell
             let date = pickDate();
             console.log(date);
@@ -528,8 +542,8 @@ $(document).ready(function () {
             // Show all tasks that have deadline on focused day
             appendTask(Dict.tasks, date[0], date[1], date[2]);
             console.log(getTask(...date));
-            
 
+            mapDatepickerToTable(); // reset all?
             // with each div with class datepicker-cell, find "focused" class
             // if found, console log text content of the element
             // refresh each time user click datepicker-cell

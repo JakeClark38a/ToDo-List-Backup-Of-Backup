@@ -21,6 +21,7 @@ def loadTree():
     if tree is None:
         new_tree = Trees(user_id=curr_user.user_id, tree_id = uuid.uuid4().hex, treeStage=0, treeCount=0, wateringsLeft=0, fertilizationsLeft=0, autoOption=False, audioOption=True)
         tododb.session.add(new_tree)
+        tododb.session.commit()
         json_tree = {
             'tree_id': new_tree.tree_id,
             'treeStage': new_tree.treeStage,
@@ -34,13 +35,13 @@ def loadTree():
         return jsonify(json_tree), 200
     else:
         json_tree = {
-            'tree_id': new_tree.tree_id,
-            'treeStage': new_tree.treeStage,
-            'treeCount': new_tree.treeCount,
-            'wateringsLeft': new_tree.wateringsLeft,
-            'fertilizationsLeft': new_tree.fertilizationsLeft,
-            'autoOption': new_tree.autoOption,
-            'audioOption': new_tree.audioOption,
+            'tree_id': tree.tree_id,
+            'treeStage': tree.treeStage,
+            'treeCount': tree.treeCount,
+            'wateringsLeft': tree.wateringsLeft,
+            'fertilizationsLeft': tree.fertilizationsLeft,
+            'autoOption': tree.autoOption,
+            'audioOption': tree.audioOption,
             'coins': curr_user.points
         }
         return jsonify(json_tree), 200

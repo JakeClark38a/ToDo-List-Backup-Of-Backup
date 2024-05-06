@@ -90,7 +90,7 @@ class TeamGroupss(tododb.Model):
     def_tag = tododb.Column(tododb.NVARCHAR(40))
     team_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('teams.team_id', ondelete="CASCADE") ,primary_key=True)
     def __repr__(self) -> str:
-        return f'{self.group_id, self.group_title, self.user_id, self.color, self.def_tag}'
+        return f'{self.group_id, self.group_title, self.author_id, self.color, self.def_tag}'
 
 class TeamTags(tododb.Model):
     __tablename__ = 'teamtags'
@@ -101,7 +101,7 @@ class TeamTags(tododb.Model):
     group_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('groupss.group_id', ondelete="CASCADE") ,primary_key=True)
     team_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('teams.team_id', ondelete="CASCADE") ,primary_key=True)
     def __repr__(self) -> str:
-        return f'{self.tag_id, self.tag_title, self.tag_color, self.user_id, self.group_id}'
+        return f'{self.tag_id, self.tag_title, self.tag_color, self.author_id, self.group_id}'
     
 class TeamTasks(tododb.Model):
     __tablename__ = 'teamtasks'
@@ -117,7 +117,7 @@ class TeamTasks(tododb.Model):
     completed_user = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('users.user_id'))
 
     def __repr__(self) -> str:
-        return f'{self.task_id, self.task_title, self.task_description, self.tag_id, self.user_id, self.deadline, self.points, self.isCompleted}'
+        return f'{self.task_id, self.task_title, self.task_description, self.tag_id, self.author_id, self.deadline, self.points, self.isCompleted}'
 
 #For trees:
 class Trees(tododb.Model):

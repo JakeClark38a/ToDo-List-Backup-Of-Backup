@@ -744,19 +744,62 @@ ajaxHandler.team_LoadTask = function (team_id) {
 ajaxHandler.team_LoadInfo = function (team_id) {
     return new Promise(function (resolve, reject) {
         $.ajax({
-            url: "/profile/get",
+            url: "/team/"+team_id+"/get_info",
             type: "GET",
             success: function (data) {
                 resolve(data); // Resolve the promise with user info when AJAX call succeeds
             },
             error: function (error) {
-                console.log("Error loading user:", error);
                 reject(error); // Reject the promise if there is an error
             }
         });
     });
 };
 
+ajaxHandler.team_LoadUserList = function (team_id) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/"+team_id+"/user_list",
+            type: "GET",
+            success: function (data) {
+                resolve(data); // Resolve the promise with user info when AJAX call succeeds
+            },
+            error: function (error) {
+                reject(error); // Reject the promise if there is an error
+            }
+        });
+    });
+};
+
+ajaxHandler.team_LoadCreatedList = function () {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/create/get",
+            type: "GET",
+            success: function (data) {
+                resolve(data); // Resolve the promise with user info when AJAX call succeeds
+            },
+            error: function (error) {
+                reject(error); // Reject the promise if there is an error
+            }
+        });
+    });
+};
+
+ajaxHandler.team_LoadJoinedList = function () {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/join/get",
+            type: "GET",
+            success: function (data) {
+                resolve(data); // Resolve the promise with user info when AJAX call succeeds
+            },
+            error: function (error) {
+                reject(error); // Reject the promise if there is an error
+            }
+        });
+    });
+};
 
 //================================================================\\
 //======================  Load User Data  ========================\\

@@ -1,4 +1,3 @@
-
 import { modalteampage } from "./CRUDmodal_handlerforteam.js";
 
 let user = {
@@ -40,6 +39,7 @@ let team = {
         team_id: "id000003",
     },
 }
+
 function teamlist(id, name, des) {
     if (user.user_id == team[id].admin) {
         return (` <div id="` + id + `"class="py-3 team_createlist flex sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl  h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg  ">
@@ -100,21 +100,27 @@ $(document).ready(function () {
 
 
     function teamlist1() {
-        let teamlistjoi = $("#teamlist");
-        let teamlistcre = $("#teamlist2");
+        console.log('teamlist running');
+        let teamlistjoi = $("#CreateAndJoinTeam #teamlist");
+        let teamlistcre = $("#CreateAndJoinTeam #teamlist2");
+        console.log(teamlistjoi, teamlistcre);
         teamlistjoi.empty();
         teamlistcre.empty();
+        
         for (let key in team) {
             let teamname = team[key].name;
             let teamid = key;
             let teamcode = team[key].code;
             let teamdes = team[key].des;
             let admin = team[key].admin;
+           // console.log(teamname, teamid, teamcode, teamdes);
             if (user.user_id != admin) {
                 teamlistjoi.append(teamlist(teamid, teamname, teamdes));
+                console.log('helllo ')
             }
             else {
                 teamlistcre.append(teamlist(teamid, teamname, teamdes));
+                console.log('hi')
             }
         }
     }
@@ -152,6 +158,8 @@ $(document).ready(function () {
         teamlist1();
     }
     teamlist1();
+
+
     $("#create").click(function () {
         modalteampage.CreateTeam();
     });
@@ -172,9 +180,9 @@ $(document).ready(function () {
     $("#createandjoin").click(function () {
         $("#teamcreate_join ").show();
 
-        $("#teampage #pageheader").hide();
-        $("#teampage #teamlist").hide();
-        $("#teampage #teamlist2").hide();
+        $("#CreateAndJoinTeam #pageheader").hide();
+        $("#CreateAndJoinTeam #teamlist").hide();
+        $("#CreateAndJoinTeam #teamlist2").hide();
     });
     // don't using not working now
     /*
@@ -201,8 +209,8 @@ $(document).ready(function () {
         modalteampage.hide();
         $("#teamcreate_join ").hide();
 
-        $("#teampage #pageheader").show();
-        $("#teampage #teamlist").show();
+        $("#CreateAndJoinTeam #pageheader").show();
+        $("#CreateAndJoinTeam #teamlist").show();
         $('#teamlist2').hide();
         teamlist1();
     });
@@ -213,9 +221,9 @@ $(document).ready(function () {
         modalteampage.hide();
         $("#teamcreate_join ").hide();
 
-        $("#teampage #pageheader").show();
-        $("#teampage #teamlist").hide();
-        $('#teamlist2').show();
+        $("#CreateAndJoinTeam #pageheader").show();
+        $("#CreateAndJoinTeam #teamlist").hide();
+        $('#CreateAndJoinTeam #teamlist2').show();
         $("#changetojoin").addClass("text-gray-400");
         $(this).addClass("text-gray-800");
         $(this).addClass("dark:text-white");
@@ -231,8 +239,8 @@ $(document).ready(function () {
         modalteampage.hide();
         $("#teamcreate_join ").hide();
 
-        $("#teampage #pageheader").show();
-        $("#teampage #teamlist").hide();
+        $("#CreateAndJoinTeam #pageheader").show();
+        $("#CreateAndJoinTeam #teamlist").hide();
         $('#teamlist2').show();
         teamlist1();
 
@@ -263,16 +271,16 @@ $(document).ready(function () {
     });
     $("#backbtn").click(function () {
         $("#teamcreate_join").hide();
-        $("#teampage").show();
-        $("#teampage #pageheader").show();
-        $("#teampage #teamlist").show();
-        $("#teampage #teamlist2").hide();
+        $("#CreateAndJoinTeam").show();
+        $("#CreateAndJoinTeam #pageheader").show();
+        $("#CreateAndJoinTeam #teamlist").show();
+        $("#CreateAndJoinTeam #teamlist2").hide();
         $("#changetojoin").addClass("text-gray-800");
         $("#changetojoin").addClass("dark:text-white");
         $("#changetocreate").addClass("text-gray-400");
         $("#changetojoin").removeClass("text-gray-400");
         $("#changetocreate").removeClass("text-gray-800");
         $("#changetocreate").removeClass("dark:text-white");
-         
+
     });
 });
