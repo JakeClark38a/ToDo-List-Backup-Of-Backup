@@ -125,7 +125,7 @@ $(document).ready(function () {
         }
     }
 
-    $("#teamlist2").on("click", ".dropdown_btn_tc", function (e) {
+    $("#CreateAndJoinTeam #teamlist2").on("click", ".dropdown_btn_tc", function (e) {
         console.log("clicked dropdown");
         let dropdown = $(e.currentTarget).next("#dropdown");
         dropdown.toggle();
@@ -160,25 +160,25 @@ $(document).ready(function () {
     teamlist1();
 
 
-    $("#create").click(function () {
+    $("#CreateAndJoinTeam #create").click(function () {
         modalteampage.CreateTeam();
     });
 
-    $("#join").click(function () {
+    $("#CreateAndJoinTeam #join").click(function () {
         modalteampage.JoinTeam();
     });
-    $("#create1").click(function () {
+    $("#CreateAndJoinTeam #create1").click(function () {
         modalteampage.CreateTeam();
     });
 
-    $("#join1").click(function () {
+    $("#CreateAndJoinTeam #join1").click(function () {
         modalteampage.JoinTeam();
     });
 
     modalteampage.resetState();
 
-    $("#createandjoin").click(function () {
-        $("#teamcreate_join ").show();
+    $("#CreateAndJoinTeam #createandjoin").click(function () {
+        $("#CreateAndJoinTeam #teamcreate_join ").show();
 
         $("#CreateAndJoinTeam #pageheader").hide();
         $("#CreateAndJoinTeam #teamlist").hide();
@@ -198,7 +198,7 @@ $(document).ready(function () {
         return teamId, teamname, teamdes;
      }
      */
-    $("#Join-sec").click(function () {
+    $("#CreateAndJoinTeam #Join-sec").click(function () {
         let searchCode = $("#code-sec #teamcode").val();
         console.log(searchCode);
         let teamId = Object.keys(team).find(key => team[key].code == searchCode);
@@ -207,19 +207,19 @@ $(document).ready(function () {
         let teamdes = team[teamId].des;
         addteam(teamId, teamname, teamdes);
         modalteampage.hide();
-        $("#teamcreate_join ").hide();
+        $("#CreateAndJoinTeam #teamcreate_join ").hide();
 
         $("#CreateAndJoinTeam #pageheader").show();
         $("#CreateAndJoinTeam #teamlist").show();
         $('#teamlist2').hide();
         teamlist1();
     });
-    $("#Create-sec").click(function () {
+    $("#CreateAndJoinTeam #Create-sec").click(function () {
         let teamname = $("#teamname-sec #teamname").val();
         let teamdes = $("#teamdesc-sec #teamdescription").val();
         addteam(null, teamname, teamdes);
         modalteampage.hide();
-        $("#teamcreate_join ").hide();
+        $("#CreateAndJoinTeam #teamcreate_join ").hide();
 
         $("#CreateAndJoinTeam #pageheader").show();
         $("#CreateAndJoinTeam #teamlist").hide();
@@ -232,12 +232,12 @@ $(document).ready(function () {
         $("#changetojoin").removeClass("dark:text-white");
         teamlist1();
     });
-    $("#save-sec").click(function () {
+    $("#CreateAndJoinTeam #save-sec").click(function () {
         let id = $('#crud-modal2 input[type="checkbox"]').attr("id");
         team[id].name = $('#crud-modal2 #teamname').val();
         team[id].des = $('#crud-modal2 #teamdescription').val();
         modalteampage.hide();
-        $("#teamcreate_join ").hide();
+        $("#CreateAndJoinTeam #teamcreate_join ").hide();
 
         $("#CreateAndJoinTeam #pageheader").show();
         $("#CreateAndJoinTeam #teamlist").hide();
@@ -245,7 +245,7 @@ $(document).ready(function () {
         teamlist1();
 
     });
-    $("#delete-sec").click(function () {
+    $("#CreateAndJoinTeam #delete-sec").click(function () {
         let id = $('#crud-modal2 input[type="checkbox"]').attr("id");
         $('#teamname-sec #teamname').val("");
         $('#teamdesc-sec #teamdescription').val("");
@@ -253,24 +253,24 @@ $(document).ready(function () {
 
 
 
-    $("#teamlist").on("click", ".removejointeam", function () {
+    $("#CreateAndJoinTeam #teamlist").on("click", ".removejointeam", function () {
         let teamid = $(this).closest(".team_joinlist").attr("id");
         console.log(teamid);
         removeteam(teamid);
     });
-    $("#teamlist2").on("click", ".removecreateteam", function () {
+    $("#CreateAndJoinTeam #teamlist2").on("click", ".removecreateteam", function () {
         let teamid = $(this).closest(".team_createlist").attr("id");
         console.log(teamid);
         removeteam(teamid);
     });
-    $("#teamlist2").on("click", ".editteam", function () {
+    $("#CreateAndJoinTeam #teamlist2").on("click", ".editteam", function () {
         let teamid = $(this).closest(".team_createlist").attr("id");
         console.log(teamid);
 
         modalteampage.editTeam(team[teamid]);
     });
-    $("#backbtn").click(function () {
-        $("#teamcreate_join").hide();
+    $("#CreateAndJoinTeam #backbtn").click(function () {
+        $("#CreateAndJoinTeam #teamcreate_join").hide();
         $("#CreateAndJoinTeam").show();
         $("#CreateAndJoinTeam #pageheader").show();
         $("#CreateAndJoinTeam #teamlist").show();
