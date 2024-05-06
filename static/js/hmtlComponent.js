@@ -236,7 +236,7 @@ MainScreen.FormmatterAddons = function (mode = 0) {
 MainScreen.AddFloatButton = function (isActive = true) {
     return isActive ? (`
     <!-- add question action button here-->
-    <div id="add-draggable"  class="z-30 absolute">
+    <div id="add-draggable"  class="z-30 left-[60%] absolute">
         <div  class="touch-none select-none">
             <div id="moveButton" 
                 class="hover:w-12 hover:h-12 border-2 border-gray-300 absolute rounded-full w-12 h-12 bg-main/55 dark:bg-gray-700/60 backdrop-blur-sm shadow-xl p-2">
@@ -384,6 +384,7 @@ alert.Danger = function (msg) {
 };
 
 alert.Warning = function (msg) {
+    let uuid = Utils.getUuid();
     return (`
     <div id="`+ uuid + `" class="flex items-center z-50 w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
@@ -520,7 +521,7 @@ chatBox.chatSuggestTask = function (id = Utils.getUuid(), Title, Desc, Due) {
                     ` +
         Desc +
         `</p>
-                    <button id="`+id+`" type="button"
+                    <button id="`+ id + `" type="button"
                     class="suggest-task-accept bg-accent-300 rounded-xl shadow-lg h-8 w-8 font-bold border-none cursor-pointer">
 
                     <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">

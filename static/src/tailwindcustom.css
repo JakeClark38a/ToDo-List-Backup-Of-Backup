@@ -504,6 +504,7 @@
 
   /* End calendar */
 
+  
   /* Begin profile */
 
   /* For screens wider than 1000px */
@@ -524,6 +525,7 @@
     @apply opacity-50;
   }
   /* End profile */
+
 
   /* Start tree */
   .vt323-regular {

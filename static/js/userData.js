@@ -191,7 +191,7 @@ class Utils {
 
     static randHexColor() {
         // make sure the hex color not too bright or dark
-        return "#" + (Math.floor((Math.random()*222)+40).toString(16))+(Math.floor((Math.random()*222)+40).toString(16))+(Math.floor((Math.random()*222)+40).toString(16));
+        return "#" + (Math.floor((Math.random() * 222) + 40).toString(16)) + (Math.floor((Math.random() * 222) + 40).toString(16)) + (Math.floor((Math.random() * 222) + 40).toString(16));
     }
 
     static fromJSON(obj, json) {
@@ -297,7 +297,7 @@ class Tag {
                 title: this.title,
                 color: this.color,
                 groupId: this.groupId,
-                deleteable: this.deleteable,
+                deletable: this.deletable,
                 editable: this.editable,
                 display: this.display,
                 tagID: this.tagID
@@ -311,12 +311,11 @@ class Tag {
     }
 }
 class Dict {
-    constructor(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {}) {
+    constructor(username = "", userid = "", groups = {}, tasks = {},tags = {}) {
         this.username = username; // username of the user
         this.userid = userid; // user id of the user
         this.groups = groups; // groups of the user (group id: group object)
         this.tasks = tasks; // tasks of the user (task id: task object)
-        this.completed = completed; // completed tasks of the user 
         this.tags = tags; // tags of the user (tag id: tag object)
     }
     // Getters
@@ -331,9 +330,6 @@ class Dict {
     }
     getTasks() {
         return this.tasks;
-    }
-    getCompleted() {
-        return this.completed;
     }
     getTags() {
         return this.tags;
@@ -354,9 +350,9 @@ class Dict {
 }
 
 class DictCRUD extends Dict {
-    constructor(username = "", userid = "", groups = {}, tasks = {}, completed = {}, tags = {}) {
+    constructor(username = "", userid = "", groups = {}, tasks = {}, tags = {}) {
         // Generate Dict object and assign to this
-        super(username, userid, groups, tasks, completed, tags);
+        super(username, userid, groups, tasks, tags);
     }
     // Add methods to create, read, update, delete Dict
     // Create
@@ -488,12 +484,6 @@ class DictCRUD extends Dict {
             let task = new Task();
             task.fromJSON(obj.tasks[taskID]);
             this.tasks[taskID] = task;
-        }
-        // Import completed tasks
-        for (const taskID in obj.completed) {
-            let task = new Task();
-            task.fromJSON(obj.completed[taskID]);
-            this.completed[taskID] = task;
         }
         // Import tags
         for (const tagID in obj.tags) {
