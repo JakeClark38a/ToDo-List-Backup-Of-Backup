@@ -475,7 +475,7 @@ ajaxHandler.LoadUserData = function () {
             };
             // filter all task that have group and tags no longer exist
             // implement later
-
+            
             console.log(Dict);
             ajaxHandler.getUserProfileImage();
             resolve(Dict);

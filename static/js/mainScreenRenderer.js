@@ -60,6 +60,7 @@ function LoadMainScreen(Dict, currentMode = 0) {
                 if (
                     Dict.tasks.hasOwnProperty(taskId) && (
                         group.tags.includes(Dict.tasks[taskId].tag) || group.def_tag == Dict.tasks[taskId].tag)
+                        && Dict.tasks[taskId].isCompleted == false
                 ) {
                     // Pass task details to renderTaskMainScreen
                     renderTaskMainScreen(
