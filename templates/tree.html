@@ -155,16 +155,20 @@
 					<!-- Help information -->
 					<div id="help-lines">
 						<div>
+							<img src="../static/images/tree_game/MainPageButton.png">
+							<span class="text-sm font-medium text-gray-900 dark:text-white">Navigate to the homepage.</span>
+						</div>
+						<div>
 							<img src="../static/images/tree_game/AudioButton.png">
-							<span class="text-sm font-medium text-gray-900 dark:text-white">Toggle audio</span>
+							<span class="text-sm font-medium text-gray-900 dark:text-white">Toggle audio.</span>
 						</div>
 						<div>
 							<img src="../static/images/tree_game/AutoButton.png">
-							<span class="text-sm font-medium text-gray-900 dark:text-white">Toggle auto</span>
+							<span class="text-sm font-medium text-gray-900 dark:text-white">Toggle auto.</span>
 						</div>
 						<div>
 							<img src="../static/images/tree_game/HelpButton.png">
-							<span class="text-sm font-medium text-gray-900 dark:text-white">Toggle help</span>
+							<span class="text-sm font-medium text-gray-900 dark:text-white">Toggle help.</span>
 						</div>
 						<div>
 							<img src="../static/images/tree_game/shop.png">
@@ -222,7 +226,7 @@
 				<source src="../static/sounds/treegrown.mp3" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
-			<audio id="backgroundAudio" loop>
+			<audio id="backgroundAudio">
 				<source src="../static/sounds/ambient_sound.mp3" type="audio/mpeg">
 				Your browser does not support the audio element.
 			</audio>
@@ -244,6 +248,7 @@
 			</audio>
 
 			<div id="sideOptions">
+				<img src="../static/images/tree_game/MainPageButton.png" id="mainpageButton" class="" onclick=""></img>
 				<img src="../static/images/tree_game/AudioButton.png" id="audioButton" class="" onclick="updateAudioOption(true)"></img>
 				<img src="../static/images/tree_game/AutoButton.png" id="autoButton" class="" onclick="updateAutoOption(true)"></img>
 				<img src="../static/images/tree_game/HelpButton.png" id="helpButton" class=""></img>
