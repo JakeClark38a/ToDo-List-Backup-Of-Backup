@@ -34,6 +34,7 @@ mysql> (Type all things in setup.sql)
 
 rm -rf migrations
 flask db init 
+mysql -u todolist -p
 flask db migrate 
 flask db upgrade
 =======

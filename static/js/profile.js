@@ -22,8 +22,6 @@ function init() {
 }
 init();
 
-/////////////////////////////////////// password modal code begin
-
 // Set the password modal element
 const $passwordModalEl = document.getElementById("password-modal");
 
@@ -75,7 +73,7 @@ $("#submit-password").click(function (e) {
   var current_password = $("#current-password-sec").find("#current-password").val();
   var new_password = $("#new-password-sec").find("#new-password").val();
   var confirm_password = $("#confirm-password-sec").find("#confirm-password").val();
-  ajaxHandler.resetpassword(current_password, new_password, confirm_password).done(() => { Alert.Success("Password changed successfully!") }).fail(() => { Alert.Danger("Password change failed!") });
+  $.when(ajaxHandler.resetpassword(current_password, new_password, confirm_password)).done(() => { Alert.Success("Password changed successfully!") }).fail(() => { Alert.Danger("Password change failed!") });
   passwordModal.hide();
 
 });
@@ -289,12 +287,13 @@ function displayUserInfo() {
   $("#Time-Zone-Section").find("#country").val(userInfo.country);
 }
 
+
 function updateUserInfo() {
   userInfo.username = $("#Username-Section").find("#user_profile_name").val();
   userInfo.bio = $("#Bio-Section").find("#user_profile_bio").val();
   userInfo.country = $("#Time-Zone-Section").find("#country").val();
   displayUserInfo();
-  ajaxHandler.setUserInfo(userInfo.username, userInfo.bio, userInfo.country).done(()=>{Alert.Success("User info updated successfully!")}).fail(()=>{Alert.Danger("User info update failed!")});
+  $.when(ajaxHandler.setUserInfo(userInfo.username, userInfo.bio, userInfo.country)).done(()=>{Alert.Success("User info updated successfully!")}).fail(()=>{Alert.Danger("User info update failed!")});
 }
 $("#Apply-Change-Button").click(updateUserInfo);
 
@@ -303,13 +302,13 @@ $("#change-email").click(function () {
   let curr_email = $("#current-email-sec").find("#current-email").val();
   let new_email = $("#new-email-sec").find("#new-email").val();
   let otp = $("#authenticate-code-sec").find("#authenticate-code").val();
-  ajaxHandler.ChangeEmail(curr_email, new_email, otp).done(()=>{Alert.Success("Email changed successfully!")}).fail(()=>{Alert.Danger("Email change failed!")});
+  $.when(ajaxHandler.ChangeEmail(curr_email, new_email, otp)).done(()=>{Alert.Success("Email changed successfully!")}).fail(()=>{Alert.Danger("Email change failed!")});
   location.reload();
 });
 
 $("#send-mail").click(function () {
   let curr_mail = $("#current-email-sec").find("#current-email").val();
-  ajaxHandler.SendConfirmation(curr_mail).done(()=>{Alert.Success("Email sent, please check you mailbox.")}).fail(()=>{Alert.Danger("Email sending failed! Please check your email address.")});
+  $.when(ajaxHandler.SendConfirmation(curr_mail)).done(()=>{Alert.Success("Email sent, please check you mailbox.")}).fail(()=>{Alert.Danger("Email sending failed! Please check your email address.")});
 });
 
 ajaxHandler.getUserProfileImage();

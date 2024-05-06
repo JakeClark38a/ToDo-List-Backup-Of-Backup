@@ -8,6 +8,37 @@
   <link rel="stylesheet" href="../static/css/main.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript" charset="UTF-8">
+    var socket;
+    $(document).ready(function () {
+      socket = io.connect('http://' + document.domain + ':' + location.port);
+      socket.on('connect', function () {
+        socket.emit('join', {});
+      });
+      socket.on('status', function (data) {
+        $('#chat-content').append('<div>' + data.msg + '</div>');
+        $('#chat-content').scrollTop($('#chat-content')[0].scrollHeight);
+      });
+      socket.on('message', function (data) {
+        $('#chat-content').append('<div>' + data.msg + '</div>');
+        $('#chat-content').scrollTop($('#chat-content')[0].scrollHeight);
+      });
+      $('#chat-send-button').click(function () {
+        socket.emit('text', {
+          msg: $('#chat-message').val()
+        });
+        $('#chat-message').val('');
+      });
+      $('#chat-open-button').click(function () {
+        $('#chat-box-wrapper').toggleClass('hidden');
+      });
+      $('#close-chat-box').click(function () {
+        $('#chat-box-wrapper').toggleClass('hidden');
+      });
+    });
+  </script>
 </head>
 
 <body class="bg-[#dbdcdf] bg-cover overflow-x-hidden *:transition-all">
@@ -294,36 +325,36 @@
         <div class="relative z-10 p-2" data-carousel="slide" data-carousel-interval="4500">
           <div class="statistics relative h-56 w-80 md:w-96 md:h-80 overflow-hidden rounded-lg">
 
-            <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
-              <div class="image-wrapper">
-                <img class="logo-image" src="/static/images/Team Building - 640x469.png" alt="img">
+              <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                <div class="image-wrapper">
+                  <img class="logo-image" src="/static/images/Team Building - 640x469.png" alt="img">
+                </div>
+                <div class="content text-center font-semibold text-lg">1+ millions teams</div>
               </div>
-              <div class="content text-center font-semibold text-lg">1+ millions teams</div>
-            </div>
 
-            <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
-              <div class="image-wrapper">
-                <img class="logo-image" src="/static/images/Work scheduling - 640x427.png" alt="img">
+              <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                <div class="image-wrapper">
+                  <img class="logo-image" src="/static/images/Work scheduling - 640x427.png" alt="img">
+                </div>
+                <div class="content text-center font-semibold text-lg">47+ millions hours saved</div>
               </div>
-              <div class="content text-center font-semibold text-lg">47+ millions hours saved</div>
-            </div>
 
-            <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
-              <div class="image-wrapper">
-                <img class="logo-image" src="/static/images/Global Impact - 640x608.png" alt="img">
+              <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                <div class="image-wrapper">
+                  <img class="logo-image" src="/static/images/Global Impact - 640x608.png" alt="img">
+                </div>
+                <div class="content text-center font-semibold text-lg">67+ countries</div>
               </div>
-              <div class="content text-center font-semibold text-lg">67+ countries</div>
-            </div>
 
-            <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
-              <div class="image-wrapper">
-                <img class="logo-image" src="/static/images/Guidance - 480x480.png" alt="img">
+              <div class="statistic-frame duration-[4500ms] ease-linear" data-carousel-item>
+                <div class="image-wrapper">
+                  <img class="logo-image" src="/static/images/Guidance - 480x480.png" alt="img">
+                </div>
+                <div class="content text-center font-semibold text-lg">50k+ successful projects</div>
               </div>
-              <div class="content text-center font-semibold text-lg">50k+ successful projects</div>
-            </div>
 
+            </div>
           </div>
-        </div>
 
         <div
           class="fade-right absolute right-0 z-20 h-56 w-14 md:h-80 bg-gradient-to-l from-main to-transparent rounded-lg">
