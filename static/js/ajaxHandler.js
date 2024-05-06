@@ -295,105 +295,123 @@ ajaxHandler.LoadUser = function () {
 
 //Function to render image of user profile
 ajaxHandler.getUserProfileImage = function () {
-    $.ajax({
-        type: "GET",
-        url: "/profile/get/image",
-        success: function (data) {
-            $("#Avatar-Image").attr("src", data);
-            $("#User-Current-Avatar").attr("src", data);
-        },
-        error: function (data) {
-            console.log("Error");
-        }
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "GET",
+            url: "/profile/get/image",
+            success: function (data) {
+                $("#Avatar-Image").attr("src", data);
+                $("#User-Current-Avatar").attr("src", data);
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
     });
 }
 
 ajaxHandler.setUserInfo = function (username, bio, country) {
-    $.ajax({
-        url: "/profile/update",
-        type: "POST",
-        data: JSON.stringify({
-            username: username,
-            bio: bio,
-            country: country,
-        }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log('Success');
-        },
-        error: function (data) {
-            console.log('Error');
-        },
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/profile/update",
+            type: "POST",
+            data: JSON.stringify({
+                username: username,
+                bio: bio,
+                country: country,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log('Success');
+                resolve(data);
+            },
+            error: function (data) {
+                console.log('Error');
+                reject(data);
+            },
+        });
     });
 }
 
 
 ajaxHandler.ChangeEmail = function (curr_email, new_email, opt) {
-    $.ajax({
-        url: "/profile/update/email",
-        type: "POST",
-        data: JSON.stringify({
-            curr_email: curr_email,
-            new_email: new_email,
-            otp: opt,
-        }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log('Success');
-        },
-        error: function (data) {
-            console.log('Error');
-        },
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/profile/update/email",
+            type: "POST",
+            data: JSON.stringify({
+                curr_email: curr_email,
+                new_email: new_email,
+                otp: opt,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log('Success');
+                resolve(data);
+            },
+            error: function (data) {
+                console.log('Error');
+                reject(data);
+            },
+        });
     });
 }
 
 
 
 ajaxHandler.SendConfirmation = function (curr_email) {
-    $.ajax({
-        url: "/profile/update/email_confirmation",
-        type: "POST",
-        data: JSON.stringify({
-            curr_email: curr_email,
-        }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log('Success');
-        },
-        error: function (data) {
-            console.log('Error');
-        },
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/profile/update/email_confirmation",
+            type: "POST",
+            data: JSON.stringify({
+                curr_email: curr_email,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log('Success');
+                resolve(data);
+            },
+            error: function (data) {
+                console.log('Error');
+                reject(data);
+            },
+        });
     });
 }
 
 ajaxHandler.resetpassword = function (curr_password, new_password, confirm_password) {
-    $.ajax({
-        url: "/profile/update/password",
-        type: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        data: JSON.stringify({
-            curr_password: curr_password,
-            new_password: new_password,
-            confirm_password: confirm_password,
-        }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            console.log('Success');
-        },
-        error: function (data) {
-            console.log('Error');
-        },
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/profile/update/password",
+            type: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify({
+                curr_password: curr_password,
+                new_password: new_password,
+                confirm_password: confirm_password,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log('Success');
+                resolve(data);
+            },
+            error: function (data) {
+                console.log('Error');
+                reject(data);
+            },
+        });
     });
 }
-
-
 
 
 
@@ -411,12 +429,16 @@ ajaxHandler.LoadUserData = function () {
             console.log("[1] All data loaded successfully.");
             console.log(groupData);
             console.log(tagData);
-            // console.log(taskData);
-            // console.log(userData);
+            console.log(taskData);
+            console.log(userData);
 
             Dict.username = userData.username;
             Dict.bio = userData.bio;
             Dict.country = userData.country;
+            Dict.email = userData.email;
+            Dict.points = userData.points;
+            Dict.isFirstTime = userData.isFirstTime;
+
             if (!Dict.username) {
                 Dict.username = "User-" + Utils.getUuid().substring(0, 6);
                 Dict.country = "Global";
@@ -473,9 +495,17 @@ ajaxHandler.LoadUserData = function () {
                     ajaxHandler.addTag(dft.tagID, dft.groupId, dft.title, dft.color);
                 };
             };
+
             // filter all task that have group and tags no longer exist
-            // implement later
-            
+            for (let taskId in Dict.tasks) {
+                let t = Dict.tasks[taskId];
+                if (!Dict.groups[t.groupId] || !Dict.tags[t.tag]) {
+                    console.log(t.taskID + " Task error: No group or tag assigned!");
+                    // impletment later
+                    continue;
+                }
+            }
+
             console.log(Dict);
             ajaxHandler.getUserProfileImage();
             resolve(Dict);

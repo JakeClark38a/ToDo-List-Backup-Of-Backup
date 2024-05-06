@@ -1,3 +1,4 @@
+
 import { modalteampage } from "./CRUDmodal_handlerforteam.js";
 
 let user = {
@@ -11,7 +12,7 @@ let team = {
         code: "213-abc",
         members: ["user1", "user2"],
         admin: "user3",
-        team_id: "id00acv",
+        id: "id00acv",
     },
 
     id000001: {
@@ -20,7 +21,7 @@ let team = {
         code: "code1",
         members: [],
         admin: "ddeffdsdfgsd",
-        team_id: "id000001",
+        id: "id000001",
     },
     id000002: {
         name: "Team 2",
@@ -41,43 +42,41 @@ let team = {
 }
 function teamlist(id, name, des) {
     if (user.user_id == team[id].admin) {
-        return (
-            ` <div id="` + id + `"class="team_createlist flex sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl  h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg  ">
-      <div class="inline-block  self-center border-2 rounded-full mx-4 ">
-          <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
-      </div>
-      <div class="inline-block grow mr-2 ">
-          <p id="`+ name + `" class="dark:text-white">` + name + `</p>
-          <p id="`+ des + `" class="dark:text-white">` + des + `</p>
-      </div>
-      <div class="inline-block justify-self-end self-center mr-4">
-                        <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots `+ id + `" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
-                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
-                            <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
-                            </svg>
-                            </button>
-                            
-                            <!-- Dropdown menu -->
-                            <div id="dropdownDots `+ id + `" class="z-10 hidden border-2 border-white bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                                <ul class="py-2 w-full text-sm text-gray-700 dark:text-white" aria-labelledby="dropdownMenuIconButton">
-                                  <li>
-                                    <button class="editteam block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</button>
-                                  </li>
-                                  <li>
-                                    <button class="removecreateteam flex self-start px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete team</button>
-                                  </li>
-                                </ul>
-                               
-                            </div>
-                            
-                          
-                    </div>
-  </div> `
-        );
+        return (` <div id="` + id + `"class="py-3 team_createlist flex sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl  h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg  ">
+        <div class="inline-block  self-center border-2 rounded-full mx-4 ">
+            <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
+        </div>
+        <div class="inline-block grow mr-2 ">
+            <p id="`+ name + `" class="dark:text-white">` + name + `</p>
+            <p id="`+ des + `" class="dark:text-white">` + des + `</p>
+        </div>
+        <div class=" justify-self-end self-center mr-4 ">
+                            <button id="dropdownMenuIconButton `+ id + `"  class="dropdown_btn_tc bg-white inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
+                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
+                                <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
+                                </svg>
+                                </button>
+                                
+                                <!-- Dropdown menu -->
+                                <div id="dropdown" class="absolute z-10 hidden border-2 border-white bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                                    <ul class="py-2 w-full text-sm text-gray-700 dark:text-white" aria-labelledby="dropdownMenuIconButton">
+                                    <li>
+                                        <button class="editteam block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</button>
+                                    </li>
+                                    <li>
+                                        <button class="removecreateteam flex self-start px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete team</button>
+                                    </li>
+                                    </ul>
+                                
+                                </div>
+                                
+                        </div>
+    </div>
+    `);
     }
     else {
         return (
-            ` <div id="` + id + `"class="team_joinlist flex sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl  h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg  ">
+            ` <div id="` + id + `"class="team_joinlist py-3 flex sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl  h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg  ">
         <div class="inline-block  self-center border-2 rounded-full mx-4 ">
             <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
         </div>
@@ -91,9 +90,7 @@ function teamlist(id, name, des) {
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
         </svg>
         </button>
-                              
-                            
-                      </div>
+        </div>
         </div> `
         );
     }
@@ -122,6 +119,11 @@ $(document).ready(function () {
         }
     }
 
+    $("#teamlist2").on("click", ".dropdown_btn_tc", function (e) {
+        console.log("clicked dropdown");
+        let dropdown = $(e.currentTarget).next("#dropdown");
+        dropdown.toggle();
+    });
 
     function addteam(teamid, teamname, teamdes) {
 
@@ -212,12 +214,18 @@ $(document).ready(function () {
         $("#teamcreate_join ").hide();
 
         $("#teampage #pageheader").show();
-        $("#teampage #teamlist").show();
-        $('#teamlist2').hide();
+        $("#teampage #teamlist").hide();
+        $('#teamlist2').show();
+        $("#changetojoin").addClass("text-gray-400");
+        $(this).addClass("text-gray-800");
+        $(this).addClass("dark:text-white");
+        $("#changetojoin").removeClass("text-gray-800");
+        $(this).removeClass("text-gray-400");
+        $("#changetojoin").removeClass("dark:text-white");
         teamlist1();
     });
     $("#save-sec").click(function () {
-        let id =  $('#crud-modal2 input[type="checkbox"]').attr("id");
+        let id = $('#crud-modal2 input[type="checkbox"]').attr("id");
         team[id].name = $('#crud-modal2 #teamname').val();
         team[id].des = $('#crud-modal2 #teamdescription').val();
         modalteampage.hide();
@@ -230,13 +238,13 @@ $(document).ready(function () {
 
     });
     $("#delete-sec").click(function () {
-        let id =  $('#crud-modal2 input[type="checkbox"]').attr("id");
+        let id = $('#crud-modal2 input[type="checkbox"]').attr("id");
         $('#teamname-sec #teamname').val("");
         $('#teamdesc-sec #teamdescription').val("");
     });
 
-   
-    
+
+
     $("#teamlist").on("click", ".removejointeam", function () {
         let teamid = $(this).closest(".team_joinlist").attr("id");
         console.log(teamid);
@@ -250,7 +258,21 @@ $(document).ready(function () {
     $("#teamlist2").on("click", ".editteam", function () {
         let teamid = $(this).closest(".team_createlist").attr("id");
         console.log(teamid);
-        
+
         modalteampage.editTeam(team[teamid]);
+    });
+    $("#backbtn").click(function () {
+        $("#teamcreate_join").hide();
+        $("#teampage").show();
+        $("#teampage #pageheader").show();
+        $("#teampage #teamlist").show();
+        $("#teampage #teamlist2").hide();
+        $("#changetojoin").addClass("text-gray-800");
+        $("#changetojoin").addClass("dark:text-white");
+        $("#changetocreate").addClass("text-gray-400");
+        $("#changetojoin").removeClass("text-gray-400");
+        $("#changetocreate").removeClass("text-gray-800");
+        $("#changetocreate").removeClass("dark:text-white");
+         
     });
 });
