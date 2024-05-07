@@ -229,7 +229,7 @@
 
   #waterbutton img,
   #fertilizebutton img {
-    @apply cursor-pointer px-[6px] py-[4px]; 
+    @apply px-[6px] py-[4px]; 
     /* Adjust margin as needed */
     /* Add a transparent border initially */
     /* Add padding for spacing */
@@ -237,7 +237,11 @@
 
   #waterbutton,
   #fertilizebutton {
-    @apply mx-5;
+    @apply mx-5 min-w-[151px] min-h-[75px] cursor-pointer flex px-2;
+  }
+
+  #fertilizerCount, #waterCount {
+    @apply text-4xl vt323-regular relative max-w-[40px];
   }
 
   #waterbutton, #fertilizebutton {

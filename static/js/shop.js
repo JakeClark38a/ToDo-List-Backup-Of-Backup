@@ -55,8 +55,8 @@ function purchaseItem() {
 		updateModal();
 
 		// Perform the purchase action here (e.g., update inventory)
-		fertilizationsLeft+=parseInt(waterQuantityInput.value);
-		wateringsLeft+=parseInt(fertilizerQuantityInput.value);
+		fertilizationsLeft+=parseInt(fertilizerQuantityInput.value);
+		wateringsLeft+=parseInt(waterQuantityInput.value);
 		document.getElementById('fertilize-quantity').value = 0;
 		document.getElementById('water-quantity').value = 0;
 		updateFertilizerCount();

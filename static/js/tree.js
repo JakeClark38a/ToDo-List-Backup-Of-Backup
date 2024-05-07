@@ -4,7 +4,7 @@ let wateringsLeft = 50; // Variable to store the number of remaining waterings
 let fertilizationsLeft = 50; // Variable to store the number of remaining fertilizations
 let autoOption = false; // Variable to store the auto option state
 let audioOption = true; // Variable to store the audio option state
-let coins = 2414; // Variable to store the number of coins
+let coins = 241400; // Variable to store the number of coins
 
 // DONT STORE THIS IN THE DATABASE !!!!!!!!!!!!!!!!
 let animationInProgress = false;
