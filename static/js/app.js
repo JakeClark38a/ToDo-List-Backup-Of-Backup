@@ -19,6 +19,7 @@ import { LoadMainMenu, toggleHiddenMMenuGroup, addNewTagMainMenu } from "./mainM
 import { LoadMainScreen, renderGroupMainScreen } from "./mainScreenRenderer.js";
 import { Alert } from "./alertMsg.js";
 import { chadBot } from "./chadbot.js";
+import { updateMMenuTabIndicator } from "./updateMMenu.js";
 
 //================================================================\\
 //=========================== Variables ==========================\\
@@ -63,6 +64,9 @@ function getData() {
 
       };
       //Alert.Success("Data loaded successfully!");
+      $("#Toggle-DarkMode").prop('checked', Dict.darkmode);
+      $("html").toggleClass("dark", Dict.darkmode);
+      
       resolve(Dict);
     });
   });
@@ -82,7 +86,7 @@ $(document).ready(function () {
       $("#MMenu-Group-Section").empty();
       LoadMainMenu(Dict);
       LoadMainScreen(Dict, currentMode);
-      updateMMenuTabIndicator();
+    
       modalMainScreen.LoadTags(Dict);
       modalMainScreen.LoadGroups(Dict);
     });
@@ -134,22 +138,22 @@ $(document).ready(function () {
 
     if (t2.length <= 2) {
       if (ampm === "am") {
-      //  console.log(parseInt(t2[1].substring(0, t2[1].length - 2)))
-        currentDate.setHours(parseInt(t2[1].substring(0, t2[1].length - 2)),0);
+        //  console.log(parseInt(t2[1].substring(0, t2[1].length - 2)))
+        currentDate.setHours(parseInt(t2[1].substring(0, t2[1].length - 2)), 0);
       } else {
         console.log("AI: ", t2, t2[1]);
-       // console.log(parseInt(t2[1].substring(0, t2[1].length - 2)) + 12)
-        currentDate.setHours(parseInt(t2[1].substring(0, t2[1].length - 2)) + 12,0);
+        // console.log(parseInt(t2[1].substring(0, t2[1].length - 2)) + 12)
+        currentDate.setHours(parseInt(t2[1].substring(0, t2[1].length - 2)) + 12, 0);
       }
     } else {
       if (ampm === "am") {
-       // console.log(parseInt(t2[0].substring(0, t2[0].length - 2)))
+        // console.log(parseInt(t2[0].substring(0, t2[0].length - 2)))
         currentDate.setHours(parseInt(t2[0].substring(0, t2[0].length - 2)));
       } else {
-       // console.log(parseInt(t2[0].substring(0, t2[0].length - 2)) + 12)
+        // console.log(parseInt(t2[0].substring(0, t2[0].length - 2)) + 12)
         currentDate.setHours(parseInt(t2[0].substring(0, t2[0].length - 2)) + 12);
       }
-     // console.log(parseInt(t2[1]))
+      // console.log(parseInt(t2[1]))
       currentDate.setMinutes(parseInt(t2[1]));
     }
 
@@ -282,70 +286,8 @@ $(document).ready(function () {
     let task_id = $(e.currentTarget).attr('id');
     let task_info = suggestTasks[task_id];
     if (task_info == null) return;
-    modalMainScreen.AddEditTask(task_info ,null, true);
+    modalMainScreen.AddEditTask(task_info, null, true);
   })
-  //================================================================\\
-  //=========================== User list ========================\\
-  //================================================================\\
-    $('#NavBar #UserList-Toggle').on('click', () => {
-      $('#Main-Screen').toggleClass("hidden xl:inline-block");
-      $('#UserList-Section').toggleClass("hidden",);
-    });
-
-    let User = {
-      id10458: {
-          name: "Âm",
-          img: "https://source.unsplash.com/random/1920x1080?nature",
-          user_id : "id10458",
-
-      },
-      id10459: {
-          name: "Binh",
-          img: "https://source.unsplash.com/random/1920x1080?nature",
-          user_id : "id10459",
-      },
-    }
-    function userlist(name, img, user_id) {
-      return(
-      `
-      <div id="`+ user_id +`" class="user_list_create p-2 flex h-12 w-full md:w-4/6 lg:w-full bg-gray-300/50  my-1  border-2 rounded-lg gap-3">
-      <div class="flex-none self-center w-8 h-8 ">
-          <img class=" w-full h-full  rounded-full" src="`+ img +`" alt="avtr">
-      </div>
-      <div class="flex-1 self-center  mr-2 overflow-hidden">
-          <p id="" class="dark:text-gray-500 text-black text-lg text-nowrap">`+name+`</p>
-      </div>
-      <div class=" flex-none  justify-end self-center  ">
-      <button id="ban-user"  
-      class="banuser bg-white inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-900 rounded-lg
-       hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">        
-       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
-        </svg>
-                                                           
-      </button>                                                                                                                                                                                    
-      </div>
- </div>
-      `
-    )};
-    function loadUserList() {
-      let userList = $(' #ListUser');
-      userList.empty();
-      for (let key in User) {
-        userList.append(userlist(User[key].name, User[key].img, User[key].user_id));
-      }
-    }
-    function banUser(user_id) {
-      console.log(user_id);
-      delete  User[user_id];
-      loadUserList();
-    }
-    loadUserList();
-    $('#UserList-Section').on('click', '.banuser',function(){
-      let user_id = $(this).closest(".user_list_create").attr('id');
-      console.log(user_id);
-      banUser(user_id);
-    });
 
   //================================================================\\
   //=========================== Avatar Menu ========================\\
@@ -356,7 +298,9 @@ $(document).ready(function () {
   });
 
   $("#PMenu-DarkMode").find("#Toggle-DarkMode").click(function () {
-    $("html").toggleClass("dark", $("#Toggle-DarkMode").prop('checked'));
+    $.when(ajaxHandler.updateDarkmode($("#Toggle-DarkMode").prop('checked'))).done(function () {
+      $("html").toggleClass("dark", ajaxHandler.getDarkmode().dark_mode)
+    });
   });
 
   //================================================================\\
@@ -377,27 +321,7 @@ $(document).ready(function () {
     $("#Main-Menu-Click").toggleClass("-rotate-90")
   });
 
-  function updateMMenuTabIndicator(tab = null) {
-    var $tab = tab ? tab : $("#Main-Menu").find("#MMenu-Today");
-    var currId = $tab.attr('id');
-    const indiModeCSS = 'border-r-4 border-primary-200 bg-gradient-to-l from-primary-200/35 to-transparent';
-
-    // clear all previous tab border 
-    $('#Main-Menu .MMenu-Primary-Section').removeClass(indiModeCSS);
-    //console.log(currId);
-    const indicatTab = ['MMenu-Today', 'MMenu-Calendar', 'MMenu-Garden'];
-    if (indicatTab.indexOf(currId) !== -1) {
-      $tab.toggleClass(indiModeCSS);
-      if (indicatTab.indexOf(currId) == 0) {
-        currentMMenuTab = 0;
-        console.log("Today");
-      }
-    }
-  }
-
-  $('#Main-Menu').on('click', '.MMenu-Primary-Section', function (e) {
-    updateMMenuTabIndicator($(this));
-  });
+  updateMMenuTabIndicator();
 
   //Add group
   $("#MMenu-Group-Add").click(function () {
@@ -600,11 +524,12 @@ $(document).ready(function () {
       }
       else {
         // Update Dict
+        let t_old = Dict.tasks[id];
         if (new Date(expired).getTime() - Date.now() <= 0) { Alert.Danger("Cannot set due time in the past!"); return; }
-        let t = Dict.createTask(title, desc, tag, expired, 4, id);
-        Dict.updateTask(t.taskID, t);
+        let t_new = Dict.createTask(title, desc, tag, expired, 4, id, t_old.isCompleted);
+        Dict.updateTask(t_new.taskID, t_new);
         // Call ajaxHandler. at /todo/create with JSON data
-        $.when(ajaxHandler.updateTask(t.taskID, t.title, t.description, t.tag, t.deadline, t.points)).done(() => { RefreshAll(); Alert.Success("Task updated successfully"); });
+        $.when(ajaxHandler.updateTask(t_new.taskID, t_new.title, t_new.description, t_new.tag, t_new.deadline, t_new.points, t_new.isCompleted)).done(() => { RefreshAll(); Alert.Success("Task updated successfully"); });
       }
     }
 
@@ -623,10 +548,11 @@ $(document).ready(function () {
           ).done(() => { RefreshAll(); Alert.Success("Group added successfully"); });
       }
       else { // Edit groups
-        let g = Dict.createGroup(title, [], null, color, "", id);
-        Dict.updateGroup(g.groupID, g);
+        let g_old = Dict.groups[id];
+        let g_new = Dict.createGroup(title, g_old.tags, g_old.def_tag , color, "", id);
+        Dict.updateGroup(g_new.groupID, g_new);
         $("#MMenu-Group-Section").find("#" + g.groupID).find("#MMenu-Group-Title").text(g.title);
-        $.when(ajaxHandler.updateGroup(g.groupID, g.title, g.color, g.def_tag)).done(() => { RefreshAll(); Alert.Success("Group updated successfully"); });
+        $.when(ajaxHandler.updateGroup(g_new.groupID, g_new.title, g_new.color, g_new.def_tag)).done(() => { RefreshAll(); Alert.Success("Group updated successfully"); });
       }
     }
 
@@ -639,12 +565,13 @@ $(document).ready(function () {
         $.when(ajaxHandler.addTag(t.tagID, t.groupId, t.title, t.color)).done(() => { RefreshAll(); Alert.Success("Tag added successfully"); });
       }
       else { //Edit tags     
-        let t = Dict.createTag(title, color, groupId, true, true, true, id);
-        Dict.updateTag(t.tagID, t);
-        $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Tag-Title").text(t.title);
+        let t_old = Dict.tags[id];
+        let t_new = Dict.createTag(title, color, groupId, t_old.deletable, t_old.editable, t_old.display , id);
+        Dict.updateTag(t_new.tagID, t_new);
+        $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Tag-Title").text(t_new.title);
 
 
-        $.when(ajaxHandler.updateTag(t.tagID, t.groupId, t.title, t.color)).done(() => { RefreshAll(); Alert.Success("Tag updated successfully"); });
+        $.when(ajaxHandler.updateTag(t_new.tagID, t_new.groupId, t_new.title, t_new.color)).done(() => { RefreshAll(); Alert.Success("Tag updated successfully"); });
 
       }
     }

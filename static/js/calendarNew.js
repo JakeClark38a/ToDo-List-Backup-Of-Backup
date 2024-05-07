@@ -1,6 +1,7 @@
 import { ajaxHandler } from './ajaxHandler.js';
 import { MainScreen } from './hmtlComponent.js';
 import { modalMainScreen } from './CRUDmodal_handler.js';
+import { updateMMenuTabIndicator } from "./updateMMenu.js";
 
 var Dict = {  // sample dict
     username: "JakeClark",
@@ -536,6 +537,7 @@ $(document).ready(function () {
 
 
     function RefreshAll() {
+        updateMMenuTabIndicator();
         refreshOnDelay();
 
         $.when(loadDict()).done(function (data) {

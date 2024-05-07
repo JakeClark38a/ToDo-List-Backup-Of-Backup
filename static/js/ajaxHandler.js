@@ -413,6 +413,44 @@ ajaxHandler.resetpassword = function (curr_password, new_password, confirm_passw
     });
 }
 
+ajaxHandler.getDarkmode = function () {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/profile/get/dark_mode",
+            type: "GET",
+            success: function (data) {
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
+    });
+}
+
+ajaxHandler.updateDarkmode = function (dark_mode = false) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/profile/update/dark_mode",
+            type: "POST",
+            data: JSON.stringify({
+                dark_mode: dark_mode,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
+    });
+
+}
+
 //================================================================\\
 //========================== Game Data  ==========================\\
 //================================================================\\
@@ -893,9 +931,9 @@ ajaxHandler.team_DeleteTeam = function (team_id) {
 
 }
 ajaxHandler.team_LeaveTeam = function (team_id) {
-    rerturn new Promise(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
         $.ajax({
-            url: "/team/"+team_id+"/leave",
+            url: "/team/" + team_id + "/leave",
             type: "POST",
             data: JSON.stringify({
                 team_id: team_id,
@@ -911,8 +949,43 @@ ajaxHandler.team_LeaveTeam = function (team_id) {
                 reject(data);
             },
         });
-    }
+    });
 }
+
+ajaxHandler.team_setLastVisitedTeam = function (team_id) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/lastvisit",
+            type: "POST",
+            data: JSON.stringify({
+                last_team: team_id,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                resolve(data); // Resolve the promise with user info when AJAX call succeeds
+            },
+            error: function (error) {
+                reject(error); // Reject the promise if there is an error
+            }
+        });
+    });
+};
+
+ajaxHandler.team_getLastVisitedTeam = function () {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/lastvisit",
+            type: "GET",
+            success: function (data) {
+                resolve(data); // Resolve the promise with user info when AJAX call succeeds
+            },
+            error: function (error) {
+                reject(error); // Reject the promise if there is an error
+            }
+        });
+    });
+};
 //================================================================\\
 //======================  Load User Data  ========================\\
 //================================================================\\
@@ -926,8 +999,9 @@ ajaxHandler.LoadUserData = function () {
             ajaxHandler.LoadGroup(),
             ajaxHandler.LoadTag(),
             ajaxHandler.LoadTask(),
-            ajaxHandler.LoadUser()
-        ).done(function (groupData, tagData, taskData, userData) {
+            ajaxHandler.LoadUser(),
+            ajaxHandler.getDarkmode(),
+        ).done(function (groupData, tagData, taskData, userData, darkmode) {
             // All AJAX calls are completed
             console.log("[1] All data loaded successfully.");
             console.log(groupData);
@@ -941,6 +1015,7 @@ ajaxHandler.LoadUserData = function () {
             Dict.email = userData.email;
             Dict.points = userData.points;
             Dict.isFirstTime = userData.isFirstTime;
+            Dict.darkmode = darkmode.dark_mode;
 
             if (!Dict.username) {
                 Dict.username = "User-" + Utils.getUuid().substring(0, 6);
@@ -1028,8 +1103,9 @@ ajaxHandler.LoadTeamData = function (team_id) {
             ajaxHandler.team_LoadGroup(team_id),
             ajaxHandler.team_LoadTag(team_id),
             ajaxHandler.team_LoadTask(team_id),
-            ajaxHandler.team_LoadInfo(team_id)
-        ).done(function (groupData, tagData, taskData, teamData) {
+            ajaxHandler.team_LoadInfo(team_id),
+            ajaxHandler.getDarkmode(),
+        ).done(function (groupData, tagData, taskData, teamData, darkmode) {
             // All AJAX calls are completed
             console.log("[1] All data loaded successfully.");
             console.log(groupData);
@@ -1041,6 +1117,7 @@ ajaxHandler.LoadTeamData = function (team_id) {
             Dict.bio = teamData.bio;
             Dict.team_id = teamData.team_id;
             Dict.team_code = teamData.team_code;
+            Dict.darkmode = darkmode.dark_mode;
 
             if (!Dict.name) {
                 Dict.name = "Team-" + Utils.getUuid().substring(0, 6);
@@ -1108,7 +1185,7 @@ ajaxHandler.LoadTeamData = function (team_id) {
             }
 
             console.log(Dict);
-            // ajaxHandler.team_getUserProfileImage();
+            ajaxHandler.getUserProfileImage();
             resolve(Dict);
         })
     });

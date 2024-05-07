@@ -12,7 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Reddit+Mono:wght@200..900&display=swap"
         rel="stylesheet">
-
+    <title>Team</title>
 </head>
 
 <body class="overflow-hidden bg-bg4 bg-cover bg-center *:transition-colors">
@@ -228,13 +228,13 @@
 
     <!--########################################################### EoAddons ######################################################################-->
 
-    <div class="bg-main/25 dark:bg-gray-700/70"> <!--Body Container-->
+    <div class="bg-main/25 dark:bg-gray-700/70 overflow-hidden"> <!--Body Container-->
         <!--Begin header-->
 
         <!--########################################################### NavBar ######################################################################-->
         <div id="NavBar"
             class="flex justify-between items-center shadow-xl bg-white dark:bg-gray-700 py-0 pt-2 h-16 lg:h-18 lg:py-2 ">
-            <div class="flex justify-evenly items-center gap-2 md:gap-8">
+            <div class="flex justify-evenly items-center gap-2 md:gap-4">
                 <!--button-->
                 <div id="Main-Menu-Click"
                     class="transform transition-all duration-200 ease-in-out headbar-button overflow-hidden p-2 mx-2 hover:bg-main/35">
@@ -244,14 +244,26 @@
                             d="M5 7h14M5 12h14M5 17h10" />
                     </svg>
                 </div>
+
+                <div id="Team-Menu-Click"
+                    class="flex gap-1 md:w-40 transform transition-all duration-200 ease-in-out headbar-button overflow-hidden p-2 hover:bg-main/35">
+                    <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M11 9h6m-6 3h6m-6 3h6M6.996 9h.01m-.01 3h.01m-.01 3h.01M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" />
+                    </svg>
+                    <div
+                        class="hidden md:inline-block w-40 text-gray-800 dark:text-white text-left font-medium text-base">
+                        Teams list</div>
+                </div>
+
             </div>
 
             <div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center font-[Lato] dark:text-main"></div>
 
             <div class="flex justify-end items-center p-2 gap-2 ">
 
-                <div id="Team-Code-Dis"
-                    class="hidden w-20 text-md md:text-lg  font-medium text-gray-800 dark:text-main ">
+                <div id="Team-Code-Dis" class="hidden w-32 text-md md:text-lg text-gray-800 dark:text-main ">
                     ID: ______
                 </div>
 
@@ -402,9 +414,9 @@
             <div id="MMenu-Team" class="MMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="1.5"
                                 d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
                         </svg>
                     </div>
@@ -482,15 +494,14 @@
 
 
         <!--########################################################### Main Screen ######################################################################-->
-        <div id="CreateAndJoinTeam"
-            class="Container backdrop-blur-sm py-5 h-screen overflow-y-scroll overflow-x-hidden">
+        <div id="CreateAndJoinTeam" class="Container backdrop-blur-sm py-5 overflow-hidden h-screen">
 
         </div>
         <!--########################################################### EoMain Screen ######################################################################-->
         <div id="Main-Section" class="flex">
             <!--Begin Main screen-->
             <div id="Main-Screen"
-                class="w-full inline-block backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
+                class="w-full inline-block backdrop-blur-sm py-10 h-screen overflow-y-scroll overflow-x-hidden">
                 <!-- Dynamic draggable button here -->
                 <div id="Main-Formatter" class="relative w-full">
                     <div id="Wrapper" class="relative flex flex-wrap justify-center items-center gap-8 py-10 lg:px-36">
@@ -601,6 +612,9 @@
         <script>
             $("#CreateAndJoinTeam").load("teamJoinCreatePage.html");
             $('#Main-Section').hide();
+            $('#MMenu-Group-Section').hide();
+            $('#MMenu-Group-Add').hide();
+            $('#Team-Menu-Click').hide();
         </script>
 </body>
 

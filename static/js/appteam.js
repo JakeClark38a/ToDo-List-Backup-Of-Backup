@@ -3,9 +3,9 @@
 NOTICE:
 This file handles all the actions that are related to the main content of the page
 This file handle:
-  - Main content include : group, task, tags
-  - CRUD content
-  - Render out mainPage content for Today tab
+  - Main content include : group, task, tags for team
+  - CRUD content for team
+  - Render out mainPage content for Team tab
 
 */
 //=====================================================================\\
@@ -19,6 +19,8 @@ import { LoadMainMenu, toggleHiddenMMenuGroup, addNewTagMainMenu } from "./mainM
 import { LoadMainScreen, renderGroupMainScreen } from "./mainScreenRenderer.js";
 import { Alert } from "./alertMsg.js";
 import { lastVisitedTeam } from "./list.js";
+import { updateMMenuTabIndicator } from "./updateMMenu.js";
+
 //================================================================\\
 //=========================== Variables ==========================\\
 //================================================================\\
@@ -62,6 +64,9 @@ function getData(team_id) {
       console.log(Dict);
       console.log(UsersList);
       //Alert.Success("Data loaded successfully!");
+      $("#Toggle-DarkMode").prop('checked', Dict.darkmode);
+      $("html").toggleClass("dark", Dict.darkmode);
+
       resolve(Dict, UsersList);
     });
   });
@@ -70,7 +75,7 @@ function getData(team_id) {
 function onVisitTeam() {
   $("#CreateAndJoinTeam").hide();
   $("#Main-Section").show();
-  $("#UserList-Toggle").show();
+
   init();
 }
 
@@ -79,11 +84,20 @@ function RefreshAll(team_id) {
   $.when(getData(team_id)).done(function (data) {
     Dict = data;
     console.log("[7] Refresh the mainscreen");
+    console.log(Dict);
+
     $("#Team-Code-Dis").text("CD: " + Dict.team_code);
     $("#Team-Code-Dis").show();
-    console.log(Dict);
+    $('#MMenu-Group-Section').show();
+    $('#MMenu-Group-Add').show();
+    $("#UserList-Toggle").show();
+    $('#Team-Menu-Click').show();
+
     $("#Main-Screen").empty();
     $("#MMenu-Group-Section").empty();
+
+
+
     LoadMainMenu(Dict);
     LoadMainScreen(Dict, currentMode);
     refreshUserList();
@@ -134,14 +148,22 @@ function refreshUserList() {
   }
 }
 
+$("#Team-Menu-Click").on('click', () => {
+  $("#CreateAndJoinTeam").show();
+  $("#Main-Section").hide();
+
+  $("#Team-Code-Dis").hide();
+  $('#MMenu-Group-Section').hide();
+  $('#MMenu-Group-Add').hide();
+  $("#UserList-Toggle").hide();
+  $('#Team-Menu-Click').hide();
+});
+
 $(document).ready(function () {
   //================================================================\\
   //========================== Initialize ==========================\\
   //================================================================\\
 
-
-  init();
-  updateMMenuTabIndicator();
   /* Main Display rule
 
         |_MainScreen
@@ -188,7 +210,9 @@ $(document).ready(function () {
   });
 
   $("#PMenu-DarkMode").find("#Toggle-DarkMode").click(function () {
-    $("html").toggleClass("dark", $("#Toggle-DarkMode").prop('checked'));
+    $.when(ajaxHandler.updateDarkmode($("#Toggle-DarkMode").prop('checked'))).done(function () {
+      $("html").toggleClass("dark", ajaxHandler.getDarkmode().dark_mode)
+    });
   });
 
   //================================================================\\
@@ -209,27 +233,8 @@ $(document).ready(function () {
     $("#Main-Menu-Click").toggleClass("-rotate-90")
   });
 
-  function updateMMenuTabIndicator(tab = null) {
-    var $tab = tab ? tab : $("#Main-Menu").find("#MMenu-Today");
-    var currId = $tab.attr('id');
-    const indiModeCSS = 'border-r-4 border-primary-200 bg-gradient-to-l from-primary-200/35 to-transparent';
+  updateMMenuTabIndicator();
 
-    // clear all previous tab border 
-    $('#Main-Menu .MMenu-Primary-Section').removeClass(indiModeCSS);
-    //console.log(currId);
-    const indicatTab = ['MMenu-Today', 'MMenu-Calendar', 'MMenu-Garden'];
-    if (indicatTab.indexOf(currId) !== -1) {
-      $tab.toggleClass(indiModeCSS);
-      if (indicatTab.indexOf(currId) == 0) {
-        currentMMenuTab = 0;
-        console.log("Today");
-      }
-    }
-  }
-
-  $('#Main-Menu').on('click', '.MMenu-Primary-Section', function (e) {
-    updateMMenuTabIndicator($(this));
-  });
 
   //Add group
   $("#MMenu-Group-Add").click(function () {
@@ -432,11 +437,12 @@ $(document).ready(function () {
       }
       else {
         // Update Dict
+        let t_old = Dict.tasks[id];
         if (new Date(expired).getTime() - Date.now() <= 0) { Alert.Danger("Cannot set due time in the past!"); return; }
-        let t = Dict.createTask(title, desc, tag, expired, 4, id);
-        Dict.updateTask(t.taskID, t);
+        let t_new = Dict.createTask(title, desc, tag, expired, 4, id, t_old.isCompleted);
+        Dict.updateTask(t_new.taskID, t_new);
         // Call ajaxHandler. at /todo/create with JSON data
-        $.when(ajaxHandler.team_updateTask(team_id, t.taskID, t.title, t.description, t.tag, t.deadline, t.points)).done(() => { RefreshAll(team_id); Alert.Success("Task updated successfully"); });
+        $.when(ajaxHandler.team_updateTask(team_id, t_new.taskID, t_new.title, t_new.description, t_new.tag, t_new.deadline, t_new.points, t_new.isCompleted)).done(() => { RefreshAll(team_id); Alert.Success("Task updated successfully"); });
       }
     }
 
@@ -455,10 +461,11 @@ $(document).ready(function () {
           ).done(() => { RefreshAll(team_id); Alert.Success("Group added successfully"); });
       }
       else { // Edit groups
-        let g = Dict.createGroup(title, [], null, color, "", id);
-        Dict.updateGroup(g.groupID, g);
-        $("#MMenu-Group-Section").find("#" + g.groupID).find("#MMenu-Group-Title").text(g.title);
-        $.when(ajaxHandler.team_updateGroup(team_id, g.groupID, g.title, g.color, g.def_tag)).done(() => { RefreshAll(team_id); Alert.Success("Group updated successfully"); });
+        let g_old = Dict.groups[id];
+        let g_new = Dict.createGroup(title, g_old.tags, g_old.def_tag, color, "", id);
+        Dict.updateGroup(g_new.groupID, g_new);
+        $("#MMenu-Group-Section").find("#" + g_new.groupID).find("#MMenu-Group-Title").text(g_new.title);
+        $.when(ajaxHandler.team_updateGroup(team_id, g_new.groupID, g_new.title, g_new.color, g_new.def_tag)).done(() => { RefreshAll(team_id); Alert.Success("Group updated successfully"); });
       }
     }
 
@@ -471,12 +478,12 @@ $(document).ready(function () {
         $.when(ajaxHandler.team_addTag(team_id, t.tagID, t.groupId, t.title, t.color)).done(() => { RefreshAll(team_id); Alert.Success("Tag added successfully"); });
       }
       else { //Edit tags     
-        let t = Dict.createTag(title, color, groupId, true, true, true, id);
-        Dict.updateTag(t.tagID, t);
-        $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Tag-Title").text(t.title);
+        let t_old = Dict.tags[id];
+        let t_new = Dict.createTag(title, color, groupId, t_old.deletable, t_old.editable, t_old.display, id);
+        Dict.updateTag(t_new.tagID, t_new);
+        $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Tag-Title").text(t_new.title);
 
-
-        $.when(ajaxHandler.team_updateTag(team_id, t.tagID, t.groupId, t.title, t.color)).done(() => { RefreshAll(team_id); Alert.Success("Tag updated successfully"); });
+        $.when(ajaxHandler.team_updateTag(team_id, t_new.tagID, t_new.groupId, t_new.title, t_new.color)).done(() => { RefreshAll(team_id); Alert.Success("Tag updated successfully"); });
 
       }
     }
