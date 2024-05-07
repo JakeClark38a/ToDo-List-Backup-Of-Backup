@@ -28,7 +28,7 @@ module.exports = {
         bg1: "url('/static/images/wallpaper.jpg')",
         bg2: "url('/static/images/wallpaper2.jpg')",
         bg3: "url('/static/images/wallpaper3.jpg')",
-        bg4: "url('https://source.unsplash.com/random/1920x1080?nature')",
+        bg4: "url('/static/images/wallpaper3.jpg')", //"url('https://source.unsplash.com/random/1920x1080?nature')",
         bg5: "url('/static/images/wallpaper3.jpg')",
         bg6: "url('/static/images/bg7.jpg')",
         aiAvatar: "url('/static/images/gigachad.jpg')",

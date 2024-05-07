@@ -39,7 +39,7 @@ function LoadMainMenu(Dict) {
             for (var j = 0; j < group.tags.length; j++) {
                 let tag_ = Dict.tags[group.tags[j]]
                 // console.log(tag_);
-                if (tag_ && tag_.display == false) continue;
+                if (!tag_ && tag_.display == false) continue;
                 addNewTagMainMenu(g.find("#MMenu-Tag-Section"), tag_.tagID, tag_);
             }
             toggleHiddenMMenuGroup(g);

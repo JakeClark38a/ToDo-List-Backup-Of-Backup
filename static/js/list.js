@@ -392,12 +392,25 @@ $(document).ready(function () {
     $("#teamlist2").on("click", ".goteambtn1", function (e) {
         lastVisitedTeam = $(e.currentTarget).closest(".team_createlist").attr("id");
         console.log(lastVisitedTeam);
+        ajaxHandler.team_setLastVisitedTeam(lastVisitedTeam);
         setTimeout(onVisitTeam, 50);
     });
     $("#teamlist").on("click", ".goteambtn2", function (e) {
         lastVisitedTeam = $(e.currentTarget).closest(".team_joinlist").attr("id");
         console.log(lastVisitedTeam);
+        ajaxHandler.team_setLastVisitedTeam(lastVisitedTeam);
         setTimeout(onVisitTeam, 50);
+    });
+
+    $.when(ajaxHandler.team_getLastVisitedTeam()).done((data)=>{ 
+        if (data.last_team){ 
+            console.log("Last visited: " + data.last_team);
+            lastVisitedTeam = data.last_team;
+            setTimeout(onVisitTeam,50);
+        }
+    }).fail((err)=>{
+        console.log(err);
+        ajaxHandler.team_setLastVisitedTeam("");
     });
 
 });
