@@ -231,7 +231,7 @@ const getTask = function (day, month, year) {
         // console.log(deadline, deadline.getDate(), deadline.getMonth(), deadline.getFullYear());
         if (deadline.getDate() == day && deadline.getMonth() + 1 == month && deadline.getFullYear() == year) {
             tasks.push(task);
-            console.log("Task", task);
+            // console.log("Task", task);
         }
     }
     return tasks;
@@ -347,8 +347,6 @@ const mapDatepickerToTable = function () {
     // Get all div with class datepicker-cell
     let countCell = 0;
     $("#calendar span.datepicker-cell").each(function () {
-        // Fill in #CalendarTable with datepicker-cell
-        // $("#CalendarTable").append($(this).clone());
         // Clone the cell
         var clonedCell = $(this).clone();
         clonedCell.attr('class', '');
@@ -436,30 +434,32 @@ Sample bottom tooltip:
 </div>
 */
 const tooltipTemplate = function (taskId, task) {
+    const date = new Date(task.deadline);
+    const localDate = date.toLocaleString();
     return (`
-    <button data-tooltip-target="tooltip-bottom-${taskId}" data-tooltip-placement="bottom" type="button" class="ms-3 mb-2 md:mb-0 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">${task.title}</button>
-    <div id="tooltip-bottom-${taskId}" role="tooltip" class="absolute z-50 inline-block invisible px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-        <h3>${task.title}</h3>
+    <button data-tooltip-target="tooltip-bottom-${taskId}" data-tooltip-placement="bottom" type="button" class="truncate mb-2 md:mb-0 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full">${task.title}</button>
+    <div id="tooltip-bottom-${taskId}" role="tooltip" class="max-w-[50vw] absolute z-50 inline-block invisible px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+        <p class="text-xl">${task.title}</p>
         <p>
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
             </svg>
-            Deadline: ${task.deadline}
+            Deadline: ${localDate}
         </p>
         <p>
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5"/>
             </svg>
             Description: ${task.description}
         </p>
         <p>
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z"/>
             </svg>
-            Tags: ${Dict.tags[task.tag]}
+            Tags: ${Dict.tags[task.tag].title}
         </p>
         <p>
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 8H4m0-2v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-5.032a1 1 0 0 1-.768-.36l-1.9-2.28a1 1 0 0 0-.768-.36H5a1 1 0 0 0-1 1Z"/>
             </svg>
             Group: ${Dict.groups[Dict.tags[task.tag].groupId].title}
@@ -475,7 +475,7 @@ const refreshTooltipTable = function () {
 }
 // Function to refresh task section by use .load() to reload #Task-Section
 const refreshTaskSection = function () {
-    $("#Task-Section").load(location.href + " #Task-Section");
+    $("#Task-Section").empty();
 }
 // Function to show tooltip in table with taskId and Dict at row, col
 const showTooltipInTable = function (Dict, taskId, row, col) {
@@ -496,16 +496,24 @@ const showTooltipInTable = function (Dict, taskId, row, col) {
 }
 
 const refreshOnDelay = function () {
+    // remove all tooltips and button
+    refreshTooltipTable();
+    refreshTaskSection();
+    // update calendar table
+    mapDatepickerToTable();
+
     let date = pickDate();
     // set timeout to wait for focused class to be added
     changeExpiredColor(getExpiredDays(date[1], date[2]));
     $("#Task-Group-Title").text(combineMonth(...pickDate()));
     appendTask(Dict, date[0], date[1], date[2]);
-    // update calendar table
-    mapDatepickerToTable();
-    // remove all tooltips and button
-    // refreshTooltipTable();
 }
+// Event handler for clicking on submit button in crud-modal
+$("#crud-modal #submit-sec").on("click", function (e) {
+    // Just use location.reload() on calendar page
+    if ($("#calendar").length > 0)
+        location.reload();
+});
 // Event handler for resizing window: If screen width is greater than 768px, show calendar table, else hide it
 $(window).resize(function () {
     if ($(window).width() > 768) {
@@ -526,9 +534,9 @@ $(document).ready(function () {
     //$("#CalendarTable").parent().addClass("hidden");
     // refreshTooltipTable();
 
-    refreshTaskSection();
+
     function RefreshAll() {
-        mapDatepickerToTable(); // reset all?
+        refreshOnDelay();
 
         $.when(loadDict()).done(function (data) {
             // set initial date for #calendar is today
@@ -538,26 +546,19 @@ $(document).ready(function () {
             console.log(Dict);
             // remove all tooltips and button
             // refreshTooltipTable();
-            refreshTaskSection();
-            // Show all tasks in #CalendarTable
-            // showAllTasksInTable(Dict);
+            // refreshTaskSection();
             // Get date from focused datepicker-cell
-            let date = pickDate();
-            console.log(date);
-            // Get all tasks that have deadline on focused day
-            changeExpiredColor(getExpiredDays(date[1], date[2]));
-            // Show all tasks that have deadline on focused day
-            appendTask(Dict.tasks, date[0], date[1], date[2]);
-            console.log(getTask(...date));
+            refreshOnDelay();
+            // console.log(getTask(...date));
 
-            mapDatepickerToTable(); // reset all?
+            // mapDatepickerToTable(); // reset all?
             // with each div with class datepicker-cell, find "focused" class
             // if found, console log text content of the element
             // refresh each time user click datepicker-cell
             $("#Task-Group-Title").text(combineMonth(...pickDate()));
             $("#calendar .datepicker-cell, #calendar button.prev-btn, #calendar button.next-btn").click(function () {
+                // remove all tooltips and button after 50ms to make sure Flowbite datepicker has updated
                 setTimeout(refreshOnDelay, 50);
-                console.log('[7] Selected date: ' + date[0] + ' ' + date[1] + ' ' + date[2]);
             });
 
         });
