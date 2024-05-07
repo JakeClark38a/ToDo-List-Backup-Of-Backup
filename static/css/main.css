@@ -2490,10 +2490,6 @@ input:checked + .toggle-bg {
   height: calc(100% - 1rem);
 }
 
-.h-\[calc\(100vh-350px-40px\)\] {
-  height: calc(100vh - 350px - 40px);
-}
-
 .h-auto {
   height: auto;
 }
@@ -3574,7 +3570,7 @@ input:checked + .toggle-bg {
 }
 
 .bg-bg4 {
-  background-image: url('https://source.unsplash.com/random/1920x1080?nature');
+  background-image: url('/static/images/wallpaper3.jpg');
 }
 
 .bg-bg6 {
@@ -3857,10 +3853,6 @@ input:checked + .toggle-bg {
 
 .pb-9 {
   padding-bottom: 2.25rem;
-}
-
-.pb-\[10px\] {
-  padding-bottom: 10px;
 }
 
 .pl-3 {
@@ -5177,6 +5169,10 @@ input:checked + .toggle-bg {
     width: 6rem;
   }
 
+  .md\:w-28 {
+    width: 7rem;
+  }
+
   .md\:w-3\/4 {
     width: 75%;
   }
@@ -5293,11 +5289,6 @@ input:checked + .toggle-bg {
     line-height: 1;
   }
 
-  .md\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
   .md\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
@@ -5334,6 +5325,10 @@ input:checked + .toggle-bg {
 
   .lg\:mt-5 {
     margin-top: 1.25rem;
+  }
+
+  .lg\:inline-block {
+    display: inline-block;
   }
 
   .lg\:h-10 {

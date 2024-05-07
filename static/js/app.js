@@ -551,7 +551,7 @@ $(document).ready(function () {
         let g_old = Dict.groups[id];
         let g_new = Dict.createGroup(title, g_old.tags, g_old.def_tag , color, "", id);
         Dict.updateGroup(g_new.groupID, g_new);
-        $("#MMenu-Group-Section").find("#" + g.groupID).find("#MMenu-Group-Title").text(g.title);
+        $("#MMenu-Group-Section").find("#" + g_new.groupID).find("#MMenu-Group-Title").text(g_new.title);
         $.when(ajaxHandler.updateGroup(g_new.groupID, g_new.title, g_new.color, g_new.def_tag)).done(() => { RefreshAll(); Alert.Success("Group updated successfully"); });
       }
     }
