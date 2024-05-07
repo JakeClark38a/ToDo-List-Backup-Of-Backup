@@ -11,14 +11,13 @@ This file handle:
 //=====================================================================\\
 
 // Templates 
-import { MainMenu, MainScreen, chatBox } from "./hmtlComponent.js";
+import { MainMenu, MainScreen } from "./hmtlComponent.js";
 import { Utils } from "./userData.js";
 import { modalMainScreen } from "./CRUDmodal_handler.js";
 import { ajaxHandler } from "./ajaxHandler.js";
 import { LoadMainMenu, toggleHiddenMMenuGroup, addNewTagMainMenu } from "./mainMenuRenderer.js";
 import { LoadMainScreen, renderGroupMainScreen } from "./mainScreenRenderer.js";
 import { Alert } from "./alertMsg.js";
-import { chadBot } from "./chadbot.js";
 
 //================================================================\\
 //=========================== Variables ==========================\\
@@ -27,11 +26,36 @@ var Dict = Utils.getSampleData();
 let isDebugMode = false;
 var currentMode = 0; // 0-grid 1-any
 var currentMMenuTab = 0;  // 0-today 1-cal 2-garden
-var suggestTasks = {};
+var team_id = "tid001"; // Default team id
 
-function getData() {
+var UsersList = {
+  id10458: {
+    name: "Âm",
+    img: "https://source.unsplash.com/random/1920x1080?nature",
+    user_id: "id10458",
+
+  },
+  id10459: {
+    name: "Binh",
+    img: "https://source.unsplash.com/random/1920x1080?nature",
+    user_id: "id10459",
+  },
+}
+
+function getTeamUserList(team_id) {
   return new Promise(function (resolve) {
-    $.when(ajaxHandler.LoadUserData()).done(function (data) {
+    $.when(ajaxHandler.team_LoadUserList(team_id)).done(function (data) {
+      console.log(data);
+      UsersList = data;
+      resolve(data);
+    });
+  });
+
+}
+
+function getData(team_id) {
+  return new Promise(function (resolve) {
+    $.when(ajaxHandler.LoadTeamData(team_id)).done(function (data) {
       Dict = data;
       console.log("[5] Data is loaded to app.js: ");
       console.log(Dict);
@@ -73,8 +97,10 @@ $(document).ready(function () {
   //========================== Initialize ==========================\\
   //================================================================\\
 
+
+
   function RefreshAll() {
-    $.when(getData()).done(function (data) {
+    $.when(getData(team_id)).done(function (data) {
       Dict = data;
       console.log("[7] Refresh the mainscreen");
       console.log(Dict);
@@ -91,7 +117,7 @@ $(document).ready(function () {
   function init() {
     currentMMenuTab = 0; // 0-today 2-calendar 3-garden
     currentMode = 0;
-    RefreshAll();
+    // RefreshAll();
   }
   init();
 
@@ -114,238 +140,55 @@ $(document).ready(function () {
   //################################################### Fuctions #########################################################
 
   //================================================================\\
-  //============================= Chat =============================\\
-  //================================================================\\
-
-  function convertToDateFormat(input) {
-    if (!input || typeof input !== 'string') {
-      console.error("Invalid input. Please provide a valid string.");
-      return null;
-    }
-
-    let t = input.toLowerCase().replace(" ", "");; // format
-    let ampm = t.substring(t.length - 2, t.length);
-    let t2 = t.split(":");
-    var currentDate = new Date();
-
-    if (t2[0] === 'tomorrow') {
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    if (t2.length <= 2) {
-      if (ampm === "am") {
-      //  console.log(parseInt(t2[1].substring(0, t2[1].length - 2)))
-        currentDate.setHours(parseInt(t2[1].substring(0, t2[1].length - 2)),0);
-      } else {
-        console.log("AI: ", t2, t2[1]);
-       // console.log(parseInt(t2[1].substring(0, t2[1].length - 2)) + 12)
-        currentDate.setHours(parseInt(t2[1].substring(0, t2[1].length - 2)) + 12,0);
-      }
-    } else {
-      if (ampm === "am") {
-       // console.log(parseInt(t2[0].substring(0, t2[0].length - 2)))
-        currentDate.setHours(parseInt(t2[0].substring(0, t2[0].length - 2)));
-      } else {
-       // console.log(parseInt(t2[0].substring(0, t2[0].length - 2)) + 12)
-        currentDate.setHours(parseInt(t2[0].substring(0, t2[0].length - 2)) + 12);
-      }
-     // console.log(parseInt(t2[1]))
-      currentDate.setMinutes(parseInt(t2[1]));
-    }
-
-    console.log(currentDate);
-    var formattedDate = currentDate.toISOString().substring(0, 16);
-    return formattedDate;
-  }
-
-  function createChatTask(str) {
-    // Check if the string is null or empty
-    if (str == null || str == "") return;
-    // Split the string into task segments
-    let taskSegments = str.split("[TSEPT]");
-    console.log(taskSegments);
-    // Extracting data
-
-    const taskRegex = /\[Task\] (.*?) \[\/Task\]/;
-    const dueRegex = /\[Due\] (.*?) \[\/Due\]/;
-    const groupRegex = /\[Group\] (.*?) \[\/Group\]/;
-    const tagRegex = /\[Tag\] (.*?) \[\/Tag\]/;
-    const desRegex = /\[Des\] (.*?) \[\/Des\]/;
-    let suggestTasksSession = {};
-    for (let i = 0; i < taskSegments.length; i++) {
-      const taskSegment = taskSegments[i];
-      const task = {};
-      let id = Utils.getUuid();
-      // Extract task title
-      const taskMatch = taskSegment.match(taskRegex);
-      if (taskMatch) {
-        task.title = taskMatch[1];
-      }
-
-      // Extract due date
-      const dueMatch = taskSegment.match(dueRegex);
-      if (dueMatch) {
-        task.deadline = convertToDateFormat(dueMatch[1]);
-      }
-
-      // Extract group
-      const groupMatch = taskSegment.match(groupRegex);
-      if (groupMatch) {
-        task.group = groupMatch[1];
-      }
-
-      // Extract tag
-      const tagMatch = taskSegment.match(tagRegex);
-      if (tagMatch) {
-        task.tag = tagMatch[1];
-      }
-
-      // Extract tag
-      const desMatch = taskSegment.match(desRegex);
-      if (desMatch) {
-        task.description = desMatch[1];
-      }
-      task.taskID = id;
-      if (Object.keys(task).length <= 3) continue;
-      suggestTasks[id] = task;
-      suggestTasksSession[id] = task;
-    }
-
-    // Outputting the extracted data
-    console.log(suggestTasksSession);
-
-    for (let idx in suggestTasksSession) {
-      let dueStr = suggestTasksSession[idx].deadline;
-      $('#Chat-Section #chat-content').append(chatBox.chatSuggestTask(idx, suggestTasksSession[idx].title, suggestTasksSession[idx].description, dueStr)); // ai chat suggestion task
-      let c = $('#Chat-Section #chat-content #' + idx)
-      c.find('#Task-Tag').append(MainScreen.TagTemplate('tg' + idx, { title: suggestTasksSession[idx].tag }));
-      c.find('#Task-Group').append(MainScreen.TagTemplate('gp' + idx, { title: suggestTasksSession[idx].group }));
-      c.find('#Task-Tag').find("#tg" + idx).css({ "background-color": Utils.randHexColor() })
-      c.find('#Task-Group').find("#gp" + idx).css({ "background-color": Utils.randHexColor() })
-    }
-  }
-
-  async function runChat() {
-    if (!chadBot.isReady) { return };
-    let input = $('#Chat-Section #chat-message').val();  // get user input
-    $('#Chat-Section #chat-message').val('');  // empty input box
-
-    let id = Utils.getUuid(); // random uuid for chat message send by AI in order to add effects
-
-    $('#Chat-Section #chat-content').append(chatBox.MessageDisplay(input, 'none').send); // user chat message
-
-
-    $('#Chat-Section #chat-content').append(chatBox.MessageDisplay('', id).reply); // ai chat message 
-    let c = $('#Chat-Section #chat-content #' + id)
-
-    c.find('#chat-response').empty(); // empty the chat message box
-    c.find('#chat-response').append(chatBox.waitingResponse().waiting_reply); // add waiting animation
-
-    $('#Chat-Section #chat-send-button').empty(); // empty the send button
-    $('#Chat-Section #chat-send-button').append(chatBox.waitingResponse().wating_sendbtn); // add waiting animation
-
-    let text = await chadBot.chat(input, 'main'); // get response from AI, the code define if the ai is in the landing or main page
-    let procTask = text.substring(text.indexOf("[BeginTask]"), text.indexOf("[EndTask]") != -1 ? text.indexOf("[EndTask]") + 9 : text.length); //th); //
-
-    createChatTask(procTask); // create task from the chat
-    let chatText = text.substring(0, text.indexOf("[BeginTask]") != -1 ? text.indexOf("[BeginTask]") : text.length);
-    console.log(text, chatText);
-    // remove the task from the response
-    c.find('#chat-response').empty(); // empty the chat message box , remove the loading effect
-    c.find('#chat-response').append(chatBox.MessageDisplay(chatText, 'none').textcontent); // add the response from AI
-
-    $('#Chat-Section #chat-send-button').empty(); // empty the send button
-    $('#Chat-Section #chat-send-button').append(chatBox.waitingResponse().sendbtn); // add the send button svg
-    chadBot.isReady = true;
-  }
-
-  $('#Chat-Section #chat-send-button').on('click', runChat);
-  $('#Chat-Section #clear-chat-box').on('click', () => { suggestTasks = {}; $('#Chat-Section #chat-content').empty() });
-
-  $("#chat-message").on('keydown', function (e) {
-    if (e.key === 'Enter' || e.keyCode === 13) {
-      runChat();
-    }
-  });
-  // e.key is the modern way of detecting keys
-  // e.keyCode is deprecated (left here for for legacy browsers support)
-
-  let isOpenChat = false;
-  $('#NavBar #ChatBox-Toggle').on('click', () => {
-    $('#Main-Screen').toggleClass("hidden xl:inline-block", !isOpenChat);
-    $('#Chat-Section').toggleClass("hidden", isOpenChat);
-    isOpenChat = !isOpenChat;
-  });
-
-
-  $('#Chat-Section #chat-content').on('click', '.suggest-task-accept', (e) => {
-    let task_id = $(e.currentTarget).attr('id');
-    let task_info = suggestTasks[task_id];
-    if (task_info == null) return;
-    modalMainScreen.AddEditTask(task_info ,null, true);
-  })
-  //================================================================\\
   //=========================== User list ========================\\
   //================================================================\\
-    $('#NavBar #UserList-Toggle').on('click', () => {
-      $('#Main-Screen').toggleClass("hidden xl:inline-block");
-      $('#UserList-Section').toggleClass("hidden",);
-    });
+  $('#NavBar #UserList-Toggle').on('click', () => {
+    $('#Main-Screen').toggleClass("hidden xl:inline-block");
+    $('#UserList-Section').toggleClass("hidden",);
+  });
 
-    let User = {
-      id10458: {
-          name: "Âm",
-          img: "https://source.unsplash.com/random/1920x1080?nature",
-          user_id : "id10458",
 
-      },
-      id10459: {
-          name: "Binh",
-          img: "https://source.unsplash.com/random/1920x1080?nature",
-          user_id : "id10459",
-      },
-    }
-    function userlist(name, img, user_id) {
-      return(
+  function userlist(name, img, user_id) {
+    return (
       `
-      <div id="`+ user_id +`" class="user_list_create p-2 flex h-12 w-full md:w-4/6 lg:w-full bg-gray-300/50  my-1  border-2 rounded-lg gap-3">
+      <div id="`+ user_id + `" class="user_list_create p-2 flex h-12 w-full md:w-4/6 lg:w-full bg-gray-300/50  my-1  border-2 rounded-lg gap-3">
       <div class="flex-none self-center w-8 h-8 ">
-          <img class=" w-full h-full  rounded-full" src="`+ img +`" alt="avtr">
+          <img class=" w-full h-full  rounded-full" src="`+ img + `" alt="avtr">
       </div>
       <div class="flex-1 self-center  mr-2 overflow-hidden">
-          <p id="" class="dark:text-gray-500 text-black text-lg text-nowrap">`+name+`</p>
+          <p id="" class="dark:text-gray-500 text-black text-lg text-nowrap">`+ name + `</p>
       </div>
       <div class=" flex-none  justify-end self-center  ">
       <button id="ban-user"  
       class="banuser bg-white inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-900 rounded-lg
-       hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">        
-       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">        
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
-        </svg>
-                                                           
+        </svg>                                                      
       </button>                                                                                                                                                                                    
       </div>
- </div>
+  </div>
       `
-    )};
-    function loadUserList() {
-      let userList = $(' #ListUser');
-      userList.empty();
-      for (let key in User) {
-        userList.append(userlist(User[key].name, User[key].img, User[key].user_id));
-      }
+    )
+  };
+  function refreshUserList() {
+    let userList = $(' #ListUser');
+    userList.empty();
+    for (let key in UsersList) {
+      userList.append(userlist(UsersList[key].name, UsersList[key].img, UsersList[key].user_id));
     }
-    function banUser(user_id) {
-      console.log(user_id);
-      delete  User[user_id];
-      loadUserList();
-    }
-    loadUserList();
-    $('#UserList-Section').on('click', '.banuser',function(){
-      let user_id = $(this).closest(".user_list_create").attr('id');
-      console.log(user_id);
-      banUser(user_id);
-    });
+  }
+  function banUser(user_id) {
+    console.log(user_id);
+    delete UsersList[user_id];
+    refreshUserList();
+  }
+  refreshUserList();
+  $('#UserList-Section').on('click', '.banuser', function () {
+    let user_id = $(this).closest(".user_list_create").attr('id');
+    console.log(user_id);
+    banUser(user_id);
+  });
 
   //================================================================\\
   //=========================== Avatar Menu ========================\\

@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../static/css/main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -100,13 +99,17 @@
                                 class="bg-gray-50 border border-gray-300 p-1 h-[2.65rem]  w-20 rounded-lg focus:ring-primary-500 focus:border-primary-500 block dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         </div>
 
+                        <div id="warn-sec" class="col-span-2">
+                            <div id="warn" class="block mb-2 text-sm font-medium text-red-400">Warning</div>
+                        </div>
+
                     </div>
                     <!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
                     <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
                         autocomplete="off" tabindex="-1">
                     <div class="col-span-2 flex justify-between">
-                        <button id="submit-sec" type="submit"
-                            class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                        <button id="submit-sec" type="button"
+                            class="text-white inline-flex items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-blue-500">
                             <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -117,8 +120,8 @@
                         </button>
 
                         <!--Delete btn-->
-                        <button id="delete-sec"
-                            class="text-white inline-flex items-center bg-red-300 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                        <button id="delete-sec" type="button"
+                            class="text-white inline-flex items-center bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
                             <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -137,18 +140,99 @@
     <!--eoModal -->
 
 
+    <!-- Main modal  -->
+    <div id="crud-modal2" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-main rounded-lg dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-2 md:p-4 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                        Create Task
+                    </h3>
+                    <!-- close btn -->
+                    <button id="btn-close-modal" type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <form class="p-4 md:p-5">
+                    <div class="grid gap-4 mb-4 grid-cols-2">
+                        <div id="code-sec" class="col-span-2">
+                            <label for="teamcode"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Team's code</label>
+                            <input type="text" name="teamcode" id="teamcode"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Code" required="" maxlength="128">
+                        </div>
+
+                        <div id="teamname-sec" class="col-span-2">
+                            <label for="teamname"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Team's name
+                            </label>
+                            <input type="text" name="teamname" id="teamname"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Type your team name" required="" maxlength="128">
+                        </div>
+                        <div id="teamdesc-sec" class="col-span-2">
+                            <label for="teamdescription"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Team
+                                Description</label>
+                            <textarea id="teamdescription" rows="4"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
+                                placeholder="Write team description here" maxlength="256"></textarea>
+                        </div>
+                    </div>
+                    <!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
+                    <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
+                        autocomplete="off" tabindex="-1">
+                    <div class="col-span-2 flex justify-around">
+                        <!--join btn-->
+                        <button id="Join-sec" type="button"
+                            class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                            Jointeam
+                        </button>
+                        <button id="save-sec" type="button"
+                            class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                            Save
+                        </button>
+                        <button id="delete-sec" type="button"
+                            class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                            Delete
+                        </button>
+                        <button id="Create-sec" type="button"
+                            class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                            <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Create
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--eoModal -->
+
 
 
     <!--########################################################### EoAddons ######################################################################-->
-
-
-
 
     <div class="bg-main/25 dark:bg-gray-700/70"> <!--Body Container-->
         <!--Begin header-->
 
         <!--########################################################### NavBar ######################################################################-->
-        <div
+        <div id="NavBar"
             class="flex justify-between items-center shadow-xl bg-white dark:bg-gray-700 py-0 pt-2 h-16 lg:h-18 lg:py-2 ">
             <div class="flex justify-evenly items-center gap-2 md:gap-8">
                 <!--button-->
@@ -162,17 +246,40 @@
                 </div>
             </div>
 
-            <div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center"></div>
+            <div id="clock" class="opacity-0 lg:opacity-100 text-xl text-center font-[Lato] dark:text-main"></div>
 
             <div class="flex justify-end items-center p-2 gap-2 ">
 
-                <!-- <div class="headbar-button p-1 border-0 hover:bg-main/35">
-                    <svg class="h-full w-full text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                            d="M6 12h.01m6 0h.01m5.99 0h.01" />
+                <div id="UserList-Toggle" class="headbar-button p-1 border-0 hover:bg-main/35">
+                    <svg height="40px" width="40px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 612 612" xml:space="preserve"
+                        class="fill-gray-800 dark:fill-white p-1.5">
+                        <g>
+                            <g>
+                                <g>
+                                    <path d="M378.804,462.677c-24.318-17.148-53.202-29.8-84.635-37.392c29.154-25.252,48.073-65.647,48.073-111.086
+				        c0-76.325-53.373-138.419-118.978-138.419c-65.602,0-118.976,62.094-118.976,138.419c0,45.44,18.919,85.835,48.073,111.086
+				        c-31.433,7.59-60.317,20.244-84.638,37.392C24.051,493.469,0,535.018,0,579.67c0,9.838,7.976,17.814,17.814,17.814h410.9
+				        c9.838,0,17.814-7.976,17.814-17.814C446.529,535.018,422.478,493.469,378.804,462.677z M139.915,314.199
+				        c0-56.679,37.389-102.791,83.348-102.791s83.35,46.113,83.35,102.791c0,56.682-37.392,102.794-83.35,102.794
+				        C177.307,416.994,139.915,370.881,139.915,314.199z M342.241,561.856V530.04c0-9.838-7.976-17.814-17.814-17.814
+				        c-9.838,0-17.814,7.976-17.814,17.814v31.816H139.915V530.04c0-9.838-7.976-17.814-17.814-17.814s-17.814,7.976-17.814,17.814
+				        v31.816H37.49c5.503-26.125,23.047-50.517,50.763-70.059c35.829-25.262,83.777-39.175,135.009-39.175
+				        c51.237,0,99.185,13.911,135.009,39.175c27.716,19.542,45.263,43.936,50.763,70.059H342.241z" />
+                                    <path d="M397.226,50.144h196.959c9.838,0,17.814-7.976,17.814-17.814s-7.976-17.814-17.814-17.814H397.226
+				        c-9.838,0-17.814,7.976-17.814,17.814S387.389,50.144,397.226,50.144z" />
+                                    <path d="M594.186,123.709h-196.96c-9.838,0-17.814,7.976-17.814,17.814c0,9.841,7.976,17.814,17.814,17.814h196.959
+				        c9.838,0,17.814-7.973,17.814-17.814C612,131.685,604.024,123.709,594.186,123.709z" />
+                                    <path d="M594.186,232.905h-196.96c-9.838,0-17.814,7.976-17.814,17.814c0,9.838,7.976,17.814,17.814,17.814h196.959
+				        c9.838,0,17.814-7.976,17.814-17.814C612,240.882,604.024,232.905,594.186,232.905z" />
+                                </g>
+                            </g>
+                        </g>
                     </svg>
-                </div> -->
+
+                </div>
+
+
 
                 <div id="Avatar-Menu-Click"
                     class="headbar-button p-1 border-2 rounded-full cursor-pointer hover:bg-main/35">
@@ -192,19 +299,23 @@
             class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
 
 
-
-            <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
-                <div class="flex items-center">
-                    <div class="PMenu-Primary-Image-Wrapper">
-                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-width="2"
-                                d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        </svg>
+            <a href="{{url_for('profiles.profile',type=session['type'])}}">
+                <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
+                    <div class="flex items-center">
+                        <div class="PMenu-Primary-Image-Wrapper">
+                            <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-width="2"
+                                    d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </div>
+                        <div class="PMenu-Primary-Text">Profile</div>
                     </div>
-                    <div class="PMenu-Primary-Text">Profile</div>
                 </div>
-            </div>
+            </a><!--eoblock-->
 
             <div id="PMenu-UserSett" class="PMenu-Primary-Section hidden"> <!--block-->
                 <div class="flex items-center">
@@ -235,7 +346,7 @@
                     <label class="inline-flex items-center cursor-pointer px-3">
                         <input id="Toggle-DarkMode" type="checkbox" value="" class="sr-only peer">
                         <div
-                            class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                            class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-blue-500 peer-checked:bg-green-500">
                         </div>
                     </label>
                 </div>
@@ -289,8 +400,7 @@
                     </div>
                 </div>
             </div><!--eoblock-->
-            <div id="MMenu-Today" class="MMenu-Primary-Section"
-                onclick="window.location.href=`{{url_for('todo.main_page')}}`"> <!--block-->
+            <div id="MMenu-Today" class="MMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
@@ -304,8 +414,7 @@
                     <div class="MMenu-Primary-Text">Today</div>
                 </div>
             </div><!--eoblock-->
-            <div id="MMenu-Calendar" class="MMenu-Primary-Section"
-                onclick="window.location.href=`{{url_for('calendar.calendar_page')}}`"> <!--block-->
+            <div id="MMenu-Calendar" class="MMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
@@ -319,8 +428,7 @@
                     <div class="MMenu-Primary-Text">Calendar</div>
                 </div>
             </div><!--eoblock-->
-            <div id="MMenu-Garden" class="MMenu-Primary-Section "
-                onclick="window.location.href=`{{url_for('game.treePage_init')}}`"> <!--block-->
+            <div id="MMenu-Garden" class="MMenu-Primary-Section "> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
@@ -360,224 +468,163 @@
             </div><!--eoblock-->
 
             <div id="MMenu-Group-Section"
-                class="relative MMenu-Group-Section overflow-y-scroll py-5 h-1/2 bg-gray-300/35 ">
+                class="relative MMenu-Group-Section overflow-y-scroll py-5 max-h-[95%] bg-gray-300/35 ">
                 <!--group here-->
             </div>
-            <!-- <div id="MMenu-Bottom" class="flex justify-between items-center p-2">
-                <div class="Log-out">
-                    <a href="{{url_for('auth.logout')}}">
-                        <button>
-                            <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
-                            </svg>
-                        </button>
-                    </a>
-                </div>
-                <div class="Settings">
-                    <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                    </svg>
-                </div>
-            </div> -->
-
-
         </div>
         <!--End Dropdown menu-->
         <!--########################################################### EoDropdown Main Menu ######################################################################-->
 
 
 
-        <!--########################################################### Calendar ######################################################################-->
-        <!-- Redirect to Backend Generator here -->
-        <!-- Begin Calendar -->
-        <div id="Calendar" class="Container backdrop-blur-sm py-1 h-[90vh] overflow-y-scroll overflow-x-hidden">
-            <!-- add question action button here-->
-            <div id="add-draggable" class="z-40 absolute">
-                <div class="touch-none select-none">
-                    <div id="moveButton"
-                        class="hover:w-12 hover:h-12 border-2 border-gray-300 absolute rounded-full w-12 h-12 bg-main/55 dark:bg-gray-700/60 backdrop-blur-sm shadow-xl p-2">
+        <!--########################################################### Dropdown Mode ######################################################################-->
+        <!-- Dropdown menu -->
+        <div id="Mode-Menu"
+            class="dropdown-anim duration-300 z-10 absolute right-10 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
+
+            <div id="ModeMenu-Profile" class="ModeMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="ModeMenu-Primary-Image-Wrapper">
                         <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 12h14m-7 7V5" />
+                                d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z" />
                         </svg>
+
                     </div>
+
+                    <div class="ModeMenu-Primary-Text">Grid</div>
                 </div>
-            </div>
-            <!-- kết thúc phần nút -->
-            <div class="w-full flex justify-around">
-                <!-- Mobile version -->
-                <div class="relative w-[300px] flex-none flex flex-col items-center">
-                    <!-- Calendar - data-date will fill in backend -->
-                    <div id="calendar" inline-datepicker data-date="05/02/2024" class="pb-1"></div>
-                    <!-- Todo with expired day -->
-                    <div id="tasks-display" class="group-outer p-[10px] ">
-                        <div class="flex justify-between items-center px-3 rounded-t-lg ">
-                            <!-- Title -->
-                            <div id="Task-Group-Title" class="todobox-title  dark:text-white">March 7th, 2024</div>
-                            <!-- <div class="Group-Task-Add ">
-                                <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M5 12h14m-7 7V5"></path>
-                                </svg>
-                            </div> -->
-                        </div>
-                        <!-- Content -->
-                        <div id="Task-Section-Outer"
-                            class="bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl "
-                            style="border-color: #546f72;">
-                            <!-- In this div, height of gid001 will dynamically change based on 100vh, 350px is height of calendar, 40px is height of title and  - remove lg:w-96, lg:text-xl-->
-                            <div id="Task-Section"
-                                class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 min-h-72">
-                                <!--task here-->
+            </div><!--eoblock-->
 
 
-                                <div id="id001"
-                                    class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default hidden">
-                                    <div class=" rounded-lg shadow-lg">
-                                        <!-- Title -->
-                                        <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
-                                            <!-- Task title -->
-                                            <div class="font-semibold text-lg truncate w-full dark:text-white ">Meeting
-                                            </div>
-                                            <!-- Task edit and delete -->
-                                            <div class="flex items-center gap-2">
-                                                <div class="Task-Edit mx-1 cursor-pointer">
-                                                    <svg class="w-5 h-5 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="1.5"
-                                                            d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z">
-                                                        </path>
-                                                    </svg>
-                                                </div>
-                                                <div id="Task-Cancel"
-                                                    class="bg-red-500 rounded-full shadow-lg h-4 w-4 font-bold cursor-pointer">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Task description -->
-                                        <div class="p-2 flex items-center h-fit">
-                                            <p class="h-full w-full text-left p-2 font-base truncate dark:text-white">
-                                                About making a website</p>
-                                            <!-- Complete checkbox -->
-                                            <input id="Task-Destroyer" type="checkbox"
-                                                class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer">
-                                        </div>
-                                        <!-- Tag -->
-                                        <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
-                                            <div id="tag1"
-                                                class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer"
-                                                style="background-color: #546f72;">tag1</div>
-                                            <div id="tag1"
-                                                class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer"
-                                                style="background-color: #546f72;">tag1</div>
-                                        </div>
-                                    </div>
+        </div>
 
+        <!--########################################################### EoDropdown Mode ######################################################################-->
+
+
+
+
+        <!--########################################################### Main Screen ######################################################################-->
+        <div id="CreateAndJoinTeam"
+            class="Container backdrop-blur-sm py-10 h-screen overflow-y-scroll overflow-x-hidden">
+
+        </div>
+        <!--########################################################### EoMain Screen ######################################################################-->
+        <div id="Main-Section" class="flex">
+            <!--Begin Main screen-->
+            <div id="Main-Screen"
+                class="w-full inline-block backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
+                <!-- Dynamic draggable button here -->
+                <div id="Main-Formatter" class="relative w-full">
+                    <div id="Wrapper" class="relative flex flex-wrap justify-center items-center gap-8 py-10 lg:px-36">
+                        <!--Group-->
+                        <div class="group-outer">
+                            <div id="Task-Section-Outer"
+                                class="bg-main dark:bg-gray-500 animate-pulse pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
+                                <div id="Task-Section"
+                                    class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
+                                    <!--task here-->
                                 </div>
                             </div>
                         </div>
+                        <div class="group-outer">
+                            <div id="Task-Section-Outer"
+                                class="bg-main dark:bg-gray-500 animate-pulse pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
+                                <div id="Task-Section"
+                                    class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
+                                    <!--task here-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-outer">
+                            <div id="Task-Section-Outer"
+                                class="bg-main dark:bg-gray-500 animate-pulse pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
+                                <div id="Task-Section"
+                                    class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
+                                    <!--task here-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-outer">
+                            <div id="Task-Section-Outer"
+                                class="bg-main dark:bg-gray-500 animate-pulse pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
+                                <div id="Task-Section"
+                                    class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
+                                    <!--task here-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--Formatter-->
                     </div>
-                </div>
-                <!-- Desktop grid -->
-                <!-- Show when in desktop size, hidden in mobile size -->
-                <div
-                    class="h-full flex-1 rounded-lg bg-white dark:bg-gray-700 shadow-lg p-4 overflow-x-hidden overflow-y-scroll ">
-                    <table id="CalendarTable"
-                        class=" w-full h-full *:align-top border-spacing-1 text-center border-separate table-fixed  *:overflow-x-hidden *:overflow-y-scroll">
-
-                        <tr id="Weekday" class="text-sm h-0 uppercase">
-                            <!-- Remove class="text-center h-6 leading-6 text-sm font-medium text-gray-500 dark:text-gray-400" -->
-                            <td>Mon</td>
-                            <td>Tue</td>
-                            <td>Wed</td>
-                            <td>Thu</td>
-                            <td>Fri</td>
-                            <td>Sat</td>
-                            <td>Sun</td>
-                        </tr>
-                        <tr class="week">
-                            <td class="day ">1 row </td>
-                            <td class="day ">2 row</td>
-                            <td class="day ">3 row</td>
-                            <td class="day ">4 row</td>
-                            <td class="day ">5 row</td>
-                            <td class="day ">6 row</td>
-                            <td class="day ">7 row</td>
-                        </tr>
-                        <tr class="week">
-                            <td class="day ">1 row</td>
-                            <td class="day ">2 row</td>
-                            <td class="day ">3 row</td>
-                            <td class="day ">4 row</td>
-                            <td class="day ">5 row</td>
-                            <td class="day ">6 row</td>
-                            <td class="day ">7 row</td>
-                        </tr>
-                        <tr class="week">
-                            <td class="day ">1 row</td>
-                            <td class="day ">2 row</td>
-                            <td class="day ">3 row</td>
-                            <td class="day ">4 row</td>
-                            <td class="day ">5 row</td>
-                            <td class="day ">6 row</td>
-                            <td class="day ">7 row</td>
-                        </tr>
-                        <tr class="week">
-                            <td class="day ">1 row</td>
-                            <td class="day ">2 row</td>
-                            <td class="day ">3 row</td>
-                            <td class="day ">4 row</td>
-                            <td class="day ">5 row</td>
-                            <td class="day ">6 row</td>
-                            <td class="day ">7 row</td>
-                        </tr>
-                        <tr class="week">
-                            <td class="day ">1 row</td>
-                            <td class="day ">2 row</td>
-                            <td class="day ">3 row</td>
-                            <td class="day ">4 row</td>
-                            <td class="day ">5 row</td>
-                            <td class="day ">6 row</td>
-                            <td class="day ">7 row</td>
-                        </tr>
-                        <tr class="week">
-                            <td class="day ">1 row</td>
-                            <td class="day ">2 row</td>
-                            <td class="day ">3 row</td>
-                            <td class="day ">4 row</td>
-                            <td class="day ">5 row</td>
-                            <td class="day ">6 row</td>
-                            <td class="day ">7 row</td>
-                        </tr>
-                    </table>
                 </div>
             </div>
 
-        </div>
-        <!--End Calendar-->
-        <!--########################################################### EoCalendar ######################################################################-->
 
+            <!--eochat -->
+            <!-- UserList  -->
+            <div id="UserList-Section"
+                class="hidden w-full xl:w-1/3 h-[90vh] bg-main dark:bg-gray-500 flex flex-col overflow-hidden">
+                <div class="">
+
+                    <div id="UserList-wrapper" class="chat-wrapper p-4 flex flex-col justify-center items-start">
+                        <div class="w-full flex items-center justify-between px-2">
+                            <h1 class="text-lg font-semibold text-gray-800 dark:text-white">UserList</h1>
+                        </div>
+                        <div id="ListUser"
+                            class="user_list h-[80vh]   p-4 mb-4 w-full mt-1 rounded-lg bg-gray-300/50 overflow-x-hidden overflow-y-scroll ">
+                            <!--User here-->
+                            <div
+                                class="p-2 flex h-12 w-full md:w-4/6 lg:w-full bg-gray-300/50  my-1  border-2 rounded-lg gap-3">
+                                <div class="flex-none self-center w-8 h-8 ">
+                                    <img class=" w-full h-full  rounded-full" src="/static/images/profile.jpg"
+                                        alt="avtr">
+                                </div>
+                                <div class="flex-1 self-center  mr-2 overflow-hidden">
+                                    <p id="" class="dark:text-gray-500 text-black text-lg text-nowrap">hồ nguyên trân
+                                        minh Phong</p>
+                                </div>
+                                <div class=" flex-none  justify-end self-center  ">
+                                    <button id="ban-user"
+                                        class="banuser bg-white inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-900 rounded-lg
+                                     hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                        type="button">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                            viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                                        </svg>
+
+                                    </button>
+                                </div>
+                            </div>
+                            <!--eolist-->
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- eoList -->
+        </div>
+        <!--End Main screen-->
+        <!--########################################################### EoMain Screen ######################################################################-->
+
+
+        <div id="Alert-Screen"
+            class="absolute flex flex-col justify-end  gap-1 items-end right-1 bottom-5 bg-transparent overflow-hidden">
+            <!--Alerts here-->
+        </div>
 
 
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="../static/js/app.js" type="module"></script>
-        <script src="../static/js/calendarNew.js" type="module"></script>
+        <script src="../static/js/appteam.js" type="module" async></script>
         <script>
-            // $("#Calendar").load("calendarNewPage.html");
+            $("#Main-Screen").addClass("hidden");
+            $("#CreateAndJoinTeam").load("teamJoinCreatePage.html");
         </script>
 </body>
 

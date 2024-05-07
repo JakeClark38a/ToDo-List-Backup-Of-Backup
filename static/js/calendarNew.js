@@ -1,5 +1,6 @@
 import { ajaxHandler } from './ajaxHandler.js';
 import { MainScreen } from './hmtlComponent.js';
+import { modalMainScreen } from './CRUDmodal_handler.js';
 
 var Dict = {  // sample dict
     username: "JakeClark",
@@ -227,7 +228,7 @@ const getTask = function (day, month, year) {
     var tasks = [];
     for (var task in Dict.tasks) {
         var deadline = new Date(Dict.tasks[task].deadline);
-        console.log(deadline, deadline.getDate(), deadline.getMonth(), deadline.getFullYear());
+        // console.log(deadline, deadline.getDate(), deadline.getMonth(), deadline.getFullYear());
         if (deadline.getDate() == day && deadline.getMonth() + 1 == month && deadline.getFullYear() == year) {
             tasks.push(task);
             console.log("Task", task);
@@ -243,7 +244,7 @@ const getExpiredDays = function (month, year) {
     var days = {};
     for (var task in Dict.tasks) {
         var deadline = new Date(Dict.tasks[task].deadline);
-        if (deadline.getMonth() + 1 == month && deadline.getFullYear() == year) {
+        if (deadline.getMonth() + 1 == month && deadline.getFullYear() == year && Dict.tasks[task].isCompleted == false) {
             days[deadline.getDate()] = true;
         }
     }
@@ -317,23 +318,23 @@ const appendTask = function (Dict, day, month, year) {
 
     for (let taskId in Dict.tasks) {
         var deadline = new Date(Dict.tasks[taskId].deadline);
-        if (deadline.getDate() == day && deadline.getMonth() + 1 == month && deadline.getFullYear() == year) {
+        if (deadline.getDate() == day && deadline.getMonth() + 1 == month && deadline.getFullYear() == year && Dict.tasks[taskId].isCompleted == false) {
             console.log("append task: ", taskId, Dict.tasks[taskId]);
             $("#Task-Section").append(MainScreen.TaskTemplate(taskId, Dict.tasks[taskId]));
         }
     }
 
     // Also remove all task edit, delete and complete button
-    $(".Task-Edit").hide();
-    $("#Task-Cancel").hide();
-    $("#Task-Destroyer").hide();
+    // $(".Task-Edit").hide();
+    // $("#Task-Cancel").hide();
+    // $("#Task-Destroyer").hide();
 }
 
 // Function to map datepicker to table
-const mapDatepickerToTable = function (){
+const mapDatepickerToTable = function () {
     // Map datepicker #calendar to #CalendarTable
     // Get all div with class dow
-    $('#calendar span.dow').each(function(){
+    $('#calendar span.dow').each(function () {
         // Clone the cell
         var clonedCell = $(this).clone();
 
@@ -344,23 +345,49 @@ const mapDatepickerToTable = function (){
         $('#CalendarTable #Weekday td:eq(' + index + ')').html(clonedCell);
     })
     // Get all div with class datepicker-cell
-    $("#calendar span.datepicker-cell").each(function() {
+    let countCell = 0;
+    $("#calendar span.datepicker-cell").each(function () {
         // Fill in #CalendarTable with datepicker-cell
         // $("#CalendarTable").append($(this).clone());
         // Clone the cell
         var clonedCell = $(this).clone();
-
+        clonedCell.attr('class', '');
+        clonedCell.addClass('text-left datepicker-cell dark:text-white text-gray-800');
         // Find the index of the current cell in the total 42 cells
         var index = $("#calendar span.datepicker-cell").index($(this));
 
         // Calculate the row and column index in the calendar table
-        var rowIndex = Math.floor(index / 7) ; // Add 1 because index starts from 0
+        var rowIndex = Math.floor(index / 7); // Add 1 because index starts from 0
         var colIndex = index % 7;
 
         // console.log("Index", index, "Row", rowIndex, "Col", colIndex);
 
         // Find the corresponding cell in the calendar table and fill it with the cloned cell
         $('#CalendarTable tr.week:eq(' + rowIndex + ') td:eq(' + colIndex + ')').html(clonedCell);
+
+        // Add tooltip into #CalendarTable 
+        // With each day in #CalendarTable, find all tasks that have deadline on that day, then show its title in tooltip truncated
+
+        // Get day, month, year from current datepicker-cell 
+        let day = clonedCell.text();
+        let month = $("button.view-switch").text().split(" ")[0];
+        month = monthDict[month];
+        if (day >= 22 && countCell < 7) {
+            month--;
+        } else if (day <= 13 && countCell > 28) {
+            month++;
+        } else {
+            // nope
+        }
+        let year = parseInt($("button.view-switch").text().split(" ")[1]);
+        // console.log("Tooltip", day, month, year, getTask(day, month, year));
+        if (getTask(day, month, year).length > 0) {
+            for (let taskId of getTask(day, month, year)) {
+                if (Dict.tasks[taskId].isCompleted == false)
+                    showTooltipInTable(Dict, taskId, rowIndex, colIndex);
+            }
+        }
+        countCell++;
     });
 
     // Clone $("button.view-switch").text()
@@ -409,7 +436,7 @@ Sample bottom tooltip:
 </div>
 */
 const tooltipTemplate = function (taskId, task) {
-    return `
+    return (`
     <button data-tooltip-target="tooltip-bottom-${taskId}" data-tooltip-placement="bottom" type="button" class="ms-3 mb-2 md:mb-0 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">${task.title}</button>
     <div id="tooltip-bottom-${taskId}" role="tooltip" class="absolute z-50 inline-block invisible px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
         <h3>${task.title}</h3>
@@ -429,7 +456,7 @@ const tooltipTemplate = function (taskId, task) {
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z"/>
             </svg>
-            Tags: ${task.tag}
+            Tags: ${Dict.tags[task.tag]}
         </p>
         <p>
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -439,68 +466,155 @@ const tooltipTemplate = function (taskId, task) {
         </p>
         <div class="tooltip-arrow" data-popper-arrow></div>
     </div>
-    `;
+    `);
 }
-
-const showAllTasksInTable = function (Dict) {
+// Function to refresh tooltip table by removing all tooltips and buttons
+const refreshTooltipTable = function () {
+    $('#CalendarTable button[data-tooltip-placement="bottom"]').remove();
+    $('#CalendarTable div[role="tooltip"]').remove();
+}
+// Function to refresh task section by use .load() to reload #Task-Section
+const refreshTaskSection = function () {
+    $("#Task-Section").load(location.href + " #Task-Section");
+}
+// Function to show tooltip in table with taskId and Dict at row, col
+const showTooltipInTable = function (Dict, taskId, row, col) {
     // With each day in #CalendarTable, find all tasks that have deadline on that day, then show its title in tooltip truncated
     // When click on that tooltip, show full description of the task
     // Tooltip will show deadline, description, tags, group of the task
 
-    // Debug only: show first task in #CalendarTable row 1 col 1
-    // Take first task in Dict.tasks
-    let taskId = Object.keys(Dict.tasks)[0];
-
-    $("#CalendarTable tr.week:eq(0) td:eq(0)").append(tooltipTemplate(taskId, Dict.tasks[taskId]));
+    // Append tooltip to #CalendarTable at row, col with Dict and taskId
+    $(`#CalendarTable tr.week:eq(${row}) td:eq(${col})`).append(tooltipTemplate(taskId, Dict.tasks[taskId]));
+    // Add event listener to show tooltip when click on button (because Flowbite tooltip is very LỎD)
+    $(`#CalendarTable button[data-tooltip-target="tooltip-bottom-${taskId}"]`).click(function () { });
+    const $targetEl = document.querySelector(`#CalendarTable #tooltip-bottom-${taskId}`);
+    const $triggerEl = document.querySelector(`#CalendarTable button[data-tooltip-target="tooltip-bottom-${taskId}"]`);
+    console.log("Target", $targetEl, "Trigger", $triggerEl);
+    const tooltip = new Tooltip($targetEl, $triggerEl, {
+        triggerType: "click",
+    });
 }
 
+const refreshOnDelay = function () {
+    let date = pickDate();
+    // set timeout to wait for focused class to be added
+    changeExpiredColor(getExpiredDays(date[1], date[2]));
+    $("#Task-Group-Title").text(combineMonth(...pickDate()));
+    appendTask(Dict, date[0], date[1], date[2]);
+    // update calendar table
+    mapDatepickerToTable();
+    // remove all tooltips and button
+    // refreshTooltipTable();
+}
+// Event handler for resizing window: If screen width is greater than 768px, show calendar table, else hide it
+$(window).resize(function () {
+    if ($(window).width() > 768) {
+        $("#CalendarTable").parent().removeClass("hidden");
+    } else {
+        $("#CalendarTable").parent().addClass("hidden");
+    }
+})
 
 $(document).ready(function () {
     // If screen width is greater than 768px, show calendar table
     // else hide it
-    // if ($(window).width() > 768) {
-    //     $("#CalendarTable").parent().removeClass("hidden");
-    // } else {
-    //     $("#CalendarTable").parent().addClass("hidden");
-    // }
-    $("#CalendarTable").parent().addClass("hidden");
-    mapDatepickerToTable();
-    
+    if ($(window).width() > 768) {
+        $("#CalendarTable").parent().removeClass("hidden");
+    } else {
+        $("#CalendarTable").parent().addClass("hidden");
+    }
+    //$("#CalendarTable").parent().addClass("hidden");
+    // refreshTooltipTable();
 
-    // Load data to calendar
-    $.when(loadDict()).done(function (data) {
-        // set initial date for #calendar is today
-        // format: MM/DD/YYYY'
-        Dict = data;
-        console.log('[6] Load data to calendar successfully!');
-        console.log(Dict);
-        // Show all tasks in #CalendarTable
-        showAllTasksInTable(Dict);
-        // Get date from focused datepicker-cell
-        let date = pickDate();
-        console.log(date);
-        // Get all tasks that have deadline on focused day
-        changeExpiredColor(getExpiredDays(date[1], date[2]));
-        // Show all tasks that have deadline on focused day
-        appendTask(Dict.tasks, date[0], date[1], date[2]);
-        console.log(getTask(...date));
+    refreshTaskSection();
+    function RefreshAll() {
+        mapDatepickerToTable(); // reset all?
 
-        // with each div with class datepicker-cell, find "focused" class
-        // if found, console log text content of the element
-        // refresh each time user click datepicker-cell
-        $("#Task-Group-Title").text(combineMonth(...pickDate()));
-        $("#calendar .datepicker-cell, #calendar button.prev-btn, #calendar button.next-btn").click(function () {
-            setTimeout(function () {
-                date = pickDate();
-                // set timeout to wait for focused class to be added
-                changeExpiredColor(getExpiredDays(date[1], date[2]));
-                $("#Task-Group-Title").text(combineMonth(...pickDate()));
-                appendTask(Dict, date[0], date[1], date[2]);
-                // update calendar table
-                mapDatepickerToTable();
-            }, 50);
-            console.log('[7] Selected date: ' + date[0] + ' ' + date[1] + ' ' + date[2]);
+        $.when(loadDict()).done(function (data) {
+            // set initial date for #calendar is today
+            // format: MM/DD/YYYY'
+            Dict = data;
+            console.log('[6] Load data to calendar successfully!');
+            console.log(Dict);
+            // remove all tooltips and button
+            // refreshTooltipTable();
+            refreshTaskSection();
+            // Show all tasks in #CalendarTable
+            // showAllTasksInTable(Dict);
+            // Get date from focused datepicker-cell
+            let date = pickDate();
+            console.log(date);
+            // Get all tasks that have deadline on focused day
+            changeExpiredColor(getExpiredDays(date[1], date[2]));
+            // Show all tasks that have deadline on focused day
+            appendTask(Dict.tasks, date[0], date[1], date[2]);
+            console.log(getTask(...date));
+
+            mapDatepickerToTable(); // reset all?
+            // with each div with class datepicker-cell, find "focused" class
+            // if found, console log text content of the element
+            // refresh each time user click datepicker-cell
+            $("#Task-Group-Title").text(combineMonth(...pickDate()));
+            $("#calendar .datepicker-cell, #calendar button.prev-btn, #calendar button.next-btn").click(function () {
+                setTimeout(refreshOnDelay, 50);
+                console.log('[7] Selected date: ' + date[0] + ' ' + date[1] + ' ' + date[2]);
+            });
+
         });
+    }
+    //Remove task
+    $("#Task-Section").on("click", "#Task-Cancel", function (e) {
+        var task_ = $(this).closest(".task-outer");
+        var taskId = task_.attr("id");
 
+        // Send ajaxHandler. request to backend at /todo/delete to delete task
+        ajaxHandler.deleteTask(taskId);
+
+        delete Dict.tasks[taskId];
+        console.log("Cancelled: " + taskId);
+        //console.log(Dict.tasks);
+
+        task_.toggleClass("transform transition-all duration-350 delay-75 ease-in-out scale-0 blur-md translate-y-20");
+
+        setTimeout(() => {
+            task_.remove();
+        }, 400);
     });
+
+    // Complete task
+    $("#Task-Section").on("click", "#Task-Destroyer", function () {
+        var task_ = $(this).closest(".task-outer");
+        var taskId = task_.attr("id");
+
+        // Disable the checkbox
+        $(this).prop("disabled", true);
+
+        console.log("Completed: " + taskId);
+        Dict.tasks[taskId].isCompleted = true;
+
+        // Also send to backend at /todo/completed/<id>
+        ajaxHandler.completeTask(taskId);
+
+        task_.toggleClass(" transform transition-all duration-350 delay-500 ease-in-out scale-150 blur-xl -translate-y-20");
+        setTimeout(() => {
+            task_.remove();
+        }, 800);
+    });
+
+    $('#Task-Section').on("click", ".Task-Edit", function (e) {
+        e.preventDefault();
+        modalMainScreen.LoadGroups(Dict);
+        modalMainScreen.LoadTags(Dict);
+        modalMainScreen.AddEditTask(Dict.tasks[$(this).closest(".task-outer").attr("id")]);
+
+        e.stopPropagation();
+    })
+
+    $('#crud-modal #submit-sec').on("click", function (e) {
+        RefreshAll();
+    });
+    $('#crud-modal #delete-sec').on("click", function (e) {
+        RefreshAll();
+    });
+    RefreshAll();
 });
