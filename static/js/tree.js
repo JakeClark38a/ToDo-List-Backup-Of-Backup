@@ -5,6 +5,8 @@ let fertilizationsLeft = 50; // Variable to store the number of remaining fertil
 let autoOption = false; // Variable to store the auto option state
 let audioOption = true; // Variable to store the audio option state
 let coins = 241400; // Variable to store the number of coins
+let numberOfWaterUsed = 0; // Variable to store the number of water used
+let numberOfFertilizerUsed = 0; // Variable to store the number of fertilizer used
 
 // DONT STORE THIS IN THE DATABASE !!!!!!!!!!!!!!!!
 let animationInProgress = false;
@@ -14,6 +16,14 @@ let autoInterval; // Variable to store the interval for auto watering and fertil
 var autoButtontag = document.getElementById('autoButton');
 var audioButtontag = document.getElementById('audioButton');
 var backgroundAudio = document.getElementById('backgroundAudio');
+
+function updateAllProgressBars() {
+  updateProgressBar("progressBar", "percentage", treeStage, 220);
+  updateProgressBar("progressBarNumberOfTree", "percentageNumberOfTree", treeCount, 500);
+  updateProgressBar("progressBarNumberOfWater", "percentageNumberOfWater", numberOfWaterUsed, 500);
+  updateProgressBar("progressBarNumberOfFertilizer", "percentageNumberOfFertilizer", numberOfFertilizerUsed, 500);
+}
+
 
 // Function to load data from the server
 function loadData() {
@@ -90,7 +100,7 @@ function RefreshAll() {
     updateFertilizerCount();
     updateButtonStates();
     updateTree(load = true);
-    updateProgressBar();
+    updateAllProgressBars();
     updateButtonStates();
     updateNumberofTrees();
     updateAutoOption();
@@ -180,7 +190,7 @@ function waterTree() {
     }
     lastAction = "water"; // Update last action
     updateTree();
-    updateProgressBar();
+    updateAllProgressBars();
     animate("water"); // Call the animation function for watering
     wateringsLeft--; // Decrease the number of remaining waterings
     updateButtonStates(); // Update button states
@@ -193,12 +203,14 @@ function waterTree() {
   }
 }
 
+
+
 function fertilizeTree() {
   if (fertilizationsLeft > 0 && treeStage < 220) {
     treeStage += 2; // Increment tree stage by fertilizing
     lastAction = "fertilize"; // Update last action
     updateTree();
-    updateProgressBar();
+    updateAllProgressBars();
     animate("fertilize"); // Call the animation function for fertilizing
     fertilizationsLeft--; // Decrease the number of remaining fertilizations
     updateButtonStates(); // Update button states
@@ -219,10 +231,10 @@ function wiggleImage(buttonId) {
   }, 500); // Remove wiggle class after 0.5 seconds
 }
 
-function updateProgressBar() {
-  const progressBar = document.getElementById("progressBar");
-  const percentage = document.getElementById("percentage");
-  const progress = (treeStage / 220) * 100; // Calculate the percentage progress
+function updateProgressBar(progresBarID, percentageNameID, stage, maxstage) {
+  const progressBar = document.getElementById(progresBarID);
+  const percentage = document.getElementById(percentageNameID);
+  const progress = (stage / maxstage) * 100; // Calculate the percentage progress
   progressBar.style.width = `${progress}%`; // Set the width of the progress bar
   percentage.innerText = `${Math.round(progress)}%`; // Update the percentage display
 }
@@ -501,3 +513,63 @@ window.addEventListener("resize", centerHelpModal);
 // Call the centerHelpModal function initially to center the modal
 centerHelpModal();
 /////////////////////////////////////// End Modal for the help ///////////////////////////////////////
+
+
+/////////////////////////////////////// Start Modal for the achivement ///////////////////////////////////////
+
+// Set the achievement modal element
+const $achievementModalEl = document.getElementById("AchievementModal");
+
+// Options for the achievement modal
+const achievementModalOptions = {
+  backdrop: "dynamic",
+  backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
+  closable: true,
+  onHide: () => {
+    console.log("Achievement modal is hidden");
+    document.getElementById("achievementButton").src = "../static/images/tree_game/AchievementButton.png";
+    // Add any specific actions you want to perform when the modal is hidden
+    // For example, reset any changes made when the modal was open
+    // Example: document.getElementById("achievementButton").src = "../static/images/tree_game/AchievementButton.png";
+  },
+  onShow: () => {
+    console.log("Achievement modal is shown");
+    document.getElementById("achievementButton").src = "../static/images/tree_game/AchievementButtonPressed.png";
+    // Add any specific actions you want to perform when the modal is shown
+    // For example, change the appearance of a button indicating the modal is open
+    // Example: document.getElementById("achievementButton").src = "../static/images/tree_game/AchievementButtonPressed.png";
+  },
+  onToggle: () => {
+    console.log("Achievement modal has been toggled");
+    // Add any specific actions you want to perform when the modal is toggled
+  },
+};
+
+// Create a new instance of the modal for the achievement modal
+const achievementModal = new Modal($achievementModalEl, achievementModalOptions);
+
+// Function to handle closing the achievement modal when the close button is clicked
+document
+  .getElementById("btn-close-achievement-modal")
+  .addEventListener("click", () => {
+    achievementModal.hide();
+  });
+
+// Function to unhide the achievement modal when the achievement button is clicked
+document.getElementById("achievementButton").addEventListener("click", () => {
+  achievementModal.show();
+});
+
+// Function to center the achievement modal
+function centerAchievementModal() {
+  $achievementModalEl.style.top = "50%";
+  $achievementModalEl.style.left = "50%";
+  $achievementModalEl.style.transform = "translate(-50%, -50%)";
+}
+
+// Call the centerAchievementModal function when the window is resized
+window.addEventListener("resize", centerAchievementModal);
+
+// Call the centerAchievementModal function initially to center the modal
+centerAchievementModal();
+

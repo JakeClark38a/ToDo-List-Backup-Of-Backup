@@ -241,7 +241,7 @@
   }
 
   #fertilizerCount, #waterCount {
-    @apply text-4xl vt323-regular relative max-w-[40px];
+    @apply text-4xl vt323-regular relative max-w-[40px] pointer-events-none;
   }
 
   #waterbutton, #fertilizebutton {
@@ -268,9 +268,8 @@
     }
   }
   .progress-container {
-    @apply w-full bg-[#fff] h-5 mb-2.5;
-    @apply rounded-lg border-black border-solid border-2;
-}
+    @apply w-full bg-[#fff] h-5 rounded-lg border-black border-solid border-2;
+  }
 
   .progress-bar {
       @apply bg-[#4caf50] h-full w-0 transition-[width] duration-[0.3s] rounded-md border-solid;
