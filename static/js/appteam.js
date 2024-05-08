@@ -86,7 +86,7 @@ function onVisitTeam() {
   $("#CreateAndJoinTeam").hide();
   $("#Main-Section").show();
 
-  $("#Team-Code-Dis").text("CD: " + Dict.team_code);
+  $("#Team-Code-Dis").text(Dict.team_code);
   $("#Team-Code-Dis").show();
   $('#MMenu-Group-Section').show();
   $('#MMenu-Group-Add').show();
@@ -103,7 +103,7 @@ function RefreshAll(team_id) {
     console.log("[7] Refresh the mainscreen");
     console.log(Dict);
 
-    $("#Team-Code-Dis").text("CD: " + Dict.team_code);
+    $("#Team-Code-Dis").text(Dict.team_code);
     $("#Team-Code-Dis").show();
     $('#MMenu-Group-Section').show();
     $('#MMenu-Group-Add').show();
@@ -140,7 +140,7 @@ function userlist(name, img, user_id) {
     <div class="flex-none self-center w-8 h-8 ">
         <img class=" w-full h-full  rounded-full" src="`+ img + `" alt="avtr">
     </div>
-    <div class="flex-1 self-center  mr-2 overflow-hidden">
+    <div class="flex-1 self-center  mr-2 overflow-hidden truncate w-20">
         <p id="" class="dark:text-gray-500 text-black text-lg text-nowrap">`+ name + `</p>
     </div>
     <div class=" flex-none  justify-end self-center  ">
@@ -164,6 +164,7 @@ function refreshUserList() {
     userList.append(userlist(UsersList[key].name + ((Dict.admin == UsersList[key].user_id) ? " (Leader)" : ""), UsersList[key].img, UsersList[key].user_id));
   }
 }
+
 
 $("#Team-Menu-Click").on('click', () => {
   $("#CreateAndJoinTeam").show();
@@ -197,7 +198,11 @@ $(document).ready(function () {
 
 
   //################################################### Fuctions #########################################################
-
+  $("#Team-Code-Dis").on("click", function () {
+    let code = $(this).text();
+    navigator.clipboard.writeText(code);
+    Alert.Success("Code copied successfully!",1500);
+  });
   //================================================================\\
   //=========================== User list ========================\\
   //================================================================\\

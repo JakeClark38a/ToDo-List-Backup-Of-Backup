@@ -100,13 +100,17 @@
                                 class="bg-gray-50 border border-gray-300 p-1 h-[2.65rem]  w-20 rounded-lg focus:ring-primary-500 focus:border-primary-500 block dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         </div>
 
+                        <div id="warn-sec" class="col-span-2">
+                            <div id="warn" class="block mb-2 text-sm font-medium text-red-400">Warning</div>
+                        </div>
+
                     </div>
                     <!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
                     <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
                         autocomplete="off" tabindex="-1">
                     <div class="col-span-2 flex justify-between">
-                        <button id="submit-sec" type="submit"
-                            class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                        <button id="submit-sec" type="button"
+                            class="text-white inline-flex items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                             <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -117,8 +121,8 @@
                         </button>
 
                         <!--Delete btn-->
-                        <button id="delete-sec"
-                            class="text-white inline-flex items-center bg-red-300 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                        <button id="delete-sec" type="button"
+                            class="text-white inline-flex items-center bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                             <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -269,7 +273,7 @@
 
         <!-- Dropdown Main menu -->
         <div id="Main-Menu"
-            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-54 lg:w-64 bg-main dark:bg-gray-700 shadow-xl overflow-hidden  rounded-br-xl">
+            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-56 lg:w-64 bg-main dark:bg-gray-700 shadow-xl overflow-hidden  rounded-br-xl">
             <div id="MMenu-Today" class="MMenu-Primary-Section"
                 onclick="window.location.href=`{{url_for('todo.main_page')}}`"> <!--block-->
                 <div class="flex items-center">
@@ -347,7 +351,7 @@
             </div><!--eoblock-->
 
             <div id="MMenu-Group-Section"
-                class="relative MMenu-Group-Section overflow-y-scroll py-5 h-1/2 bg-gray-300/35 ">
+                class="relative MMenu-Group-Section overflow-y-scroll py-5 h-1/2  ">
                 <!--group here-->
             </div>
             <!-- <div id="MMenu-Bottom" class="flex justify-between items-center p-2">
@@ -385,7 +389,7 @@
         <!--########################################################### Calendar ######################################################################-->
         <!-- Redirect to Backend Generator here -->
         <!-- Begin Calendar -->
-        <div id="Calendar" class="Container backdrop-blur-sm py-1 h-[90vh] overflow-y-scroll overflow-x-hidden">
+        <div id="Calendar" class="Container backdrop-blur-sm py-1 px-1 h-[90vh] overflow-y-scroll overflow-x-hidden">
             <!-- add question action button here-->
             <div id="add-draggable" class="z-40 absolute">
                 <div class="touch-none select-none">
@@ -406,10 +410,11 @@
                     <!-- Calendar - data-date will fill in backend -->
                     <div id="calendar" inline-datepicker data-date="{{formatted_date}}" class="pb-1"></div>
                     <!-- Todo with expired day -->
-                    <div id="tasks-display" class="group-outer p-[10px] ">
+                    <div id="tasks-display" class="group-outer">
                         <div class="flex justify-between items-center px-3 rounded-t-lg ">
                             <!-- Title -->
-                            <div id="Task-Group-Title" class="todobox-title text-black dark:text-white">March 7th, 2024</div>
+                            <div id="Task-Group-Title" class="todobox-title text-gray-800 dark:text-white bg-gray-300 dark:bg-gray-500 px-2 rounded-t-lg">March 7th, 2024
+                            </div>
                             <!-- <div class="Group-Task-Add ">
                                 <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -421,11 +426,11 @@
                         </div>
                         <!-- Content -->
                         <div id="Task-Section-Outer"
-                            class="bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl "
+                            class="bg-white dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl "
                             style="border-color: #546f72;">
                             <!-- In this div, height of gid001 will dynamically change based on 100vh, 350px is height of calendar, 40px is height of title and  - remove lg:w-96, lg:text-xl-->
                             <div id="Task-Section"
-                                class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 min-h-72">
+                                class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl min-w-[280px] max-w-full min-h-72">
                                 <!--task here-->
 
 

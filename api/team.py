@@ -56,7 +56,7 @@ def create_team():
     tododb.session.commit()
     curr_user.TeamUser.append(new_team)
     tododb.session.commit()
-    return jsonify({"message": "Team created successfully"}), 200
+    return jsonify({"message": "Team created successfully", "team_id": new_team.team_id}), 200
 
 @team.route('/team/create/get', methods=['GET'])
 @login_required

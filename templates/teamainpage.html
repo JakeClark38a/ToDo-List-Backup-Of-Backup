@@ -246,10 +246,10 @@
                 </div>
 
                 <div id="Team-Menu-Click"
-                    class="flex gap-1 md:w-40 transform transition-all duration-200 ease-in-out headbar-button overflow-hidden p-2 hover:bg-main/35">
-                    <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                    class="flex md:w-40 transform transition-all duration-200 ease-in-out headbar-button overflow-hidden py-2 gap-2 hover:bg-main/35">
+                    <svg class="w-fit h-full text-gray-800 dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M11 9h6m-6 3h6m-6 3h6M6.996 9h.01m-.01 3h.01m-.01 3h.01M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" />
                     </svg>
                     <div
@@ -263,9 +263,8 @@
 
             <div class="flex justify-end items-center p-2 gap-2 ">
 
-                <div id="Team-Code-Dis" class="hidden w-14 md:w-28 text-sm md:text-md text-gray-800 dark:text-main ">
-                    ID: ______
-                </div>
+                <div id="Team-Code-Dis" class="hidden transition-all h-12 text-center duration-200 ease-in-out p-2 w-24 truncate md:w-28 text-md md:text-lg rounded-lg hover:bg-main/35 text-gray-800 dark:text-main ">
+                    ID: ______</div>
 
                 <div id="UserList-Toggle"
                     class="hidden headbar-button flex justify-center items-center  p-2 mx-2 border-0 hover:bg-main/35">
@@ -293,7 +292,7 @@
         <!--########################################################### Profile Dropdown ######################################################################-->
         <!-- Dropdown menu -->
         <div id="Avatar-Menu"
-            class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
+            class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-56 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
 
 
             <a href="{{url_for('profiles.profile',type=session['type'])}}">

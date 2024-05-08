@@ -52,18 +52,18 @@ var lastVisitedTeam = "";
 function teamlist(id, name, code) {
     if (user.user_id == team[id].admin) {
         return (`
-            <div id="` + id + `" class="bg-blue-50 dark:bg-gray-700 shadow-md p-3 team_createlist flex flex-wrap sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg">
+            <div id="` + id + `" class="bg-blue-50 dark:bg-gray-700 shadow-md p-3 team_createlist flex flex-wrap sm:w-11/12 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg">
             
             <div class="hidden md:inline-block self-center border-2 rounded-full mx-4">
                 <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
             </div>
 
-            <div class="flex px-1 md:px-3">
-                <div class="flex flex-col">
-                    <p id="` + name + `" class="dark:text-white truncate w-32">` + name + `</p>
+            <div class="flex grow md:w-full md:px-3">
+                <div class="flex  flex-col">
+                    <p id="` + name + `" class="dark:text-white truncate w-24 md:w-32">` + name + `</p>
                     <div class="flex items-center">
 
-                        <button id="` + code + `" class="copy_btn hover:bg-white flex items-center p-1 px-2 text-sm font-medium text-center text-gray-900 rounded-lg focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-500 dark:focus:ring-gray-600">
+                        <button id="` + code + `" class="copy_btn1 hover:bg-white flex items-center p-1 px-2 text-sm font-medium text-center text-gray-900 rounded-lg focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-500 dark:focus:ring-gray-600">
                         ` + code + `
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z"/>
@@ -109,15 +109,15 @@ function teamlist(id, name, code) {
     }
     else {
         return (`
-        <div id="` + id + `" class="bg-blue-50 dark:bg-gray-700 shadow-md team_joinlist p-3 flex flex-wrap sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg">
-            <div class="hidden md:inline-block self-center border-2 rounded-full mx-4">
+        <div id="` + id + `" class="bg-blue-50 dark:bg-gray-700 shadow-md team_joinlist p-3 flex flex-wrap sm:w-11/12 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg">
+            <div class="hidden md:inline-block self-center border-2 rounded-full  mx-4">
                 <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
             </div>
-            <div class="flex px-1 md:px-3">
-                <div class="flex flex-col">
-                    <p id="` + name + `" class="dark:text-white truncate w-32">` + name + `</p>
+            <div class="flex grow  md:w-full md:px-3">
+                <div class="flex  flex-col">
+                    <p id="` + name + `" class="dark:text-white truncate w-24 md:w-32">` + name + `</p>
                     <div class="flex items-center">           
-                        <button id="` + code + `" class="copy_btn hover:bg-white flex items-center p-1 px-2 text-sm font-medium text-center text-gray-900 rounded-lg focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-500 dark:focus:ring-gray-600">
+                        <button id="` + code + `" class="copy_btn2 hover:bg-white flex items-center p-1 px-2 text-sm font-medium text-center text-gray-900 rounded-lg focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-500 dark:focus:ring-gray-600">
                         ` + code + `
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z"/>
@@ -253,7 +253,7 @@ $(document).ready(function () {
         if (teamcode) {
             $.when(ajaxHandler.team_JoinTeam(teamcode)).done(function (data) {
                 console.log(data);
-                ajaxHandler.team_setLastVisitedTeam(data.team_id); 
+                ajaxHandler.team_setLastVisitedTeam(data.team_id);
                 lastVisitedTeam = data.team_id;
                 setTimeout(onVisitTeam, 50);
                 init();
@@ -264,8 +264,8 @@ $(document).ready(function () {
 
             $.when(ajaxHandler.team_AddTeam(teamid, teamname, teamdes, teamcode)).done(function (data) {
                 console.log(data);
-                ajaxHandler.team_setLastVisitedTeam(teamid); 
-                lastVisitedTeam = teamid;
+                ajaxHandler.team_setLastVisitedTeam(data.team_id);
+                lastVisitedTeam = data.team_id;
                 setTimeout(onVisitTeam, 50);
                 init();
             });
@@ -342,7 +342,7 @@ $(document).ready(function () {
         $("#CreateAndJoinTeam #teamlist").show();
         $('#teamlist2').hide();
         teamlist1();
-       // location.reload();
+        // location.reload();
     });
     $("#crud-modal2 #Create-sec").click(function () {
         let teamname = $("#teamname-sec #teamname").val();
@@ -361,7 +361,7 @@ $(document).ready(function () {
         $(this).removeClass("text-gray-400");
         $("#changetojoin").removeClass("dark:text-white");
         teamlist1();
-        location.reload();
+        // location.reload();
     });
     $("#CreateAndJoinTeam #teamlist2").on("click", ".editteam", function () {
         let teamid = $(this).closest(".team_createlist").attr("id");
@@ -440,14 +440,16 @@ $(document).ready(function () {
         ajaxHandler.team_setLastVisitedTeam(lastVisitedTeam);
         setTimeout(onVisitTeam, 50);
     });
-    $("#teamlist").on("click", ".copy_btn1", function (e) {
+
+    $("#teamlist").on("click", ".copy_btn2", function (e) {
         let code = $(e.currentTarget).attr("id");
-        Utils.copyToClipboard(code);
+        navigator.clipboard.writeText(code);
     });
-    $("#teamlist2").on("click", ".copy_btn2", function (e) {
+    $("#teamlist2").on("click", ".copy_btn1", function (e) {
         let code = $(e.currentTarget).attr("id");
-        Utils.copyToClipboard(code);
+        navigator.clipboard.writeText(code);
     });
+
     $.when(ajaxHandler.team_getLastVisitedTeam()).done((data) => {
         $.when(ajaxHandler.team_LoadInfo(data.last_team)).done(() => {
             console.log("Last visited: " + data.last_team);
@@ -457,7 +459,7 @@ $(document).ready(function () {
             ajaxHandler.team_setLastVisitedTeam(""); // if not found team
         });
     });
-    
+
 });
 
 export { lastVisitedTeam };

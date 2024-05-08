@@ -302,6 +302,7 @@ ajaxHandler.getUserProfileImage = function () {
             success: function (data) {
                 $("#Avatar-Image").attr("src", data);
                 $("#User-Current-Avatar").attr("src", data);
+                
                 resolve(data);
             },
             error: function (data) {
