@@ -30,7 +30,10 @@ def loadTree():
             'fertilizationsLeft': new_tree.fertilizationsLeft,
             'autoOption': new_tree.autoOption,
             'audioOption': new_tree.audioOption,
-            'coins': curr_user.points
+            'coins': curr_user.points,
+            'numberOfBirdHaveEliminated': curr_user.numberOfBirdHaveEliminated,
+            'numberOfWaterUsed': curr_user.numberOfWaterUsed,
+            'numberOfFertilizerUsed': curr_user.numberOfFertilizerUsed
         }
         return jsonify(json_tree), 200
     else:
@@ -42,7 +45,10 @@ def loadTree():
             'fertilizationsLeft': tree.fertilizationsLeft,
             'autoOption': tree.autoOption,
             'audioOption': tree.audioOption,
-            'coins': curr_user.points
+            'coins': curr_user.points,
+            'numberOfBirdHaveEliminated': tree.numberOfBirdHaveEliminated,
+            'numberOfWaterUsed': tree.numberOfWaterUsed,
+            'numberOfFertilizerUsed': tree.numberOfFertilizerUsed
         }
         return jsonify(json_tree), 200
     
@@ -63,5 +69,8 @@ def updateTree():
         tree.autoOption = data['autoOption']
         tree.audioOption = data['audioOption']
         curr_user.points = data['coins']
+        tree.numberOfBirdHaveEliminated = data['numberOfBirdHaveEliminated']
+        tree.numberOfWaterUsed = data['numberOfWaterUsed']
+        tree.numberOfFertilizerUsed = data['numberOfFertilizerUsed']
         tododb.session.commit()
         return jsonify({'message': 'tree updated'}), 200

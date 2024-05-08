@@ -249,7 +249,8 @@
                         </div>
                     </label>
                 </div>
-            </div><!--eoblock-->
+
+            </div>
 
             <div id="PMenu-Logout" class="PMenu-Primary-Section"> <!--block-->
                 <a href="{{url_for('auth.logout')}}">
@@ -269,7 +270,14 @@
                     </button>
                 </a>
             </div><!--eoblock-->
-
+            <div id="PMenu-Coin" class="PMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="PMenu-Primary-Image-Wrapper">
+                        <img class="w-full h-full" src="../static/images/tree_game/JackpotCoin.png" class="" alt="coin">
+                    </div>
+                    <div id="PMenu-Display-Coin" class="PMenu-Primary-Text truncate">Coins: 999</div>
+                </div>
+            </div><!--eoblock-->
         </div>
         <!--########################################################### EoProfile Dropdown ######################################################################-->
 
@@ -281,7 +289,7 @@
         <div id="Main-Menu"
             class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-56 lg:w-64 bg-main dark:bg-gray-700 shadow-xl overflow-hidden  rounded-br-xl">
 
-            <!-- <div id="MMenu-Search" class="MMenu-Primary-Section mt-4">
+            <div id="MMenu-Search" class="MMenu-Primary-Section mt-4">
                 <div class="flex items-center">
                     <div id="Begin-Search" class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
@@ -293,11 +301,11 @@
 
                     <div class="p-2 flex items-center">
                         <textarea name="SearchBox" id="SearchBox"
-                            class="MMenu-Primary-Text bg-main rounded-xl border-0 text-left resize-none w-full" rows="1"
-                            placeholder="Search"></textarea>
+                            class="MMenu-Primary-Text bg-main rounded-xl border-0 text-left resize-none w-full text-black" rows="1"
+                            placeholder="Search"  style="color: black;"></textarea>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <div id="MMenu-Today" class="MMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
@@ -374,8 +382,7 @@
                 </div>
             </div><!--eoblock-->
 
-            <div id="MMenu-Group-Section"
-                class="relative MMenu-Group-Section overflow-y-scroll py-5 max-h-[95%] ">
+            <div id="MMenu-Group-Section" class="relative MMenu-Group-Section overflow-y-scroll py-5 max-h-[95%] ">
                 <!--group here-->
             </div>
         </div>

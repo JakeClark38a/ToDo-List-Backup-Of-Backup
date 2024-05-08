@@ -30,55 +30,36 @@ var autoButtontag = document.getElementById('autoButton');
 var audioButtontag = document.getElementById('audioButton');
 var backgroundAudio = document.getElementById('backgroundAudio');
 
+function updateCoinRewardAndMaxThreshold(click, coinRewardForNextStageUsed, numberOfUsed, numberOfMaxUsed) {
+  let i;
+  for (i = 0; i < progessBarStages.length && numberOfUsed >= progessBarStages[i]; i++) { }
+  if (i == progessBarStages.length) {
+    if (click && coinRewardForNextStageUsed !== "MAX") {
+      coins += coinRewardForNextStageUsed;
+      updateCoinsDisplay();
+      updateShopCoin();
+    }
+    coinRewardForNextStageUsed = "MAX";
+    numberOfMaxUsed = progessBarStages[progessBarStages.length - 1];
+  } else {
+    if (click && coinRewardForNextStageUsed !== coinPerStage[i]) {
+      coins += coinRewardForNextStageUsed;
+      updateCoinsDisplay();
+      updateShopCoin();
+    }
+    coinRewardForNextStageUsed = coinPerStage[i];
+    numberOfMaxUsed = progessBarStages[i];
+  }
+  // Return the updated values
+  return [coinRewardForNextStageUsed, numberOfMaxUsed];
+}
 
 function updateAllProgressBarsForAchivement(click = false) {
-
-
-  let i;
-  for (i = 0; i < progessBarStages.length && numberOfTreePlanted >= progessBarStages[i]; i++) { }
-  if (i == progessBarStages.length) {
-
-    coinRewardForNextStageTreePlanted = "MAX";
-    numberOfTreePlantedMax = progessBarStages[progessBarStages.length - 1];
-
-  } else {
-    coinRewardForNextStageTreePlanted = coinPerStage[i];
-    numberOfTreePlantedMax = progessBarStages[i];
-  }
-
-  for (i = 0; i < progessBarStages.length && numberOfWaterUsed >= progessBarStages[i]; i++) { }
-  if (i == progessBarStages.length) {
-    coinRewardForNextStageWaterUsed = "MAX";
-    numberOfWaterUsedMax = progessBarStages[progessBarStages.length - 1];
-  } else {
-    coinRewardForNextStageWaterUsed = coinPerStage[i];
-    numberOfWaterUsedMax = progessBarStages[i];
-  }
-
-
-  console.log(coinRewardForNextStageFertilizerUsed);
-  for (i = 0; i < progessBarStages.length && numberOfFertilizerUsed >= progessBarStages[i]; i++) { }
-  if (i == progessBarStages.length) {
-    if (click && coinRewardForNextStageFertilizerUsed !== "MAX") {
-      coins += coinRewardForNextStageFertilizerUsed;
-      updateCoinsDisplay();
-    }
-    coinRewardForNextStageFertilizerUsed = "MAX";
-    console.log(coinRewardForNextStageFertilizerUsed);
-    numberOfFertilizerUsedMax = progessBarStages[progessBarStages.length - 1];
-  } else {
-    coinRewardForNextStageFertilizerUsed = coinPerStage[i];
-    numberOfFertilizerUsedMax = progessBarStages[i];
-  }
-
-  for (i = 0; i < progessBarStages.length && numberOfBirdHaveEliminated >= progessBarStages[i]; i++) { }
-  if (i == progessBarStages.length) {
-    coinRewardForNextStageBirdHaveEliminated = "MAX";
-    numberOfBirdHaveEliminatedMax = progessBarStages[progessBarStages.length - 1];
-  } else {
-    coinRewardForNextStageBirdHaveEliminated = coinPerStage[i];
-    numberOfBirdHaveEliminatedMax = progessBarStages[i];
-  }
+  // Update and assign the returned values back to variables
+  [coinRewardForNextStageWaterUsed, numberOfWaterUsedMax] = updateCoinRewardAndMaxThreshold(click, coinRewardForNextStageWaterUsed, numberOfWaterUsed, numberOfWaterUsedMax);
+  [coinRewardForNextStageBirdHaveEliminated, numberOfBirdHaveEliminatedMax] = updateCoinRewardAndMaxThreshold(click, coinRewardForNextStageBirdHaveEliminated, numberOfBirdHaveEliminated, numberOfBirdHaveEliminatedMax);
+  [coinRewardForNextStageTreePlanted, numberOfTreePlantedMax] = updateCoinRewardAndMaxThreshold(click, coinRewardForNextStageTreePlanted, numberOfTreePlanted, numberOfTreePlantedMax);
+  [coinRewardForNextStageFertilizerUsed, numberOfFertilizerUsedMax] = updateCoinRewardAndMaxThreshold(click, coinRewardForNextStageFertilizerUsed, numberOfFertilizerUsed, numberOfFertilizerUsedMax);
 
   updateCoinRewardForNextStage(coinRewardForNextStageTreePlanted, coinRewardForNextStageWaterUsed, coinRewardForNextStageFertilizerUsed, coinRewardForNextStageBirdHaveEliminated);
   updateCurrentStageAndMaxStage("current-Tree-Count/currentMax-Tree-CountThreshold", numberOfTreePlanted, numberOfTreePlantedMax);
@@ -133,7 +114,7 @@ function loadData() {
 
 // Function to send data to the server
 function sendData() {
-  console.log("test")
+  // console.log("test")
   const data = {
     treeStage: treeStage,
     numberOfTreePlanted: numberOfTreePlanted,
@@ -242,7 +223,7 @@ function updateAutoOption(click = false) {
 
 
 function startAuto() {
-  console.log(autoButtontag.src)
+  // console.log(autoButtontag.src)
   autoInterval = setInterval(autoWaterAndFertilize, 500); // Call autoWaterAndFertilize every second
   autoButtontag.src = '../static/images/tree_game/AutoButtonLooping.gif';
 }
@@ -471,7 +452,7 @@ function updateFertilizerCount() {
 
 
 function autoWaterAndFertilize() {
-  console.log(wateringsLeft, lastAction);
+  // console.log(wateringsLeft, lastAction);
   if (
     (wateringsLeft > 0 && lastAction === "fertilize") ||
     (wateringsLeft > 0 && fertilizationsLeft === 0)
@@ -501,14 +482,14 @@ const shopModalOptions = {
   backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
   closable: true,
   onHide: () => {
-    console.log("Shop modal is hidden");
+    // console.log("Shop modal is hidden");
   },
   onShow: () => {
     console.log("Shop modal is shown");
-    document.getElementById("storebellAudio").play();
+    // document.getElementById("storebellAudio").play();
   },
   onToggle: () => {
-    console.log("Shop modal has been toggled");
+    // console.log("Shop modal has been toggled");
   },
 };
 
@@ -554,15 +535,15 @@ const helpModalOptions = {
   backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
   closable: true,
   onHide: () => {
-    console.log("Help modal is hidden");
+    // console.log("Help modal is hidden");
     document.getElementById("helpButton").src = "../static/images/tree_game/HelpButton.png";
   },
   onShow: () => {
-    console.log("Help modal is shown");
+    // console.log("Help modal is shown");
     document.getElementById("helpButton").src = "../static/images/tree_game/HelpButtonPressed.png";
   },
   onToggle: () => {
-    console.log("Help modal has been toggled");
+    // console.log("Help modal has been toggled");
   },
 };
 
@@ -607,14 +588,14 @@ const achievementModalOptions = {
   backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
   closable: true,
   onHide: () => {
-    console.log("Achievement modal is hidden");
+    // console.log("Achievement modal is hidden");
     document.getElementById("achievementButton").src = "../static/images/tree_game/AchievementButton.png";
     // Add any specific actions you want to perform when the modal is hidden
     // For example, reset any changes made when the modal was open
     // Example: document.getElementById("achievementButton").src = "../static/images/tree_game/AchievementButton.png";
   },
   onShow: () => {
-    console.log("Achievement modal is shown");
+    // console.log("Achievement modal is shown");
     document.getElementById("achievementButton").src = "../static/images/tree_game/AchievementButtonPressed.png";
     updateAllProgressBarsForAchivement(click = true);
     // Add any specific actions you want to perform when the modal is shown
@@ -622,7 +603,7 @@ const achievementModalOptions = {
     // Example: document.getElementById("achievementButton").src = "../static/images/tree_game/AchievementButtonPressed.png";
   },
   onToggle: () => {
-    console.log("Achievement modal has been toggled");
+    // console.log("Achievement modal has been toggled");
     // Add any specific actions you want to perform when the modal is toggled
   },
 };

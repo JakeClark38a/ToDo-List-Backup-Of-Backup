@@ -48,17 +48,19 @@ var temp = {
 };
 
 var lastVisitedTeam = "";
-
+// show team list 
+// based on user id and admin id to separate the team list to join and create
 function teamlist(id, name, code) {
     if (user.user_id == team[id].admin) {
+        // create list generate team here
         return (`
             <div id="` + id + `" class="bg-blue-50 dark:bg-gray-700 shadow-md p-3 team_createlist flex flex-wrap sm:w-11/12 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg">
             
-            <div class="hidden md:inline-block self-center border-2 rounded-full mx-4">
+            <div class="hidden md:inline-block self-center border-2 rounded-full mx-2">
                 <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
             </div>
 
-            <div class="flex grow md:w-full md:px-3">
+            <div class="flex grow md:px-3">
                 <div class="flex  flex-col">
                     <p id="` + name + `" class="dark:text-white truncate w-24 md:w-32">` + name + `</p>
                     <div class="flex items-center">
@@ -94,10 +96,10 @@ function teamlist(id, name, code) {
                 <div id="dropdown" class="absolute z-10 mt-3 hidden border-2 border-white bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                     <ul class="py-2 text-sm text-gray-700 dark:text-white" aria-labelledby="dropdownMenuIconButton">
                         <li>
-                            <button class="editteam block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</button>
+                            <button class="editteam block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full rounded-lg text-left">Edit</button>
                         </li>
                         <li>
-                            <button class="removecreateteam flex self-start px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete team</button>
+                            <button class="removecreateteam flex self-start px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg text-left">Delete team</button>
                         </li>
                     </ul>
                 </div>
@@ -108,12 +110,13 @@ function teamlist(id, name, code) {
     `)
     }
     else {
+        // join list generate team here
         return (`
-        <div id="` + id + `" class="bg-blue-50 dark:bg-gray-700 shadow-md team_joinlist p-3 flex flex-wrap sm:w-11/12 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg">
-            <div class="hidden md:inline-block self-center border-2 rounded-full  mx-4">
+        <div id="` + id + `" class="bg-blue-50 dark:bg-gray-700 shadow-md team_joinlist p-3 flex flex-row flex-wrap sm:w-11/12 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg">
+            <div class="hidden md:inline-block self-center border-2 rounded-full  mx-2">
                 <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
             </div>
-            <div class="flex grow  md:w-full md:px-3">
+            <div class="flex grow   md:px-3">
                 <div class="flex  flex-col">
                     <p id="` + name + `" class="dark:text-white truncate w-24 md:w-32">` + name + `</p>
                     <div class="flex items-center">           
@@ -146,7 +149,7 @@ function teamlist(id, name, code) {
         `);
     }
 }
-
+// get team join list from server
 function getJoinedTeam() {
     return new Promise(function (resolve) {
         $.when(ajaxHandler.team_LoadJoinedList()).done(function (data) {
@@ -157,7 +160,7 @@ function getJoinedTeam() {
     });
 
 };
-
+// get team create list from server
 function getCreatedTeam() {
     return new Promise(function (resolve) {
         $.when(ajaxHandler.team_LoadCreatedList()).done(function (data) {
@@ -168,14 +171,15 @@ function getCreatedTeam() {
     });
 };
 
-
+// main function
 $(document).ready(function () {
-
+    // generate and load screen  
     function init() {
         $("#UserList-Toggle").addClass("hidden");
         $.when(getJoinedTeam(),
             getCreatedTeam()).done(function (joined, created) {
                 team = Object.assign({}, created, joined);
+                //  check team list is empty or not
                 if (Object.keys(team).length == 0) {
                     console.log("No team found or created");
                     return;
@@ -217,7 +221,7 @@ $(document).ready(function () {
     // team[teamid] = content=inside 
 
     init();
-
+    // team list generate function
     function teamlist1() {
         console.log('teamlist running');
         let teamlistjoi = $("#CreateAndJoinTeam #teamlist");
@@ -242,13 +246,13 @@ $(document).ready(function () {
             }
         }
     }
-
+    // dropdown menu 
     $("#CreateAndJoinTeam #teamlist2").on("click", ".dropdown_btn_tc", function (e) {
         console.log("clicked dropdown");
         let dropdown = $(e.currentTarget).next("#dropdown");
         dropdown.toggle();
     });
-
+    // add team function
     function addteam(teamcode, teamname, teamdes) {
         if (teamcode) {
             $.when(ajaxHandler.team_JoinTeam(teamcode)).done(function (data) {
@@ -274,7 +278,7 @@ $(document).ready(function () {
 
 
     }
-
+    // remove team function
     function removeteam(teamid,) {
         delete team[teamid];
         teamlist1();
@@ -293,7 +297,7 @@ $(document).ready(function () {
     }
 
 
-
+    // create and join team button
     $("#CreateAndJoinTeam #create").click(function () {
         modalteampage.CreateTeam();
     });
@@ -308,7 +312,8 @@ $(document).ready(function () {
     $("#CreateAndJoinTeam #join1").click(function () {
         modalteampage.JoinTeam();
     });
-
+    // end 
+    // reset state
     modalteampage.resetState();
 
     $("#CreateAndJoinTeam #createandjoin").click(function () {
@@ -392,6 +397,7 @@ $(document).ready(function () {
         teamlist1();
 
     });
+    // 
     $("#crud-modal2 #delete-sec").click(function () {
         let id = $('#crud-modal2 input[type="checkbox"]').attr("id");
         $('#teamname-sec #teamname').val("");
@@ -399,20 +405,21 @@ $(document).ready(function () {
     });
 
 
-
+    // remove team from join list
     $("#CreateAndJoinTeam #teamlist").on("click", ".removejointeam", function () {
         let teamid = $(this).closest(".team_joinlist").attr("id");
         console.log(teamid);
         removeteam(teamid);
         ajaxHandler.team_LeaveTeam(teamid);
     });
+    // delete team from create list
     $("#CreateAndJoinTeam #teamlist2").on("click", ".removecreateteam", function () {
         let teamid = $(this).closest(".team_createlist").attr("id");
         console.log(teamid);
         removeteam(teamid);
         ajaxHandler.team_DeleteTeam(teamid);
     });
-
+    // back button
     $("#CreateAndJoinTeam #backbtn").click(function () {
         $("#CreateAndJoinTeam #teamcreate_join").hide();
         $("#CreateAndJoinTeam").show();
@@ -427,20 +434,22 @@ $(document).ready(function () {
         $("#changetocreate").removeClass("dark:text-white");
 
     });
-
+    // btn for jumping to teampage
     $("#teamlist2").on("click", ".goteambtn1", function (e) {
         lastVisitedTeam = $(e.currentTarget).closest(".team_createlist").attr("id");
         console.log(lastVisitedTeam);
         ajaxHandler.team_setLastVisitedTeam(lastVisitedTeam);
-        setTimeout(onVisitTeam, 50);
+        onVisitTeam();
     });
     $("#teamlist").on("click", ".goteambtn2", function (e) {
         lastVisitedTeam = $(e.currentTarget).closest(".team_joinlist").attr("id");
         console.log(lastVisitedTeam);
         ajaxHandler.team_setLastVisitedTeam(lastVisitedTeam);
-        setTimeout(onVisitTeam, 50);
+        onVisitTeam();
     });
+    //
 
+    // copy code to clipboard
     $("#teamlist").on("click", ".copy_btn2", function (e) {
         let code = $(e.currentTarget).attr("id");
         navigator.clipboard.writeText(code);
@@ -449,12 +458,12 @@ $(document).ready(function () {
         let code = $(e.currentTarget).attr("id");
         navigator.clipboard.writeText(code);
     });
-
+    // join team when join and create team  imidiately after create or join
     $.when(ajaxHandler.team_getLastVisitedTeam()).done((data) => {
         $.when(ajaxHandler.team_LoadInfo(data.last_team)).done(() => {
             console.log("Last visited: " + data.last_team);
             lastVisitedTeam = data.last_team;
-            setTimeout(onVisitTeam, 50);
+            onVisitTeam();
         }).fail(() => {
             ajaxHandler.team_setLastVisitedTeam(""); // if not found team
         });

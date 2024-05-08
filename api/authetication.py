@@ -52,7 +52,11 @@ def generate_verify_otp(option, otp=None):
 
 @auth.errorhandler(404)
 def page_not_found(e):
-    return render_template('notfounderror.html'), 404
+    return render_template('error404page.html'), 404
+
+@auth.errorhandler(500)
+def internal_server_error(e):
+    return render_template('error500page.html'), 500
 
 #Endpoints 
 @auth.route('/')

@@ -197,18 +197,23 @@
 
 
 
-            <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
-                <div class="flex items-center">
-                    <div class="PMenu-Primary-Image-Wrapper">
-                        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-width="2"
-                                d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        </svg>
+            <a href="{{url_for('profiles.profile',type=session['type'])}}">
+                <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
+                    <div class="flex items-center">
+                        <div class="PMenu-Primary-Image-Wrapper">
+                            <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-width="2"
+                                    d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </div>
+                        <div class="PMenu-Primary-Text">Profile</div>
                     </div>
-                    <div class="PMenu-Primary-Text">Profile</div>
                 </div>
-            </div>
+            </a><!--eoblock-->
 
             <div id="PMenu-UserSett" class="PMenu-Primary-Section hidden"> <!--block-->
                 <div class="flex items-center">
@@ -263,7 +268,14 @@
                     </button>
                 </a>
             </div><!--eoblock-->
-
+            <div id="PMenu-Coin" class="PMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="PMenu-Primary-Image-Wrapper">
+                        <img class="w-full h-full" src="../static/images/tree_game/JackpotCoin.png" class="" alt="coin">
+                    </div>
+                    <div id="PMenu-Display-Coin" class="PMenu-Primary-Text truncate">Coins: 999</div>
+                </div>
+            </div><!--eoblock-->
         </div>
         <!--########################################################### EoProfile Dropdown ######################################################################-->
 
@@ -413,7 +425,7 @@
                     <div id="tasks-display" class="group-outer">
                         <div class="flex justify-between items-center px-3 rounded-t-lg ">
                             <!-- Title -->
-                            <div id="Task-Group-Title" class="todobox-title text-gray-800 dark:text-white bg-gray-300 dark:bg-gray-500 px-2 rounded-t-lg">March 7th, 2024
+                            <div id="Task-Group-Title" class="todobox-title text-gray-800 dark:text-white bg-gray-300 dark:bg-gray-500 px-2 rounded-t-lg truncate">March 7th, 2024
                             </div>
                             <!-- <div class="Group-Task-Add ">
                                 <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"

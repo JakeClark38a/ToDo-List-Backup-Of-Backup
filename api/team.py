@@ -31,7 +31,12 @@ def datetime_to_string(user_date):
     result = datetime.datetime.strptime(user_date, '%Y-%m-%dT%H:%M')
     return result.strftime('%Y-%m-%d %H:%M:%S')
 
-
+def expire_task(user_date):
+    result = user_date
+    if result < datetime.datetime.now():
+        return True
+    else:
+        return False
 
 #Endpoints
 
@@ -288,6 +293,8 @@ def completed_todo(teamid,id):
         if task.isCompleted == True:
             return jsonify({'message': 'Task already completed!'}), 400
         task.isCompleted = True
+        if expire_task(task.deadline) == True:
+            get_points = 0
         task.completed_user = current_user.get_id()
         tododb.session.commit()
         update_points = Users.query.filter_by(user_id=current_user.get_id()).first()      

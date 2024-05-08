@@ -48,8 +48,9 @@ var UsersList = {
 function getData(team_id) {
   return new Promise(function (resolve) {
     $.when(ajaxHandler.LoadTeamData(team_id),
-      ajaxHandler.team_LoadUserList(team_id)
-    ).done(function (data, userslist) {
+      ajaxHandler.team_LoadUserList(team_id),
+      ajaxHandler.LoadUser(),
+    ).done(function (data, userslist, userdata) {
       Dict = data;
       var temp = {};
       for (let idx in userslist) {
@@ -59,6 +60,7 @@ function getData(team_id) {
         temp[userslist[idx].userid].img = userslist[idx].image ? userslist[idx].image : "../static/images/profile.jpg";
       }
       UsersList = temp;
+      Dict.points = userdata.points;
 
       console.log("[5] Data is loaded to appTeam.js: ");
       console.log(Dict);
@@ -93,6 +95,9 @@ function onVisitTeam() {
   $("#UserList-Toggle").show();
   $('#Team-Menu-Click').show();
 
+  $("#Main-Screen").empty();
+  $("#MMenu-Group-Section").empty();
+
   init();
 }
 
@@ -112,8 +117,7 @@ function RefreshAll(team_id) {
 
     $("#Main-Screen").empty();
     $("#MMenu-Group-Section").empty();
-
-
+    $("#PMenu-Display-Coin").text("Coins: " + Dict.points);
 
     LoadMainMenu(Dict);
     LoadMainScreen(Dict, currentMode);
@@ -201,7 +205,7 @@ $(document).ready(function () {
   $("#Team-Code-Dis").on("click", function () {
     let code = $(this).text();
     navigator.clipboard.writeText(code);
-    Alert.Success("Code copied successfully!",1500);
+    Alert.Success("Code copied successfully!", 1500);
   });
   //================================================================\\
   //=========================== User list ========================\\
@@ -324,7 +328,10 @@ $(document).ready(function () {
     var taskId = task_.attr("id");
 
     // Send ajaxHandler. request to backend at /todo/delete to delete task
-    ajaxHandler.team_deleteTask(team_id, taskId);
+    $.when(ajaxHandler.team_deleteTask(team_id, taskId)).done(()=>{
+      Alert.Success("Task deleted successfully!");
+      RefreshAll(team_id);
+    });
 
     delete Dict.tasks[taskId];
     console.log("Cancelled: " + taskId);
@@ -349,14 +356,16 @@ $(document).ready(function () {
     Dict.tasks[taskId].isCompleted = true;
 
     // Also send to backend at /todo/completed/<id>
-    ajaxHandler.team_completeTask(team_id, taskId);
+    $.when(ajaxHandler.team_completeTask(team_id, taskId)).done(()=>{
+      Alert.Success("Task Completed!");
+      RefreshAll(team_id);
+    });
 
     task_.toggleClass(" transform transition-all duration-350 delay-500 ease-in-out scale-150 blur-xl -translate-y-20");
     setTimeout(() => {
       task_.remove();
     }, 800);
   });
-
 
 
   $("#crud-modal").on('change', '#groups', function () {
@@ -600,7 +609,38 @@ $(document).ready(function () {
     })
 
   //$("#Calendar").load("calendar.html");
-
+  // Secret place: Search algorithm: Use fuzzy search
+  $('#MMenu-Search textarea').on('input', function () {
+    let search = $(this).val();
+    if (search.length == 0) {
+      for (let task in Dict.tasks) {
+        $(`#${task}`).show();
+      }
+      return;
+    };
+    // Populate Dict into list of strings
+    let searchList = [];
+    for (let task in Dict.tasks) {
+      // Collect all the information of the task
+      let tagId = Dict.tasks[task].tag;
+      let groupId = Dict.tags[tagId].groupId;
+      // Replace -, T, : with space on deadline
+      let deadline = Dict.tasks[task].deadline.replace(/[-T:]/g, " ");
+      searchList.push(Dict.tasks[task].title + " " + Dict.tasks[task].description + " " + Dict.tags[tagId].title + " " + Dict.groups[groupId].title + " " + deadline);
+      // Init fuzzy search
+      let uf = new uFuzzy({});
+      let idxs = uf.filter(searchList, search);
+      // If the search is found, show the task
+      if (idxs.length > 0) {
+        $(`#${task}`).show();
+      }
+      // If the search is not found, hide the task
+      else {
+        $(`#${task}`).hide();
+      }
+      searchList = [];
+    }
+  });
   // End of app.js
 })
 

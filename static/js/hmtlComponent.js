@@ -53,7 +53,7 @@ MainScreen.TaskTemplate = function (id, task, mode = 0) {
 
             <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
 
-                <div class="font-semibold text-lg lg:text-xl truncate w-full dark:text-main ">` +
+                <div class="font-semibold text-lg lg:text-xl truncate w-max-64 dark:text-main ">` +
             task.title +
             `</div>
 

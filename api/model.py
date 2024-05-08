@@ -130,6 +130,9 @@ class Trees(tododb.Model):
     fertilizationsLeft = tododb.Column(tododb.Integer)
     autoOption = tododb.Column(tododb.BOOLEAN, default=False)
     audioOption = tododb.Column(tododb.BOOLEAN, default=True)
+    numberOfWaterUsed = tododb.Column(tododb.Integer, default=0)
+    numberOfFertilizerUsed = tododb.Column(tododb.Integer, default=0)
+    numberOfBirdHaveEliminated = tododb.Column(tododb.Integer, default=0)
     user_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('users.user_id', ondelete="CASCADE"),primary_key=True)
 
     def __repr__(self) -> str:

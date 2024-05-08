@@ -26,6 +26,10 @@ function renderTaskMainScreen(task_html, task, tag, mode = 0) {
     console.log(task.title + " " + task.taskID + " " + task.tag);
     task_html.append(MainScreen.TaskTemplate(task.taskID, task, mode));
     renderTagMainScreen(task_html.find("#" + task.taskID).find("#Task-Tag"), tag, mode);
+    // if Due
+    if (new Date(task.deadline) - new Date() <= 0) {
+        task_html.find("#" + task.taskID).closest(".task-outer").addClass("bg-red-300");
+    }
 }
 
 function renderGroupMainScreen(group_html, group, unique_id, mode = 0) {

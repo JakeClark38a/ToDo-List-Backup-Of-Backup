@@ -27,7 +27,6 @@ import { RefreshAllCalendar } from "./calendarNew.js";
 var Dict = Utils.getSampleData();
 let isDebugMode = false;
 var currentMode = 0; // 0-grid 1-any
-var currentMMenuTab = 0;  // 0-today 1-cal 2-garden
 var suggestTasks = {};
 
 function getData() {
@@ -72,30 +71,33 @@ function getData() {
   });
 }
 
+
+function RefreshAll() {
+  RefreshAllCalendar();
+
+  $.when(getData()).done(function (data) {
+    Dict = data;
+    console.log("[7] Refresh the mainscreen");
+    console.log(Dict);
+    $("#Main-Screen").empty();
+    $("#MMenu-Group-Section").empty();
+
+    $("#PMenu-Display-Coin").text("Coins: " + Dict.points);
+
+    LoadMainMenu(Dict);
+    LoadMainScreen(Dict, currentMode);
+
+    modalMainScreen.LoadTags(Dict);
+    modalMainScreen.LoadGroups(Dict);
+  });
+}
+
 $(document).ready(function () {
   //================================================================\\
   //========================== Initialize ==========================\\
   //================================================================\\
 
-  function RefreshAll() {
-    RefreshAllCalendar();
-    
-    $.when(getData()).done(function (data) {
-      Dict = data;
-      console.log("[7] Refresh the mainscreen");
-      console.log(Dict);
-      $("#Main-Screen").empty();
-      $("#MMenu-Group-Section").empty();
-      LoadMainMenu(Dict);
-      LoadMainScreen(Dict, currentMode);
-
-      modalMainScreen.LoadTags(Dict);
-      modalMainScreen.LoadGroups(Dict);
-    });
-  }
-
   function init() {
-    currentMMenuTab = 0; // 0-today 2-calendar 3-garden
     currentMode = 0;
     RefreshAll();
   }
@@ -391,7 +393,10 @@ $(document).ready(function () {
     var taskId = task_.attr("id");
 
     // Send ajaxHandler. request to backend at /todo/delete to delete task
-    ajaxHandler.deleteTask(taskId);
+    $.when(ajaxHandler.deleteTask(taskId)).done(() => {
+      Alert.Success("Task deleted successfully!");
+      RefreshAll();
+    });
 
     delete Dict.tasks[taskId];
     console.log("Cancelled: " + taskId);
@@ -416,7 +421,12 @@ $(document).ready(function () {
     Dict.tasks[taskId].isCompleted = true;
 
     // Also send to backend at /todo/completed/<id>
-    ajaxHandler.completeTask(taskId);
+    $.when(ajaxHandler.completeTask(taskId)).done(() => {
+      Alert.Success("Task completed!");
+      RefreshAll();
+    }).fail(() => {
+      Alert.Danger("Error!");
+    });
 
     task_.toggleClass(" transform transition-all duration-350 delay-500 ease-in-out scale-150 blur-xl -translate-y-20");
     setTimeout(() => {
@@ -670,11 +680,36 @@ $(document).ready(function () {
   //$("#Calendar").load("calendar.html");
 
   // Secret place: Search algorithm: Use fuzzy search
-  $('#MMenu-Search').on('input', function () {
+  $('#MMenu-Search textarea').on('input', function () {
     let search = $(this).val();
+    if (search.length == 0) {
+      for (let task in Dict.tasks) {
+        $(`#${task}`).show();
+      }
+      return;
+    };
     // Populate Dict into list of strings
     let searchList = [];
-    
-  }
+    for (let task in Dict.tasks) {
+      // Collect all the information of the task
+      let tagId = Dict.tasks[task].tag;
+      let groupId = Dict.tags[tagId].groupId;
+      // Replace -, T, : with space on deadline
+      let deadline = Dict.tasks[task].deadline.replace(/[-T:]/g, " ");
+      searchList.push(Dict.tasks[task].title + " " + Dict.tasks[task].description + " " + Dict.tags[tagId].title + " " + Dict.groups[groupId].title + " " + deadline);
+      // Init fuzzy search
+      let uf = new uFuzzy({});
+      let idxs = uf.filter(searchList, search);
+      // If the search is found, show the task
+      if (idxs.length > 0) {
+        $(`#${task}`).show();
+      }
+      // If the search is not found, hide the task
+      else {
+        $(`#${task}`).hide();
+      }
+      searchList = [];
+    }
+  });
   // End of app.js
 })
