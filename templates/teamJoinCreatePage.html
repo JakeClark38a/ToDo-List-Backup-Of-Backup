@@ -24,22 +24,22 @@
 
     <!--########################################################### Main Screen ######################################################################-->
     <!--Begin Main screen  ""backdrop-blur-sm" -->
-    <div class="Container backdrop-blur-sm py-10 h-70vh overflow-y-scroll overflow-x-hidden">
+    <div class="Container backdrop-blur-sm py-10 h-70vh overflow-y-scroll overflow-x-hidden ">
         <div id=""
-            class="justify-items-center  rounded-2xl m-auto bg-white h-[70vh] w-5/6 lg:w-4/5 xl:bg-gray-100  dark:bg-gray-700">
+            class="justify-items-center  rounded-2xl m-auto bg-main h-[70vh] w-5/6 lg:w-4/5  dark:bg-gray-700 shadow-lg">
             <section id="teampage"> <!--Team page-->
                 <div id="pageheader"
                     class="w-full sm:max-w-md md:max-w-screen-lg lg:max-w-7xl flex justify-between pl-6 pr-2 py-3 border-b-2">
 
-                    <div class="flex flex-row justify-start items-center h-12 w-9/12  ">
+                    <div class="flex flex-row justify-start items-center h-12 w-9/12 gap-4 ">
                         <button id="changetojoin"
-                            class="w-fit h-full text-gray-800 dark:text-white text-lg mr-4 ">Joined </button>
-                        <button id="changetocreate" class="w-fit h-full text-gray-400 text-lg">Created</button>
+                            class="w-fit h-full text-gray-800 dark:text-white text-lg dark:hover:bg-gray-600 px-4 font-semibold hover:shadow-lg rounded-lg">Joined </button>
+                        <button id="changetocreate" class="w-fit h-full text-gray-400 text-lg dark:text-white dark:hover:bg-gray-600 px-4 font-semibold hover:shadow-lg rounded-lg">Created</button>
                     </div>
 
-                    <div class=" flex self-center ">
+                    <div class=" flex self-center px-4">
                         <button id="createandjoin" type="button"
-                            class="text-blue-700 border font-bold p-1 border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-xl rounded-full text-sm h-8 w-8 md:w-32  text-center flex items-center justify-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500 ">
+                            class="text-blue-700 border font-bold p-1 shadow-md border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-xl rounded-full text-sm h-8 w-8 md:w-32  text-center flex items-center justify-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500 ">
 
                             <svg class="w-full h-full md:hidden text-gray-800 dark:text-main" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -193,12 +193,13 @@
                             </div>
                         </button>
                     </div>
+
                     <!-- screen for Join and create   -->
                     <div class=" flex flex-col items-center h-[70vh] w-full  ">
-                        <div class="flex flex-row justify-evenly items-center h-12 w-full  ">
-                            <button id="Jointeam" class="w-1/2 h-full text-gray-800 dark:text-white "> Join team
+                        <div class="flex flex-row justify-evenly items-center h-12 w-72 ">
+                            <button id="Jointeam" class="w-1/2 h-full text-gray-800 "> Join team
                             </button>
-                            <button id="Createteam" class="w-1/2 h-full text-gray-400 "> Create team
+                            <button id="Createteam" class="w-1/2 h-full text-gray-400"> Create team
                             </button>
                         </div>
                         <!-- join form -->

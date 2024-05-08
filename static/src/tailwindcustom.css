@@ -85,9 +85,10 @@
   }
 
   .title {
-    @apply font-sans text-2xl md:text-5xl font-bold text-left ;
+    @apply font-sans text-2xl md:text-5xl font-bold text-left;
   }
-  .title-2{
+
+  .title-2 {
     @apply text-xl md:text-2xl font-bold text-center font-sans;
   }
 
@@ -190,30 +191,39 @@
   /*End task box*/
 
   /*Start calendar*/
-  #CalendarTable .day{
-    @apply text-lg text-left h-40 bg-primary-200/80 rounded-lg dark:bg-gray-600 p-2 ;
+  #CalendarTable .day {
+    @apply text-lg text-left h-40 bg-primary-200/80 rounded-lg dark:bg-gray-600 p-2;
   }
+
   /*End calendar*/
 
   /* Begin profile */
 
   /* For screens wider than 1000px */
   @media screen and (max-width: 1000px) {
+
     /* Move avatar to the right */
     #Avatar-Section {
       left: 0;
       order: 0;
     }
 
+    #Profile-Box {
+      @apply mx-0;
+    }
+
     /* Adjust profile box width */
-    .flex-display-move-avatar-to-right-if-width-1000s{
-      width: 70%; /* Adjust this value as needed */
+    .flex-display-move-avatar-to-right-if-width-1000s {
+      width: 70%;
+      /* Adjust this value as needed */
       flex-direction: column;
     }
   }
-  .disabled-select{
+
+  .disabled-select {
     @apply opacity-50;
   }
+
   /* End profile */
 
 
@@ -223,13 +233,14 @@
     font-weight: 400;
     font-style: normal;
   }
-  .options{
+
+  .options {
     @apply flex justify-center rounded-lg;
   }
 
   #waterbutton img,
   #fertilizebutton img {
-    @apply cursor-pointer px-[6px] py-[4px]; 
+    @apply cursor-pointer px-[6px] py-[4px];
     /* Adjust margin as needed */
     /* Add a transparent border initially */
     /* Add padding for spacing */
@@ -240,12 +251,14 @@
     @apply mx-5;
   }
 
-  #waterbutton, #fertilizebutton {
+  #waterbutton,
+  #fertilizebutton {
     background-image: url("../images/tree_game/button.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center
   }
+
   #Items-hub {
     background-image: url("../images/tree_game/letterbox-desktop2.png");
     background-position: center;
@@ -253,56 +266,76 @@
     background-size: cover;
     @apply absolute right-0 top-0 mr-8 mt-24 p-5 bg-black rounded-lg text-3xl min-w-64;
   }
+
   @media screen and (max-width: 1000px) {
     #Items-hub {
       @apply translate-x-2/4 mr-0 mt-6 right-2/4;
     }
   }
+
   @media screen and (max-width: 1000px) {
     .tree-container {
       @apply justify-center;
     }
   }
+
   .progress-container {
     @apply w-full bg-[#fff] h-5 mb-2.5;
     @apply rounded-lg border-black border-solid border-2;
-}
+  }
 
   .progress-bar {
-      @apply bg-[#4caf50] h-full w-0 transition-[width] duration-[0.3s] rounded-md border-solid;
-      /* Initial width is 0 */
-      /* Add smooth transition effect */
-      /* Add border */
-      /* Add border radius */
+    @apply bg-[#4caf50] h-full w-0 transition-[width] duration-[0.3s] rounded-md border-solid;
+    /* Initial width is 0 */
+    /* Add smooth transition effect */
+    /* Add border */
+    /* Add border radius */
   }
 
   @keyframes wiggle {
-    0% { transform: rotate(0); }
-    25% { transform: rotate(10deg); }
-    50% { transform: rotate(-10deg); }
-    75% { transform: rotate(10deg); }
-    100% { transform: rotate(0); }
+    0% {
+      transform: rotate(0);
+    }
+
+    25% {
+      transform: rotate(10deg);
+    }
+
+    50% {
+      transform: rotate(-10deg);
+    }
+
+    75% {
+      transform: rotate(10deg);
+    }
+
+    100% {
+      transform: rotate(0);
+    }
   }
 
   .animate-wiggle {
-      animation: wiggle 0.5s;
+    animation: wiggle 0.5s;
   }
 
   .center-display {
     @apply flex justify-center items-center h-screen;
   }
 
-  #shop, #house {
-    @apply cursor-pointer max-h-[400px] m-auto hover:bg-yellow-500 hover:bg-opacity-50 rounded-xl; 
+  #shop,
+  #house {
+    @apply cursor-pointer max-h-[400px] m-auto hover:bg-yellow-500 hover:bg-opacity-50 rounded-xl;
   }
 
   @media screen and (max-width: 1000px) {
-    #house{
+    #house {
       @apply w-2/5;
     }
-    #shop{
+
+    #shop {
       @apply w-2/5;
     }
+
     .center-display {
       @apply flex-col;
     }
@@ -320,7 +353,8 @@
       @apply mt-32;
     }
   }
-  .forest-background{
+
+  .forest-background {
     background-color: #667a31;
     background-image: url("../images/tree_game/background_image_desktop.png");
     background-repeat: repeat;
@@ -328,7 +362,7 @@
   }
 
   @media screen and (max-width: 1000px) {
-    .forest-background{
+    .forest-background {
       background-image: url("../images/tree_game/background_image_mobile.png");
     }
   }
@@ -341,25 +375,29 @@
     @apply flex items-center py-2;
   }
 
-  #sideOptions{
+  #sideOptions {
     @apply absolute flex left-0 flex-col ml-2;
   }
-  #sideOptions img{
+
+  #sideOptions img {
     @apply my-1 rounded-l-lg w-12 h-12 cursor-pointer;
   }
+
   /* end tree */
 
   /* start bird*/
   #bird-container {
     position: absolute;
-    top: 100px; 
+    top: 100px;
     left: 100px;
   }
 
   #bird {
-      width: 50px; /* Adjust as needed */
-      height: auto;
+    width: 50px;
+    /* Adjust as needed */
+    height: auto;
   }
+
   /* end bird */
 
 }

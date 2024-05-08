@@ -56,7 +56,7 @@ function getData(team_id) {
         temp[userslist[idx].userid] = {};
         temp[userslist[idx].userid].user_id = userslist[idx].userid
         temp[userslist[idx].userid].name = userslist[idx].name;
-        temp[userslist[idx].userid].img = userslist[idx].image;
+        temp[userslist[idx].userid].img = userslist[idx].image ? userslist[idx].image : "../static/images/profile.jpg";
       }
       UsersList = temp;
 
@@ -68,6 +68,16 @@ function getData(team_id) {
       $("html").toggleClass("dark", Dict.darkmode);
 
       resolve(Dict, UsersList);
+    }).fail(() => {
+      $("#CreateAndJoinTeam").show();
+      $("#Main-Section").hide();
+
+      $("#Team-Code-Dis").hide();
+      $('#MMenu-Group-Section').hide();
+      $('#MMenu-Group-Add').hide();
+      $("#UserList-Toggle").hide();
+      $('#Team-Menu-Click').hide();
+      Alert.Danger("Team not exist or you have been banned!", 7000);
     });
   });
 }
@@ -75,6 +85,13 @@ function getData(team_id) {
 function onVisitTeam() {
   $("#CreateAndJoinTeam").hide();
   $("#Main-Section").show();
+
+  $("#Team-Code-Dis").text("CD: " + Dict.team_code);
+  $("#Team-Code-Dis").show();
+  $('#MMenu-Group-Section').show();
+  $('#MMenu-Group-Add').show();
+  $("#UserList-Toggle").show();
+  $('#Team-Menu-Click').show();
 
   init();
 }
@@ -128,7 +145,7 @@ function userlist(name, img, user_id) {
     </div>
     <div class=" flex-none  justify-end self-center  ">
     <button id="ban-user"  
-    class="banuser bg-white inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-900 rounded-lg
+    class="banuser hidden bg-white inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-900 rounded-lg
           hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">        
       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
@@ -144,7 +161,7 @@ function refreshUserList() {
   let userList = $(' #ListUser');
   userList.empty();
   for (let key in UsersList) {
-    userList.append(userlist(UsersList[key].name, UsersList[key].img, UsersList[key].user_id));
+    userList.append(userlist(UsersList[key].name + ((Dict.admin == UsersList[key].user_id) ? " (Leader)" : ""), UsersList[key].img, UsersList[key].user_id));
   }
 }
 

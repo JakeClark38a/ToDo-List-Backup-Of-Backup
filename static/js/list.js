@@ -51,91 +51,99 @@ var lastVisitedTeam = "";
 
 function teamlist(id, name, code) {
     if (user.user_id == team[id].admin) {
-        return (` <div id="` + id + `"class="py-3 team_createlist flex sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl  h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg  ">
-        <div class="hidden md:inline-block self-center border-2 rounded-full mx-4 ">
-            <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
-        </div>
-        <div class="inline-block grow px-3">
-            <div class="flex flex-col">
-                <p id="`+ name + `" class="dark:text-white truncate">` + name + `</p>
-                <div class="flex flex-row gap-3">
-                    <p id="`+ code + `" class="dark:text-white">` + code + `</p>
-                    <button class="copy_btn1" >
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z"/>
-                        </svg>
-                    </button>
+        return (`
+            <div id="` + id + `" class="bg-blue-50 dark:bg-gray-700 shadow-md p-3 team_createlist flex flex-wrap sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg">
+            
+            <div class="hidden md:inline-block self-center border-2 rounded-full mx-4">
+                <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
+            </div>
+
+            <div class="flex px-1 md:px-3">
+                <div class="flex flex-col">
+                    <p id="` + name + `" class="dark:text-white truncate w-32">` + name + `</p>
+                    <div class="flex items-center">
+
+                        <button id="` + code + `" class="copy_btn hover:bg-white flex items-center p-1 px-2 text-sm font-medium text-center text-gray-900 rounded-lg focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-500 dark:focus:ring-gray-600">
+                        ` + code + `
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z"/>
+                            </svg>
+                        </button>
+
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="inline-block items-center  self-center ">
-            <button class="goteambtn1 ">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"/>
-                </svg>
-            </button>
+
+            <div class="self-center m-1">
+                <button class="goteambtn1 hover:bg-white flex items-center p-1 text-sm font-medium text-center text-gray-900 rounded-lg  focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-500 dark:focus:ring-gray-600">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="self-center">
+                <button id="dropdownMenuIconButton ` + id + `" class="dropdown_btn_tc hover:bg-white flex items-center p-1 text-sm font-medium text-center text-gray-900 rounded-lg  focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-500 dark:focus:ring-gray-600" type="button">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z"/>
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                    </svg>
+                </button>
+                    
+                <!-- Dropdown menu -->
+                <div id="dropdown" class="absolute z-10 mt-3 hidden border-2 border-white bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-white" aria-labelledby="dropdownMenuIconButton">
+                        <li>
+                            <button class="editteam block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</button>
+                        </li>
+                        <li>
+                            <button class="removecreateteam flex self-start px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete team</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
 
-        <div class=" justify-self-end self-center mr-1 ">
-            <button id="dropdownMenuIconButton `+ id + `"  class="dropdown_btn_tc bg-white inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
-                <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
-                </svg>
-                </button>
-                
-                <!-- Dropdown menu -->
-                <div id="dropdown" class="absolute z-10 hidden border-2 border-white bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                    <ul class="py-2 w-full text-sm text-gray-700 dark:text-white" aria-labelledby="dropdownMenuIconButton">
-                    <li>
-                        <button class="editteam block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</button>
-                    </li>
-                    <li>
-                        <button class="removecreateteam flex self-start px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete team</button>
-                    </li>
-                    </ul>
-                
-                </div>
-                
-        </div>
-    </div>
-    `);
+    `)
     }
     else {
-        return (
-            ` <div id="` + id + `"class="team_joinlist py-3 flex sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl  h-fit my-3 md:ml-8 lg:ml-0 lg border-2 rounded-lg  ">
-        <div class="hidden md:inline-block  self-center border-2 rounded-full mx-4 ">
-            <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
-        </div>
-        <div class="inline-block grow px-3">
-            <div class="flex flex-col">
-                <p id="`+ name + `" class="dark:text-white truncate">` + name + `</p>
-                <div class="flex flex-row gap-3">
-                    <p id="`+ code + `" class="dark:text-white">` + code + `</p>
-                    <button class="copy_btn2" >
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z"/>
-                        </svg>
-                    </button>
+        return (`
+        <div id="` + id + `" class="bg-blue-50 dark:bg-gray-700 shadow-md team_joinlist p-3 flex flex-wrap sm:w-5/6 md:w-3/4 lg:w-4/5 sm:max-w-md md:max-w-xl lg:max-w-screen-xl h-fit my-3 md:ml-8 lg:ml-0 border-2 rounded-lg">
+            <div class="hidden md:inline-block self-center border-2 rounded-full mx-4">
+                <img class="w-10 h-10 rounded-full" src="/static/images/profile.jpg" alt="avtr">
+            </div>
+            <div class="flex px-1 md:px-3">
+                <div class="flex flex-col">
+                    <p id="` + name + `" class="dark:text-white truncate w-32">` + name + `</p>
+                    <div class="flex items-center">           
+                        <button id="` + code + `" class="copy_btn hover:bg-white flex items-center p-1 px-2 text-sm font-medium text-center text-gray-900 rounded-lg focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-500 dark:focus:ring-gray-600">
+                        ` + code + `
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z"/>
+                            </svg>
+                        </button>
+                        
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="inline-block items-center self-center mr-3">
-            <button class="goteambtn2">
+                <div class="self-center m-1">
+                <button class="goteambtn2 hover:bg-white flex items-center p-1 text-sm font-medium text-center text-gray-900 rounded-lg focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-500 dark:focus:ring-gray-600">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"/>
+                    </svg>
+                </button>
+            </div>
+                <div class="self-center m-1">
+                <button class="removejointeam hover:bg-white flex items-center p-1 text-sm font-medium text-center text-gray-900 rounded-lg focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-500 dark:focus:ring-gray-600">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"/>
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
                 </svg>
-            </button>
+                </button>
+            </div>
         </div>
-        
-        <div class="inline-block justify-self-end self-center mr-2">
-        <button class="removejointeam">
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
-        </svg>
-        </button>
-        </div>
-        </div> `
-        );
+
+        `);
     }
 }
 
@@ -161,7 +169,6 @@ function getCreatedTeam() {
 };
 
 
-
 $(document).ready(function () {
 
     function init() {
@@ -169,6 +176,10 @@ $(document).ready(function () {
         $.when(getJoinedTeam(),
             getCreatedTeam()).done(function (joined, created) {
                 team = Object.assign({}, created, joined);
+                if (Object.keys(team).length == 0) {
+                    console.log("No team found or created");
+                    return;
+                }
                 user.user_id = team[0].user_id; //get admin id
                 console.log(user.user_id);
                 // TODO:
@@ -242,17 +253,23 @@ $(document).ready(function () {
         if (teamcode) {
             $.when(ajaxHandler.team_JoinTeam(teamcode)).done(function (data) {
                 console.log(data);
+                ajaxHandler.team_setLastVisitedTeam(data.team_id); 
+                lastVisitedTeam = data.team_id;
+                setTimeout(onVisitTeam, 50);
                 init();
             });
         } else {
             let teamid = "tid" + Utils.getUuid();
             let teamcode = "" + Math.floor(Math.random() * 1000000);
-            let admin = user.user_id;
-            // Ajax call to add team
+
             $.when(ajaxHandler.team_AddTeam(teamid, teamname, teamdes, teamcode)).done(function (data) {
                 console.log(data);
+                ajaxHandler.team_setLastVisitedTeam(teamid); 
+                lastVisitedTeam = teamid;
+                setTimeout(onVisitTeam, 50);
                 init();
             });
+
         }
 
 
@@ -262,7 +279,18 @@ $(document).ready(function () {
         delete team[teamid];
         teamlist1();
     }
+    // edit function
+    function edit(key, name, des) {
+        console.log(key);
+        let teamid = team[key].id;
 
+        console.log(teamid);
+        modalteampage.editTeam(teamid, name, des);
+        $.when(ajaxHandler.Team_EditTeam(teamid, name, des)).done(function (data) {
+            console.log(data)
+            init();
+        });
+    }
 
 
 
@@ -302,7 +330,7 @@ $(document).ready(function () {
         console.log(teamname);
         console.log(teamdes);
         return teamId, teamname, teamdes;
-     }
+    }
      */
     $("#crud-modal2 #Join-sec").click(function () {
         let team_code = $("#code-sec #teamcode").val();
@@ -314,7 +342,7 @@ $(document).ready(function () {
         $("#CreateAndJoinTeam #teamlist").show();
         $('#teamlist2').hide();
         teamlist1();
-        location.reload();
+       // location.reload();
     });
     $("#crud-modal2 #Create-sec").click(function () {
         let teamname = $("#teamname-sec #teamname").val();
@@ -335,10 +363,26 @@ $(document).ready(function () {
         teamlist1();
         location.reload();
     });
+    $("#CreateAndJoinTeam #teamlist2").on("click", ".editteam", function () {
+        let teamid = $(this).closest(".team_createlist").attr("id");
+        console.log("ahhhha :", teamid);
+        console.log("ahhhha :", team[teamid].name);
+        console.log("ahhhha :", team[teamid].des);
+        console.log("ahhhha :", team[teamid].id);
+
+
+        modalteampage.editTeam(teamid, team[teamid].name, team[teamid].des);
+
+
+    });
     $("#crud-modal2 #save-sec").click(function () {
         let id = $('#crud-modal2 input[type="checkbox"]').attr("id");
-        team[id].name = $('#crud-modal2 #teamname').val();
-        team[id].des = $('#crud-modal2 #teamdescription').val();
+        console.log("Id: ", id);
+        let name = $('#crud-modal2 #teamname').val();
+        console.log(name);
+        let des = $('#crud-modal2 #teamdescription').val();
+        console.log(des);
+        edit(id, name, des);
         modalteampage.hide();
         $("#CreateAndJoinTeam #teamcreate_join ").hide();
 
@@ -360,7 +404,7 @@ $(document).ready(function () {
         let teamid = $(this).closest(".team_joinlist").attr("id");
         console.log(teamid);
         removeteam(teamid);
-
+        ajaxHandler.team_LeaveTeam(teamid);
     });
     $("#CreateAndJoinTeam #teamlist2").on("click", ".removecreateteam", function () {
         let teamid = $(this).closest(".team_createlist").attr("id");
@@ -368,12 +412,7 @@ $(document).ready(function () {
         removeteam(teamid);
         ajaxHandler.team_DeleteTeam(teamid);
     });
-    $("#CreateAndJoinTeam #teamlist2").on("click", ".editteam", function () {
-        let teamid = $(this).closest(".team_createlist").attr("id");
-        console.log(teamid);
 
-        modalteampage.editTeam(team[teamid]);
-    });
     $("#CreateAndJoinTeam #backbtn").click(function () {
         $("#CreateAndJoinTeam #teamcreate_join").hide();
         $("#CreateAndJoinTeam").show();
@@ -401,18 +440,24 @@ $(document).ready(function () {
         ajaxHandler.team_setLastVisitedTeam(lastVisitedTeam);
         setTimeout(onVisitTeam, 50);
     });
-
-    $.when(ajaxHandler.team_getLastVisitedTeam()).done((data)=>{ 
-        if (data.last_team){ 
+    $("#teamlist").on("click", ".copy_btn1", function (e) {
+        let code = $(e.currentTarget).attr("id");
+        Utils.copyToClipboard(code);
+    });
+    $("#teamlist2").on("click", ".copy_btn2", function (e) {
+        let code = $(e.currentTarget).attr("id");
+        Utils.copyToClipboard(code);
+    });
+    $.when(ajaxHandler.team_getLastVisitedTeam()).done((data) => {
+        $.when(ajaxHandler.team_LoadInfo(data.last_team)).done(() => {
             console.log("Last visited: " + data.last_team);
             lastVisitedTeam = data.last_team;
-            setTimeout(onVisitTeam,50);
-        }
-    }).fail((err)=>{
-        console.log(err);
-        ajaxHandler.team_setLastVisitedTeam("");
+            setTimeout(onVisitTeam, 50);
+        }).fail(() => {
+            ajaxHandler.team_setLastVisitedTeam(""); // if not found team
+        });
     });
-
+    
 });
 
 export { lastVisitedTeam };

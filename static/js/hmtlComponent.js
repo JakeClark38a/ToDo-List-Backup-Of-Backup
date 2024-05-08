@@ -131,10 +131,10 @@ MainScreen.GroupTemplate = function (id, group, mode = 0) {
             id +
             `" class="group-outer">
         <div class="flex justify-between items-center px-3 ">
-        <div id="Task-Group-Title" class="todobox-title lg:text-2xl text-black dark:text-main">` +
+        <div id="Task-Group-Title" class="todobox-title lg:text-2xl text-gray-700 px-4 p-2 dark:text-main bg-white/80 dark:bg-gray-500 rounded-t-xl">` +
             group.title +
             `</div>
-        <div class="Group-Task-Add ">
+        <div class="Group-Task-Add">
                 <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-main" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -142,7 +142,7 @@ MainScreen.GroupTemplate = function (id, group, mode = 0) {
                 </svg>
             </div>
         </div>
-        <div id="Task-Section-Outer" class= "bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl ">
+        <div id="Task-Section-Outer" class= "bg-white/80 dark:bg-gray-500 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-b-xl rounded-t-lg">
             <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-72 lg:w-96 lg:h-96">
             <!--task here-->
             </div>

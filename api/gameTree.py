@@ -25,7 +25,7 @@ def loadTree():
         json_tree = {
             'tree_id': new_tree.tree_id,
             'treeStage': new_tree.treeStage,
-            'treeCount': new_tree.treeCount,
+            'numberOfTreePlanted': new_tree.treeCount,
             'wateringsLeft': new_tree.wateringsLeft,
             'fertilizationsLeft': new_tree.fertilizationsLeft,
             'autoOption': new_tree.autoOption,
@@ -37,7 +37,7 @@ def loadTree():
         json_tree = {
             'tree_id': tree.tree_id,
             'treeStage': tree.treeStage,
-            'treeCount': tree.treeCount,
+            'numberOfTreePlanted': tree.treeCount,
             'wateringsLeft': tree.wateringsLeft,
             'fertilizationsLeft': tree.fertilizationsLeft,
             'autoOption': tree.autoOption,
@@ -57,7 +57,7 @@ def updateTree():
     else:
         data = request.get_json()
         tree.treeStage = data['treeStage']
-        tree.treeCount = data['treeCount']
+        tree.treeCount = data['numberOfTreePlanted']
         tree.wateringsLeft = data['wateringsLeft']
         tree.fertilizationsLeft = data['fertilizationsLeft']
         tree.autoOption = data['autoOption']
