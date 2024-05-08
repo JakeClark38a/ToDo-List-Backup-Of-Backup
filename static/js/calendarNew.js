@@ -350,7 +350,9 @@ const mapDatepickerToTable = function () {
     $("#calendar span.datepicker-cell").each(function () {
         // Clone the cell
         var clonedCell = $(this).clone();
+        // Clear all classes and color
         clonedCell.attr('class', '');
+        clonedCell.css('color', '');
         clonedCell.addClass('text-left datepicker-cell dark:text-white text-gray-800');
         // Find the index of the current cell in the total 42 cells
         var index = $("#calendar span.datepicker-cell").index($(this));
