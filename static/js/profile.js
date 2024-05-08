@@ -8,6 +8,8 @@ function getData() {
   return new Promise(function (resolve) {
     $.when(ajaxHandler.LoadUserData()).done(function (data) {
       userInfo = data
+     // $("#Toggle-DarkMode").prop('checked', Dict.darkmode);
+      $("html").toggleClass("dark", userInfo.darkmode);   
       resolve(userInfo);
     });
   });

@@ -54,10 +54,23 @@ def get_profile():
         "email": curr_user.email,
         "isFirstTime": curr_user.isFillForm,
         "points": curr_user.points,
-        "dark_mode": curr_user.dark_mode
     }
     return jsonify(json_data), 200
 
+@profiles.route('/profile/get/dark_mode',methods=['GET'])
+@login_required
+def get_dark_mode():
+    curr_user = Users.query.get(current_user.get_id())
+    return jsonify({"dark_mode": curr_user.dark_mode}), 200
+
+@profiles.route('/profile/update/dark_mode',methods=['POST'])
+@login_required
+def update_dark_mode():
+    curr_user = Users.query.get(current_user.get_id())
+    data = request.get_json()
+    curr_user.dark_mode = data['dark_mode']
+    tododb.session.commit()
+    return jsonify({"message":"Dark Mode Updated"}), 200
 
 @profiles.route('/profile/update',methods=['POST'])
 @login_required

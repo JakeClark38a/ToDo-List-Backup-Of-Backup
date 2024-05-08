@@ -3,9 +3,9 @@
 NOTICE:
 This file handles all the actions that are related to the main content of the page
 This file handle:
-  - Main content include : group, task, tags
-  - CRUD content
-  - Render out mainPage content for Today tab
+  - Main content include : group, task, tags for team
+  - CRUD content for team
+  - Render out mainPage content for Team tab
 
 */
 //=====================================================================\\
@@ -18,6 +18,8 @@ import { ajaxHandler } from "./ajaxHandler.js";
 import { LoadMainMenu, toggleHiddenMMenuGroup, addNewTagMainMenu } from "./mainMenuRenderer.js";
 import { LoadMainScreen, renderGroupMainScreen } from "./mainScreenRenderer.js";
 import { Alert } from "./alertMsg.js";
+import { lastVisitedTeam } from "./list.js";
+import { updateMMenuTabIndicator } from "./updateMMenu.js";
 
 //================================================================\\
 //=========================== Variables ==========================\\
@@ -42,85 +44,125 @@ var UsersList = {
   },
 }
 
-function getTeamUserList(team_id) {
-  return new Promise(function (resolve) {
-    $.when(ajaxHandler.team_LoadUserList(team_id)).done(function (data) {
-      console.log(data);
-      UsersList = data;
-      resolve(data);
-    });
-  });
-
-}
 
 function getData(team_id) {
   return new Promise(function (resolve) {
-    $.when(ajaxHandler.LoadTeamData(team_id)).done(function (data) {
+    $.when(ajaxHandler.LoadTeamData(team_id),
+      ajaxHandler.team_LoadUserList(team_id)
+    ).done(function (data, userslist) {
       Dict = data;
-      console.log("[5] Data is loaded to app.js: ");
+      var temp = {};
+      for (let idx in userslist) {
+        temp[userslist[idx].userid] = {};
+        temp[userslist[idx].userid].user_id = userslist[idx].userid
+        temp[userslist[idx].userid].name = userslist[idx].name;
+        temp[userslist[idx].userid].img = userslist[idx].image;
+      }
+      UsersList = temp;
+
+      console.log("[5] Data is loaded to appTeam.js: ");
       console.log(Dict);
-
-      if (isDebugMode) {
-        let g1 = Dict.createGroup("Group 1", [], "red", "");
-        let g2 = Dict.createGroup("Group 2", [], "blue", "");
-        let g3 = Dict.createGroup("Group 3", [], "green", "");
-        console.log(g3);
-        // Create a new Tag
-        let tag1 = Dict.createTag("Tag 1", "red", g1.groupID, false, true, true);
-        let tag2 = Dict.createTag("Tag 2", "blue", g2.groupID, false, true, true);
-        let tag3 = Dict.createTag("Tag 3", "green", g3.groupID, false, true, true);
-        let tag4 = Dict.createTag("Tag 4", "yellow", g1.groupID, false, true, true);
-        console.log(tag4);
-
-        g1.tags.push(tag1.tagID);
-        g1.tags.push(tag4.tagID);
-        g2.tags.push(tag2.tagID);
-        g3.tags.push(tag3.tagID);
-
-        // Create a new Task
-        let t1 = Dict.createTask("Task 1", "Description 1", tag1.tagID, "2023-12-12", 10);
-        let t2 = Dict.createTask("Task 2", "Description 2", tag2.tagID, "2024-12-12", 10);
-        let t3 = Dict.createTask("Task 3", "Description 3", tag3.tagID, "2025-12-12", 10);
-        console.log(t3);
-
-        console.log("[6-s] Debug mode enabled: ");
-
-      };
+      console.log(UsersList);
       //Alert.Success("Data loaded successfully!");
-      resolve(Dict);
+      $("#Toggle-DarkMode").prop('checked', Dict.darkmode);
+      $("html").toggleClass("dark", Dict.darkmode);
+
+      resolve(Dict, UsersList);
     });
   });
 }
+
+function onVisitTeam() {
+  $("#CreateAndJoinTeam").hide();
+  $("#Main-Section").show();
+
+  init();
+}
+
+
+function RefreshAll(team_id) {
+  $.when(getData(team_id)).done(function (data) {
+    Dict = data;
+    console.log("[7] Refresh the mainscreen");
+    console.log(Dict);
+
+    $("#Team-Code-Dis").text("CD: " + Dict.team_code);
+    $("#Team-Code-Dis").show();
+    $('#MMenu-Group-Section').show();
+    $('#MMenu-Group-Add').show();
+    $("#UserList-Toggle").show();
+    $('#Team-Menu-Click').show();
+
+    $("#Main-Screen").empty();
+    $("#MMenu-Group-Section").empty();
+
+
+
+    LoadMainMenu(Dict);
+    LoadMainScreen(Dict, currentMode);
+    refreshUserList();
+    modalMainScreen.LoadTags(Dict);
+    modalMainScreen.LoadGroups(Dict);
+
+  });
+}
+
+function init() {
+  currentMMenuTab = 0; // 0-today 2-calendar 3-garden
+  currentMode = 0;
+  if (!lastVisitedTeam) return;
+  team_id = lastVisitedTeam;
+  RefreshAll(team_id); // Refresh
+}
+
+
+function userlist(name, img, user_id) {
+  return (
+    `
+    <div id="`+ user_id + `" class="user_list_create p-2 flex h-12 w-full md:w-4/6 lg:w-full bg-gray-300/50  my-1  border-2 rounded-lg gap-3">
+    <div class="flex-none self-center w-8 h-8 ">
+        <img class=" w-full h-full  rounded-full" src="`+ img + `" alt="avtr">
+    </div>
+    <div class="flex-1 self-center  mr-2 overflow-hidden">
+        <p id="" class="dark:text-gray-500 text-black text-lg text-nowrap">`+ name + `</p>
+    </div>
+    <div class=" flex-none  justify-end self-center  ">
+    <button id="ban-user"  
+    class="banuser bg-white inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-900 rounded-lg
+          hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">        
+      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
+      </svg>                                                      
+    </button>                                                                                                                                                                                    
+    </div>
+</div>
+    `
+  )
+};
+
+function refreshUserList() {
+  let userList = $(' #ListUser');
+  userList.empty();
+  for (let key in UsersList) {
+    userList.append(userlist(UsersList[key].name, UsersList[key].img, UsersList[key].user_id));
+  }
+}
+
+$("#Team-Menu-Click").on('click', () => {
+  $("#CreateAndJoinTeam").show();
+  $("#Main-Section").hide();
+
+  $("#Team-Code-Dis").hide();
+  $('#MMenu-Group-Section').hide();
+  $('#MMenu-Group-Add').hide();
+  $("#UserList-Toggle").hide();
+  $('#Team-Menu-Click').hide();
+});
 
 $(document).ready(function () {
   //================================================================\\
   //========================== Initialize ==========================\\
   //================================================================\\
-
-
-
-  function RefreshAll() {
-    $.when(getData(team_id)).done(function (data) {
-      Dict = data;
-      console.log("[7] Refresh the mainscreen");
-      console.log(Dict);
-      $("#Main-Screen").empty();
-      $("#MMenu-Group-Section").empty();
-      LoadMainMenu(Dict);
-      LoadMainScreen(Dict, currentMode);
-      updateMMenuTabIndicator();
-      modalMainScreen.LoadTags(Dict);
-      modalMainScreen.LoadGroups(Dict);
-    });
-  }
-
-  function init() {
-    currentMMenuTab = 0; // 0-today 2-calendar 3-garden
-    currentMode = 0;
-    // RefreshAll();
-  }
-  init();
-
 
   /* Main Display rule
 
@@ -147,37 +189,6 @@ $(document).ready(function () {
     $('#UserList-Section').toggleClass("hidden",);
   });
 
-
-  function userlist(name, img, user_id) {
-    return (
-      `
-      <div id="`+ user_id + `" class="user_list_create p-2 flex h-12 w-full md:w-4/6 lg:w-full bg-gray-300/50  my-1  border-2 rounded-lg gap-3">
-      <div class="flex-none self-center w-8 h-8 ">
-          <img class=" w-full h-full  rounded-full" src="`+ img + `" alt="avtr">
-      </div>
-      <div class="flex-1 self-center  mr-2 overflow-hidden">
-          <p id="" class="dark:text-gray-500 text-black text-lg text-nowrap">`+ name + `</p>
-      </div>
-      <div class=" flex-none  justify-end self-center  ">
-      <button id="ban-user"  
-      class="banuser bg-white inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-900 rounded-lg
-            hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">        
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
-        </svg>                                                      
-      </button>                                                                                                                                                                                    
-      </div>
-  </div>
-      `
-    )
-  };
-  function refreshUserList() {
-    let userList = $(' #ListUser');
-    userList.empty();
-    for (let key in UsersList) {
-      userList.append(userlist(UsersList[key].name, UsersList[key].img, UsersList[key].user_id));
-    }
-  }
   function banUser(user_id) {
     console.log(user_id);
     delete UsersList[user_id];
@@ -199,7 +210,9 @@ $(document).ready(function () {
   });
 
   $("#PMenu-DarkMode").find("#Toggle-DarkMode").click(function () {
-    $("html").toggleClass("dark", $("#Toggle-DarkMode").prop('checked'));
+    $.when(ajaxHandler.updateDarkmode($("#Toggle-DarkMode").prop('checked'))).done(function () {
+      $("html").toggleClass("dark", ajaxHandler.getDarkmode().dark_mode)
+    });
   });
 
   //================================================================\\
@@ -220,27 +233,8 @@ $(document).ready(function () {
     $("#Main-Menu-Click").toggleClass("-rotate-90")
   });
 
-  function updateMMenuTabIndicator(tab = null) {
-    var $tab = tab ? tab : $("#Main-Menu").find("#MMenu-Today");
-    var currId = $tab.attr('id');
-    const indiModeCSS = 'border-r-4 border-primary-200 bg-gradient-to-l from-primary-200/35 to-transparent';
+  updateMMenuTabIndicator();
 
-    // clear all previous tab border 
-    $('#Main-Menu .MMenu-Primary-Section').removeClass(indiModeCSS);
-    //console.log(currId);
-    const indicatTab = ['MMenu-Today', 'MMenu-Calendar', 'MMenu-Garden'];
-    if (indicatTab.indexOf(currId) !== -1) {
-      $tab.toggleClass(indiModeCSS);
-      if (indicatTab.indexOf(currId) == 0) {
-        currentMMenuTab = 0;
-        console.log("Today");
-      }
-    }
-  }
-
-  $('#Main-Menu').on('click', '.MMenu-Primary-Section', function (e) {
-    updateMMenuTabIndicator($(this));
-  });
 
   //Add group
   $("#MMenu-Group-Add").click(function () {
@@ -308,7 +302,7 @@ $(document).ready(function () {
     var taskId = task_.attr("id");
 
     // Send ajaxHandler. request to backend at /todo/delete to delete task
-    ajaxHandler.deleteTask(taskId);
+    ajaxHandler.team_deleteTask(team_id, taskId);
 
     delete Dict.tasks[taskId];
     console.log("Cancelled: " + taskId);
@@ -333,7 +327,7 @@ $(document).ready(function () {
     Dict.tasks[taskId].isCompleted = true;
 
     // Also send to backend at /todo/completed/<id>
-    ajaxHandler.completeTask(taskId);
+    ajaxHandler.team_completeTask(team_id, taskId);
 
     task_.toggleClass(" transform transition-all duration-350 delay-500 ease-in-out scale-150 blur-xl -translate-y-20");
     setTimeout(() => {
@@ -439,15 +433,16 @@ $(document).ready(function () {
         // Adding a new task to the tasks object within Dict
         let t = Dict.createTask(title, desc, tag, expired, 4);
         // Call ajaxHandler. at /todo/create with JSON data
-        $.when(ajaxHandler.createTask(t.taskID, t.title, t.description, t.tag, t.deadline, t.points, t.isCompleted)).done(() => { RefreshAll(); Alert.Success("Task added successfully"); });
+        $.when(ajaxHandler.team_createTask(team_id, t.taskID, t.title, t.description, t.tag, t.deadline, t.points, t.isCompleted)).done(() => { RefreshAll(team_id); Alert.Success("Task added successfully"); });
       }
       else {
         // Update Dict
+        let t_old = Dict.tasks[id];
         if (new Date(expired).getTime() - Date.now() <= 0) { Alert.Danger("Cannot set due time in the past!"); return; }
-        let t = Dict.createTask(title, desc, tag, expired, 4, id);
-        Dict.updateTask(t.taskID, t);
+        let t_new = Dict.createTask(title, desc, tag, expired, 4, id, t_old.isCompleted);
+        Dict.updateTask(t_new.taskID, t_new);
         // Call ajaxHandler. at /todo/create with JSON data
-        $.when(ajaxHandler.updateTask(t.taskID, t.title, t.description, t.tag, t.deadline, t.points)).done(() => { RefreshAll(); Alert.Success("Task updated successfully"); });
+        $.when(ajaxHandler.team_updateTask(team_id, t_new.taskID, t_new.title, t_new.description, t_new.tag, t_new.deadline, t_new.points, t_new.isCompleted)).done(() => { RefreshAll(team_id); Alert.Success("Task updated successfully"); });
       }
     }
 
@@ -461,15 +456,16 @@ $(document).ready(function () {
         /// Main Screen Add 
         renderGroupMainScreen($("#Main-Formatter").find("#Wrapper"), g, currentMode);
         $.when(
-          ajaxHandler.addGroup(g.groupID, g.title, g.color, g.def_tag)).done( // add Group
-            ajaxHandler.addTag(dft.tagID, dft.groupId, dft.title, dft.color) // add def_tag
-          ).done(() => { RefreshAll(); Alert.Success("Group added successfully"); });
+          ajaxHandler.team_addGroup(team_id, g.groupID, g.title, g.color, g.def_tag)).done( // add Group
+            ajaxHandler.team_addTag(team_id, dft.tagID, dft.groupId, dft.title, dft.color) // add def_tag
+          ).done(() => { RefreshAll(team_id); Alert.Success("Group added successfully"); });
       }
       else { // Edit groups
-        let g = Dict.createGroup(title, [], null, color, "", id);
-        Dict.updateGroup(g.groupID, g);
-        $("#MMenu-Group-Section").find("#" + g.groupID).find("#MMenu-Group-Title").text(g.title);
-        $.when(ajaxHandler.updateGroup(g.groupID, g.title, g.color, g.def_tag)).done(() => { RefreshAll(); Alert.Success("Group updated successfully"); });
+        let g_old = Dict.groups[id];
+        let g_new = Dict.createGroup(title, g_old.tags, g_old.def_tag, color, "", id);
+        Dict.updateGroup(g_new.groupID, g_new);
+        $("#MMenu-Group-Section").find("#" + g_new.groupID).find("#MMenu-Group-Title").text(g_new.title);
+        $.when(ajaxHandler.team_updateGroup(team_id, g_new.groupID, g_new.title, g_new.color, g_new.def_tag)).done(() => { RefreshAll(team_id); Alert.Success("Group updated successfully"); });
       }
     }
 
@@ -479,21 +475,21 @@ $(document).ready(function () {
         let t = Dict.createTag(title, color, groupId, true, true, true);
         Dict.groups[groupId].tags.push(t.tagID);
         addNewTagMainMenu($("#" + groupId).find("#MMenu-Tag-Section"), t.tagID, t);
-        $.when(ajaxHandler.addTag(t.tagID, t.groupId, t.title, t.color)).done(() => { RefreshAll(); Alert.Success("Tag added successfully"); });
+        $.when(ajaxHandler.team_addTag(team_id, t.tagID, t.groupId, t.title, t.color)).done(() => { RefreshAll(team_id); Alert.Success("Tag added successfully"); });
       }
       else { //Edit tags     
-        let t = Dict.createTag(title, color, groupId, true, true, true, id);
-        Dict.updateTag(t.tagID, t);
-        $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Tag-Title").text(t.title);
+        let t_old = Dict.tags[id];
+        let t_new = Dict.createTag(title, color, groupId, t_old.deletable, t_old.editable, t_old.display, id);
+        Dict.updateTag(t_new.tagID, t_new);
+        $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Tag-Title").text(t_new.title);
 
-
-        $.when(ajaxHandler.updateTag(t.tagID, t.groupId, t.title, t.color)).done(() => { RefreshAll(); Alert.Success("Tag updated successfully"); });
+        $.when(ajaxHandler.team_updateTag(team_id, t_new.tagID, t_new.groupId, t_new.title, t_new.color)).done(() => { RefreshAll(team_id); Alert.Success("Tag updated successfully"); });
 
       }
     }
 
     console.log(Dict);
-    //  RefreshAll();
+    // RefreshAll(team_id);
     modalMainScreen.hide();
   })
 
@@ -510,21 +506,21 @@ $(document).ready(function () {
         // Deleting task
         Dict.removeTask(id);
         // Call ajaxHandler. at /todo/delete with JSON data
-        $.when(ajaxHandler.deleteTask(id)).done(() => { RefreshAll(); Alert.Success("Task deleted successfully"); });
+        $.when(ajaxHandler.team_deleteTask(team_id, id)).done(() => { RefreshAll(team_id); Alert.Success("Task deleted successfully"); });
       }
     }
 
     if (mode == "group") {
       if (id != "none") {  /// Delete a new group
         Dict.removeGroup(id);
-        $.when(ajaxHandler.deleteGroup(id)).done(() => { RefreshAll(); Alert.Success("Group deleted successfully"); });
+        $.when(ajaxHandler.team_deleteGroup(team_id, id)).done(() => { RefreshAll(team_id); Alert.Success("Group deleted successfully"); });
       }
     }
 
     if (mode == "tag") {   ///  Delete a tag
       if (id != "none") {
         Dict.removeTag(id);
-        $.when(ajaxHandler.deleteTag(id)).done(() => { RefreshAll(); Alert.Success("Tag deleted successfully"); });
+        $.when(ajaxHandler.team_deleteTag(team_id, id)).done(() => { RefreshAll(team_id); Alert.Success("Tag deleted successfully"); });
       }
     }
 
@@ -585,3 +581,5 @@ $(document).ready(function () {
 
   // End of app.js
 })
+
+export { onVisitTeam };

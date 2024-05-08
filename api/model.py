@@ -24,6 +24,7 @@ class Users(tododb.Model, UserMixin):
     points = tododb.Column(tododb.Integer, default=0)
     dark_mode = tododb.Column(tododb.BOOLEAN, default=False)
     TeamUser = tododb.relationship('Teams', secondary=User_Team, backref='users')
+    last_join_team = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('teams.team_id'))
 
     def __repr__(self) -> str:
         return f'{self.user_id, self.email, self.name, self.bio, self.country, self.image, self.type_account, self.external_id, self.isFillForm , self.points}'
@@ -98,7 +99,7 @@ class TeamTags(tododb.Model):
     tag_title = tododb.Column(tododb.NVARCHAR(100))
     tag_color = tododb.Column(tododb.NVARCHAR(10))
     author_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('users.user_id', ondelete="CASCADE") ,primary_key=True)
-    group_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('groupss.group_id', ondelete="CASCADE") ,primary_key=True)
+    group_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('teamgroupss.group_id', ondelete="CASCADE") ,primary_key=True)
     team_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('teams.team_id', ondelete="CASCADE") ,primary_key=True)
     def __repr__(self) -> str:
         return f'{self.tag_id, self.tag_title, self.tag_color, self.author_id, self.group_id}'
@@ -108,7 +109,7 @@ class TeamTasks(tododb.Model):
     task_id = tododb.Column(tododb.NVARCHAR(40), primary_key=True)
     task_title = tododb.Column(tododb.NVARCHAR(100))
     task_description = tododb.Column(tododb.NVARCHAR(500))
-    tag_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('tags.tag_id', ondelete="CASCADE"),primary_key=True)
+    tag_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('teamtags.tag_id', ondelete="CASCADE"),primary_key=True)
     author_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('users.user_id', ondelete="CASCADE"),primary_key=True)
     deadline = tododb.Column(tododb.DateTime)
     points = tododb.Column(tododb.Integer)
