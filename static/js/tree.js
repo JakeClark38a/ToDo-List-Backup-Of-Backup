@@ -1,5 +1,4 @@
 let treeStage = 30; // Initial stage of the tree
-let treeCount = 100; // Initial count of trees planted
 let wateringsLeft = 50; // Variable to store the number of remaining waterings
 let fertilizationsLeft = 50; // Variable to store the number of remaining fertilizations
 let autoOption = false; // Variable to store the auto option state
@@ -7,6 +6,8 @@ let audioOption = true; // Variable to store the audio option state
 let coins = 241400; // Variable to store the number of coins
 let numberOfWaterUsed = 0; // Variable to store the number of water used
 let numberOfFertilizerUsed = 0; // Variable to store the number of fertilizer used
+let numberOfBirdHaveEliminated = 0; // Variable to store the number of birds have eliminated
+let numberOfTreePlanted = 100; // Initial count of trees planted
 
 // DONT STORE THIS IN THE DATABASE !!!!!!!!!!!!!!!!
 let animationInProgress = false;
@@ -19,9 +20,10 @@ var backgroundAudio = document.getElementById('backgroundAudio');
 
 function updateAllProgressBars() {
   updateProgressBar("progressBar", "percentage", treeStage, 220);
-  updateProgressBar("progressBarNumberOfTree", "percentageNumberOfTree", treeCount, 500);
+  updateProgressBar("progressBarNumberOfTree", "percentageNumberOfTree", numberOfTreePlanted, 500);
   updateProgressBar("progressBarNumberOfWater", "percentageNumberOfWater", numberOfWaterUsed, 500);
   updateProgressBar("progressBarNumberOfFertilizer", "percentageNumberOfFertilizer", numberOfFertilizerUsed, 500);
+  updateProgressBar("progressBarNumberOfBirdHaveEliminated", "percentageNumberOfBirdHaveEliminated", numberOfBirdHaveEliminated, 500);
 }
 
 
@@ -56,7 +58,7 @@ function sendData() {
   console.log("test")
   const data = {
     treeStage: treeStage,
-    treeCount: treeCount,
+    treeCount: numberOfTreePlanted,
     wateringsLeft: wateringsLeft,
     fertilizationsLeft: fertilizationsLeft,
     autoOption: autoOption,
@@ -85,7 +87,7 @@ function RefreshAll() {
   $.when(loadData()).done((data) => {
 
     treeStage = data["treeStage"];
-    treeCount = data["treeCount"];
+    numberOfTreePlanted = data["treeCount"];
     wateringsLeft = data["wateringsLeft"];
     fertilizationsLeft = data["fertilizationsLeft"];
     autoOption = data["autoOption"];
@@ -178,7 +180,7 @@ function stopAuto() {
 function updateNumberofTrees() {
   document.getElementById(
     "treeCount"
-  ).innerText = `${treeCount}`
+  ).innerText = `${numberOfTreePlanted}`
 }
 
 function waterTree() {
@@ -193,6 +195,7 @@ function waterTree() {
     updateAllProgressBars();
     animate("water"); // Call the animation function for watering
     wateringsLeft--; // Decrease the number of remaining waterings
+    numberOfWaterUsed++;
     updateButtonStates(); // Update button states
     updateWaterCount(); // Update water count display
     wiggleImage("waterbutton"); // Add wiggle animation to water button
@@ -213,6 +216,7 @@ function fertilizeTree() {
     updateAllProgressBars();
     animate("fertilize"); // Call the animation function for fertilizing
     fertilizationsLeft--; // Decrease the number of remaining fertilizations
+    numberOfFertilizerUsed++;
     updateButtonStates(); // Update button states
     updateFertilizerCount(); // Update fertilizer count display
     wiggleImage("fertilizebutton"); // Add wiggle animation to fertilizer button
@@ -288,10 +292,10 @@ function updateTree(load = false) {
   // Check if treeStage reaches maximum
   if (treeStage >= 220) {
     treeStage = 0; // Reset tree stage
-    treeCount++; // Increment tree count
+    numberOfTreePlanted++; // Increment tree count
     document.getElementById(
       "treeCount"
-    ).innerText = `${treeCount}`; // Update tree count
+    ).innerText = `${numberOfTreePlanted}`; // Update tree count
     updateTree();
   }
 }

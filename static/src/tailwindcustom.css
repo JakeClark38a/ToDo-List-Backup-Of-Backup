@@ -211,6 +211,15 @@
       flex-direction: column;
     }
   }
+
+  @media screen and (min-width: 1001px) {
+    #Profile-Box {
+      @apply mx-24;
+    }
+    #Profile-Screen{
+      @apply py-10;
+    }
+  }
   .disabled-select{
     @apply opacity-50;
   }
