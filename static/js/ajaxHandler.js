@@ -413,13 +413,51 @@ ajaxHandler.resetpassword = function (curr_password, new_password, confirm_passw
     });
 }
 
+ajaxHandler.getDarkmode = function () {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/profile/get/dark_mode",
+            type: "GET",
+            success: function (data) {
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
+    });
+}
+
+ajaxHandler.updateDarkmode = function (dark_mode = false) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/profile/update/dark_mode",
+            type: "POST",
+            data: JSON.stringify({
+                dark_mode: dark_mode,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                resolve(data);
+            },
+            error: function (data) {
+                console.log("Error");
+                reject(data);
+            }
+        });
+    });
+
+}
+
 //================================================================\\
 //========================== Game Data  ==========================\\
 //================================================================\\
 
 
 
-ajaxHandler.LoadTreeData= function (tree_id) {
+ajaxHandler.LoadTreeData = function (tree_id) {
     return new Promise(function (resolve, reject) {
         $.ajax({
             url: "/profile/update/password",
@@ -480,7 +518,7 @@ ajaxHandler.team_addGroup = function (team_id, groupId, title, color, def_tag) {
     return new Promise(function (resolve, reject) {
         $.ajax({
             type: "POST",
-            url: "/team/" + team_id + "/todo/create",
+            url: "/team/" + team_id + "/todo/group/create",
             data: JSON.stringify({ team_id: team_id, groupId: groupId, title: title, color: color, def_tag: def_tag }),
             contentType: "application/json",
             dataType: "json",
@@ -744,7 +782,7 @@ ajaxHandler.team_LoadTask = function (team_id) {
 ajaxHandler.team_LoadInfo = function (team_id) {
     return new Promise(function (resolve, reject) {
         $.ajax({
-            url: "/team/"+team_id+"/get_info",
+            url: "/team/" + team_id + "/get_info",
             type: "GET",
             success: function (data) {
                 resolve(data); // Resolve the promise with user info when AJAX call succeeds
@@ -759,7 +797,7 @@ ajaxHandler.team_LoadInfo = function (team_id) {
 ajaxHandler.team_LoadUserList = function (team_id) {
     return new Promise(function (resolve, reject) {
         $.ajax({
-            url: "/team/"+team_id+"/user_list",
+            url: "/team/" + team_id + "/user_list",
             type: "GET",
             success: function (data) {
                 resolve(data); // Resolve the promise with user info when AJAX call succeeds
@@ -801,6 +839,153 @@ ajaxHandler.team_LoadJoinedList = function () {
     });
 };
 
+ajaxHandler.team_AddTeam = function (teamid, teamname, teamdes, teamcode) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/create",
+            type: "POST",
+            data: JSON.stringify({
+                team_id: teamid,
+                team_name: teamname,
+                team_description: teamdes,
+                team_code: teamcode,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log('Success');
+                resolve(data);
+            },
+            error: function (data) {
+                console.log('Error');
+                reject(data);
+            },
+        });
+    });
+}
+ajaxHandler.team_JoinTeam = function (teamcode) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/join",
+            type: "POST",
+            data: JSON.stringify({
+                team_code: teamcode,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log('Success');
+                resolve(data);
+            },
+            error: function (data) {
+                console.log('Error');
+                reject(data);
+            },
+        });
+    });
+
+}
+ajaxHandler.team_LeaveTeam = function (team_id) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/leave",
+            type: "POST",
+            data: JSON.stringify({
+                team_id: team_id,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log('Success');
+                resolve(data);
+            },
+            error: function (data) {
+                console.log('Error');
+                reject(data);
+            },
+        });
+    });
+
+
+}
+ajaxHandler.team_DeleteTeam = function (team_id) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/" + team_id + "/delete",
+            type: "POST",
+            data: JSON.stringify({
+                team_id: team_id,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log('Success');
+                resolve(data);
+            },
+            error: function (data) {
+                console.log('Error');
+                reject(data);
+            },
+        });
+    });
+
+}
+ajaxHandler.team_LeaveTeam = function (team_id) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/" + team_id + "/leave",
+            type: "POST",
+            data: JSON.stringify({
+                team_id: team_id,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log('Success');
+                resolve(data);
+            },
+            error: function (data) {
+                console.log('Error');
+                reject(data);
+            },
+        });
+    });
+}
+
+ajaxHandler.team_setLastVisitedTeam = function (team_id) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/lastvisit",
+            type: "POST",
+            data: JSON.stringify({
+                last_team: team_id,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                resolve(data); // Resolve the promise with user info when AJAX call succeeds
+            },
+            error: function (error) {
+                reject(error); // Reject the promise if there is an error
+            }
+        });
+    });
+};
+
+ajaxHandler.team_getLastVisitedTeam = function () {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/lastvisit",
+            type: "GET",
+            success: function (data) {
+                resolve(data); // Resolve the promise with user info when AJAX call succeeds
+            },
+            error: function (error) {
+                reject(error); // Reject the promise if there is an error
+            }
+        });
+    });
+};
 //================================================================\\
 //======================  Load User Data  ========================\\
 //================================================================\\
@@ -814,8 +999,9 @@ ajaxHandler.LoadUserData = function () {
             ajaxHandler.LoadGroup(),
             ajaxHandler.LoadTag(),
             ajaxHandler.LoadTask(),
-            ajaxHandler.LoadUser()
-        ).done(function (groupData, tagData, taskData, userData) {
+            ajaxHandler.LoadUser(),
+            ajaxHandler.getDarkmode(),
+        ).done(function (groupData, tagData, taskData, userData, darkmode) {
             // All AJAX calls are completed
             console.log("[1] All data loaded successfully.");
             console.log(groupData);
@@ -829,6 +1015,7 @@ ajaxHandler.LoadUserData = function () {
             Dict.email = userData.email;
             Dict.points = userData.points;
             Dict.isFirstTime = userData.isFirstTime;
+            Dict.darkmode = darkmode.dark_mode;
 
             if (!Dict.username) {
                 Dict.username = "User-" + Utils.getUuid().substring(0, 6);
@@ -912,13 +1099,13 @@ ajaxHandler.LoadUserData = function () {
 ajaxHandler.LoadTeamData = function (team_id) {
     return new Promise(function (resolve) {
         let Dict = new DictCRUD();
-
         $.when(
             ajaxHandler.team_LoadGroup(team_id),
             ajaxHandler.team_LoadTag(team_id),
             ajaxHandler.team_LoadTask(team_id),
-            ajaxHandler.team_LoadInfo(team_id)
-        ).done(function (groupData, tagData, taskData, teamData) {
+            ajaxHandler.team_LoadInfo(team_id),
+            ajaxHandler.getDarkmode(),
+        ).done(function (groupData, tagData, taskData, teamData, darkmode) {
             // All AJAX calls are completed
             console.log("[1] All data loaded successfully.");
             console.log(groupData);
@@ -928,6 +1115,9 @@ ajaxHandler.LoadTeamData = function (team_id) {
 
             Dict.name = teamData.name;
             Dict.bio = teamData.bio;
+            Dict.team_id = teamData.team_id;
+            Dict.team_code = teamData.team_code;
+            Dict.darkmode = darkmode.dark_mode;
 
             if (!Dict.name) {
                 Dict.name = "Team-" + Utils.getUuid().substring(0, 6);
@@ -942,8 +1132,8 @@ ajaxHandler.LoadTeamData = function (team_id) {
                 if (!dt.def_tag) {
                     let dft = Dict.tags[gr.def_tag];
                     console.log("[" + dt.title + "] Def tag not found, creating new tag");
-                    $.when(ajaxHandler.team_addTag(dft.tagID, dft.groupId, dft.title, dft.color)).done(
-                        ajaxHandler.team_updateGroup(gr.groupID, gr.title, gr.color, gr.def_tag) // update the group for def_tag
+                    $.when(ajaxHandler.team_addTag(team_id, dft.tagID, dft.groupId, dft.title, dft.color)).done(
+                        ajaxHandler.team_updateGroup(team_id, gr.groupID, gr.title, gr.color, gr.def_tag) // update the group for def_tag
                     );
                 }
             });
@@ -980,7 +1170,7 @@ ajaxHandler.LoadTeamData = function (team_id) {
                     let group = Dict.groups[groupId]
                     let dft = Dict.createTag(group.title, group.color, group.groupID, false, false, false, group.def_tag);
                     console.log("Not found def_tag: " + group.def_tag + " in tags dict, adding new one!");
-                    ajaxHandler.team_addTag(dft.tagID, dft.groupId, dft.title, dft.color);
+                    ajaxHandler.team_addTag(team_id, dft.tagID, dft.groupId, dft.title, dft.color);
                 };
             };
 
@@ -995,7 +1185,7 @@ ajaxHandler.LoadTeamData = function (team_id) {
             }
 
             console.log(Dict);
-           // ajaxHandler.team_getUserProfileImage();
+            ajaxHandler.getUserProfileImage();
             resolve(Dict);
         })
     });

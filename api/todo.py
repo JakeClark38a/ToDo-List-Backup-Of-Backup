@@ -154,7 +154,9 @@ def update_group():
     group = Groupss.query.filter_by(group_id=data['groupId'], user_id=current_user.get_id()).first()
     group.group_title = data['title']
     group.color = data['color']
+    print("Def_tag bf:"+ group.def_tag)
     group.def_tag = data['def_tag']
+    print("Def_tag: " + data['def_tag'])
     tododb.session.commit()
     return jsonify({'message': 'Group updated successfully!'}), 200
 

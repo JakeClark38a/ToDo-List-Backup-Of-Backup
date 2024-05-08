@@ -51,3 +51,4 @@ window.addEventListener("resize", centerHouseModal);
 
 // Call the centerHouseModal function initially to center the modal
 centerHouseModal();
+

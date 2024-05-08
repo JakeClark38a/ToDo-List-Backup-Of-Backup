@@ -20,7 +20,7 @@ MainScreen.TagTemplate = function (id, tag, mode = 0) {
             `
         <div id="` +
             id +
-            `" class="rounded-md text-center min-w-12 px-2 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer">` +
+            `" class="rounded-md text-center min-w-12 px-2 font-base text-xs border-none dark:text-main shadow-lg cursor-pointer">` +
             tag.title +
             `</div>                
         `
@@ -53,14 +53,14 @@ MainScreen.TaskTemplate = function (id, task, mode = 0) {
 
             <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
 
-                <div class="font-semibold text-lg lg:text-xl truncate w-full dark:text-white ">` +
+                <div class="font-semibold text-lg lg:text-xl truncate w-full dark:text-main ">` +
             task.title +
             `</div>
 
 
                 <div class="flex items-center gap-2">
                     <div class="Task-Edit mx-1 cursor-pointer">
-                        <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+                        <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-main" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                             viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -77,7 +77,7 @@ MainScreen.TaskTemplate = function (id, task, mode = 0) {
 
             <div class="p-2 flex items-center h-fit">
 
-                <p class="h-full w-full text-left p-2 font-base truncate lg:text-xl dark:text-white">` +
+                <p class="h-full w-full text-left p-2 font-base truncate lg:text-xl dark:text-main">` +
             task.description +
             `</p>
 
@@ -87,7 +87,7 @@ MainScreen.TaskTemplate = function (id, task, mode = 0) {
             
             <div id="Task-Tag" class=" p-2 flex gap-2 overflow-hidden font-medium">
                 <div class="flex justify-end">
-                    <span class="text-sm font-medium text-blue-700 dark:text-white">`+ timeLeftStr + `</span>
+                    <span class="text-sm font-medium text-blue-700 dark:text-main">`+ timeLeftStr + `</span>
                 </div>
             </div>
         </div>
@@ -131,11 +131,11 @@ MainScreen.GroupTemplate = function (id, group, mode = 0) {
             id +
             `" class="group-outer">
         <div class="flex justify-between items-center px-3 ">
-        <div id="Task-Group-Title" class="todobox-title lg:text-2xl dark:text-white">` +
+        <div id="Task-Group-Title" class="todobox-title lg:text-2xl text-black dark:text-main">` +
             group.title +
             `</div>
         <div class="Group-Task-Add ">
-                <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-main" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M5 12h14m-7 7V5" />
@@ -240,7 +240,7 @@ MainScreen.AddFloatButton = function (isActive = true) {
         <div  class="touch-none select-none">
             <div id="moveButton" 
                 class="hover:w-12 hover:h-12 border-2 border-gray-300 absolute rounded-full w-12 h-12 bg-main/55 dark:bg-gray-700/60 backdrop-blur-sm shadow-xl p-2">
-                <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+                <svg class="w-full h-full text-gray-800 dark:text-main" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M5 12h14m-7 7V5" />
@@ -265,18 +265,18 @@ MainMenu.TagTempplate = function (id, tag) {
         id +
         `" class="MMenu-Tag flex items-center pl-8 cursor-pointer">
     <div class="h-full">
-        <svg class="w-full h-full text-gray-800 dark:text-white" aria-hidden="true"
+        <svg class="w-full h-full text-gray-800 dark:text-main" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                 d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
         </svg>
     </div>
 
-    <div id="MMenu-Tag-Title" class="text-lg px-1 my-1 center dark:text-white">` +
+    <div id="MMenu-Tag-Title" class="text-lg px-1 my-1 center dark:text-main">` +
         tag.title +
         `</div>
     <div class="MMenu-Tag-Edit mx-1">
-    <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-main" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
 </svg>
 </div>
@@ -297,24 +297,24 @@ MainMenu.GroupTemplates = function (id, group) {
 
             <div class="MMenu-Toggle-Hidden flex items-center w-full">
             <div class="MMenu-Dropdown-Arrow">
-            <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-main" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19 9-7 7-7-7"/>
             </svg>          
             </div>
 
-                <div id="MMenu-Group-Title" class="text-xl ml-2 dark:text-white">` +
+                <div id="MMenu-Group-Title" class="text-xl ml-2 dark:text-main">` +
         group.title +
         `</div>
         </div>
 
         <div class="MMenu-Group-Edit mx-1">
-        <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-main" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
         </svg>
 
         </div>
         <div class="MMenu-Tag-Add">
-            <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            <svg class="w-5 lg:w-7 h-5 lg:h-7 text-gray-800 dark:text-main" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                     d="M5 12h14m-7 7V5" />
@@ -465,18 +465,18 @@ chatBox.waitingResponse = function () {
 chatBox.MessageDisplay = function (message, id = Utils.getUuid()) {
     return {
         textcontent: (`
-        <p class="text-xs font-normal lg:text-base text-gray-900 dark:text-white">`+ message + `</p>
+        <p class="text-xs font-normal lg:text-base text-gray-900 dark:text-main">`+ message + `</p>
         `),
         reply: (`
         <div id='`+ id + `' class="flex items-start gap-2.5 my-2">
         <img class="w-8 h-8 rounded-full" src="../static/images/gigachad.jpg" alt="Jese image">
         <div class="flex flex-col gap-1">
             <div class="flex items-center space-x-2 rtl:space-x-reverse">
-            <span class="text-sm font-semibold text-gray-900 dark:text-white">Chad</span>
+            <span class="text-sm font-semibold text-gray-900 dark:text-main">Chad</span>
             </div>
             <div id="chat-response"
             class="flex flex-col leading-1.5  p-4 w-full border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
-            <p class="text-xs font-normal lg:text-base text-gray-900 dark:text-white">`+ message + `</p>
+            <p class="text-xs font-normal lg:text-base text-gray-900 dark:text-main">`+ message + `</p>
             </div>
         </div>
     </div>
@@ -485,11 +485,11 @@ chatBox.MessageDisplay = function (message, id = Utils.getUuid()) {
     <div class="flex items-start justify-end gap-2.5 my-2">
         <div class="flex flex-col gap-1">
             <div class="flex items-center justify-end space-x-2 rtl:space-x-reverse">
-                <span class="text-sm font-semibold text-gray-900 dark:text-white">You</span>
+                <span class="text-sm font-semibold text-gray-900 dark:text-main">You</span>
             </div>
             <div id="chat-response"
                 class="flex flex-col leading-1.5 p-4 w-full border-gray-200 bg-gray-100 rounded-s-xl rounded-br-xl dark:bg-gray-700">
-                <p class="text-xs font-normal lg:text-base text-gray-900 dark:text-white">`+ message + `</p>
+                <p class="text-xs font-normal lg:text-base text-gray-900 dark:text-main">`+ message + `</p>
             </div>
         </div>
         <image class="w-8 h-8 rounded-full" src="../static/images/gigachad.jpg" alt="Jese image">
@@ -506,25 +506,25 @@ chatBox.chatSuggestTask = function (id = Utils.getUuid(), Title, Desc, Due) {
         <div class=" rounded-lg shadow-lg">
 
             <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
-                <div class="font-semibold text-lg lg:text-xl truncate w-full dark:text-white ">`
+                <div class="font-semibold text-lg lg:text-xl truncate w-full dark:text-main ">`
         +
         Title +
         `</div>
-                <div id='Task-Group' class="font-semibold text-lg lg:text-xl truncate w-full dark:text-white ">
+                <div id='Task-Group' class="font-semibold text-lg lg:text-xl truncate w-full dark:text-main ">
                     
                 </div>
             </div>
 
             <div class="p-2 flex items-center h-fit">
                 <p
-                    class="h-full w-full text-left p-2 font-base truncate lg:text-xl dark:text-white">
+                    class="h-full w-full text-left p-2 font-base truncate lg:text-xl dark:text-main">
                     ` +
         Desc +
         `</p>
                     <button id="`+ id + `" type="button"
                     class="suggest-task-accept bg-accent-300 rounded-xl shadow-lg h-8 w-8 font-bold border-none cursor-pointer">
 
-                    <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <svg class="w-8 h-8 text-gray-800 dark:text-main" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
                         </svg>
 
@@ -533,7 +533,7 @@ chatBox.chatSuggestTask = function (id = Utils.getUuid(), Title, Desc, Due) {
 
             <div id="Task-Tag" class=" p-2 flex gap-2 overflow-hidden font-medium">
                 <div class="flex justify-end">
-                    <span class="text-sm font-medium text-blue-700 dark:text-white">`+
+                    <span class="text-sm font-medium text-blue-700 dark:text-main">`+
         Due + `</span>
                 </div>
             </div>

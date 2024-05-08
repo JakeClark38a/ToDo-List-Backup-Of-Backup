@@ -60,7 +60,7 @@ function addBirdContainers() {
 
 
 function addBirdContainer() {
-  if (birdCount >= 6) return;
+  if (birdCount >= 5) return;
   var treeContainer = document.querySelector('.tree-container');
   var birdContainer = document.createElement('div');
   birdContainer.id = 'bird-container';
@@ -102,7 +102,7 @@ function addBirdContainer() {
 setInterval(function () {
   addBirdContainer();
   birdCount++; // Increment birdCount
-}, Math.random() * 1000 * 60 * 5);
+}, Math.random() * 1000 * 60 * 10);
 
 
 
