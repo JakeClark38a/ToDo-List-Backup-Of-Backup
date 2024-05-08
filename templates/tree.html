@@ -340,10 +340,10 @@
 							<div class="flex">
 								<div class="flex items-center">
 									<img src="../static/images/tree_game/tree11.png" class="w-6">
-									<span class="text-sm font-medium text-gray-900 dark:text-white">Achievement 1 description.</span>
+									<span class="text-sm font-medium text-gray-900 dark:text-white">Tree have planted.</span>
 								</div>
 								<div class="flex items-center">
-									<div class="px-3">500</div>
+									<div id="coinRewardForNextStageTreePlanted" class="px-3">0</div>
 									<img src="../static/images/tree_game/JackpotCoin.png" class="w-6">
 								</div>
 							</div>
@@ -353,20 +353,21 @@
 										<div class="percentage hidden" id="percentageNumberOfTree">0%</div>
 									</div>
 								</div>
-								<div>
-									200/500
+								<div id="current-Tree-Count/currentMax-Tree-CountThreshold">
+									0/0
 								</div>
 							</div>
 						</div>
+						
 
-						<div class="flex flex-col justify-between p-3 m-1 bg-green-200 rounded-lg">
+						<div class="flex flex-col justify-between p-3 m-1 bg-cyan-200 rounded-lg">
 							<div class="flex">
 								<div class="flex items-center">
-									<img src="../static/images/tree_game/tree11.png" class="w-6">
-									<span class="text-sm font-medium text-gray-900 dark:text-white">Achievement 1 description.</span>
+									<img src="../static/images/tree_game/watercan-full.png" class="w-6">
+									<span class="text-sm font-medium text-gray-900 dark:text-white">Water have used.</span>
 								</div>
 								<div class="flex items-center">
-									<div class="px-3">500</div>
+									<div id="coinRewardForNextStageWaterUsed" class="px-3">0</div>
 									<img src="../static/images/tree_game/JackpotCoin.png" class="w-6">
 								</div>
 							</div>
@@ -376,21 +377,21 @@
 										<div class="percentage hidden" id="percentageNumberOfWater">0%</div>
 									</div>
 								</div>
-								<div>
-									200/500
+								<div id="current-Water-Count/currentMax-Water-CountThreshold">
+									0/0
 								</div>
 							</div>
 						</div>
 
 
-						<div class="flex flex-col justify-between p-3 m-1 bg-green-200 rounded-lg">
+						<div class="flex flex-col justify-between p-3 m-1 bg-yellow-200 rounded-lg">
 							<div class="flex">
 								<div class="flex items-center">
-									<img src="../static/images/tree_game/tree11.png" class="w-6">
-									<span class="text-sm font-medium text-gray-900 dark:text-white">Achievement 1 description.</span>
+									<img src="../static/images/tree_game/fertilizer-opened.png" class="w-6">
+									<span class="text-sm font-medium text-gray-900 dark:text-white">Fertilizer have used.</span>
 								</div>
 								<div class="flex items-center">
-									<div class="px-3">500</div>
+									<div id="coinRewardForNextStageFertilizerUsed" class="px-3">0</div>
 									<img src="../static/images/tree_game/JackpotCoin.png" class="w-6">
 								</div>
 							</div>
@@ -400,22 +401,22 @@
 										<div class="percentage hidden" id="percentageNumberOfFertilizer">0%</div>
 									</div>
 								</div>
-								<div>
-									200/500
+								<div id="current-Fertilizer-Count/currentMax-Fertilizer-CountThreshold">
+									0/0
 								</div>
 							</div>
 						</div>
 
 
 
-						<div class="flex flex-col justify-between p-3 m-1 bg-green-200 rounded-lg">
+						<div class="flex flex-col justify-between p-3 m-1 bg-purple-200 rounded-lg">
 							<div class="flex">
 								<div class="flex items-center">
-									<img src="../static/images/tree_game/tree11.png" class="w-6">
-									<span class="text-sm font-medium text-gray-900 dark:text-white">Achievement 1 description.</span>
+									<img src="../static/images/bird/idle.gif" class="w-6">
+									<span class="text-sm font-medium text-gray-900 dark:text-white">Bird have eliminated.</span>
 								</div>
 								<div class="flex items-center">
-									<div class="px-3">500</div>
+									<div id="coinRewardForNextStageBirdHaveEliminated" class="px-3">0</div>
 									<img src="../static/images/tree_game/JackpotCoin.png" class="w-6">
 								</div>
 							</div>
@@ -425,8 +426,8 @@
 										<div class="percentage hidden" id="percentageNumberOfBirdHaveEliminated">0%</div>
 									</div>
 								</div>
-								<div>
-									200/500
+								<div id="current-Bird-Count/currentMax-Bird-CountThreshold">
+									0/0
 								</div>
 							</div>
 						</div>
@@ -500,7 +501,7 @@
 				<div id="CoinDisplay" class="flex my-4 py-1 bg-yellow-500">
 					<img src="../static/images/tree_game/JackpotCoin.png" class="w-7 ml-1">
 					<div class="vt323-regular ml-2"> : </div>
-					<div id="CoinsOwnNumber" class="vt323-regular">0</div>
+					<span id="CoinsOwnNumber" class="vt323-regular">0</span>
 				</div>
 				<div class="progress-container">
 					<div class="progress-bar" id="progressBar">

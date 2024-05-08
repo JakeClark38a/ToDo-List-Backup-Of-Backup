@@ -5,7 +5,7 @@ let totalCost = 0;	// Total cost of the purchase
 
 document.addEventListener('DOMContentLoaded', function() {
 	// Call updateModal initially to set the coin display
-	updateModal();
+	updateShopCoin();
 });
 
 
@@ -36,9 +36,8 @@ function handleFertilizerQuantityChange(event) {
 }
 
 // Function to update the modal with current coin count
-function updateModal() {
+function updateShopCoin() {
 	document.getElementById('coin-display').innerText = coins;
-	updateTotalCost();
 }
 
 // Function to handle purchasing of items
@@ -52,8 +51,8 @@ function purchaseItem() {
 	if (totalCost <= coins) {
 		// Update the coin count
 		coins -= totalCost;
-		updateModal();
-
+		updateShopCoin();
+		updateTotalCost();
 		// Perform the purchase action here (e.g., update inventory)
 		fertilizationsLeft+=parseInt(fertilizerQuantityInput.value);
 		wateringsLeft+=parseInt(waterQuantityInput.value);
