@@ -2692,6 +2692,10 @@ input:checked + .toggle-bg {
   width: 4vh;
 }
 
+.w-\[75\%\] {
+  width: 75%;
+}
+
 .w-\[90\%\] {
   width: 90%;
 }
@@ -2711,22 +2715,6 @@ input:checked + .toggle-bg {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-\[80vw\] {
-  width: 80vw;
-}
-
-.w-\[50\%\] {
-  width: 50%;
-}
-
-.w-\[75\%\] {
-  width: 75%;
-}
-
-.w-\[60\%\] {
-  width: 60%;
 }
 
 .min-w-12 {
@@ -5245,10 +5233,6 @@ input:checked + .toggle-bg {
     width: 60vw;
   }
 
-  .md\:w-\[80vw\] {
-    width: 80vw;
-  }
-
   .md\:max-w-screen-lg {
     max-width: 800px;
   }
@@ -5301,11 +5285,6 @@ input:checked + .toggle-bg {
 
   .md\:p-5 {
     padding: 1.25rem;
-  }
-
-  .md\:py-8 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
   }
 
   .md\:text-left {
