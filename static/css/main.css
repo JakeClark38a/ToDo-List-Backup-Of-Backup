@@ -1635,6 +1635,18 @@ input:checked + .toggle-bg {
   }
 }
 
+@media screen and (min-width: 1001px) {
+  #Profile-Box {
+    margin-left: 6rem;
+    margin-right: 6rem;
+  }
+
+  #Profile-Screen {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
 /* End profile */
 
 /* Start tree */
@@ -1659,7 +1671,6 @@ input:checked + .toggle-bg {
 
 #waterbutton img,
   #fertilizebutton img {
-  cursor: pointer;
   padding-left: 6px;
   padding-right: 6px;
   padding-top: 4px;
@@ -1673,10 +1684,30 @@ input:checked + .toggle-bg {
   #fertilizebutton {
   margin-left: 1.25rem;
   margin-right: 1.25rem;
+  display: flex;
+  min-height: 75px;
+  min-width: 151px;
+  cursor: pointer;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+#fertilizerCount, #waterCount {
+  font-family: "VT323", monospace;
+  font-weight: 400;
+  font-style: normal;
+  pointer-events: none;
+  position: relative;
+  max-width: 40px;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+#waterbutton, #fertilizebutton {
   background-image: url("../images/tree_game/button.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center
 }
 
 #Items-hub {
@@ -1713,16 +1744,15 @@ input:checked + .toggle-bg {
 }
 
 .progress-container {
-  margin-bottom: 0.625rem;
   height: 1.25rem;
   width: 100%;
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   border-radius: 0.5rem;
   border-width: 2px;
   border-style: solid;
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .progress-bar {
@@ -2051,6 +2081,10 @@ input:checked + .toggle-bg {
   margin: 0px;
 }
 
+.m-1 {
+  margin: 0.25rem;
+}
+
 .m-3 {
   margin: 0.75rem;
 }
@@ -2233,6 +2267,10 @@ input:checked + .toggle-bg {
 
 .mr-5 {
   margin-right: 1.25rem;
+}
+
+.mr-\[3vw\] {
+  margin-right: 3vw;
 }
 
 .mr-\[3vw\] {
@@ -2522,6 +2560,10 @@ input:checked + .toggle-bg {
 
 .h-screen {
   height: 100vh;
+}
+
+.max-h-\[500px\] {
+  max-height: 500px;
 }
 
 .max-h-\[95\%\] {
@@ -3475,6 +3517,11 @@ input:checked + .toggle-bg {
   background-color: rgb(222 247 236 / var(--tw-bg-opacity));
 }
 
+.bg-green-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(188 240 218 / var(--tw-bg-opacity));
+}
+
 .bg-green-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(132 225 188 / var(--tw-bg-opacity));
@@ -3535,6 +3582,11 @@ input:checked + .toggle-bg {
   background-color: rgb(140 185 190 / 0.75);
 }
 
+.bg-purple-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 215 254 / var(--tw-bg-opacity));
+}
+
 .bg-red-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(253 232 232 / var(--tw-bg-opacity));
@@ -3573,9 +3625,19 @@ input:checked + .toggle-bg {
   background-color: rgb(216 216 216 / 0.5);
 }
 
+.bg-yellow-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 224 189 / var(--tw-bg-opacity));
+}
+
 .bg-yellow-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(238 177 90 / var(--tw-bg-opacity));
+}
+
+.bg-cyan-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(165 243 252 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -3952,11 +4014,6 @@ input:checked + .toggle-bg {
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
-}
-
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
 }
 
 .text-6xl {
@@ -4874,6 +4931,9 @@ input:checked + .toggle-bg {
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
 
+.dark\:fill-white:is(.dark *) {
+  fill: #d8d8d8;
+}
 .dark\:text-blue-200:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(209 227 229 / var(--tw-text-opacity));
@@ -5135,10 +5195,6 @@ input:checked + .toggle-bg {
 
   .md\:mt-\[20vh\] {
     margin-top: 20vh;
-  }
-
-  .md\:inline-block {
-    display: inline-block;
   }
 
   .md\:flex {

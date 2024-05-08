@@ -211,6 +211,15 @@
       flex-direction: column;
     }
   }
+
+  @media screen and (min-width: 1001px) {
+    #Profile-Box {
+      @apply mx-24;
+    }
+    #Profile-Screen{
+      @apply py-10;
+    }
+  }
   .disabled-select{
     @apply opacity-50;
   }
@@ -229,7 +238,7 @@
 
   #waterbutton img,
   #fertilizebutton img {
-    @apply cursor-pointer px-[6px] py-[4px]; 
+    @apply px-[6px] py-[4px]; 
     /* Adjust margin as needed */
     /* Add a transparent border initially */
     /* Add padding for spacing */
@@ -237,7 +246,11 @@
 
   #waterbutton,
   #fertilizebutton {
-    @apply mx-5;
+    @apply mx-5 min-w-[151px] min-h-[75px] cursor-pointer flex px-2;
+  }
+
+  #fertilizerCount, #waterCount {
+    @apply text-4xl vt323-regular relative max-w-[40px] pointer-events-none;
   }
 
   #waterbutton, #fertilizebutton {
@@ -264,9 +277,8 @@
     }
   }
   .progress-container {
-    @apply w-full bg-[#fff] h-5 mb-2.5;
-    @apply rounded-lg border-black border-solid border-2;
-}
+    @apply w-full bg-[#fff] h-5 rounded-lg border-black border-solid border-2;
+  }
 
   .progress-bar {
       @apply bg-[#4caf50] h-full w-0 transition-[width] duration-[0.3s] rounded-md border-solid;
