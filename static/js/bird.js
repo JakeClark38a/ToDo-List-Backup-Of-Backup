@@ -75,6 +75,7 @@ function addBirdContainer() {
   function handleClickOnBird() {
     // Change bird animation to hit.gif
     bird.src = "../static/images/bird/hit.gif";
+    numberOfBirdHaveEliminated++;
     document.getElementById("birdHitAudio").play(); // Play the bird hit sound
     wateringsLeft += 10;
     fertilizationsLeft += 10;

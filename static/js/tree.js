@@ -1,20 +1,108 @@
 let treeStage = 30; // Initial stage of the tree
-let treeCount = 100; // Initial count of trees planted
 let wateringsLeft = 50; // Variable to store the number of remaining waterings
 let fertilizationsLeft = 50; // Variable to store the number of remaining fertilizations
 let autoOption = false; // Variable to store the auto option state
 let audioOption = true; // Variable to store the audio option state
-let coins = 2414; // Variable to store the number of coins
+let coins = 240015; // Variable to store the number of coins
+let numberOfWaterUsed = 0; // Variable to store the number of water used
+let numberOfFertilizerUsed = 9999; // Variable to store the number of fertilizer used
+let numberOfBirdHaveEliminated = 0; // Variable to store the number of birds have eliminated
+let numberOfTreePlanted = 100; // Initial count of trees planted
 
 // DONT STORE THIS IN THE DATABASE !!!!!!!!!!!!!!!!
 let animationInProgress = false;
 let lastAction = "water"; // Variable to store the last action (water or fertilize) default is "water"
 let prevSrc;
+let progessBarStages = [10,100,500,1000,10000];
+let coinPerStage = [500,5000,10000,100000,1000000];
 let autoInterval; // Variable to store the interval for auto watering and fertilizing
+let numberOfTreePlantedMax;
+let numberOfWaterUsedMax;
+let numberOfFertilizerUsedMax;
+let numberOfBirdHaveEliminatedMax;
+
 var autoButtontag = document.getElementById('autoButton');
 var audioButtontag = document.getElementById('audioButton');
 var backgroundAudio = document.getElementById('backgroundAudio');
 
+
+function updateAllProgressBarsForAchivement(click = false) {
+  let coinRewardForNextStageTreePlanted = 0;
+  let coinRewardForNextStageWaterUsed = 0;
+  let coinRewardForNextStageFertilizerUsed = 0;
+  let coinRewardForNextStageBirdHaveEliminated = 0;
+
+  for (let i = 0; i < progessBarStages.length; i++) {
+    if(numberOfTreePlanted < progessBarStages[i]){
+      numberOfTreePlantedMax = progessBarStages[i];
+      coinRewardForNextStageTreePlanted = coinPerStage[i];
+      break;
+    }
+    else {
+      numberOfTreePlantedMax = progessBarStages[progessBarStages.length - 1];
+      coinRewardForNextStageTreePlanted = "MAX";
+    }
+  }
+  for (let i = 0; i < progessBarStages.length; i++) {
+    if (numberOfWaterUsed < progessBarStages[i]) {
+      numberOfWaterUsedMax = progessBarStages[i];
+      coinRewardForNextStageWaterUsed = coinPerStage[i];
+      break;
+    }
+    else {
+      numberOfWaterUsedMax = progessBarStages[progessBarStages.length - 1];
+      coinRewardForNextStageWaterUsed = "MAX";
+    }
+  }
+
+  for (let i = 0; i < progessBarStages.length; i++) {
+    if (numberOfFertilizerUsed < progessBarStages[i]) {
+      numberOfFertilizerUsedMax = progessBarStages[i];
+      coinRewardForNextStageFertilizerUsed = coinPerStage[i];
+      break;
+    }
+    else {
+      numberOfFertilizerUsedMax = progessBarStages[progessBarStages.length - 1];
+      coinRewardForNextStageFertilizerUsed = "MAX";
+    }
+  }
+
+  for (let i = 0; i < progessBarStages.length; i++) {
+    if (numberOfBirdHaveEliminated < progessBarStages[i]) {
+      numberOfBirdHaveEliminatedMax = progessBarStages[i];
+      coinRewardForNextStageBirdHaveEliminated = coinPerStage[i];
+      break;
+    }
+    else {
+      numberOfBirdHaveEliminatedMax = progessBarStages[progessBarStages.length - 1];
+      coinRewardForNextStageBirdHaveEliminated = "MAX";
+    }
+  }
+  updateCoinRewardForNextStage(coinRewardForNextStageTreePlanted, coinRewardForNextStageWaterUsed, coinRewardForNextStageFertilizerUsed, coinRewardForNextStageBirdHaveEliminated);
+  updateCurrentStageAndMaxStage("current-Tree-Count/currentMax-Tree-CountThreshold", numberOfTreePlanted, numberOfTreePlantedMax);
+  updateCurrentStageAndMaxStage("current-Water-Count/currentMax-Water-CountThreshold", numberOfWaterUsed, numberOfWaterUsedMax);
+  updateCurrentStageAndMaxStage("current-Fertilizer-Count/currentMax-Fertilizer-CountThreshold", numberOfFertilizerUsed, numberOfFertilizerUsedMax);
+  updateCurrentStageAndMaxStage("current-Bird-Count/currentMax-Bird-CountThreshold", numberOfBirdHaveEliminated, numberOfBirdHaveEliminatedMax);
+
+  updateProgressBar("progressBar", "percentage", treeStage, 220);
+  updateProgressBar("progressBarNumberOfTree", "percentageNumberOfTree", numberOfTreePlanted, numberOfTreePlantedMax);
+  updateProgressBar("progressBarNumberOfWater", "percentageNumberOfWater", numberOfWaterUsed, numberOfWaterUsedMax);
+  updateProgressBar("progressBarNumberOfFertilizer", "percentageNumberOfFertilizer", numberOfFertilizerUsed, numberOfFertilizerUsedMax);
+  updateProgressBar("progressBarNumberOfBirdHaveEliminated", "percentageNumberOfBirdHaveEliminated", numberOfBirdHaveEliminated, numberOfBirdHaveEliminatedMax);
+}
+
+function updateCoinRewardForNextStage(coinRewardForNextStageTreePlanted, coinRewardForNextStageWaterUsed, coinRewardForNextStageFertilizerUsed, coinRewardForNextStageBirdHaveEliminated) {
+  document.getElementById("coinRewardForNextStageTreePlanted").innerText = coinRewardForNextStageTreePlanted;
+  document.getElementById("coinRewardForNextStageWaterUsed").innerText = coinRewardForNextStageWaterUsed;
+  document.getElementById("coinRewardForNextStageFertilizerUsed").innerText = coinRewardForNextStageFertilizerUsed;
+  document.getElementById("coinRewardForNextStageBirdHaveEliminated").innerText = coinRewardForNextStageBirdHaveEliminated;
+}
+
+
+function updateCurrentStageAndMaxStage (currentStageAndMaxStageID, treeStage, maxStage) {
+  const currentStageAndMaxStage = document.getElementById(currentStageAndMaxStageID);
+  currentStageAndMaxStage.innerText = `${treeStage}/${maxStage}`;
+}
 // Function to load data from the server
 function loadData() {
   return new Promise(function (resolve, reject) {
@@ -46,7 +134,7 @@ function sendData() {
   console.log("test")
   const data = {
     treeStage: treeStage,
-    treeCount: treeCount,
+    treeCount: numberOfTreePlanted,
     wateringsLeft: wateringsLeft,
     fertilizationsLeft: fertilizationsLeft,
     autoOption: autoOption,
@@ -73,9 +161,8 @@ function sendData() {
 
 function RefreshAll() {
   $.when(loadData()).done((data) => {
-
     treeStage = data["treeStage"];
-    treeCount = data["treeCount"];
+    numberOfTreePlanted = data["treeCount"];
     wateringsLeft = data["wateringsLeft"];
     fertilizationsLeft = data["fertilizationsLeft"];
     autoOption = data["autoOption"];
@@ -90,13 +177,12 @@ function RefreshAll() {
     updateFertilizerCount();
     updateButtonStates();
     updateTree(load = true);
-    updateProgressBar();
     updateButtonStates();
     updateNumberofTrees();
     updateAutoOption();
     updateAudioOption();
     updateCoinsDisplay();
-    updateModal();
+    updateShopCoin();
   });
 }
 
@@ -168,7 +254,7 @@ function stopAuto() {
 function updateNumberofTrees() {
   document.getElementById(
     "treeCount"
-  ).innerText = `${treeCount}`
+  ).innerText = `${numberOfTreePlanted}`
 }
 
 function waterTree() {
@@ -180,9 +266,10 @@ function waterTree() {
     }
     lastAction = "water"; // Update last action
     updateTree();
-    updateProgressBar();
+    updateAllProgressBarsForAchivement();
     animate("water"); // Call the animation function for watering
     wateringsLeft--; // Decrease the number of remaining waterings
+    numberOfWaterUsed++;
     updateButtonStates(); // Update button states
     updateWaterCount(); // Update water count display
     wiggleImage("waterbutton"); // Add wiggle animation to water button
@@ -193,14 +280,17 @@ function waterTree() {
   }
 }
 
+
+
 function fertilizeTree() {
   if (fertilizationsLeft > 0 && treeStage < 220) {
     treeStage += 2; // Increment tree stage by fertilizing
     lastAction = "fertilize"; // Update last action
     updateTree();
-    updateProgressBar();
+    updateAllProgressBarsForAchivement();
     animate("fertilize"); // Call the animation function for fertilizing
     fertilizationsLeft--; // Decrease the number of remaining fertilizations
+    numberOfFertilizerUsed++;
     updateButtonStates(); // Update button states
     updateFertilizerCount(); // Update fertilizer count display
     wiggleImage("fertilizebutton"); // Add wiggle animation to fertilizer button
@@ -219,10 +309,10 @@ function wiggleImage(buttonId) {
   }, 500); // Remove wiggle class after 0.5 seconds
 }
 
-function updateProgressBar() {
-  const progressBar = document.getElementById("progressBar");
-  const percentage = document.getElementById("percentage");
-  const progress = (treeStage / 220) * 100; // Calculate the percentage progress
+function updateProgressBar(progresBarID, percentageNameID, stage, maxstage) {
+  const progressBar = document.getElementById(progresBarID);
+  const percentage = document.getElementById(percentageNameID);
+  const progress = (stage / maxstage) * 100; // Calculate the percentage progress
   progressBar.style.width = `${progress}%`; // Set the width of the progress bar
   percentage.innerText = `${Math.round(progress)}%`; // Update the percentage display
 }
@@ -276,10 +366,10 @@ function updateTree(load = false) {
   // Check if treeStage reaches maximum
   if (treeStage >= 220) {
     treeStage = 0; // Reset tree stage
-    treeCount++; // Increment tree count
+    numberOfTreePlanted++; // Increment tree count
     document.getElementById(
       "treeCount"
-    ).innerText = `${treeCount}`; // Update tree count
+    ).innerText = `${numberOfTreePlanted}`; // Update tree count
     updateTree();
   }
 }
@@ -501,3 +591,64 @@ window.addEventListener("resize", centerHelpModal);
 // Call the centerHelpModal function initially to center the modal
 centerHelpModal();
 /////////////////////////////////////// End Modal for the help ///////////////////////////////////////
+
+
+/////////////////////////////////////// Start Modal for the achivement ///////////////////////////////////////
+
+// Set the achievement modal element
+const $achievementModalEl = document.getElementById("AchievementModal");
+
+// Options for the achievement modal
+const achievementModalOptions = {
+  backdrop: "dynamic",
+  backdropClasses: "bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40",
+  closable: true,
+  onHide: () => {
+    console.log("Achievement modal is hidden");
+    document.getElementById("achievementButton").src = "../static/images/tree_game/AchievementButton.png";
+    // Add any specific actions you want to perform when the modal is hidden
+    // For example, reset any changes made when the modal was open
+    // Example: document.getElementById("achievementButton").src = "../static/images/tree_game/AchievementButton.png";
+  },
+  onShow: () => {
+    console.log("Achievement modal is shown");
+    document.getElementById("achievementButton").src = "../static/images/tree_game/AchievementButtonPressed.png";
+    updateAllProgressBarsForAchivement(click = true);
+    // Add any specific actions you want to perform when the modal is shown
+    // For example, change the appearance of a button indicating the modal is open
+    // Example: document.getElementById("achievementButton").src = "../static/images/tree_game/AchievementButtonPressed.png";
+  },
+  onToggle: () => {
+    console.log("Achievement modal has been toggled");
+    // Add any specific actions you want to perform when the modal is toggled
+  },
+};
+
+// Create a new instance of the modal for the achievement modal
+const achievementModal = new Modal($achievementModalEl, achievementModalOptions);
+
+// Function to handle closing the achievement modal when the close button is clicked
+document
+  .getElementById("btn-close-achievement-modal")
+  .addEventListener("click", () => {
+    achievementModal.hide();
+  });
+
+// Function to unhide the achievement modal when the achievement button is clicked
+document.getElementById("achievementButton").addEventListener("click", () => {
+  achievementModal.show();
+});
+
+// Function to center the achievement modal
+function centerAchievementModal() {
+  $achievementModalEl.style.top = "50%";
+  $achievementModalEl.style.left = "50%";
+  $achievementModalEl.style.transform = "translate(-50%, -50%)";
+}
+
+// Call the centerAchievementModal function when the window is resized
+window.addEventListener("resize", centerAchievementModal);
+
+// Call the centerAchievementModal function initially to center the modal
+centerAchievementModal();
+
