@@ -56,11 +56,11 @@ modalteampage.CreateTeam = function () {
 
   modalteampage.show();
 }
-modalteampage.editTeam = function (team) {
+modalteampage.editTeam = function (teamid,teamname,teamdes) {
   let h3 = "Edit Team";
-  let teamname = team.name;
-  let teamdescription = team.des;
-  let id = team.team_id;
+  let teamdescription = teamdes;
+  let id = teamid;
+  console.log("asdasd :", id);
   $("#crud-modal2 #code-sec").hide();
   $('#crud-modal2 #teamname-sec').show();
   $('#crud-modal2 #teamdesc-sec').show();
@@ -71,7 +71,7 @@ modalteampage.editTeam = function (team) {
   $('#crud-modal2 label[for="teamname"]').text("Team's Name");
   $('#crud-modal2 label[for="teamdescription"]').text("Team Description");
   $('#crud-modal2 h3').text(h3);
-  $('#crud-modal2 input[type="checkbox"]').attr("id", `${id}`);
+  $('#crud-modal2 input[type="checkbox"]').attr("id", id);
   $('#crud-modal2 #teamname').val(teamname);
   $('#crud-modal2 #teamdescription').val(teamdescription);
 

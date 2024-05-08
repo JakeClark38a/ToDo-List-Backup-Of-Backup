@@ -436,11 +436,13 @@ Sample bottom tooltip:
     <div class="tooltip-arrow" data-popper-arrow></div>
 </div>
 */
+
 const tooltipTemplate = function (taskId, task) {
     const date = new Date(task.deadline);
     const localDate = date.toLocaleString();
+    
     return (`
-    <button data-tooltip-target="tooltip-bottom-${taskId}" data-tooltip-placement="bottom" type="button" class="truncate mb-2 md:mb-0 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full">${task.title}</button>
+    <button data-tooltip-target="tooltip-bottom-${taskId}" data-tooltip-placement="bottom" type="button" class="truncate text-left mb-2 md:mb-0 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full">${task.title}</button>
     <div id="tooltip-bottom-${taskId}" role="tooltip" class="max-w-[50vw] absolute z-50 inline-block invisible px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
         <p class="text-xl">${task.title}</p>
         <p>
@@ -514,8 +516,9 @@ const refreshOnDelay = function () {
 // Event handler for clicking on submit button in crud-modal
 $("#crud-modal #submit-sec").on("click", function (e) {
     // Just use location.reload() on calendar page
-    if ($("#calendar").length > 0)
-        location.reload();
+    if ($("#calendar").length > 0) {
+        //location.reload();
+    }
 });
 // Event handler for resizing window: If screen width is greater than 768px, show calendar table, else hide it
 $(window).resize(function () {
@@ -525,6 +528,38 @@ $(window).resize(function () {
         $("#CalendarTable").parent().addClass("hidden");
     }
 })
+
+
+
+function RefreshAllCalendar() {
+    updateMMenuTabIndicator();
+    refreshOnDelay();
+
+    $.when(loadDict()).done(function (data) {
+        // set initial date for #calendar is today
+        // format: MM/DD/YYYY'
+        Dict = data;
+        console.log('[6] Load data to calendar successfully!');
+        console.log(Dict);
+        // remove all tooltips and button
+        // refreshTooltipTable();
+        // refreshTaskSection();
+        // Get date from focused datepicker-cell
+        refreshOnDelay();
+        // console.log(getTask(...date));
+
+        // mapDatepickerToTable(); // reset all?
+        // with each div with class datepicker-cell, find "focused" class
+        // if found, console log text content of the element
+        // refresh each time user click datepicker-cell
+        $("#Task-Group-Title").text(combineMonth(...pickDate()));
+        $("#calendar .datepicker-cell, #calendar button.prev-btn, #calendar button.next-btn").click(function () {
+            // remove all tooltips and button after 50ms to make sure Flowbite datepicker has updated
+            setTimeout(refreshOnDelay, 50);
+        });
+
+    });
+}
 
 $(document).ready(function () {
     // If screen width is greater than 768px, show calendar table
@@ -537,36 +572,6 @@ $(document).ready(function () {
     //$("#CalendarTable").parent().addClass("hidden");
     // refreshTooltipTable();
 
-
-    function RefreshAll() {
-        updateMMenuTabIndicator();
-        refreshOnDelay();
-
-        $.when(loadDict()).done(function (data) {
-            // set initial date for #calendar is today
-            // format: MM/DD/YYYY'
-            Dict = data;
-            console.log('[6] Load data to calendar successfully!');
-            console.log(Dict);
-            // remove all tooltips and button
-            // refreshTooltipTable();
-            // refreshTaskSection();
-            // Get date from focused datepicker-cell
-            refreshOnDelay();
-            // console.log(getTask(...date));
-
-            // mapDatepickerToTable(); // reset all?
-            // with each div with class datepicker-cell, find "focused" class
-            // if found, console log text content of the element
-            // refresh each time user click datepicker-cell
-            $("#Task-Group-Title").text(combineMonth(...pickDate()));
-            $("#calendar .datepicker-cell, #calendar button.prev-btn, #calendar button.next-btn").click(function () {
-                // remove all tooltips and button after 50ms to make sure Flowbite datepicker has updated
-                setTimeout(refreshOnDelay, 50);
-            });
-
-        });
-    }
     //Remove task
     $("#Task-Section").on("click", "#Task-Cancel", function (e) {
         var task_ = $(this).closest(".task-outer");
@@ -580,7 +585,7 @@ $(document).ready(function () {
         //console.log(Dict.tasks);
 
         task_.toggleClass("transform transition-all duration-350 delay-75 ease-in-out scale-0 blur-md translate-y-20");
-
+        RefreshAllCalendar();
         setTimeout(() => {
             task_.remove();
         }, 400);
@@ -599,7 +604,7 @@ $(document).ready(function () {
 
         // Also send to backend at /todo/completed/<id>
         ajaxHandler.completeTask(taskId);
-
+        RefreshAllCalendar();
         task_.toggleClass(" transform transition-all duration-350 delay-500 ease-in-out scale-150 blur-xl -translate-y-20");
         setTimeout(() => {
             task_.remove();
@@ -615,11 +620,7 @@ $(document).ready(function () {
         e.stopPropagation();
     })
 
-    $('#crud-modal #submit-sec').on("click", function (e) {
-        RefreshAll();
-    });
-    $('#crud-modal #delete-sec').on("click", function (e) {
-        RefreshAll();
-    });
-    RefreshAll();
+    RefreshAllCalendar();
+
 });
+export { RefreshAllCalendar };

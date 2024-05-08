@@ -23,7 +23,7 @@ fertilizerQuantityInput.addEventListener('input', handleFertilizerQuantityChange
 function handleWaterQuantityChange(event) {
     const waterQuantity = event.target.value;
     // Do something with the water quantity, such as updating UI or performing calculations
-    console.log('Water quantity changed:', waterQuantity);
+    // console.log('Water quantity changed:', waterQuantity);
 		updateTotalCost();
 }
 
@@ -31,7 +31,7 @@ function handleWaterQuantityChange(event) {
 function handleFertilizerQuantityChange(event) {
     const fertilizerQuantity = event.target.value;
     // Do something with the fertilizer quantity, such as updating UI or performing calculations
-    console.log('Fertilizer quantity changed:', fertilizerQuantity);
+    // console.log('Fertilizer quantity changed:', fertilizerQuantity);
 		updateTotalCost();
 }
 
@@ -81,7 +81,7 @@ document.getElementById('purchase-btn').addEventListener('click', function() {
 // Event listeners for decrease and increase buttons
 document.getElementById('fertilize-decrease').addEventListener('click', function() {
   var quantityInput = fertilizerQuantityInput.value;
-	console.log(quantityInput);
+	// console.log(quantityInput);
   if (parseInt(quantityInput) >= 10) {
 		document.getElementById("fertilize-quantity").value = parseInt(quantityInput / 10);
 		fertilizerQuantityInput.dispatchEvent(new Event('input'));

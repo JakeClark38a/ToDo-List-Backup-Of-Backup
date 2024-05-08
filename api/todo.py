@@ -21,6 +21,12 @@ def datetime_to_string(user_date):
     result = datetime.datetime.strptime(user_date, '%Y-%m-%dT%H:%M')
     return result.strftime('%Y-%m-%d %H:%M:%S')
 
+def expire_task(userdate):
+    result = userdate
+    if result < datetime.datetime.now():
+        return True
+    else:
+        return False
 
 def default_group(group_id,group_title,user_id, color):
     if not Groupss.query.filter_by(group_id=group_id).first():
@@ -118,6 +124,8 @@ def get_todo():
 def completed_todo(id):
     task = Tasks.query.filter_by(task_id=id, user_id=current_user.get_id()).first()
     task.isCompleted = True
+    if expire_task(task.deadline) == True:
+        task.points = 0
     tododb.session.commit()
     update_points = Users.query.filter_by(user_id=current_user.get_id()).first()
     if (update_points.points == None):
@@ -154,9 +162,9 @@ def update_group():
     group = Groupss.query.filter_by(group_id=data['groupId'], user_id=current_user.get_id()).first()
     group.group_title = data['title']
     group.color = data['color']
-    print("Def_tag bf:"+ group.def_tag)
+    # print("Def_tag bf:"+ group.def_tag)
     group.def_tag = data['def_tag']
-    print("Def_tag: " + data['def_tag'])
+    # print("Def_tag: " + data['def_tag'])
     tododb.session.commit()
     return jsonify({'message': 'Group updated successfully!'}), 200
 

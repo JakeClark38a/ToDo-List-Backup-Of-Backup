@@ -157,6 +157,7 @@ modalMainScreen.AddEditTask = function (task, group, isForceCreateNew = false) {
 
   $('#crud-modal').find(`#tags option[value="${tag}"]`).attr("selected", title);
   $('#crud-modal').find(`#groups option[value="${groupId}"]`).attr("selected", groupName);
+  
   $(document).ready(function () {
     $('#crud-modal #todo-expired').val(expiredShow);
 
@@ -188,8 +189,8 @@ modalMainScreen.AddEditTask = function (task, group, isForceCreateNew = false) {
   let date_element = $('#crud-modal #todo-expired');
 
   $('#crud-modal #todo-expired').on('change', function () {
-    let input_date = new Date(expired);
-    if (input_date - new Date() <= 0) {
+    let input_date = new Date();
+    if (input_date - new Date($('#crud-modal #todo-expired').val()) > 0) {
       date_element.css("border", "2px solid red");
       $('#crud-modal #warn-sec').show();
       $('#crud-modal #warn-sec #warn').text("Cannot set due time in the past!");
