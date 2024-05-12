@@ -485,7 +485,7 @@ const shopModalOptions = {
     // console.log("Shop modal is hidden");
   },
   onShow: () => {
-    console.log("Shop modal is shown");
+    // console.log("Shop modal is shown");
     // document.getElementById("storebellAudio").play();
   },
   onToggle: () => {
@@ -636,3 +636,5 @@ window.addEventListener("resize", centerAchievementModal);
 // Call the centerAchievementModal function initially to center the modal
 centerAchievementModal();
 
+
+/////////////////////////////////////// End Modal for the achivement ///////////////////////////////////////
