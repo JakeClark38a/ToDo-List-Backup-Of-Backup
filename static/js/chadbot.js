@@ -26,7 +26,7 @@ const safetySettings = [
         threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
     },
 ];
-const Presetprompt_landingPage = {
+const Presetprompt_landingPage = { /// training the AI with data following
     history: [
         {
             role: "user",
@@ -313,7 +313,7 @@ chadBot.chat = async function (message, code) {
     try {
         const model = genAI.getGenerativeModel({ model: "gemini-pro", generationConfig, safetySettings });
         let Beginprompt = Presetprompt_landingPage
-        if (code == 'main') {
+        if (code == 'main') { // code check for what page are u in
             Beginprompt = Presetprompt_mainPage
         }
         const chat = model.startChat(Beginprompt);

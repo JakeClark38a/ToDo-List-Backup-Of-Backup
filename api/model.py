@@ -24,7 +24,7 @@ class Users(tododb.Model, UserMixin):
     points = tododb.Column(tododb.Integer, default=0)
     dark_mode = tododb.Column(tododb.BOOLEAN, default=False)
     TeamUser = tododb.relationship('Teams', secondary=User_Team, backref='users')
-    last_join_team = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('teams.team_id'))
+    last_join_team = tododb.Column(tododb.NVARCHAR(40))
 
     def __repr__(self) -> str:
         return f'{self.user_id, self.email, self.name, self.bio, self.country, self.image, self.type_account, self.external_id, self.isFillForm , self.points}'
@@ -130,6 +130,9 @@ class Trees(tododb.Model):
     fertilizationsLeft = tododb.Column(tododb.Integer)
     autoOption = tododb.Column(tododb.BOOLEAN, default=False)
     audioOption = tododb.Column(tododb.BOOLEAN, default=True)
+    numberOfWaterUsed = tododb.Column(tododb.Integer, default=0)
+    numberOfFertilizerUsed = tododb.Column(tododb.Integer, default=0)
+    numberOfBirdHaveEliminated = tododb.Column(tododb.Integer, default=0)
     user_id = tododb.Column(tododb.NVARCHAR(40), tododb.ForeignKey('users.user_id', ondelete="CASCADE"),primary_key=True)
 
     def __repr__(self) -> str:

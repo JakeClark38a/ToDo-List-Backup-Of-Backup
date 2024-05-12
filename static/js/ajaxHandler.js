@@ -302,9 +302,11 @@ ajaxHandler.getUserProfileImage = function () {
             success: function (data) {
                 $("#Avatar-Image").attr("src", data);
                 $("#User-Current-Avatar").attr("src", data);
+                
                 resolve(data);
             },
             error: function (data) {
+
                 console.log("Error");
                 reject(data);
             }
@@ -888,7 +890,7 @@ ajaxHandler.team_JoinTeam = function (teamcode) {
 ajaxHandler.team_LeaveTeam = function (team_id) {
     return new Promise(function (resolve, reject) {
         $.ajax({
-            url: "/team/leave",
+            url: "/team/" + team_id + "/leave",
             type: "POST",
             data: JSON.stringify({
                 team_id: team_id,
@@ -930,13 +932,14 @@ ajaxHandler.team_DeleteTeam = function (team_id) {
     });
 
 }
-ajaxHandler.team_LeaveTeam = function (team_id) {
+ajaxHandler.team_TeamkickUser = function (team_id, user_id) {
     return new Promise(function (resolve, reject) {
         $.ajax({
-            url: "/team/" + team_id + "/leave",
+            url: "/team/" + team_id + "/kick",
             type: "POST",
             data: JSON.stringify({
                 team_id: team_id,
+                user_id: user_id,
             }),
             contentType: "application/json",
             dataType: "json",
@@ -950,6 +953,7 @@ ajaxHandler.team_LeaveTeam = function (team_id) {
             },
         });
     });
+
 }
 
 ajaxHandler.team_setLastVisitedTeam = function (team_id) {
@@ -963,9 +967,11 @@ ajaxHandler.team_setLastVisitedTeam = function (team_id) {
             contentType: "application/json",
             dataType: "json",
             success: function (data) {
+                console.log('Success');
                 resolve(data); // Resolve the promise with user info when AJAX call succeeds
             },
             error: function (error) {
+                console.log(error);
                 reject(error); // Reject the promise if there is an error
             }
         });
@@ -986,6 +992,30 @@ ajaxHandler.team_getLastVisitedTeam = function () {
         });
     });
 };
+ajaxHandler.Team_EditTeam = function (team_id, teamname, teamdes, teamcode) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: "/team/" + team_id + "/edit",
+            type: "POST",
+            data: JSON.stringify({
+                team_id: team_id,
+                team_name: teamname,
+                team_description: teamdes,
+            }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log('Success');
+                resolve(data);
+            },
+            error: function (data) {
+                console.log('Error');
+                reject(data);
+            },
+        });
+    });
+}
+
 //================================================================\\
 //======================  Load User Data  ========================\\
 //================================================================\\
@@ -1113,11 +1143,12 @@ ajaxHandler.LoadTeamData = function (team_id) {
             console.log(taskData);
             console.log(teamData);
 
-            Dict.name = teamData.name;
-            Dict.bio = teamData.bio;
+            Dict.name = teamData.team_name;
+            Dict.bio = teamData.team_description;
             Dict.team_id = teamData.team_id;
             Dict.team_code = teamData.team_code;
             Dict.darkmode = darkmode.dark_mode;
+            Dict.admin = teamData.admin;
 
             if (!Dict.name) {
                 Dict.name = "Team-" + Utils.getUuid().substring(0, 6);

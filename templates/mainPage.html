@@ -22,6 +22,11 @@
 
     <!--########################################################### Addons ######################################################################-->
 
+    <div id="Alert-Screen"
+        class="absolute flex z-40 flex-col justify-end  gap-1 items-end right-1 bottom-5 bg-transparent overflow-hidden">
+        <!--Alerts here-->
+    </div>
+
     <!-- Main modal  -->
     <div id="crud-modal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -110,7 +115,7 @@
                         autocomplete="off" tabindex="-1">
                     <div class="col-span-2 flex justify-between">
                         <button id="submit-sec" type="button"
-                            class="text-white inline-flex items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-blue-500">
+                            class="text-white inline-flex items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                             <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -122,7 +127,7 @@
 
                         <!--Delete btn-->
                         <button id="delete-sec" type="button"
-                            class="text-white inline-flex items-center bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                            class="text-white inline-flex items-center bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                             <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -244,7 +249,8 @@
                         </div>
                     </label>
                 </div>
-            </div><!--eoblock-->
+
+            </div>
 
             <div id="PMenu-Logout" class="PMenu-Primary-Section"> <!--block-->
                 <a href="{{url_for('auth.logout')}}">
@@ -264,7 +270,14 @@
                     </button>
                 </a>
             </div><!--eoblock-->
-
+            <div id="PMenu-Coin" class="PMenu-Primary-Section"> <!--block-->
+                <div class="flex items-center">
+                    <div class="PMenu-Primary-Image-Wrapper">
+                        <img class="w-full h-full" src="../static/images/tree_game/JackpotCoin.png" class="" alt="coin">
+                    </div>
+                    <div id="PMenu-Display-Coin" class="PMenu-Primary-Text truncate">Coins: 999</div>
+                </div>
+            </div><!--eoblock-->
         </div>
         <!--########################################################### EoProfile Dropdown ######################################################################-->
 
@@ -274,7 +287,25 @@
 
         <!-- Dropdown Main menu -->
         <div id="Main-Menu"
-            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-54 lg:w-64 bg-main dark:bg-gray-700 shadow-xl overflow-hidden  rounded-br-xl">
+            class="dropdown-anim duration-300 h-0 z-10 absolute items-start w-56 lg:w-64 bg-main dark:bg-gray-700 shadow-xl overflow-hidden  rounded-br-xl">
+
+            <div id="MMenu-Search" class="MMenu-Primary-Section mt-4">
+                <div class="flex items-center">
+                    <div id="Begin-Search" class="MMenu-Primary-Image-Wrapper">
+                        <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+
+                    <div class="p-2 flex items-center">
+                        <textarea name="SearchBox" id="SearchBox"
+                            class="MMenu-Primary-Text bg-main rounded-xl border-0 text-left resize-none w-full text-black" rows="1"
+                            placeholder="Search"  style="color: black;"></textarea>
+                    </div>
+                </div>
+            </div>
 
             <div id="MMenu-Today" class="MMenu-Primary-Section"> <!--block-->
                 <div class="flex items-center">
@@ -291,7 +322,8 @@
                 </div>
             </div><!--eoblock-->
 
-            <div id="MMenu-Calendar" class="MMenu-Primary-Section"  onclick="window.location.href=`{{url_for('calendar.calendar_page')}}`"> <!--block-->
+            <div id="MMenu-Calendar" class="MMenu-Primary-Section"
+                onclick="window.location.href=`{{url_for('calendar.calendar_page')}}`"> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
@@ -306,7 +338,8 @@
                 </div>
             </div><!--eoblock-->
 
-            <div id="MMenu-Team" class="MMenu-Primary-Section" onclick="window.location.href=`{{url_for('team.waiting_page')}}`"> <!--block-->
+            <div id="MMenu-Team" class="MMenu-Primary-Section"
+                onclick="window.location.href=`{{url_for('team.waiting_page')}}`"> <!--block-->
                 <div class="flex items-center">
                     <div class="MMenu-Primary-Image-Wrapper">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -349,8 +382,7 @@
                 </div>
             </div><!--eoblock-->
 
-            <div id="MMenu-Group-Section"
-                class="relative MMenu-Group-Section overflow-y-scroll py-5 max-h-[95%] bg-gray-300/35 ">
+            <div id="MMenu-Group-Section" class="relative MMenu-Group-Section overflow-y-scroll py-5 max-h-[95%] ">
                 <!--group here-->
             </div>
         </div>
@@ -440,7 +472,7 @@
             </div>
 
             <div id="Chat-Section"
-                class="hidden w-full md:w-4/12 h-[90vh] bg-main dark:bg-gray-500 flex flex-col overflow-hidden">
+                class="hidden w-full md:w-4/12 h-[90vh] shadow-lg bg-main dark:bg-gray-500 flex flex-col overflow-hidden">
                 <div class="">
 
                     <div id="chat-box-wrapper" class="chat-wrapper p-4 flex flex-col justify-center items-start">
@@ -460,7 +492,7 @@
                         </div>
 
                         <div id="chat-content"
-                            class="chat-text-sec h-[70vh] p-4 mb-4 w-full mt-1 rounded-lg bg-gray-300/50 overflow-x-hidden overflow-y-scroll">
+                            class="chat-text-sec shadow-md h-[70vh] p-4 mb-4 w-full mt-1 rounded-lg bg-gray-300/50 overflow-x-hidden overflow-y-scroll">
                             <!--chat content-->
 
 
@@ -469,10 +501,10 @@
 
                         <div class="chat-input-sec flex w-full justify-center items-center">
                             <textarea id="chat-message"
-                                class="chat-input rounded-s-lg border-2 resize-none dark:text-main border-main h-11 w-full lg:h-12 text-base bg-gray-300/50"
+                                class="chat-input shadow-md rounded-s-lg border-2 resize-none dark:text-main border-main h-11 w-full lg:h-12 text-base bg-gray-300/50"
                                 placeholder="Type a message" rows="1"></textarea>
                             <button id="chat-send-button" type="button"
-                                class="chat-send-button border-2 border-main bg-green-500 h-11 w-11 lg:h-12 lg:w-12 rounded-e-lg flex justify-center items-center hover:bg-blue-600">
+                                class="shadow-md chat-send-button border-2 border-main bg-green-500 h-11 w-11 lg:h-12 lg:w-12 rounded-e-lg flex justify-center items-center hover:bg-blue-600">
 
                                 <svg class="w-full h-full text-main rotate-90" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -494,14 +526,10 @@
         <!--########################################################### EoMain Screen ######################################################################-->
 
 
-        <div id="Alert-Screen"
-            class="absolute flex flex-col justify-end  gap-1 items-end right-1 bottom-5 bg-transparent overflow-hidden">
-            <!--Alerts here-->
-        </div>
-
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="../static/js/app.js" type="module"></script>
+        <script src="../static/js/fuzzySearchLib.js"></script>
 </body>
 
 </html>

@@ -48,17 +48,19 @@ var UsersList = {
 function getData(team_id) {
   return new Promise(function (resolve) {
     $.when(ajaxHandler.LoadTeamData(team_id),
-      ajaxHandler.team_LoadUserList(team_id)
-    ).done(function (data, userslist) {
+      ajaxHandler.team_LoadUserList(team_id),
+      ajaxHandler.LoadUser(),
+    ).done(function (data, userslist, userdata) {
       Dict = data;
       var temp = {};
       for (let idx in userslist) {
         temp[userslist[idx].userid] = {};
         temp[userslist[idx].userid].user_id = userslist[idx].userid
         temp[userslist[idx].userid].name = userslist[idx].name;
-        temp[userslist[idx].userid].img = userslist[idx].image;
+        temp[userslist[idx].userid].img = userslist[idx].image ? userslist[idx].image : "../static/images/profile.jpg";
       }
       UsersList = temp;
+      Dict.points = userdata.points;
 
       console.log("[5] Data is loaded to appTeam.js: ");
       console.log(Dict);
@@ -68,6 +70,16 @@ function getData(team_id) {
       $("html").toggleClass("dark", Dict.darkmode);
 
       resolve(Dict, UsersList);
+    }).fail(() => {
+      $("#CreateAndJoinTeam").show();
+      $("#Main-Section").hide();
+
+      $("#Team-Code-Dis").hide();
+      $('#MMenu-Group-Section').hide();
+      $('#MMenu-Group-Add').hide();
+      $("#UserList-Toggle").hide();
+      $('#Team-Menu-Click').hide();
+      Alert.Danger("Team not exist or you have been banned!", 7000);
     });
   });
 }
@@ -75,6 +87,16 @@ function getData(team_id) {
 function onVisitTeam() {
   $("#CreateAndJoinTeam").hide();
   $("#Main-Section").show();
+
+  $("#Team-Code-Dis").text(Dict.team_code);
+  $("#Team-Code-Dis").show();
+  $('#MMenu-Group-Section').show();
+  $('#MMenu-Group-Add').show();
+  $("#UserList-Toggle").show();
+  $('#Team-Menu-Click').show();
+
+  $("#Main-Screen").empty();
+  $("#MMenu-Group-Section").empty();
 
   init();
 }
@@ -86,7 +108,7 @@ function RefreshAll(team_id) {
     console.log("[7] Refresh the mainscreen");
     console.log(Dict);
 
-    $("#Team-Code-Dis").text("CD: " + Dict.team_code);
+    $("#Team-Code-Dis").text(Dict.team_code);
     $("#Team-Code-Dis").show();
     $('#MMenu-Group-Section').show();
     $('#MMenu-Group-Add').show();
@@ -95,8 +117,7 @@ function RefreshAll(team_id) {
 
     $("#Main-Screen").empty();
     $("#MMenu-Group-Section").empty();
-
-
+    $("#PMenu-Display-Coin").text("Coins: " + Dict.points);
 
     LoadMainMenu(Dict);
     LoadMainScreen(Dict, currentMode);
@@ -123,12 +144,12 @@ function userlist(name, img, user_id) {
     <div class="flex-none self-center w-8 h-8 ">
         <img class=" w-full h-full  rounded-full" src="`+ img + `" alt="avtr">
     </div>
-    <div class="flex-1 self-center  mr-2 overflow-hidden">
+    <div class="flex-1 self-center  mr-2 overflow-hidden truncate w-20">
         <p id="" class="dark:text-gray-500 text-black text-lg text-nowrap">`+ name + `</p>
     </div>
     <div class=" flex-none  justify-end self-center  ">
     <button id="ban-user"  
-    class="banuser bg-white inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-900 rounded-lg
+    class="banuser hidden bg-white inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-900 rounded-lg
           hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">        
       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
@@ -144,9 +165,10 @@ function refreshUserList() {
   let userList = $(' #ListUser');
   userList.empty();
   for (let key in UsersList) {
-    userList.append(userlist(UsersList[key].name, UsersList[key].img, UsersList[key].user_id));
+    userList.append(userlist(UsersList[key].name + ((Dict.admin == UsersList[key].user_id) ? " (Leader)" : ""), UsersList[key].img, UsersList[key].user_id));
   }
 }
+
 
 $("#Team-Menu-Click").on('click', () => {
   $("#CreateAndJoinTeam").show();
@@ -180,7 +202,11 @@ $(document).ready(function () {
 
 
   //################################################### Fuctions #########################################################
-
+  $("#Team-Code-Dis").on("click", function () {
+    let code = $(this).text();
+    navigator.clipboard.writeText(code);
+    Alert.Success("Code copied successfully!", 1500);
+  });
   //================================================================\\
   //=========================== User list ========================\\
   //================================================================\\
@@ -302,7 +328,10 @@ $(document).ready(function () {
     var taskId = task_.attr("id");
 
     // Send ajaxHandler. request to backend at /todo/delete to delete task
-    ajaxHandler.team_deleteTask(team_id, taskId);
+    $.when(ajaxHandler.team_deleteTask(team_id, taskId)).done(()=>{
+      Alert.Success("Task deleted successfully!");
+      RefreshAll(team_id);
+    });
 
     delete Dict.tasks[taskId];
     console.log("Cancelled: " + taskId);
@@ -327,14 +356,16 @@ $(document).ready(function () {
     Dict.tasks[taskId].isCompleted = true;
 
     // Also send to backend at /todo/completed/<id>
-    ajaxHandler.team_completeTask(team_id, taskId);
+    $.when(ajaxHandler.team_completeTask(team_id, taskId)).done(()=>{
+      Alert.Success("Task Completed!");
+      RefreshAll(team_id);
+    });
 
     task_.toggleClass(" transform transition-all duration-350 delay-500 ease-in-out scale-150 blur-xl -translate-y-20");
     setTimeout(() => {
       task_.remove();
     }, 800);
   });
-
 
 
   $("#crud-modal").on('change', '#groups', function () {
@@ -578,7 +609,38 @@ $(document).ready(function () {
     })
 
   //$("#Calendar").load("calendar.html");
-
+  // Secret place: Search algorithm: Use fuzzy search
+  $('#MMenu-Search textarea').on('input', function () {
+    let search = $(this).val();
+    if (search.length == 0) {
+      for (let task in Dict.tasks) {
+        $(`#${task}`).show();
+      }
+      return;
+    };
+    // Populate Dict into list of strings
+    let searchList = [];
+    for (let task in Dict.tasks) {
+      // Collect all the information of the task
+      let tagId = Dict.tasks[task].tag;
+      let groupId = Dict.tags[tagId].groupId;
+      // Replace -, T, : with space on deadline
+      let deadline = Dict.tasks[task].deadline.replace(/[-T:]/g, " ");
+      searchList.push(Dict.tasks[task].title + " " + Dict.tasks[task].description + " " + Dict.tags[tagId].title + " " + Dict.groups[groupId].title + " " + deadline);
+      // Init fuzzy search
+      let uf = new uFuzzy({});
+      let idxs = uf.filter(searchList, search);
+      // If the search is found, show the task
+      if (idxs.length > 0) {
+        $(`#${task}`).show();
+      }
+      // If the search is not found, hide the task
+      else {
+        $(`#${task}`).hide();
+      }
+      searchList = [];
+    }
+  });
   // End of app.js
 })
 

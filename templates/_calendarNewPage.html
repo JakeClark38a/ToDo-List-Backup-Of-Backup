@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../static/css/main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,7 +23,7 @@
     <!--########################################################### Addons ######################################################################-->
 
     <!-- Main modal  -->
-    <div id="crud-modal2" tabindex="-1" aria-hidden="true"
+    <div id="crud-modal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <!-- Modal content -->
@@ -46,54 +47,65 @@
                 <!-- Modal body -->
                 <form class="p-4 md:p-5">
                     <div class="grid gap-4 mb-4 grid-cols-2">
-                        <div id="code-sec" class="col-span-2">
-                            <label for="teamcode"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Team's code</label>
-                            <input type="text" name="teamcode" id="teamcode"
+                        <div id="name-sec" class="col-span-2">
+                            <label for="name"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                            <input type="text" name="name" id="name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Code" required="" maxlength="128">
+                                placeholder="Type todo title" required="" maxlength="128">
                         </div>
-
-                        <div id="teamname-sec" class="col-span-2">
-                            <label for="teamname"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Team's name
-                            </label>
-                            <input type="text" name="teamname" id="teamname"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type your team name" required="" maxlength="128">
-                        </div>
-                        <div id="teamdesc-sec" class="col-span-2">
-                            <label for="teamdescription"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Team
+                        <div id="desc-sec" class="col-span-2">
+                            <label for="description"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task
                                 Description</label>
-                            <textarea id="teamdescription" rows="4"
+                            <textarea id="description" rows="4"
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
-                                placeholder="Write team description here" maxlength="256"></textarea>
+                                placeholder="Write task description here" maxlength="256"></textarea>
+                        </div>
+                        <div id="todo-expired-sec" class="col-span-2">
+                            <label for="todo-expired"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expired
+                                Time</label>
+                            <input type="datetime-local" name="" id="todo-expired"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required="">
                         </div>
 
+                        <div id="groups-sec" class="col-span-2 sm:col-span-1">
+                            <label for="groups"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Group</label>
+                            <select id="groups"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                required="">
+                                <option>Select group</option>
+                                <!-- Dynamic JS options here -->
+                            </select>
+                        </div>
 
+                        <div id="tags-sec" class="col-span-2 sm:col-span-1">
+                            <label for="tags"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tag</label>
+                            <select id="tags"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                required="">
+                                <option>Select tag</option>
+                                <!-- Dynamic JS options here -->
+                            </select>
+                        </div>
 
-
+                        <div id="colors-sec" class="col-span-2 sm:col-span-1">
+                            <label for="colors"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+                            <input id="colors" type="color"
+                                class="bg-gray-50 border border-gray-300 p-1 h-[2.65rem]  w-20 rounded-lg focus:ring-primary-500 focus:border-primary-500 block dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </div>
 
                     </div>
                     <!-- Honeypot for Form Anti-spam, also holding task ID https://stackoverflow.com/questions/36227376/better-honeypot-implementation-form-anti-spam (TODO: Remove this link when production) -->
                     <input type="checkbox" name="contact_me_by_phone_number" id="task_" value="1" class="!hidden"
                         autocomplete="off" tabindex="-1">
-                    <div class="col-span-2 flex justify-around">
-                        <!--join btn-->
-                        <button id="Join-sec" type="button"
-                            class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
-                            Jointeam
-                        </button>
-                        <button id="save-sec" type="button"
-                            class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
-                            Save
-                        </button>
-                        <button id="delete-sec" type="button"
-                            class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
-                            Delete
-                        </button>
-                        <button id="Create-sec" type="button"
+                    <div class="col-span-2 flex justify-between">
+                        <button id="submit-sec" type="submit"
                             class="text-white inline-flex items-center bg-primary-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
                             <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -104,8 +116,19 @@
                             Create
                         </button>
 
+                        <!--Delete btn-->
+                        <button id="delete-sec"
+                            class="text-white inline-flex items-center bg-red-300 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-primary-200 dark:focus:ring-blue-800">
+                            <svg class="me-1 -ms-1 w-5 h-5 text-white dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                            </svg>
 
-
+                            Delete
+                        </button>
                     </div>
                 </form>
             </div>
@@ -169,7 +192,7 @@
             class="dropdown-anim duration-300 z-10 absolute right-3 h-0 w-52 lg:w-60 overflow-hidden bg-main rounded-b-lg shadow-xl dark:bg-gray-700">
 
 
-            <a href="{{url_for('profile', type=session['type'])}}">
+            <a href="{{url_for('profiles.profile', type=session['type'])}}">
                 <div id="PMenu-Profile" class="PMenu-Primary-Section"> <!--block-->
                     <div class="flex items-center">
                         <div class="PMenu-Primary-Image-Wrapper">
@@ -221,7 +244,7 @@
             </div><!--eoblock-->
 
             <div id="PMenu-Logout" class="PMenu-Primary-Section"> <!--block-->
-                <a href="{{url_for('logout')}}">
+                <a href="{{url_for('auth.logout')}}">
                     <button>
                         <div class="flex items-center">
                             <div class="PMenu-Primary-Image-Wrapper">
@@ -341,7 +364,7 @@
             </div>
             <div id="MMenu-Bottom" class="flex justify-between items-center p-2">
                 <div class="Log-out">
-                    <a href="{{url_for('logout')}}">
+                    <a href="{{url_for('auth.logout')}}">
                         <button>
                             <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -401,30 +424,157 @@
         <!--########################################################### Calendar ######################################################################-->
         <!-- Redirect to Backend Generator here -->
         <!-- Begin Calendar -->
-        <div id="teampage" class="">
-            <!--JOINED TEAM-->
+        <div id="Calendar" class="Container backdrop-blur-sm py-10 h-[90vh] overflow-y-scroll overflow-x-hidden">
+        <div class="w-full flex justify-around">
+            <!-- Mobile version -->
+            <div class="relative w-[300px] flex-none flex flex-col items-center">
+                <!-- Calendar - data-date will fill in backend -->
+                <div id="calendar" inline-datepicker data-date="05/02/2024" class="pb-[10px]"></div>
+                <!-- Todo with expired day -->
+                <div id="tasks-display" class="group-outer ">
+                    <div class="flex justify-between items-center px-3 rounded-t-lg bg-white dark:bg-gray-700">
+                    <!-- Title -->
+                        <div id="Task-Group-Title" class="todobox-title  dark:text-white">March 7th, 2024</div>
+                        <div class="Group-Task-Add ">
+                            <!-- <svg class="w-6 lg:w-7 h-6 lg:h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"></path>
+                            </svg> -->
+                        </div>
+                    </div>
+                    <!-- Content -->
+                    <div id="Task-Section-Outer" class="bg-main/55 dark:bg-gray-700/80 transition-all duration-300 ease-in-out border-t-8 pt-4 p-2 overflow-hidden shadow-xl hover:shadow-2xl rounded-xl " style="border-color: #546f72;">
+                        <!-- In this div, height of gid001 will dynamically change based on 100vh, 350px is height of calendar, 40px is height of title and  - remove lg:w-96, lg:text-xl-->
+                        <div id="Task-Section" class="relative px-2 pb-9 flex flex-col gap-3 overflow-y-auto overflow-x-hidden rounded-xl w-72 h-[calc(100vh-350px-40px-100px)] ">
+                            <!--task here-->
+    
+                            
+                            <div id="id001" class="task-outer bg-main dark:bg-dark/50 rounded-xl cursor-default hidden">
+                                <div class=" rounded-lg shadow-lg">
+                                    <!-- Title -->
+                                    <div class=" px-2 py-1 flex justify-between items-center border-b-[2px]">
+                                        <!-- Task title -->
+                                        <div class="font-semibold text-lg truncate w-full dark:text-white ">Meeting</div>
+                                        <!-- Task edit and delete -->
+                                        <div class="flex items-center gap-2">
+                                            <div class="Task-Edit mx-1 cursor-pointer">
+                                                <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"></path>
+                                                </svg>
+                                            </div>
+                                            <div id="Task-Cancel" class="bg-red-500 rounded-full shadow-lg h-4 w-4 font-bold cursor-pointer"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Task description -->
+                                    <div class="p-2 flex items-center h-fit">
+                                        <p class="h-full w-full text-left p-2 font-base truncate dark:text-white">About making a website</p>
+                                        <!-- Complete checkbox -->
+                                        <input id="Task-Destroyer" type="checkbox" class="bg-primary-200 rounded-xl shadow-lg h-4 w-4 font-bold border-none cursor-pointer">
+                                    </div>
+                                    <!-- Tag -->
+                                    <div id="Task-Tag" class="p-2 flex gap-2 overflow-hidden">
+                                        <div id="tag1" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer" style="background-color: #546f72;">tag1</div>    
+                                        <div id="tag1" class="rounded-md text-center min-w-12 font-base text-xs border-none dark:text-white shadow-lg cursor-pointer" style="background-color: #546f72;">tag1</div>              
+                                    </div>
+                                </div>
+                    
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+            <!-- Desktop grid -->
+            <!-- Show when in desktop size, hidden in mobile size -->
+            <div class="flex-1 inline-block rounded-lg bg-white dark:bg-gray-700 shadow-lg p-4">
+                <table id="CalendarTable" class="w-full h-full *:align-top border-collapse text-center table-fixed">
+                    <tr id="Weekday" class="text-sm h-0 uppercase">
+                        <td class="text-center h-6 leading-6 text-sm font-medium text-gray-500 dark:text-gray-400">Mon</td>
+                        <td>Tue</td>
+                        <td>Wed</td>
+                        <td>Thu</td>
+                        <td>Fri</td>
+                        <td>Sat</td>
+                        <td>Sun</td>
+                    </tr>
+                    <tr class="week">
+                        <td>
+                           1 row 
+                        </td>
+                        <td>2 row</td>
+                        <td>3 row</td>
+                        <td>4 row</td>
+                        <td>5 row</td>
+                        <td>6 row</td>
+                        <td>7 row</td>
+                    </tr>
+                    <tr class="week">
+                        <td>1 row</td>
+                        <td>2 row</td>
+                        <td>3 row</td>
+                        <td>4 row</td>
+                        <td>5 row</td>
+                        <td>6 row</td>
+                        <td>7 row</td>
+                    </tr>
+                    <tr class="week">
+                        <td>1 row</td>
+                        <td>2 row</td>
+                        <td>3 row</td>
+                        <td>4 row</td>
+                        <td>5 row</td>
+                        <td>6 row</td>
+                        <td>7 row</td>
+                    </tr>
+                    <tr class="week">
+                        <td>1 row</td>
+                        <td>2 row</td>
+                        <td>3 row</td>
+                        <td>4 row</td>
+                        <td>5 row</td>
+                        <td>6 row</td>
+                        <td>7 row</td>
+                    </tr>
+                    <tr class="week">
+                        <td>1 row</td>
+                        <td>2 row</td>
+                        <td>3 row</td>
+                        <td>4 row</td>
+                        <td>5 row</td>
+                        <td>6 row</td>
+                        <td>7 row</td>
+                    </tr>
+                    <tr class="week">
+                        <td>1 row</td>
+                        <td>2 row</td>
+                        <td>3 row</td>
+                        <td>4 row</td>
+                        <td>5 row</td>
+                        <td>6 row</td>
+                        <td>7 row</td>
+                    </tr>
+                </table>
+            </div>
+        </div>    
+    
         </div>
-
-    </div>
-    <!--End Calendar-->
-    <!--########################################################### EoCalendar ######################################################################-->
+        <!--End Calendar-->
+        <!--########################################################### EoCalendar ######################################################################-->
 
 
 
 
 
-    <div class="Bottom-Bar w-full bottom-0 bg-accent-200 flex justify-between m-0">
-        <div class=""></div>
-    </div>
+        <div class="Bottom-Bar w-full bottom-0 bg-accent-200 flex justify-between m-0">
+            <div class=""></div>
+        </div>
 
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="../static/js/app.js" type="module"></script>
+    <script src="../static/js/calendarNew.js" type="module"></script>
     <script>
-        $("#teampage").load("teampagegroupallfunct.html");
+        // $("#Calendar").load("calendarNewPage.html");
     </script>
 </body>
 

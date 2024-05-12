@@ -20,14 +20,13 @@ import { LoadMainScreen, renderGroupMainScreen } from "./mainScreenRenderer.js";
 import { Alert } from "./alertMsg.js";
 import { chadBot } from "./chadbot.js";
 import { updateMMenuTabIndicator } from "./updateMMenu.js";
-
+import { RefreshAllCalendar } from "./calendarNew.js";
 //================================================================\\
 //=========================== Variables ==========================\\
 //================================================================\\
 var Dict = Utils.getSampleData();
 let isDebugMode = false;
 var currentMode = 0; // 0-grid 1-any
-var currentMMenuTab = 0;  // 0-today 1-cal 2-garden
 var suggestTasks = {};
 
 function getData() {
@@ -66,9 +65,30 @@ function getData() {
       //Alert.Success("Data loaded successfully!");
       $("#Toggle-DarkMode").prop('checked', Dict.darkmode);
       $("html").toggleClass("dark", Dict.darkmode);
-      
+
       resolve(Dict);
     });
+  });
+}
+
+
+function RefreshAll() {
+  RefreshAllCalendar();
+
+  $.when(getData()).done(function (data) {
+    Dict = data;
+    console.log("[7] Refresh the mainscreen");
+    console.log(Dict);
+    $("#Main-Screen").empty();
+    $("#MMenu-Group-Section").empty();
+
+    $("#PMenu-Display-Coin").text("Coins: " + Dict.points);
+
+    LoadMainMenu(Dict);
+    LoadMainScreen(Dict, currentMode);
+
+    modalMainScreen.LoadTags(Dict);
+    modalMainScreen.LoadGroups(Dict);
   });
 }
 
@@ -77,23 +97,7 @@ $(document).ready(function () {
   //========================== Initialize ==========================\\
   //================================================================\\
 
-  function RefreshAll() {
-    $.when(getData()).done(function (data) {
-      Dict = data;
-      console.log("[7] Refresh the mainscreen");
-      console.log(Dict);
-      $("#Main-Screen").empty();
-      $("#MMenu-Group-Section").empty();
-      LoadMainMenu(Dict);
-      LoadMainScreen(Dict, currentMode);
-    
-      modalMainScreen.LoadTags(Dict);
-      modalMainScreen.LoadGroups(Dict);
-    });
-  }
-
   function init() {
-    currentMMenuTab = 0; // 0-today 2-calendar 3-garden
     currentMode = 0;
     RefreshAll();
   }
@@ -389,7 +393,10 @@ $(document).ready(function () {
     var taskId = task_.attr("id");
 
     // Send ajaxHandler. request to backend at /todo/delete to delete task
-    ajaxHandler.deleteTask(taskId);
+    $.when(ajaxHandler.deleteTask(taskId)).done(() => {
+      Alert.Success("Task deleted successfully!");
+      RefreshAll();
+    });
 
     delete Dict.tasks[taskId];
     console.log("Cancelled: " + taskId);
@@ -414,7 +421,12 @@ $(document).ready(function () {
     Dict.tasks[taskId].isCompleted = true;
 
     // Also send to backend at /todo/completed/<id>
-    ajaxHandler.completeTask(taskId);
+    $.when(ajaxHandler.completeTask(taskId)).done(() => {
+      Alert.Success("Task completed!");
+      RefreshAll();
+    }).fail(() => {
+      Alert.Danger("Error!");
+    });
 
     task_.toggleClass(" transform transition-all duration-350 delay-500 ease-in-out scale-150 blur-xl -translate-y-20");
     setTimeout(() => {
@@ -549,7 +561,7 @@ $(document).ready(function () {
       }
       else { // Edit groups
         let g_old = Dict.groups[id];
-        let g_new = Dict.createGroup(title, g_old.tags, g_old.def_tag , color, "", id);
+        let g_new = Dict.createGroup(title, g_old.tags, g_old.def_tag, color, "", id);
         Dict.updateGroup(g_new.groupID, g_new);
         $("#MMenu-Group-Section").find("#" + g_new.groupID).find("#MMenu-Group-Title").text(g_new.title);
         $.when(ajaxHandler.updateGroup(g_new.groupID, g_new.title, g_new.color, g_new.def_tag)).done(() => { RefreshAll(); Alert.Success("Group updated successfully"); });
@@ -566,7 +578,7 @@ $(document).ready(function () {
       }
       else { //Edit tags     
         let t_old = Dict.tags[id];
-        let t_new = Dict.createTag(title, color, groupId, t_old.deletable, t_old.editable, t_old.display , id);
+        let t_new = Dict.createTag(title, color, groupId, t_old.deletable, t_old.editable, t_old.display, id);
         Dict.updateTag(t_new.tagID, t_new);
         $("#MMenu-Group-Section").find("#" + id).find("#MMenu-Tag-Title").text(t_new.title);
 
@@ -667,5 +679,37 @@ $(document).ready(function () {
 
   //$("#Calendar").load("calendar.html");
 
+  // Secret place: Search algorithm: Use fuzzy search
+  $('#MMenu-Search textarea').on('input', function () {
+    let search = $(this).val();
+    if (search.length == 0) {
+      for (let task in Dict.tasks) {
+        $(`#${task}`).show();
+      }
+      return;
+    };
+    // Populate Dict into list of strings
+    let searchList = [];
+    for (let task in Dict.tasks) {
+      // Collect all the information of the task
+      let tagId = Dict.tasks[task].tag;
+      let groupId = Dict.tags[tagId].groupId;
+      // Replace -, T, : with space on deadline
+      let deadline = Dict.tasks[task].deadline.replace(/[-T:]/g, " ");
+      searchList.push(Dict.tasks[task].title + " " + Dict.tasks[task].description + " " + Dict.tags[tagId].title + " " + Dict.groups[groupId].title + " " + deadline);
+      // Init fuzzy search
+      let uf = new uFuzzy({});
+      let idxs = uf.filter(searchList, search);
+      // If the search is found, show the task
+      if (idxs.length > 0) {
+        $(`#${task}`).show();
+      }
+      // If the search is not found, hide the task
+      else {
+        $(`#${task}`).hide();
+      }
+      searchList = [];
+    }
+  });
   // End of app.js
 })

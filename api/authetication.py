@@ -52,7 +52,11 @@ def generate_verify_otp(option, otp=None):
 
 @auth.errorhandler(404)
 def page_not_found(e):
-    return render_template('notfounderror.html'), 404
+    return render_template('error404page.html'), 404
+
+@auth.errorhandler(500)
+def internal_server_error(e):
+    return render_template('error500page.html'), 500
 
 #Endpoints 
 @auth.route('/')
@@ -67,12 +71,17 @@ def login():
         user_password = request.form['password']
         
         find_user = Users.query.filter_by(email=user_name).first()
-        if bcrypt.check_password_hash(find_user.password, user_password):
-            session['user'] = find_user.user_id
-            session['type'] = 'normal'
-            login_user(find_user)
-            return redirect(url_for('todo.main_page'))
-        else: return redirect(url_for('auth.login'))
+        try:
+            if bcrypt.check_password_hash(find_user.password, user_password):
+                session['user'] = find_user.user_id
+                session['type'] = 'normal'
+                login_user(find_user)
+                return redirect(url_for('todo.main_page'))
+            elif find_user is None:
+                return redirect(url_for('auth.login'))
+            else: return redirect(url_for('auth.login'))
+        except Exception:
+            return redirect(url_for('auth.login'))
     else:
         return render_template('loginPage.html')
     

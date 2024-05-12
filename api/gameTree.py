@@ -25,24 +25,30 @@ def loadTree():
         json_tree = {
             'tree_id': new_tree.tree_id,
             'treeStage': new_tree.treeStage,
-            'treeCount': new_tree.treeCount,
+            'numberOfTreePlanted': new_tree.treeCount,
             'wateringsLeft': new_tree.wateringsLeft,
             'fertilizationsLeft': new_tree.fertilizationsLeft,
             'autoOption': new_tree.autoOption,
             'audioOption': new_tree.audioOption,
-            'coins': curr_user.points
+            'coins': curr_user.points,
+            'numberOfBirdHaveEliminated': curr_user.numberOfBirdHaveEliminated,
+            'numberOfWaterUsed': curr_user.numberOfWaterUsed,
+            'numberOfFertilizerUsed': curr_user.numberOfFertilizerUsed
         }
         return jsonify(json_tree), 200
     else:
         json_tree = {
             'tree_id': tree.tree_id,
             'treeStage': tree.treeStage,
-            'treeCount': tree.treeCount,
+            'numberOfTreePlanted': tree.treeCount,
             'wateringsLeft': tree.wateringsLeft,
             'fertilizationsLeft': tree.fertilizationsLeft,
             'autoOption': tree.autoOption,
             'audioOption': tree.audioOption,
-            'coins': curr_user.points
+            'coins': curr_user.points,
+            'numberOfBirdHaveEliminated': tree.numberOfBirdHaveEliminated,
+            'numberOfWaterUsed': tree.numberOfWaterUsed,
+            'numberOfFertilizerUsed': tree.numberOfFertilizerUsed
         }
         return jsonify(json_tree), 200
     
@@ -57,11 +63,14 @@ def updateTree():
     else:
         data = request.get_json()
         tree.treeStage = data['treeStage']
-        tree.treeCount = data['treeCount']
+        tree.treeCount = data['numberOfTreePlanted']
         tree.wateringsLeft = data['wateringsLeft']
         tree.fertilizationsLeft = data['fertilizationsLeft']
         tree.autoOption = data['autoOption']
         tree.audioOption = data['audioOption']
         curr_user.points = data['coins']
+        tree.numberOfBirdHaveEliminated = data['numberOfBirdHaveEliminated']
+        tree.numberOfWaterUsed = data['numberOfWaterUsed']
+        tree.numberOfFertilizerUsed = data['numberOfFertilizerUsed']
         tododb.session.commit()
         return jsonify({'message': 'tree updated'}), 200

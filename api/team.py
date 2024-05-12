@@ -19,16 +19,24 @@ team = Blueprint('team', __name__, template_folder='../templates/', static_folde
 #Functions
 def validate_user(user_id, team_id):
     team = Teams.query.filter_by(team_id=team_id).first()
-    for i in team.users:
-        if i.user_id == user_id:
-            return True
-    return False
+    try:
+        for i in team.users:
+            if i.user_id == user_id:
+                return True
+        return False
+    except Exception:
+        return False
 
 def datetime_to_string(user_date):
     result = datetime.datetime.strptime(user_date, '%Y-%m-%dT%H:%M')
     return result.strftime('%Y-%m-%d %H:%M:%S')
 
-
+def expire_task(user_date):
+    result = user_date
+    if result < datetime.datetime.now():
+        return True
+    else:
+        return False
 
 #Endpoints
 
@@ -53,7 +61,7 @@ def create_team():
     tododb.session.commit()
     curr_user.TeamUser.append(new_team)
     tododb.session.commit()
-    return jsonify({"message": "Team created successfully"}), 200
+    return jsonify({"message": "Team created successfully", "team_id": new_team.team_id}), 200
 
 @team.route('/team/create/get', methods=['GET'])
 @login_required
@@ -94,7 +102,9 @@ def set_last_team():
 @login_required
 def get_team_info(teamid):
     team = Teams.query.filter_by(team_id=teamid).first()
-    team_data = {"team_name": team.team_name, "team_description": team.team_description, "team_id": team.team_id, "team_code": team.team_code}
+    if team is None:
+        return jsonify({"message": "Invalid team id"}), 400
+    team_data = {"team_name": team.team_name, "team_description": team.team_description, "team_id": team.team_id, "team_code": team.team_code, "admin": team.admin_id }
     return jsonify(team_data), 200
 
 #Get user list
@@ -102,6 +112,8 @@ def get_team_info(teamid):
 @login_required
 def get_user_list(teamid):
     team = Teams.query.filter_by(team_id=teamid).first()
+    if team is None:
+        return jsonify({"message": "Invalid team id"}), 400
     user_list = team.users
     user_data = []
     for i in user_list:
@@ -115,6 +127,10 @@ def get_user_list(teamid):
 def edit_team(teamid):
     data = request.get_json()
     team = Teams.query.filter_by(team_id=teamid).first()
+    if team is None:
+        return jsonify({"message": "Invalid team id"}), 400
+    if team.admin_id != current_user.get_id():
+        return jsonify({"message": "You are not allowed to edit the team"}), 400
     team.team_name = data['team_name']
     team.team_description = data['team_description']
     tododb.session.commit()
@@ -137,6 +153,8 @@ def kick_user(teamid, userid):
 @login_required
 def leave_team(teamid):
     team = Teams.query.filter_by(team_id=teamid).first()
+    if team is None:
+        return jsonify({"message": "Invalid team id"}), 400
     user = Users.query.get(current_user.get_id())
     if team.admin_id == user.user_id:
         return jsonify({"message": "You are the admin of the team"}), 400
@@ -149,6 +167,8 @@ def leave_team(teamid):
 @login_required
 def delete_team(teamid):
     team = Teams.query.filter_by(team_id=teamid).first()
+    if team is None:
+        return jsonify({"message": "Invalid team id"}), 400
     user = Users.query.get(current_user.get_id())
     if team.admin_id == user.user_id:
         tododb.session.delete(team)
@@ -171,7 +191,7 @@ def join_team():
     curr_user.TeamUser.append(team)
     tododb.session.commit()
     session['team_id'] = team.team_id
-    return jsonify({"message": "Joined team successfully"}), 200
+    return jsonify({"message": "Joined team successfully", "team_id": team.team_id}), 200
 
 
 @team.route('/team/join/get', methods=['GET'])
@@ -193,7 +213,7 @@ def get_team():
 def team_page(teamid):
     if validate_user(current_user.get_id(), teamid):
         return render_template('teamPage.html')
-    return redirect(url_for('team.waiting_page'))
+    return jsonify({"message": "You are not allowed here"}), 400
 
 
 @team.route('/team/<teamid>/todo/create', methods=['POST'])
@@ -256,6 +276,8 @@ def delete_todo(teamid):
 def get_todo(teamid):
     if validate_user(current_user.get_id(), teamid):
         tasks = TeamTasks.query.filter_by(team_id=teamid).all()
+        if tasks is None:
+            return jsonify({'message': 'No tasks found!'}), 400
         task_list = []
         for task in tasks:
             task_list.append({'taskId': task.task_id, 'title': task.task_title, 'description': task.task_description, 'tag': task.tag_id, 'deadline': task.deadline.strftime('%Y-%m-%dT%H:%M'), 'points': task.points, 'isCompleted': task.isCompleted})
@@ -265,10 +287,14 @@ def get_todo(teamid):
 def completed_todo(teamid,id):
     if validate_user(current_user.get_id(), teamid):
         task = TeamTasks.query.filter_by(task_id=id, team_id=teamid).first()
+        if task is None:
+            return jsonify({'message': 'Task not found!'}), 400
         get_points = task.points
         if task.isCompleted == True:
             return jsonify({'message': 'Task already completed!'}), 400
         task.isCompleted = True
+        if expire_task(task.deadline) == True:
+            get_points = 0
         task.completed_user = current_user.get_id()
         tododb.session.commit()
         update_points = Users.query.filter_by(user_id=current_user.get_id()).first()      
@@ -282,6 +308,8 @@ def completed_todo(teamid,id):
 @team.route('/team/<teamid>/todo/uncompleted/<id>', methods=['POST'])
 def uncompleted_todo(teamid,id):
     task = TeamTasks.query.filter_by(task_id=id, team_id = teamid).first()
+    if task is None:
+        return jsonify({'message': 'Task not found!'}), 400
     task.isCompleted = False
     task.points = 0
     tododb.session.commit()
@@ -344,6 +372,8 @@ def delete_group(teamid):
 def get_groups(teamid):
     if validate_user(current_user.get_id(), teamid):
         groups = TeamGroupss.query.filter_by(team_id=teamid).all()
+        if groups is None:
+            return jsonify({'message': 'No groups found!'}), 400
         group_list = []
         for group in groups:
             group_list.append({'groupId': group.group_id, 'title': group.group_title, 'color': group.color , 'def_tag':group.def_tag})
@@ -404,6 +434,8 @@ def delete_tag(teamid):
 def get_tags(teamid):
     if validate_user(current_user.get_id(), teamid):
         tags = TeamTags.query.filter_by(team_id=teamid).all()
+        if tags is None:
+            return jsonify({'message': 'No tags found!'}), 400
         tag_list = []
         for tag in tags:
             tag_list.append({'tagId': tag.tag_id, 'title': tag.tag_title, 'color': tag.tag_color, 'groupId': tag.group_id})
