@@ -19,11 +19,11 @@ Technologies:
 - Host: DigitalOcean
 
 Collaborators:
-- Leader: JakeClark38a (Nguyễn Chí Thành) (another account: JakeClark-chan)
-- Sub-Leader: Witnull (Trần Nguyễn Tiến Thành)
-- SeaWind (Nguyễn Hải Phong)
-- KienSD (Hồ Trung Kiên)
-- lightunderwolft (Hồ Vĩnh Nhật)
+- Leader: JakeClark38a (Nguyễn Chí Thành - 22521350) (another account: JakeClark-chan)
+- Sub-Leader: Witnull (Trần Nguyễn Tiến Thành - 22521364)
+- SeaWind (Nguyễn Hải Phong - 22521088)
+- KienSD (Hồ Trung Kiên - 22520704)
+- lightunderwolft (Hồ Vĩnh Nhật - 22521013)
 
 *Feature Map*
 ![Feature Map](feature-map.png)
